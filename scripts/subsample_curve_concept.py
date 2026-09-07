@@ -134,6 +134,14 @@ def main() -> None:
                     help="default: scripts/<concept>_size_curve.csv")
     ap.add_argument("--base-data", type=Path, default=None,
                     help="override the concept's base training JSONL (see fit_base_plus_concept.py)")
+    ap.add_argument("--dev-data", type=Path, default=None,
+                    help="override the concept's dev directory. The highstakes dev set is 1908 "
+                         "rows and is resident for every epoch of every fit, which is what makes "
+                         "that concept ~20x the others; dev_samples/highstakes_500 is the "
+                         "doubly-balanced 500-row cut this repo's high-stakes resampling study "
+                         "already validates on. The dev activation blob is keyed on the dev "
+                         "files' bytes, so a different dev set gets its own cache with no risk "
+                         "of stale reuse.")
     ap.add_argument("--unbalanced", action="store_true",
                     help="uniform sample of the set instead of n/2 per class")
     ap.add_argument("--no-resume", action="store_true",
@@ -141,6 +149,9 @@ def main() -> None:
     args = ap.parse_args()
 
     concept = CONCEPTS[args.concept]
+    if args.dev_data:
+        import dataclasses
+        concept = dataclasses.replace(concept, dev_data=args.dev_data.resolve())
     base_data = args.base_data or concept.base_data
     out_csv = args.out or REPO / f"scripts/{concept.name}_size_curve.csv"
 
