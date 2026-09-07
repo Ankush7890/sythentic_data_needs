@@ -20643,3 +20643,71 @@ Iteration 9: trained on 414 samples (364 from red-team) → probes/hu_harm_gemma
 [kaggle] eval_ant_hh: already cached at /workspace/probe_auto_improvement/results_hu_harm_gemma27b_batch_ablation/eval_activations/eval_ant_hh-acts_full.pt
 [kaggle] eval_balanced_refusal: already cached at /workspace/probe_auto_improvement/results_hu_harm_gemma27b_batch_ablation/eval_activations/eval_balanced_refusal-acts_full.pt
 [kaggle] eval_daily_dilemmas: already cached at /workspace/probe_auto_improvement/results_hu_harm_gemma27b_batch_ablation/eval_activations/eval_daily_dilemmas-acts_full.pt
+              dataset    auroc  accuracy  tpr_at_fpr  fpr
+     eval_ai_dilemmas 0.994161  0.970588    0.941176 0.01
+          eval_ant_hh 0.686344  0.641791    0.000000 0.01
+eval_balanced_refusal 0.963425  0.782500    0.805000 0.01
+  eval_daily_dilemmas 0.987297  0.933673    0.816327 0.01
+                 mean 0.907807  0.832138    0.640626 0.01
+
+===== COMPARISON ACROSS ROUNDS =====
+ round               dataset    auroc  accuracy  tpr_at_fpr  fpr
+ iter0      eval_ai_dilemmas 0.919550  0.602941    0.000000 0.01
+ iter0           eval_ant_hh 0.700490  0.514925    0.000000 0.01
+ iter0 eval_balanced_refusal 0.932425  0.867500    0.780000 0.01
+ iter0   eval_daily_dilemmas 0.984798  0.938776    0.785714 0.01
+ iter0                  mean 0.884316  0.731036    0.391429 0.01
+ iter1      eval_ai_dilemmas 0.997189  0.955882    0.000000 0.01
+ iter1           eval_ant_hh 0.637002  0.626866    0.000000 0.01
+ iter1 eval_balanced_refusal 0.962050  0.752500    0.720000 0.01
+ iter1   eval_daily_dilemmas 0.987297  0.928571    0.520408 0.01
+ iter1                  mean 0.895884  0.815955    0.310102 0.01
+ iter2      eval_ai_dilemmas 0.998702  0.926471    0.955882 0.01
+ iter2           eval_ant_hh 0.665404  0.641791    0.089552 0.01
+ iter2 eval_balanced_refusal 0.950163  0.767500    0.755000 0.01
+ iter2   eval_daily_dilemmas 0.993648  0.933673    0.846939 0.01
+ iter2                  mean 0.901979  0.817359    0.661843 0.01
+ iter3      eval_ai_dilemmas 0.999135  0.948529    0.970588 0.01
+ iter3           eval_ant_hh 0.688349  0.656716    0.000000 0.01
+ iter3 eval_balanced_refusal 0.939775  0.780000    0.775000 0.01
+ iter3   eval_daily_dilemmas 0.994377  0.943878    0.795918 0.01
+ iter3                  mean 0.905409  0.832281    0.635377 0.01
+ iter4      eval_ai_dilemmas 0.999351  0.919118    0.955882 0.01
+ iter4           eval_ant_hh 0.673647  0.656716    0.000000 0.01
+ iter4 eval_balanced_refusal 0.932800  0.767500    0.780000 0.01
+ iter4   eval_daily_dilemmas 0.993388  0.964286    0.744898 0.01
+ iter4                  mean 0.899797  0.826905    0.620195 0.01
+ iter5      eval_ai_dilemmas 0.997189  0.963235    0.000000 0.01
+ iter5           eval_ant_hh 0.706728  0.649254    0.000000 0.01
+ iter5 eval_balanced_refusal 0.938200  0.835000    0.770000 0.01
+ iter5   eval_daily_dilemmas 0.994117  0.959184    0.836735 0.01
+ iter5                  mean 0.909058  0.851668    0.401684 0.01
+ iter6      eval_ai_dilemmas 0.994161  0.955882    0.926471 0.01
+ iter6           eval_ant_hh 0.699042  0.686567    0.000000 0.01
+ iter6 eval_balanced_refusal 0.942375  0.820000    0.770000 0.01
+ iter6   eval_daily_dilemmas 0.993544  0.938776    0.785714 0.01
+ iter6                  mean 0.907281  0.850306    0.620546 0.01
+ iter7      eval_ai_dilemmas 0.990917  0.963235    0.000000 0.01
+ iter7           eval_ant_hh 0.697483  0.671642    0.000000 0.01
+ iter7 eval_balanced_refusal 0.945225  0.790000    0.775000 0.01
+ iter7   eval_daily_dilemmas 0.990629  0.933673    0.785714 0.01
+ iter7                  mean 0.906063  0.839638    0.390179 0.01
+ iter8      eval_ai_dilemmas 0.996540  0.977941    0.000000 0.01
+ iter8           eval_ant_hh 0.698597  0.664179    0.000000 0.01
+ iter8 eval_balanced_refusal 0.944075  0.777500    0.760000 0.01
+ iter8   eval_daily_dilemmas 0.988234  0.938776    0.806122 0.01
+ iter8                  mean 0.906861  0.839599    0.391531 0.01
+ iter9      eval_ai_dilemmas 0.993080  0.977941    0.000000 0.01
+ iter9           eval_ant_hh 0.705168  0.656716    0.000000 0.01
+ iter9 eval_balanced_refusal 0.944900  0.787500    0.770000 0.01
+ iter9   eval_daily_dilemmas 0.990421  0.928571    0.846939 0.01
+ iter9                  mean 0.908392  0.837682    0.404235 0.01
+iter10      eval_ai_dilemmas 0.994161  0.970588    0.941176 0.01
+iter10           eval_ant_hh 0.686344  0.641791    0.000000 0.01
+iter10 eval_balanced_refusal 0.963425  0.782500    0.805000 0.01
+iter10   eval_daily_dilemmas 0.987297  0.933673    0.816327 0.01
+iter10                  mean 0.907807  0.832138    0.640626 0.01
+
+Saved comparison table to /workspace/probe_auto_improvement/results_hu_harm_gemma27b_nemotron_nmbase_evaldesc_new/nmbase_evaldesc_new_comparison.csv
+
+Final probe: probes/hu_harm_gemma27b_nemotron_nmbase_evaldesc_new/probe_iter10.pkl
