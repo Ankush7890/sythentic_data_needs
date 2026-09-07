@@ -278,3 +278,6 @@
 {"event": "round_end", "ts": 1788775889.4480312, "round": 39, "iteration": 7, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
 {"event": "round_end", "ts": 1788775906.2593207, "round": 39, "iteration": 7, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
 {"event": "iteration_memo", "ts": 1788775912.538101, "iteration": 7, "n_attempts": 75, "n_successes": 8}
+{"event": "round_start", "ts": 1788776573.9672399, "round": 40, "iteration": 8, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788776573.9882205, "round": 40, "iteration": 8, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788776574.0089605, "round": 40, "iteration": 8, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
