@@ -243,3 +243,6 @@
 {"event": "round_end", "ts": 1788807505.209313, "round": 34, "iteration": 6, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_short", "new_records": 3, "new_successes": 0}
 {"event": "round_end", "ts": 1788807542.26156, "round": 34, "iteration": 6, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
 {"event": "iteration_memo", "ts": 1788807546.0928855, "iteration": 6, "n_attempts": 71, "n_successes": 8}
+{"event": "round_start", "ts": 1788808589.8344743, "round": 35, "iteration": 7, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788808589.854925, "round": 35, "iteration": 7, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788808589.8747294, "round": 35, "iteration": 7, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
