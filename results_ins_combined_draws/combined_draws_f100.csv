@@ -1,0 +1,8 @@
+combo,draw,n_kept,n_pool,dataset,auroc,accuracy,tpr_at_fpr,fpr
+base,0,0,0,anthropic_harmless_refusal,0.6709,0.53,0.07,0.01
+base,0,0,0,bbq_substitution,0.84545,0.505,0.01,0.01
+base,0,0,0,hc_context_drift,0.8685301307259008,0.788659793814433,0.0,0.01
+base,0,0,0,hc_contradiction,0.88185,0.7,0.1,0.01
+base,0,0,0,mm_substitution,0.88665,0.725,0.0,0.01
+base,0,0,0,oig_context_drift,0.658837283452014,0.5360824742268041,0.08247422680412371,0.01
+base,0,0,0,mean,0.8020362356963192,0.6307903780068729,0.04374570446735395,0.01
