@@ -393,3 +393,42 @@
 {"event": "round_start", "ts": 1788765495.1693563, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
 {"event": "near_dup", "ts": 1788765511.0489814, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct"}
 {"event": "probe_error", "ts": 1788765517.1750193, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765518.5314946, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765519.682826, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765519.696664, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765519.697013, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 0}
+{"event": "round_end", "ts": 1788765522.902174, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788765525.3937428, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "summary", "ts": 1788765532.2632947, "round": 35, "iteration": 7, "n_attempts": 10, "n_successes": 0}
+{"event": "round_start", "ts": 1788765532.268475, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765532.2898147, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765532.310234, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "probe_error", "ts": 1788765572.7979608, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765574.1029394, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765574.1140826, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765574.1271486, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765574.1273906, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 0}
+{"event": "round_end", "ts": 1788765578.3861322, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788765578.4408722, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1788765585.1299303, "round": 36, "iteration": 7, "n_attempts": 11, "n_successes": 0}
+{"event": "round_start", "ts": 1788765585.1349015, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765585.1551008, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765585.1751666, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_end", "ts": 1788765609.290981, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788765612.8660412, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788765616.692341, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1788765622.6137717, "round": 37, "iteration": 7, "n_attempts": 15, "n_successes": 0}
+{"event": "round_start", "ts": 1788765622.619182, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765622.638989, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765622.6590705, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_end", "ts": 1788765658.3995833, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788765665.5227826, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788765666.0051115, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1788765673.286974, "round": 38, "iteration": 7, "n_attempts": 15, "n_successes": 0}
+{"event": "round_start", "ts": 1788765673.2927618, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765673.3132234, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765673.3332555, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_end", "ts": 1788765700.7947998, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788765703.2980368, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788765709.282002, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "iteration_memo", "ts": 1788765715.950725, "iteration": 7, "n_attempts": 66, "n_successes": 0}
