@@ -424,3 +424,60 @@
 {"event": "round_end", "ts": 1788729615.2245934, "round": 29, "iteration": 5, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
 {"event": "round_end", "ts": 1788729619.9954422, "round": 29, "iteration": 5, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
 {"event": "iteration_memo", "ts": 1788729623.404942, "iteration": 5, "n_attempts": 51, "n_successes": 5}
+{"event": "round_start", "ts": 1788764335.9501808, "round": 30, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788764336.1556785, "round": 30, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788764336.1747038, "round": 30, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1788764353.416917, "round": 30, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "near_dup", "ts": 1788764359.4239168, "round": 30, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "probe_error", "ts": 1788764359.4308798, "round": 30, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "near_dup", "ts": 1788764359.4350238, "round": 30, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "probe_error", "ts": 1788764359.4406366, "round": 30, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788764364.130287, "round": 30, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "near_dup", "ts": 1788764367.079599, "round": 30, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "probe_error", "ts": 1788764367.0866082, "round": 30, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788764370.0059419, "round": 30, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 0}
+{"event": "round_end", "ts": 1788764381.7689385, "round": 30, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 1}
+{"event": "summary", "ts": 1788764388.9773173, "round": 30, "iteration": 6, "n_attempts": 8, "n_successes": 1}
+{"event": "round_start", "ts": 1788764388.9805913, "round": 31, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788764389.0002813, "round": 31, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788764389.0193284, "round": 31, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_end", "ts": 1788764409.3236856, "round": 31, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "probe_error", "ts": 1788764416.9047897, "round": 31, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788764421.186816, "round": 31, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788764423.7456803, "round": 31, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "probe_error", "ts": 1788764424.1076365, "round": 31, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788764426.729347, "round": 31, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "summary", "ts": 1788764434.9563706, "round": 31, "iteration": 6, "n_attempts": 12, "n_successes": 0}
+{"event": "round_start", "ts": 1788764434.959775, "round": 32, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788764434.9796598, "round": 32, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788764434.9976213, "round": 32, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1788764449.5713868, "round": 32, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "near_dup", "ts": 1788764450.1833565, "round": 32, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "round_end", "ts": 1788764462.2672648, "round": 32, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1788764464.6448689, "round": 32, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1788764465.8703253, "round": 32, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1788764471.2127724, "round": 32, "iteration": 6, "n_attempts": 13, "n_successes": 0}
+{"event": "round_start", "ts": 1788764471.2205932, "round": 33, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788764471.2386389, "round": 33, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788764471.2562313, "round": 33, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1788764493.944387, "round": 33, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "probe_error", "ts": 1788764496.415985, "round": 33, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788764499.3235242, "round": 33, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788764501.371152, "round": 33, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1788764503.4884565, "round": 33, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "summary", "ts": 1788764510.0077255, "round": 33, "iteration": 6, "n_attempts": 13, "n_successes": 0}
+{"event": "round_start", "ts": 1788764510.0112858, "round": 34, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788764510.0295775, "round": 34, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788764510.0471642, "round": 34, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1788764522.0268385, "round": 34, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "probe_error", "ts": 1788764522.033345, "round": 34, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788764524.3830626, "round": 34, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788764524.3898742, "round": 34, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788764524.3902328, "round": 34, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 0}
+{"event": "near_dup", "ts": 1788764525.3990958, "round": 34, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "probe_error", "ts": 1788764525.4125407, "round": 34, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788764527.9880567, "round": 34, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788764527.995898, "round": 34, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788764527.9963493, "round": 34, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 0}
+{"event": "round_end", "ts": 1788764537.3783264, "round": 34, "iteration": 6, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "iteration_memo", "ts": 1788764542.2368126, "iteration": 6, "n_attempts": 53, "n_successes": 2}
