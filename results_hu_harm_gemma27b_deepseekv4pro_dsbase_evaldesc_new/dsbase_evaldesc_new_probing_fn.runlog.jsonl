@@ -138,3 +138,6 @@
 {"event": "round_end", "ts": 1788802500.4819179, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_short", "new_records": 3, "new_successes": 0}
 {"event": "round_end", "ts": 1788802549.1677637, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
 {"event": "iteration_memo", "ts": 1788802554.3734028, "iteration": 3, "n_attempts": 71, "n_successes": 15}
+{"event": "round_start", "ts": 1788803349.1196835, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788803349.14037, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788803349.1611924, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
