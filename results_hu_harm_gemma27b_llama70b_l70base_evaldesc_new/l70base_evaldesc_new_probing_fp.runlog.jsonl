@@ -484,3 +484,80 @@
 {"event": "round_start", "ts": 1788765304.6240368, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
 {"event": "round_start", "ts": 1788765304.643563, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
 {"event": "round_start", "ts": 1788765304.6611605, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "probe_error", "ts": 1788765326.2847528, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765329.0131025, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765330.178882, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765332.4942853, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765333.703552, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765335.1940353, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "probe_error", "ts": 1788765336.7869895, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765337.5284195, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "round_end", "ts": 1788765346.1561315, "round": 35, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "summary", "ts": 1788765352.3175225, "round": 35, "iteration": 7, "n_attempts": 9, "n_successes": 0}
+{"event": "round_start", "ts": 1788765352.3219619, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765352.3427577, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765352.3630095, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1788765362.595691, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "probe_error", "ts": 1788765362.601557, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765365.9919863, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "near_dup", "ts": 1788765368.0391593, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "probe_error", "ts": 1788765368.4589918, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765369.0870771, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "probe_error", "ts": 1788765369.605952, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765371.7135592, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "probe_error", "ts": 1788765395.2576935, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765395.2579932, "round": 36, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "summary", "ts": 1788765402.2352078, "round": 36, "iteration": 7, "n_attempts": 8, "n_successes": 0}
+{"event": "round_start", "ts": 1788765402.239104, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765402.2592402, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765402.279947, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "probe_error", "ts": 1788765413.6409812, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "near_dup", "ts": 1788765413.6414258, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "probe_error", "ts": 1788765413.6478055, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765413.6539598, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765413.6593604, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765413.6596498, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 0, "new_successes": 0}
+{"event": "probe_error", "ts": 1788765415.061503, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765417.5574977, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765417.5648954, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765418.9568136, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765419.7004209, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "probe_error", "ts": 1788765422.0706868, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765422.077143, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765422.0845952, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765422.0848196, "round": 37, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 0}
+{"event": "summary", "ts": 1788765428.5180855, "round": 37, "iteration": 7, "n_attempts": 3, "n_successes": 0}
+{"event": "round_start", "ts": 1788765428.5221655, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765428.5424423, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765428.561492, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "probe_error", "ts": 1788765439.4026887, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765440.914238, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765442.1432807, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765443.4267988, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765443.4338145, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765443.4399774, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765443.440389, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 0}
+{"event": "probe_error", "ts": 1788765447.3742485, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765447.3748157, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "probe_error", "ts": 1788765448.4372277, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765450.9170399, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765453.5227547, "round": 38, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "summary", "ts": 1788765460.6579955, "round": 38, "iteration": 7, "n_attempts": 6, "n_successes": 0}
+{"event": "round_start", "ts": 1788765460.6618965, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765460.6826386, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765460.7022953, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1788765476.2482178, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "probe_error", "ts": 1788765476.2547204, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "near_dup", "ts": 1788765478.0219784, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "probe_error", "ts": 1788765478.0286827, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "near_dup", "ts": 1788765479.0538592, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct"}
+{"event": "probe_error", "ts": 1788765479.422681, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765479.4285731, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765480.6296573, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765480.6369693, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1788765480.6461186, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765481.7105832, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "probe_error", "ts": 1788765481.8236363, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1788765481.8238728, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 0, "new_successes": 0}
+{"event": "round_end", "ts": 1788765482.6422758, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "iteration_memo", "ts": 1788765488.6249993, "iteration": 7, "n_attempts": 30, "n_successes": 0}
