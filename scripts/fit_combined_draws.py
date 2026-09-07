@@ -55,6 +55,37 @@ OUT_PROBES = ROOT / "probes/hs_combined_draws"
 OUT_RES = ROOT / "results_hs_combined_draws"
 EVAL_DIR = ROOT / "eval_sets/highstakes"
 BASE = "data/highstakes_combined_200.jsonl"          # union of the four disjoint 50-row bases
+BASE_PARTS = {"g": "data/highstakes_gptoss_50.jsonl",
+              "d": "data/highstakes_deepseekv4pro_50.jsonl",
+              "l": "data/highstakes_llama70b_50.jsonl",
+              "n": "data/highstakes_nemotron_50.jsonl"}
+
+
+# THE ORDER PARTS ARE CONCATENATED IN IS LOAD-BEARING and must never change: the base
+# activation blob is a row-ordered tensor built by merging the per-attacker blobs
+# (scripts/build_subset_base_activations.py), so the merge order has to equal the order the
+# base FILE was written in, or every row gets the wrong activation. It is sorted by the part
+# FILENAME — which is the order data/highstakes_combined_200.jsonl was built in, so the
+# already-extracted 200-row blob stays valid. Not ATTACKERS order, which is a display order.
+PART_ORDER = sorted(BASE_PARTS, key=lambda c: BASE_PARTS[c])          # d, g, l, n
+
+
+def subset_base_path(codes: str) -> Path:
+    """The base file for a subset under --base-mode subset: the union of just THOSE
+    attackers' 50-row cuts, 50*k rows.
+
+    Written on demand and content-deterministic — the parts are concatenated in the fixed
+    ATTACKERS order, so the same subset always produces a byte-identical file and therefore
+    the same base-activation cache key (which hashes the file's bytes). The four cuts are
+    pairwise disjoint, so a k-subset's base is exactly 50*k rows, class-balanced 25/25 per
+    part."""
+    codes = "".join(c for c in PART_ORDER if c in codes)
+    if len(codes) == len(PART_ORDER):
+        return ROOT / BASE                      # the 200-row union already on disk
+    dst = ROOT / f"data/highstakes_base_{codes}.jsonl"   # codes already in PART_ORDER
+    if not dst.exists():
+        dst.write_text("".join((ROOT / BASE_PARTS[c]).read_text() for c in codes))
+    return dst
 TEMPLATE_PROBE = Path(fds.ARMS["arm1"]["probes"]) / "probe_iter0.pkl"
 
 # The four attackers, and the arm that ran each of them under each configuration. Subsets
@@ -166,15 +197,22 @@ def main() -> None:
     ap.add_argument("--fraction", type=float, default=0.9)
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--dev-dir", default="dev_samples/highstakes_500")
+    ap.add_argument("--base-mode", choices=["fixed", "subset"], default="fixed",
+                    help="fixed: every subset trains on all 200 base rows, so ONLY the "
+                         "red-team pool varies with k (the controlled comparison). "
+                         "subset: a k-subset trains on just those k attackers' 50-row cuts "
+                         "(50*k rows), which is what a practitioner running those k "
+                         "attackers would actually have had.")
     ap.add_argument("--base-only", action="store_true",
                     help="also fit the 200-row base ALONE (no red-team data) as the reference "
                          "line every combo is read against; written as combo 'base' draw 0")
     args = ap.parse_args()
 
     global COMBOS
+    COMBOS_ALL = build_combos([1, 2, 3, 4])
     COMBOS = build_combos(sorted(set(args.sizes)))
     if args.combos:
-        COMBOS = build_combos([1, 2, 3, 4])
+        COMBOS = COMBOS_ALL
         unknown = [c for c in args.combos if c not in COMBOS]
         if unknown:
             raise SystemExit(f"unknown combos {unknown}; known: {' '.join(COMBOS)}")
@@ -193,6 +231,11 @@ def main() -> None:
     # Same rule as fit_redteam_draws.py: the resume key is (combo, draw) and carries no
     # fraction, so each fraction needs its own CSV and probe dir.
     suffix = "" if abs(args.fraction - 0.9) < 1e-9 else f"_f{round(args.fraction * 100)}"
+    # A different base is a different experiment, not a different draw of the same one, so
+    # it gets its own CSV and probe dir — exactly as --fraction does, and for the same
+    # reason: the resume key is (combo, draw) and carries neither.
+    if args.base_mode == "subset":
+        suffix += "_subsetbase"
     probe_dir = Path(str(OUT_PROBES) + suffix)
     probe_dir.mkdir(parents=True, exist_ok=True)
     csv_path = OUT_RES / f"combined_draws{suffix}.csv"
@@ -219,12 +262,19 @@ def main() -> None:
         m = float(df.loc[df["dataset"] == "mean", "auroc"].iloc[0])
         print(f"    {tag}: mean {m:.5f}  -> {csv_path.name}")
 
-    if args.base_only and ("base", "0") not in done:
-        cfg = load_config(COMBOS["combo_memo"]["config"])
-        probe_out = probe_dir / "base_only.pkl"
-        print("\n--- base only: 200 base rows, no red-team data")
+    def fit_base_only(base_path: Path, combo_name: str):
+        """The no-red-team reference for one base. Every red-team cell is read against the
+        probe that same base trains ALONE, so a subset-base cell needs its own reference —
+        the 200-row one is not the right yardstick for a 100-row cell."""
+        if (combo_name, "0") in done:
+            print(f"--- {combo_name}: already scored, skipping")
+            return
+        cfg = load_config(COMBOS_ALL["combo_memo"]["config"])
+        n_base = sum(1 for l in base_path.read_text().splitlines() if l.strip())
+        probe_out = probe_dir / f"{combo_name}.pkl"
+        print(f"\n--- {combo_name}: {n_base} base rows, no red-team data ({base_path.name})")
         train_initial_probe(
-            base_training_data_path=ROOT / BASE,
+            base_training_data_path=base_path,
             model_name=cfg.probe.model, layer=cfg.probe.layer,
             new_probe_path=probe_out,
             pos_class_label=cfg.probe.pos_class_label,
@@ -238,7 +288,19 @@ def main() -> None:
             convert_tool_to_assistant=cfg.eval.convert_tool_to_assistant,
             verbose=True,
         )
-        score(probe_out, cfg, "base_only", "base", 0, 0, 0)
+        score(probe_out, cfg, combo_name, combo_name, 0, 0, 0)
+
+    if args.base_only:
+        if args.base_mode == "subset":
+            seen = set()
+            for spec in COMBOS.values():
+                codes = "".join(c for c in PART_ORDER if c in spec["codes"])
+                if codes in seen:
+                    continue
+                seen.add(codes)
+                fit_base_only(subset_base_path(codes), f"base_{codes}")
+        else:
+            fit_base_only(ROOT / BASE, "base")
 
     for combo in wanted:
         spec = COMBOS[combo]
@@ -258,13 +320,16 @@ def main() -> None:
             tag = f"{combo}_d{d}{suffix}"
             paths, n_pool, n_keep, per_arm = draw_subset(
                 spec["arms"], args.fraction, rng, OUT_RES / f"{tag}_probing")
+            base_path = (subset_base_path(spec["codes"]) if args.base_mode == "subset"
+                         else ROOT / BASE)
             probe_out = probe_dir / f"{tag}.pkl"
+            n_base = sum(1 for l in base_path.read_text().splitlines() if l.strip())
             print(f"\n--- {combo} draw {d}  ({spec['label']}): {n_keep} of {n_pool} "
-                  f"pooled successes  {per_arm}")
+                  f"pooled successes  {per_arm}  | base {base_path.name} ({n_base} rows)")
             retrain_probe(
                 jsonl_path=paths,
                 base_probe_path=TEMPLATE_PROBE,
-                base_training_data_path=ROOT / BASE,
+                base_training_data_path=base_path,
                 new_probe_path=probe_out,
                 layer=None, probe_spec=None,
                 preprocessing=cfg.preprocessing,
