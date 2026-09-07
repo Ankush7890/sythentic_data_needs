@@ -1762,3 +1762,1953 @@ Some parameters are on the meta device because they were offloaded to the cpu.
 [nvidia/nemotron-3-ultra-550b-a55b] batch call 1: parsed 5 conversation(s) of 5 still wanted
 === nvidia/nemotron-3-ultra-550b-a55b done — 0 new successes (total 18); stop_reason=batch_complete ===
 === nvidia/nemotron-3-ultra-550b-a55b done — 1 new successes (total 19); stop_reason=batch_complete ===
+Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+=== nvidia/nemotron-3-ultra-550b-a55b done — 0 new successes (total 19); stop_reason=batch_complete ===
+=== Iteration 0 memo written for the next iteration (73 attempts, 19 successful) ===
+Released the probe's LLM; 1.0 GiB free on the card
+  false_negative: 19 new successes across 15 model-rounds
+Iteration 0: 48 new successes total
+Red-team successes loaded: 48 → 48 after dropping judge_confidence < 7
+filter_dataset: 48 → 38 records after dropping confounders
+Contrastive generation: 38 contrastive examples from 38 source records; label distribution {'harmful_to_human': 22, 'not_harmful_to_human': 16}
+Red-team training samples after preprocessing: 76
+Saved 76 postprocessed red-team samples to probes/hu_harm_gemma27b_nemotron_nmbase_evaldesc_new/redteam_postprocessed_iter1.jsonl
+Validation set: held-out dev data at /workspace/probe_auto_improvement/dev_samples/hu_ha
+  dev split dev_ai_dilemmas.jsonl: 46 samples
+  dev split dev_ant_hh.jsonl: 44 samples
+  dev split dev_balanced_refusal.jsonl: 134 samples
+  dev split dev_daily_dilemmas.jsonl: 66 samples
+Dev validation samples: 290 (base + red-team data all train, nothing held out)
+Training a 10-member score-averaging deep ensemble (training seeds [3699, 14431, 23529, 26229, 26660, 42624, 43521, 54184, 65963, 69051])
+Total samples before split: 126 (base 50, red-team 76)
+Loaded cached base activations: /workspace/probe_auto_improvement/results_hu_harm_gemma27b_batch_ablation/base_activations/base_acts_google_gemma-3-27b-it_L32_3fc1be2d8e22c707_train.pt
+Red-team activations: 0 loaded from cache, 76 to compute (chunk size 1) ...
+Loading model for activation extraction ...
+[model_loading] loading google/gemma-3-27b-it, truncated to 33 layers (probe reads layer 32); max_memory={0: '22GiB', 'cpu': '45GiB'} (from AGENTIC_REDTEAM_MAX_MEMORY)
+[tuberlens] loading google/gemma-3-27b-it on device_map='auto'; max_memory={0: '22GiB', 'cpu': '45GiB'}
+Some parameters are on the meta device because they were offloaded to the cpu.
+  [red-team activations] 10/76 (2.0s/sample, ~2 min left)
+  [red-team activations] 20/76 (1.6s/sample, ~1 min left)
+  [red-team activations] 30/76 (1.5s/sample, ~1 min left)
+  [red-team activations] 40/76 (1.4s/sample, ~1 min left)
+  [red-team activations] 50/76 (1.4s/sample, ~1 min left)
+  [red-team activations] 60/76 (1.4s/sample, ~0 min left)
+  [red-team activations] 70/76 (1.4s/sample, ~0 min left)
+  [red-team activations] 76/76 (1.3s/sample, ~0 min left)
+Loaded cached base activations: /workspace/probe_auto_improvement/results_hu_harm_gemma27b_batch_ablation/base_activations/dev_acts_google_gemma-3-27b-it_L32_9f7bf2f55069bbf8.pt
+Releasing extraction model before probe fit ...
+  22.6 GiB allocatable after the release (1.0 GiB of that free at the driver)
+Train/validation: 126 train, 290 validation (base 50+0; red-team 76+0; dev 0+290)
+Staged 1.7 GiB of activations on cuda for the probe fits (no host->device copy per epoch)
+
+--- Ensemble member 1/10 (training seed 3699) ---
+Training probe...
+Epoch 1 - Average loss: 0.7979
+Validation AUROC: 0.61981
+Epoch 2 - Average loss: 0.6394
+Validation AUROC: 0.78421
+Epoch 3 - Average loss: 0.5043
+Validation AUROC: 0.85446
+Epoch 4 - Average loss: 0.4093
+Validation AUROC: 0.89408
+Epoch 5 - Average loss: 0.3628
+Validation AUROC: 0.91424
+Epoch 6 - Average loss: 0.3220
+Validation AUROC: 0.92507
+Epoch 7 - Average loss: 0.2761
+Validation AUROC: 0.92742
+Epoch 8 - Average loss: 0.2323
+Validation AUROC: 0.92176
+Epoch 9 - Average loss: 0.1932
+Validation AUROC: 0.91636
+Epoch 10 - Average loss: 0.1693
+Validation AUROC: 0.92264
+Epoch 11 - Average loss: 0.1434
+Validation AUROC: 0.92946
+Epoch 12 - Average loss: 0.1135
+Validation AUROC: 0.93327
+Epoch 13 - Average loss: 0.1059
+Validation AUROC: 0.93600
+Epoch 14 - Average loss: 0.0903
+Validation AUROC: 0.93498
+Epoch 15 - Average loss: 0.0720
+Validation AUROC: 0.93505
+Epoch 16 - Average loss: 0.0662
+Validation AUROC: 0.93719
+Epoch 17 - Average loss: 0.0617
+Validation AUROC: 0.93974
+Epoch 18 - Average loss: 0.0573
+Validation AUROC: 0.94095
+Epoch 19 - Average loss: 0.0504
+Validation AUROC: 0.94283
+Epoch 20 - Average loss: 0.0370
+Validation AUROC: 0.94378
+Epoch 21 - Average loss: 0.0349
+Validation AUROC: 0.94430
+Epoch 22 - Average loss: 0.0370
+Validation AUROC: 0.94254
+Epoch 23 - Average loss: 0.0286
+Validation AUROC: 0.94235
+Epoch 24 - Average loss: 0.0266
+Validation AUROC: 0.94385
+Epoch 25 - Average loss: 0.0257
+Validation AUROC: 0.94411
+Epoch 26 - Average loss: 0.0220
+Validation AUROC: 0.94185
+Epoch 27 - Average loss: 0.0213
+Validation AUROC: 0.94107
+Epoch 28 - Average loss: 0.0203
+Validation AUROC: 0.94347
+Epoch 29 - Average loss: 0.0160
+Validation AUROC: 0.94226
+Epoch 30 - Average loss: 0.0165
+Validation AUROC: 0.94159
+Epoch 31 - Average loss: 0.0152
+Validation AUROC: 0.94266
+Epoch 32 - Average loss: 0.0138
+Validation AUROC: 0.94169
+Epoch 33 - Average loss: 0.0124
+Validation AUROC: 0.94185
+Epoch 34 - Average loss: 0.0090
+Validation AUROC: 0.93960
+Epoch 35 - Average loss: 0.0122
+Validation AUROC: 0.94074
+Epoch 36 - Average loss: 0.0079
+Validation AUROC: 0.94007
+Epoch 37 - Average loss: 0.0081
+Validation AUROC: 0.93910
+Epoch 38 - Average loss: 0.0077
+Validation AUROC: 0.93924
+Epoch 39 - Average loss: 0.0068
+Validation AUROC: 0.94014
+Epoch 40 - Average loss: 0.0060
+Validation AUROC: 0.94002
+Epoch 41 - Average loss: 0.0066
+Validation AUROC: 0.94048
+Epoch 42 - Average loss: 0.0066
+Validation AUROC: 0.94055
+Epoch 43 - Average loss: 0.0083
+Validation AUROC: 0.94031
+Epoch 44 - Average loss: 0.0055
+Validation AUROC: 0.93986
+Epoch 45 - Average loss: 0.0100
+Validation AUROC: 0.93971
+Epoch 46 - Average loss: 0.0063
+Validation AUROC: 0.93967
+Epoch 47 - Average loss: 0.0063
+Validation AUROC: 0.93931
+Epoch 48 - Average loss: 0.0051
+Validation AUROC: 0.93929
+Epoch 49 - Average loss: 0.0065
+Validation AUROC: 0.93891
+Epoch 50 - Average loss: 0.0050
+Validation AUROC: 0.93895
+Epoch 51 - Average loss: 0.0043
+Validation AUROC: 0.93898
+Epoch 52 - Average loss: 0.0051
+Validation AUROC: 0.93902
+Epoch 53 - Average loss: 0.0048
+Validation AUROC: 0.93905
+Epoch 54 - Average loss: 0.0041
+Validation AUROC: 0.93883
+Epoch 55 - Average loss: 0.0049
+Validation AUROC: 0.93872
+Epoch 56 - Average loss: 0.0054
+Validation AUROC: 0.93876
+Epoch 57 - Average loss: 0.0046
+Validation AUROC: 0.93857
+Epoch 58 - Average loss: 0.0060
+Validation AUROC: 0.93848
+Epoch 59 - Average loss: 0.0035
+Validation AUROC: 0.94002
+Epoch 60 - Average loss: 0.0046
+Validation AUROC: 0.94029
+Epoch 61 - Average loss: 0.0036
+Validation AUROC: 0.93974
+Epoch 62 - Average loss: 0.0028
+Validation AUROC: 0.93788
+Epoch 63 - Average loss: 0.0041
+Validation AUROC: 0.93986
+Epoch 64 - Average loss: 0.0034
+Validation AUROC: 0.94159
+Epoch 65 - Average loss: 0.0031
+Validation AUROC: 0.94133
+Epoch 66 - Average loss: 0.0024
+Validation AUROC: 0.93979
+Epoch 67 - Average loss: 0.0032
+Validation AUROC: 0.94147
+Epoch 68 - Average loss: 0.0026
+Validation AUROC: 0.94155
+Epoch 69 - Average loss: 0.0023
+Validation AUROC: 0.94143
+Epoch 70 - Average loss: 0.0024
+Validation AUROC: 0.94157
+Epoch 71 - Average loss: 0.0023
+Validation AUROC: 0.94147
+Early stopping triggered after 71 epochs
+
+--- Ensemble member 2/10 (training seed 14431) ---
+Training probe...
+Epoch 1 - Average loss: 0.7793
+Validation AUROC: 0.64906
+Epoch 2 - Average loss: 0.6631
+Validation AUROC: 0.73731
+Epoch 3 - Average loss: 0.5671
+Validation AUROC: 0.82214
+Epoch 4 - Average loss: 0.5010
+Validation AUROC: 0.85648
+Epoch 5 - Average loss: 0.4528
+Validation AUROC: 0.87096
+Epoch 6 - Average loss: 0.3966
+Validation AUROC: 0.87446
+Epoch 7 - Average loss: 0.3346
+Validation AUROC: 0.87674
+Epoch 8 - Average loss: 0.3506
+Validation AUROC: 0.88671
+Epoch 9 - Average loss: 0.3002
+Validation AUROC: 0.89795
+Epoch 10 - Average loss: 0.3484
+Validation AUROC: 0.90806
+Epoch 11 - Average loss: 0.3600
+Validation AUROC: 0.90466
+Epoch 12 - Average loss: 0.2377
+Validation AUROC: 0.89498
+Epoch 13 - Average loss: 0.2170
+Validation AUROC: 0.88533
+Epoch 14 - Average loss: 0.1954
+Validation AUROC: 0.87546
+Epoch 15 - Average loss: 0.1696
+Validation AUROC: 0.86547
+Epoch 16 - Average loss: 0.1844
+Validation AUROC: 0.86373
+Epoch 17 - Average loss: 0.1548
+Validation AUROC: 0.87020
+Epoch 18 - Average loss: 0.1190
+Validation AUROC: 0.88043
+Epoch 19 - Average loss: 0.1021
+Validation AUROC: 0.89391
+Epoch 20 - Average loss: 0.0921
+Validation AUROC: 0.89876
+Epoch 21 - Average loss: 0.0935
+Validation AUROC: 0.90181
+Epoch 22 - Average loss: 0.0590
+Validation AUROC: 0.90842
+Epoch 23 - Average loss: 0.0851
+Validation AUROC: 0.91662
+Epoch 24 - Average loss: 0.0748
+Validation AUROC: 0.92102
+Epoch 25 - Average loss: 0.0657
+Validation AUROC: 0.91964
+Epoch 26 - Average loss: 0.0663
+Validation AUROC: 0.91995
+Epoch 27 - Average loss: 0.0438
+Validation AUROC: 0.92240
+Epoch 28 - Average loss: 0.0396
+Validation AUROC: 0.92385
+Epoch 29 - Average loss: 0.0484
+Validation AUROC: 0.92138
+Epoch 30 - Average loss: 0.0330
+Validation AUROC: 0.91876
+Epoch 31 - Average loss: 0.0285
+Validation AUROC: 0.91974
+Epoch 32 - Average loss: 0.0278
+Validation AUROC: 0.91853
+Epoch 33 - Average loss: 0.0293
+Validation AUROC: 0.92000
+Epoch 34 - Average loss: 0.0281
+Validation AUROC: 0.92300
+Epoch 35 - Average loss: 0.0163
+Validation AUROC: 0.92414
+Epoch 36 - Average loss: 0.0153
+Validation AUROC: 0.92576
+Epoch 37 - Average loss: 0.0127
+Validation AUROC: 0.92611
+Epoch 38 - Average loss: 0.0116
+Validation AUROC: 0.92554
+Epoch 39 - Average loss: 0.0104
+Validation AUROC: 0.92552
+Epoch 40 - Average loss: 0.0095
+Validation AUROC: 0.92488
+Epoch 41 - Average loss: 0.0117
+Validation AUROC: 0.92333
+Epoch 42 - Average loss: 0.0121
+Validation AUROC: 0.92235
+Epoch 43 - Average loss: 0.0117
+Validation AUROC: 0.92114
+Epoch 44 - Average loss: 0.0073
+Validation AUROC: 0.92145
+Epoch 45 - Average loss: 0.0077
+Validation AUROC: 0.92195
+Epoch 46 - Average loss: 0.0061
+Validation AUROC: 0.92285
+Epoch 47 - Average loss: 0.0084
+Validation AUROC: 0.92338
+Epoch 48 - Average loss: 0.0072
+Validation AUROC: 0.92350
+Epoch 49 - Average loss: 0.0098
+Validation AUROC: 0.92380
+Epoch 50 - Average loss: 0.0081
+Validation AUROC: 0.92445
+Epoch 51 - Average loss: 0.0111
+Validation AUROC: 0.92452
+Epoch 52 - Average loss: 0.0062
+Validation AUROC: 0.92352
+Epoch 53 - Average loss: 0.0127
+Validation AUROC: 0.92314
+Epoch 54 - Average loss: 0.0110
+Validation AUROC: 0.92373
+Epoch 55 - Average loss: 0.0079
+Validation AUROC: 0.92369
+Epoch 56 - Average loss: 0.0090
+Validation AUROC: 0.92254
+Epoch 57 - Average loss: 0.0152
+Validation AUROC: 0.92231
+Epoch 58 - Average loss: 0.0068
+Validation AUROC: 0.92288
+Epoch 59 - Average loss: 0.0064
+Validation AUROC: 0.92266
+Epoch 60 - Average loss: 0.0099
+Validation AUROC: 0.92283
+Epoch 61 - Average loss: 0.0072
+Validation AUROC: 0.92278
+Epoch 62 - Average loss: 0.0104
+Validation AUROC: 0.92312
+Epoch 63 - Average loss: 0.0073
+Validation AUROC: 0.92316
+Epoch 64 - Average loss: 0.0076
+Validation AUROC: 0.92304
+Epoch 65 - Average loss: 0.0066
+Validation AUROC: 0.92342
+Epoch 66 - Average loss: 0.0026
+Validation AUROC: 0.92335
+Epoch 67 - Average loss: 0.0043
+Validation AUROC: 0.92314
+Epoch 68 - Average loss: 0.0054
+Validation AUROC: 0.92326
+Epoch 69 - Average loss: 0.0029
+Validation AUROC: 0.92328
+Epoch 70 - Average loss: 0.0041
+Validation AUROC: 0.92342
+Epoch 71 - Average loss: 0.0043
+Validation AUROC: 0.92340
+Epoch 72 - Average loss: 0.0030
+Validation AUROC: 0.92352
+Epoch 73 - Average loss: 0.0028
+Validation AUROC: 0.92376
+Epoch 74 - Average loss: 0.0034
+Validation AUROC: 0.92402
+Epoch 75 - Average loss: 0.0032
+Validation AUROC: 0.92400
+Epoch 76 - Average loss: 0.0025
+Validation AUROC: 0.92428
+Epoch 77 - Average loss: 0.0026
+Validation AUROC: 0.92433
+Epoch 78 - Average loss: 0.0028
+Validation AUROC: 0.92442
+Epoch 79 - Average loss: 0.0026
+Validation AUROC: 0.92452
+Epoch 80 - Average loss: 0.0024
+Validation AUROC: 0.92454
+Epoch 81 - Average loss: 0.0024
+Validation AUROC: 0.92459
+Epoch 82 - Average loss: 0.0026
+Validation AUROC: 0.92466
+Epoch 83 - Average loss: 0.0023
+Validation AUROC: 0.92485
+Epoch 84 - Average loss: 0.0024
+Validation AUROC: 0.92488
+Epoch 85 - Average loss: 0.0030
+Validation AUROC: 0.92476
+Epoch 86 - Average loss: 0.0025
+Validation AUROC: 0.92483
+Epoch 87 - Average loss: 0.0025
+Validation AUROC: 0.92490
+Early stopping triggered after 87 epochs
+
+--- Ensemble member 3/10 (training seed 23529) ---
+Training probe...
+Epoch 1 - Average loss: 1.0547
+Validation AUROC: 0.53227
+Epoch 2 - Average loss: 0.9258
+Validation AUROC: 0.71101
+Epoch 3 - Average loss: 0.7378
+Validation AUROC: 0.77139
+Epoch 4 - Average loss: 0.5972
+Validation AUROC: 0.82690
+Epoch 5 - Average loss: 0.5903
+Validation AUROC: 0.87089
+Epoch 6 - Average loss: 0.5396
+Validation AUROC: 0.87624
+Epoch 7 - Average loss: 0.4630
+Validation AUROC: 0.87099
+Epoch 8 - Average loss: 0.4374
+Validation AUROC: 0.87641
+Epoch 9 - Average loss: 0.3810
+Validation AUROC: 0.88768
+Epoch 10 - Average loss: 0.3192
+Validation AUROC: 0.89482
+Epoch 11 - Average loss: 0.3433
+Validation AUROC: 0.89268
+Epoch 12 - Average loss: 0.3091
+Validation AUROC: 0.88728
+Epoch 13 - Average loss: 0.2088
+Validation AUROC: 0.88977
+Epoch 14 - Average loss: 0.2072
+Validation AUROC: 0.90062
+Epoch 15 - Average loss: 0.1543
+Validation AUROC: 0.91125
+Epoch 16 - Average loss: 0.1497
+Validation AUROC: 0.90392
+Epoch 17 - Average loss: 0.1255
+Validation AUROC: 0.90312
+Epoch 18 - Average loss: 0.1042
+Validation AUROC: 0.90285
+Epoch 19 - Average loss: 0.0833
+Validation AUROC: 0.90811
+Epoch 20 - Average loss: 0.0675
+Validation AUROC: 0.91358
+Epoch 21 - Average loss: 0.0623
+Validation AUROC: 0.91417
+Epoch 22 - Average loss: 0.0478
+Validation AUROC: 0.90870
+Epoch 23 - Average loss: 0.0384
+Validation AUROC: 0.90580
+Epoch 24 - Average loss: 0.0538
+Validation AUROC: 0.90392
+Epoch 25 - Average loss: 0.0450
+Validation AUROC: 0.90537
+Epoch 26 - Average loss: 0.0401
+Validation AUROC: 0.90718
+Epoch 27 - Average loss: 0.0385
+Validation AUROC: 0.90685
+Epoch 28 - Average loss: 0.0228
+Validation AUROC: 0.90935
+Epoch 29 - Average loss: 0.0183
+Validation AUROC: 0.91177
+Epoch 30 - Average loss: 0.0198
+Validation AUROC: 0.91303
+Epoch 31 - Average loss: 0.0164
+Validation AUROC: 0.91298
+Epoch 32 - Average loss: 0.0160
+Validation AUROC: 0.91413
+Epoch 33 - Average loss: 0.0174
+Validation AUROC: 0.91465
+Epoch 34 - Average loss: 0.0122
+Validation AUROC: 0.91570
+Epoch 35 - Average loss: 0.0109
+Validation AUROC: 0.91589
+Epoch 36 - Average loss: 0.0111
+Validation AUROC: 0.91491
+Epoch 37 - Average loss: 0.0134
+Validation AUROC: 0.91386
+Epoch 38 - Average loss: 0.0080
+Validation AUROC: 0.91272
+Epoch 39 - Average loss: 0.0124
+Validation AUROC: 0.91229
+Epoch 40 - Average loss: 0.0066
+Validation AUROC: 0.91332
+Epoch 41 - Average loss: 0.0082
+Validation AUROC: 0.91353
+Epoch 42 - Average loss: 0.0054
+Validation AUROC: 0.91315
+Epoch 43 - Average loss: 0.0077
+Validation AUROC: 0.91334
+Epoch 44 - Average loss: 0.0057
+Validation AUROC: 0.91313
+Epoch 45 - Average loss: 0.0108
+Validation AUROC: 0.91303
+Epoch 46 - Average loss: 0.0124
+Validation AUROC: 0.91275
+Epoch 47 - Average loss: 0.0076
+Validation AUROC: 0.91289
+Epoch 48 - Average loss: 0.0091
+Validation AUROC: 0.91301
+Epoch 49 - Average loss: 0.0092
+Validation AUROC: 0.91256
+Epoch 50 - Average loss: 0.0132
+Validation AUROC: 0.91234
+Epoch 51 - Average loss: 0.0037
+Validation AUROC: 0.91275
+Epoch 52 - Average loss: 0.0052
+Validation AUROC: 0.91265
+Epoch 53 - Average loss: 0.0067
+Validation AUROC: 0.91210
+Epoch 54 - Average loss: 0.0038
+Validation AUROC: 0.91206
+Epoch 55 - Average loss: 0.0048
+Validation AUROC: 0.91227
+Epoch 56 - Average loss: 0.0034
+Validation AUROC: 0.91218
+Epoch 57 - Average loss: 0.0034
+Validation AUROC: 0.91237
+Epoch 58 - Average loss: 0.0037
+Validation AUROC: 0.91263
+Epoch 59 - Average loss: 0.0032
+Validation AUROC: 0.91260
+Epoch 60 - Average loss: 0.0031
+Validation AUROC: 0.91275
+Epoch 61 - Average loss: 0.0035
+Validation AUROC: 0.91287
+Epoch 62 - Average loss: 0.0032
+Validation AUROC: 0.91339
+Epoch 63 - Average loss: 0.0040
+Validation AUROC: 0.91379
+Epoch 64 - Average loss: 0.0029
+Validation AUROC: 0.91358
+Epoch 65 - Average loss: 0.0040
+Validation AUROC: 0.91334
+Epoch 66 - Average loss: 0.0035
+Validation AUROC: 0.91398
+Epoch 67 - Average loss: 0.0044
+Validation AUROC: 0.91391
+Epoch 68 - Average loss: 0.0029
+Validation AUROC: 0.91382
+Epoch 69 - Average loss: 0.0028
+Validation AUROC: 0.91353
+Epoch 70 - Average loss: 0.0030
+Validation AUROC: 0.91363
+Epoch 71 - Average loss: 0.0025
+Validation AUROC: 0.91360
+Epoch 72 - Average loss: 0.0031
+Validation AUROC: 0.91334
+Epoch 73 - Average loss: 0.0023
+Validation AUROC: 0.91325
+Epoch 74 - Average loss: 0.0027
+Validation AUROC: 0.91298
+Epoch 75 - Average loss: 0.0029
+Validation AUROC: 0.91275
+Epoch 76 - Average loss: 0.0022
+Validation AUROC: 0.91268
+Epoch 77 - Average loss: 0.0027
+Validation AUROC: 0.91296
+Epoch 78 - Average loss: 0.0023
+Validation AUROC: 0.91310
+Epoch 79 - Average loss: 0.0026
+Validation AUROC: 0.91306
+Epoch 80 - Average loss: 0.0025
+Validation AUROC: 0.91325
+Epoch 81 - Average loss: 0.0019
+Validation AUROC: 0.91320
+Epoch 82 - Average loss: 0.0020
+Validation AUROC: 0.91303
+Epoch 83 - Average loss: 0.0018
+Validation AUROC: 0.91296
+Epoch 84 - Average loss: 0.0016
+Validation AUROC: 0.91282
+Epoch 85 - Average loss: 0.0019
+Validation AUROC: 0.91268
+Early stopping triggered after 85 epochs
+
+--- Ensemble member 4/10 (training seed 26229) ---
+Training probe...
+Epoch 1 - Average loss: 0.8145
+Validation AUROC: 0.50000
+Epoch 2 - Average loss: 4.2700
+Validation AUROC: 0.76433
+Epoch 3 - Average loss: 0.6616
+Validation AUROC: 0.78804
+Epoch 4 - Average loss: 0.5225
+Validation AUROC: 0.80980
+Epoch 5 - Average loss: 0.4506
+Validation AUROC: 0.82859
+Epoch 6 - Average loss: 0.3899
+Validation AUROC: 0.85272
+Epoch 7 - Average loss: 0.3459
+Validation AUROC: 0.86908
+Epoch 8 - Average loss: 0.3063
+Validation AUROC: 0.87765
+Epoch 9 - Average loss: 0.2758
+Validation AUROC: 0.87795
+Epoch 10 - Average loss: 0.2230
+Validation AUROC: 0.88002
+Epoch 11 - Average loss: 0.1870
+Validation AUROC: 0.88597
+Epoch 12 - Average loss: 0.1580
+Validation AUROC: 0.89127
+Epoch 13 - Average loss: 0.1537
+Validation AUROC: 0.89558
+Epoch 14 - Average loss: 0.1261
+Validation AUROC: 0.89653
+Epoch 15 - Average loss: 0.1028
+Validation AUROC: 0.89532
+Epoch 16 - Average loss: 0.0809
+Validation AUROC: 0.89855
+Epoch 17 - Average loss: 0.0793
+Validation AUROC: 0.90302
+Epoch 18 - Average loss: 0.0691
+Validation AUROC: 0.90899
+Epoch 19 - Average loss: 0.0549
+Validation AUROC: 0.91196
+Epoch 20 - Average loss: 0.0518
+Validation AUROC: 0.91503
+Epoch 21 - Average loss: 0.0438
+Validation AUROC: 0.91277
+Epoch 22 - Average loss: 0.0420
+Validation AUROC: 0.91348
+Epoch 23 - Average loss: 0.0298
+Validation AUROC: 0.91641
+Epoch 24 - Average loss: 0.0298
+Validation AUROC: 0.91998
+Epoch 25 - Average loss: 0.0171
+Validation AUROC: 0.92514
+Epoch 26 - Average loss: 0.0239
+Validation AUROC: 0.92723
+Epoch 27 - Average loss: 0.0230
+Validation AUROC: 0.92716
+Epoch 28 - Average loss: 0.0178
+Validation AUROC: 0.92866
+Epoch 29 - Average loss: 0.0117
+Validation AUROC: 0.92866
+Epoch 30 - Average loss: 0.0130
+Validation AUROC: 0.92832
+Epoch 31 - Average loss: 0.0079
+Validation AUROC: 0.92878
+Epoch 32 - Average loss: 0.0141
+Validation AUROC: 0.92806
+Epoch 33 - Average loss: 0.0065
+Validation AUROC: 0.92749
+Epoch 34 - Average loss: 0.0097
+Validation AUROC: 0.92773
+Epoch 35 - Average loss: 0.0081
+Validation AUROC: 0.92735
+Epoch 36 - Average loss: 0.0073
+Validation AUROC: 0.92668
+Epoch 37 - Average loss: 0.0090
+Validation AUROC: 0.92652
+Epoch 38 - Average loss: 0.0091
+Validation AUROC: 0.92683
+Epoch 39 - Average loss: 0.0060
+Validation AUROC: 0.92723
+Epoch 40 - Average loss: 0.0084
+Validation AUROC: 0.92732
+Epoch 41 - Average loss: 0.0075
+Validation AUROC: 0.92647
+Epoch 42 - Average loss: 0.0065
+Validation AUROC: 0.92656
+Epoch 43 - Average loss: 0.0062
+Validation AUROC: 0.92649
+Epoch 44 - Average loss: 0.0044
+Validation AUROC: 0.92628
+Epoch 45 - Average loss: 0.0045
+Validation AUROC: 0.92611
+Epoch 46 - Average loss: 0.0061
+Validation AUROC: 0.92595
+Epoch 47 - Average loss: 0.0041
+Validation AUROC: 0.92602
+Epoch 48 - Average loss: 0.0052
+Validation AUROC: 0.92554
+Epoch 49 - Average loss: 0.0061
+Validation AUROC: 0.92571
+Epoch 50 - Average loss: 0.0041
+Validation AUROC: 0.92635
+Epoch 51 - Average loss: 0.0074
+Validation AUROC: 0.92652
+Epoch 52 - Average loss: 0.0058
+Validation AUROC: 0.92630
+Epoch 53 - Average loss: 0.0052
+Validation AUROC: 0.92640
+Epoch 54 - Average loss: 0.0072
+Validation AUROC: 0.92642
+Epoch 55 - Average loss: 0.0046
+Validation AUROC: 0.92706
+Epoch 56 - Average loss: 0.0060
+Validation AUROC: 0.92690
+Epoch 57 - Average loss: 0.0044
+Validation AUROC: 0.92716
+Epoch 58 - Average loss: 0.0045
+Validation AUROC: 0.92761
+Epoch 59 - Average loss: 0.0053
+Validation AUROC: 0.92704
+Epoch 60 - Average loss: 0.0037
+Validation AUROC: 0.92699
+Epoch 61 - Average loss: 0.0040
+Validation AUROC: 0.92744
+Epoch 62 - Average loss: 0.0039
+Validation AUROC: 0.92706
+Epoch 63 - Average loss: 0.0041
+Validation AUROC: 0.92730
+Epoch 64 - Average loss: 0.0030
+Validation AUROC: 0.92723
+Epoch 65 - Average loss: 0.0031
+Validation AUROC: 0.92723
+Epoch 66 - Average loss: 0.0038
+Validation AUROC: 0.92723
+Epoch 67 - Average loss: 0.0034
+Validation AUROC: 0.92711
+Epoch 68 - Average loss: 0.0035
+Validation AUROC: 0.92768
+Epoch 69 - Average loss: 0.0029
+Validation AUROC: 0.92704
+Epoch 70 - Average loss: 0.0032
+Validation AUROC: 0.92673
+Epoch 71 - Average loss: 0.0027
+Validation AUROC: 0.92704
+Epoch 72 - Average loss: 0.0022
+Validation AUROC: 0.92680
+Epoch 73 - Average loss: 0.0025
+Validation AUROC: 0.92675
+Epoch 74 - Average loss: 0.0025
+Validation AUROC: 0.92685
+Epoch 75 - Average loss: 0.0023
+Validation AUROC: 0.92685
+Epoch 76 - Average loss: 0.0022
+Validation AUROC: 0.92687
+Epoch 77 - Average loss: 0.0026
+Validation AUROC: 0.92690
+Epoch 78 - Average loss: 0.0023
+Validation AUROC: 0.92697
+Epoch 79 - Average loss: 0.0021
+Validation AUROC: 0.92697
+Epoch 80 - Average loss: 0.0021
+Validation AUROC: 0.92685
+Epoch 81 - Average loss: 0.0023
+Validation AUROC: 0.92673
+Early stopping triggered after 81 epochs
+
+--- Ensemble member 5/10 (training seed 26660) ---
+Training probe...
+Epoch 1 - Average loss: 0.8662
+Validation AUROC: 0.61477
+Epoch 2 - Average loss: 0.6968
+Validation AUROC: 0.72059
+Epoch 3 - Average loss: 0.6233
+Validation AUROC: 0.80659
+Epoch 4 - Average loss: 0.5557
+Validation AUROC: 0.84071
+Epoch 5 - Average loss: 0.4579
+Validation AUROC: 0.85990
+Epoch 6 - Average loss: 0.5068
+Validation AUROC: 0.86630
+Epoch 7 - Average loss: 0.4248
+Validation AUROC: 0.86587
+Epoch 8 - Average loss: 0.3862
+Validation AUROC: 0.85883
+Epoch 9 - Average loss: 0.3514
+Validation AUROC: 0.86107
+Epoch 10 - Average loss: 0.2697
+Validation AUROC: 0.87536
+Epoch 11 - Average loss: 0.2225
+Validation AUROC: 0.89153
+Epoch 12 - Average loss: 0.1855
+Validation AUROC: 0.90709
+Epoch 13 - Average loss: 0.1568
+Validation AUROC: 0.91493
+Epoch 14 - Average loss: 0.1270
+Validation AUROC: 0.91605
+Epoch 15 - Average loss: 0.1012
+Validation AUROC: 0.91446
+Epoch 16 - Average loss: 0.0884
+Validation AUROC: 0.91020
+Epoch 17 - Average loss: 0.0658
+Validation AUROC: 0.91177
+Epoch 18 - Average loss: 0.0588
+Validation AUROC: 0.91772
+Epoch 19 - Average loss: 0.0540
+Validation AUROC: 0.91574
+Epoch 20 - Average loss: 0.0404
+Validation AUROC: 0.91263
+Epoch 21 - Average loss: 0.0355
+Validation AUROC: 0.91096
+Epoch 22 - Average loss: 0.0288
+Validation AUROC: 0.90975
+Epoch 23 - Average loss: 0.0293
+Validation AUROC: 0.90975
+Epoch 24 - Average loss: 0.0258
+Validation AUROC: 0.91184
+Epoch 25 - Average loss: 0.0178
+Validation AUROC: 0.91175
+Epoch 26 - Average loss: 0.0134
+Validation AUROC: 0.91329
+Epoch 27 - Average loss: 0.0121
+Validation AUROC: 0.91463
+Epoch 28 - Average loss: 0.0103
+Validation AUROC: 0.91463
+Epoch 29 - Average loss: 0.0088
+Validation AUROC: 0.91546
+Epoch 30 - Average loss: 0.0177
+Validation AUROC: 0.91674
+Epoch 31 - Average loss: 0.0130
+Validation AUROC: 0.91793
+Epoch 32 - Average loss: 0.0293
+Validation AUROC: 0.91891
+Epoch 33 - Average loss: 0.0318
+Validation AUROC: 0.91914
+Epoch 34 - Average loss: 0.0165
+Validation AUROC: 0.91929
+Epoch 35 - Average loss: 0.0173
+Validation AUROC: 0.91933
+Epoch 36 - Average loss: 0.0172
+Validation AUROC: 0.91986
+Epoch 37 - Average loss: 0.0097
+Validation AUROC: 0.92038
+Epoch 38 - Average loss: 0.0088
+Validation AUROC: 0.92005
+Epoch 39 - Average loss: 0.0141
+Validation AUROC: 0.91981
+Epoch 40 - Average loss: 0.0090
+Validation AUROC: 0.92007
+Epoch 41 - Average loss: 0.0126
+Validation AUROC: 0.91979
+Epoch 42 - Average loss: 0.0115
+Validation AUROC: 0.91948
+Epoch 43 - Average loss: 0.0084
+Validation AUROC: 0.91924
+Epoch 44 - Average loss: 0.0075
+Validation AUROC: 0.91941
+Epoch 45 - Average loss: 0.0079
+Validation AUROC: 0.91964
+Epoch 46 - Average loss: 0.0094
+Validation AUROC: 0.91936
+Epoch 47 - Average loss: 0.0074
+Validation AUROC: 0.91857
+Epoch 48 - Average loss: 0.0057
+Validation AUROC: 0.91836
+Epoch 49 - Average loss: 0.0063
+Validation AUROC: 0.91879
+Epoch 50 - Average loss: 0.0062
+Validation AUROC: 0.91855
+Epoch 51 - Average loss: 0.0059
+Validation AUROC: 0.91831
+Epoch 52 - Average loss: 0.0052
+Validation AUROC: 0.91810
+Epoch 53 - Average loss: 0.0059
+Validation AUROC: 0.91836
+Epoch 54 - Average loss: 0.0048
+Validation AUROC: 0.91800
+Epoch 55 - Average loss: 0.0048
+Validation AUROC: 0.91831
+Epoch 56 - Average loss: 0.0043
+Validation AUROC: 0.91874
+Epoch 57 - Average loss: 0.0051
+Validation AUROC: 0.91855
+Epoch 58 - Average loss: 0.0049
+Validation AUROC: 0.91824
+Epoch 59 - Average loss: 0.0051
+Validation AUROC: 0.91831
+Epoch 60 - Average loss: 0.0041
+Validation AUROC: 0.91831
+Epoch 61 - Average loss: 0.0042
+Validation AUROC: 0.91829
+Epoch 62 - Average loss: 0.0041
+Validation AUROC: 0.91836
+Epoch 63 - Average loss: 0.0043
+Validation AUROC: 0.91831
+Epoch 64 - Average loss: 0.0040
+Validation AUROC: 0.91864
+Epoch 65 - Average loss: 0.0042
+Validation AUROC: 0.91905
+Epoch 66 - Average loss: 0.0040
+Validation AUROC: 0.91883
+Epoch 67 - Average loss: 0.0039
+Validation AUROC: 0.91829
+Epoch 68 - Average loss: 0.0041
+Validation AUROC: 0.91872
+Epoch 69 - Average loss: 0.0035
+Validation AUROC: 0.91874
+Epoch 70 - Average loss: 0.0035
+Validation AUROC: 0.91893
+Epoch 71 - Average loss: 0.0036
+Validation AUROC: 0.91883
+Epoch 72 - Average loss: 0.0037
+Validation AUROC: 0.91869
+Epoch 73 - Average loss: 0.0034
+Validation AUROC: 0.91855
+Epoch 74 - Average loss: 0.0036
+Validation AUROC: 0.91862
+Epoch 75 - Average loss: 0.0034
+Validation AUROC: 0.91857
+Epoch 76 - Average loss: 0.0033
+Validation AUROC: 0.91850
+Epoch 77 - Average loss: 0.0034
+Validation AUROC: 0.91831
+Epoch 78 - Average loss: 0.0032
+Validation AUROC: 0.91841
+Epoch 79 - Average loss: 0.0032
+Validation AUROC: 0.91831
+Epoch 80 - Average loss: 0.0029
+Validation AUROC: 0.91829
+Epoch 81 - Average loss: 0.0027
+Validation AUROC: 0.91848
+Epoch 82 - Average loss: 0.0027
+Validation AUROC: 0.91872
+Epoch 83 - Average loss: 0.0028
+Validation AUROC: 0.91857
+Epoch 84 - Average loss: 0.0027
+Validation AUROC: 0.91845
+Epoch 85 - Average loss: 0.0026
+Validation AUROC: 0.91826
+Epoch 86 - Average loss: 0.0025
+Validation AUROC: 0.91815
+Epoch 87 - Average loss: 0.0025
+Validation AUROC: 0.91834
+Early stopping triggered after 87 epochs
+
+--- Ensemble member 6/10 (training seed 42624) ---
+Training probe...
+Epoch 1 - Average loss: 1.1997
+Validation AUROC: 0.71046
+Epoch 2 - Average loss: 0.7954
+Validation AUROC: 0.79187
+Epoch 3 - Average loss: 0.7754
+Validation AUROC: 0.83581
+Epoch 4 - Average loss: 0.6216
+Validation AUROC: 0.84925
+Epoch 5 - Average loss: 0.4531
+Validation AUROC: 0.85710
+Epoch 6 - Average loss: 0.5024
+Validation AUROC: 0.87232
+Epoch 7 - Average loss: 0.3918
+Validation AUROC: 0.89015
+Epoch 8 - Average loss: 0.3561
+Validation AUROC: 0.89684
+Epoch 9 - Average loss: 0.3412
+Validation AUROC: 0.89365
+Epoch 10 - Average loss: 0.3169
+Validation AUROC: 0.88635
+Epoch 11 - Average loss: 0.2882
+Validation AUROC: 0.88309
+Epoch 12 - Average loss: 0.2045
+Validation AUROC: 0.88064
+Epoch 13 - Average loss: 0.2011
+Validation AUROC: 0.87396
+Epoch 14 - Average loss: 0.2302
+Validation AUROC: 0.87313
+Epoch 15 - Average loss: 0.1863
+Validation AUROC: 0.87945
+Epoch 16 - Average loss: 0.1584
+Validation AUROC: 0.89210
+Epoch 17 - Average loss: 0.1157
+Validation AUROC: 0.90721
+Epoch 18 - Average loss: 0.1012
+Validation AUROC: 0.91872
+Epoch 19 - Average loss: 0.0878
+Validation AUROC: 0.92545
+Epoch 20 - Average loss: 0.0694
+Validation AUROC: 0.92595
+Epoch 21 - Average loss: 0.0634
+Validation AUROC: 0.92868
+Epoch 22 - Average loss: 0.0564
+Validation AUROC: 0.92628
+Epoch 23 - Average loss: 0.0576
+Validation AUROC: 0.92364
+Epoch 24 - Average loss: 0.0445
+Validation AUROC: 0.92533
+Epoch 25 - Average loss: 0.0415
+Validation AUROC: 0.92490
+Epoch 26 - Average loss: 0.0405
+Validation AUROC: 0.92002
+Epoch 27 - Average loss: 0.0400
+Validation AUROC: 0.92221
+Epoch 28 - Average loss: 0.0279
+Validation AUROC: 0.92540
+Epoch 29 - Average loss: 0.0402
+Validation AUROC: 0.92400
+Epoch 30 - Average loss: 0.0212
+Validation AUROC: 0.92164
+Epoch 31 - Average loss: 0.0205
+Validation AUROC: 0.91881
+Epoch 32 - Average loss: 0.0258
+Validation AUROC: 0.92005
+Epoch 33 - Average loss: 0.0152
+Validation AUROC: 0.92478
+Epoch 34 - Average loss: 0.0189
+Validation AUROC: 0.92499
+Epoch 35 - Average loss: 0.0153
+Validation AUROC: 0.92392
+Epoch 36 - Average loss: 0.0099
+Validation AUROC: 0.92281
+Epoch 37 - Average loss: 0.0199
+Validation AUROC: 0.92409
+Epoch 38 - Average loss: 0.0150
+Validation AUROC: 0.92592
+Epoch 39 - Average loss: 0.0116
+Validation AUROC: 0.92630
+Epoch 40 - Average loss: 0.0101
+Validation AUROC: 0.92507
+Epoch 41 - Average loss: 0.0108
+Validation AUROC: 0.92518
+Epoch 42 - Average loss: 0.0110
+Validation AUROC: 0.92623
+Epoch 43 - Average loss: 0.0132
+Validation AUROC: 0.92735
+Epoch 44 - Average loss: 0.0128
+Validation AUROC: 0.92680
+Epoch 45 - Average loss: 0.0082
+Validation AUROC: 0.92521
+Epoch 46 - Average loss: 0.0139
+Validation AUROC: 0.92571
+Epoch 47 - Average loss: 0.0102
+Validation AUROC: 0.92663
+Epoch 48 - Average loss: 0.0121
+Validation AUROC: 0.92778
+Epoch 49 - Average loss: 0.0116
+Validation AUROC: 0.92685
+Epoch 50 - Average loss: 0.0130
+Validation AUROC: 0.92628
+Epoch 51 - Average loss: 0.0113
+Validation AUROC: 0.92661
+Epoch 52 - Average loss: 0.0104
+Validation AUROC: 0.92780
+Epoch 53 - Average loss: 0.0108
+Validation AUROC: 0.92740
+Epoch 54 - Average loss: 0.0089
+Validation AUROC: 0.92699
+Epoch 55 - Average loss: 0.0079
+Validation AUROC: 0.92673
+Epoch 56 - Average loss: 0.0074
+Validation AUROC: 0.92711
+Epoch 57 - Average loss: 0.0069
+Validation AUROC: 0.92728
+Epoch 58 - Average loss: 0.0064
+Validation AUROC: 0.92706
+Epoch 59 - Average loss: 0.0060
+Validation AUROC: 0.92687
+Epoch 60 - Average loss: 0.0060
+Validation AUROC: 0.92673
+Epoch 61 - Average loss: 0.0060
+Validation AUROC: 0.92699
+Epoch 62 - Average loss: 0.0061
+Validation AUROC: 0.92694
+Epoch 63 - Average loss: 0.0062
+Validation AUROC: 0.92697
+Epoch 64 - Average loss: 0.0055
+Validation AUROC: 0.92673
+Epoch 65 - Average loss: 0.0058
+Validation AUROC: 0.92692
+Epoch 66 - Average loss: 0.0064
+Validation AUROC: 0.92697
+Epoch 67 - Average loss: 0.0061
+Validation AUROC: 0.92697
+Epoch 68 - Average loss: 0.0066
+Validation AUROC: 0.92699
+Epoch 69 - Average loss: 0.0055
+Validation AUROC: 0.92716
+Epoch 70 - Average loss: 0.0058
+Validation AUROC: 0.92725
+Epoch 71 - Average loss: 0.0052
+Validation AUROC: 0.92721
+Early stopping triggered after 71 epochs
+
+--- Ensemble member 7/10 (training seed 43521) ---
+Training probe...
+Epoch 1 - Average loss: 0.7617
+Validation AUROC: 0.77848
+Epoch 2 - Average loss: 0.5449
+Validation AUROC: 0.84021
+Epoch 3 - Average loss: 0.4642
+Validation AUROC: 0.85807
+Epoch 4 - Average loss: 0.4197
+Validation AUROC: 0.87170
+Epoch 5 - Average loss: 0.3580
+Validation AUROC: 0.88100
+Epoch 6 - Average loss: 0.3552
+Validation AUROC: 0.88970
+Epoch 7 - Average loss: 0.2914
+Validation AUROC: 0.89817
+Epoch 8 - Average loss: 0.2791
+Validation AUROC: 0.89570
+Epoch 9 - Average loss: 0.2229
+Validation AUROC: 0.89061
+Epoch 10 - Average loss: 0.2070
+Validation AUROC: 0.89339
+Epoch 11 - Average loss: 0.1840
+Validation AUROC: 0.90231
+Epoch 12 - Average loss: 0.1581
+Validation AUROC: 0.90985
+Epoch 13 - Average loss: 0.1451
+Validation AUROC: 0.91617
+Epoch 14 - Average loss: 0.1460
+Validation AUROC: 0.92333
+Epoch 15 - Average loss: 0.1290
+Validation AUROC: 0.92661
+Epoch 16 - Average loss: 0.1000
+Validation AUROC: 0.92542
+Epoch 17 - Average loss: 0.0882
+Validation AUROC: 0.91688
+Epoch 18 - Average loss: 0.0772
+Validation AUROC: 0.91979
+Epoch 19 - Average loss: 0.0873
+Validation AUROC: 0.92290
+Epoch 20 - Average loss: 0.0604
+Validation AUROC: 0.92545
+Epoch 21 - Average loss: 0.0663
+Validation AUROC: 0.92231
+Epoch 22 - Average loss: 0.0593
+Validation AUROC: 0.92252
+Epoch 23 - Average loss: 0.0422
+Validation AUROC: 0.92385
+Epoch 24 - Average loss: 0.0579
+Validation AUROC: 0.92117
+Epoch 25 - Average loss: 0.0520
+Validation AUROC: 0.91936
+Epoch 26 - Average loss: 0.0367
+Validation AUROC: 0.92107
+Epoch 27 - Average loss: 0.0365
+Validation AUROC: 0.92559
+Epoch 28 - Average loss: 0.0339
+Validation AUROC: 0.92732
+Epoch 29 - Average loss: 0.0281
+Validation AUROC: 0.92732
+Epoch 30 - Average loss: 0.0151
+Validation AUROC: 0.92597
+Epoch 31 - Average loss: 0.0143
+Validation AUROC: 0.92656
+Epoch 32 - Average loss: 0.0148
+Validation AUROC: 0.92706
+Epoch 33 - Average loss: 0.0103
+Validation AUROC: 0.92861
+Epoch 34 - Average loss: 0.0120
+Validation AUROC: 0.92882
+Epoch 35 - Average loss: 0.0093
+Validation AUROC: 0.92894
+Epoch 36 - Average loss: 0.0122
+Validation AUROC: 0.93030
+Epoch 37 - Average loss: 0.0085
+Validation AUROC: 0.93163
+Epoch 38 - Average loss: 0.0122
+Validation AUROC: 0.93191
+Epoch 39 - Average loss: 0.0099
+Validation AUROC: 0.93249
+Epoch 40 - Average loss: 0.0121
+Validation AUROC: 0.93275
+Epoch 41 - Average loss: 0.0084
+Validation AUROC: 0.93377
+Epoch 42 - Average loss: 0.0148
+Validation AUROC: 0.93427
+Epoch 43 - Average loss: 0.0128
+Validation AUROC: 0.93408
+Epoch 44 - Average loss: 0.0099
+Validation AUROC: 0.93408
+Epoch 45 - Average loss: 0.0103
+Validation AUROC: 0.93479
+Epoch 46 - Average loss: 0.0067
+Validation AUROC: 0.93474
+Epoch 47 - Average loss: 0.0096
+Validation AUROC: 0.93444
+Epoch 48 - Average loss: 0.0063
+Validation AUROC: 0.93420
+Epoch 49 - Average loss: 0.0094
+Validation AUROC: 0.93432
+Epoch 50 - Average loss: 0.0057
+Validation AUROC: 0.93415
+Epoch 51 - Average loss: 0.0088
+Validation AUROC: 0.93446
+Epoch 52 - Average loss: 0.0067
+Validation AUROC: 0.93379
+Epoch 53 - Average loss: 0.0061
+Validation AUROC: 0.93367
+Epoch 54 - Average loss: 0.0067
+Validation AUROC: 0.93401
+Epoch 55 - Average loss: 0.0053
+Validation AUROC: 0.93415
+Epoch 56 - Average loss: 0.0057
+Validation AUROC: 0.93436
+Epoch 57 - Average loss: 0.0056
+Validation AUROC: 0.93444
+Epoch 58 - Average loss: 0.0048
+Validation AUROC: 0.93455
+Epoch 59 - Average loss: 0.0065
+Validation AUROC: 0.93432
+Epoch 60 - Average loss: 0.0054
+Validation AUROC: 0.93446
+Epoch 61 - Average loss: 0.0043
+Validation AUROC: 0.93467
+Epoch 62 - Average loss: 0.0072
+Validation AUROC: 0.93484
+Epoch 63 - Average loss: 0.0048
+Validation AUROC: 0.93477
+Epoch 64 - Average loss: 0.0040
+Validation AUROC: 0.93498
+Epoch 65 - Average loss: 0.0060
+Validation AUROC: 0.93532
+Epoch 66 - Average loss: 0.0039
+Validation AUROC: 0.93527
+Epoch 67 - Average loss: 0.0036
+Validation AUROC: 0.93512
+Epoch 68 - Average loss: 0.0048
+Validation AUROC: 0.93517
+Epoch 69 - Average loss: 0.0039
+Validation AUROC: 0.93508
+Epoch 70 - Average loss: 0.0053
+Validation AUROC: 0.93517
+Epoch 71 - Average loss: 0.0045
+Validation AUROC: 0.93555
+Epoch 72 - Average loss: 0.0050
+Validation AUROC: 0.93612
+Epoch 73 - Average loss: 0.0043
+Validation AUROC: 0.93608
+Epoch 74 - Average loss: 0.0040
+Validation AUROC: 0.93541
+Epoch 75 - Average loss: 0.0049
+Validation AUROC: 0.93536
+Epoch 76 - Average loss: 0.0039
+Validation AUROC: 0.93624
+Epoch 77 - Average loss: 0.0031
+Validation AUROC: 0.93643
+Epoch 78 - Average loss: 0.0038
+Validation AUROC: 0.93629
+Epoch 79 - Average loss: 0.0033
+Validation AUROC: 0.93610
+Epoch 80 - Average loss: 0.0029
+Validation AUROC: 0.93565
+Epoch 81 - Average loss: 0.0032
+Validation AUROC: 0.93620
+Epoch 82 - Average loss: 0.0026
+Validation AUROC: 0.93610
+Epoch 83 - Average loss: 0.0027
+Validation AUROC: 0.93622
+Epoch 84 - Average loss: 0.0029
+Validation AUROC: 0.93643
+Epoch 85 - Average loss: 0.0029
+Validation AUROC: 0.93629
+Epoch 86 - Average loss: 0.0025
+Validation AUROC: 0.93603
+Epoch 87 - Average loss: 0.0025
+Validation AUROC: 0.93605
+Epoch 88 - Average loss: 0.0024
+Validation AUROC: 0.93610
+Epoch 89 - Average loss: 0.0024
+Validation AUROC: 0.93617
+Epoch 90 - Average loss: 0.0023
+Validation AUROC: 0.93605
+Epoch 91 - Average loss: 0.0021
+Validation AUROC: 0.93610
+Epoch 92 - Average loss: 0.0025
+Validation AUROC: 0.93639
+Epoch 93 - Average loss: 0.0023
+Validation AUROC: 0.93627
+Epoch 94 - Average loss: 0.0021
+Validation AUROC: 0.93634
+Epoch 95 - Average loss: 0.0021
+Validation AUROC: 0.93648
+Epoch 96 - Average loss: 0.0023
+Validation AUROC: 0.93629
+Epoch 97 - Average loss: 0.0022
+Validation AUROC: 0.93639
+Epoch 98 - Average loss: 0.0020
+Validation AUROC: 0.93634
+Epoch 99 - Average loss: 0.0021
+Validation AUROC: 0.93646
+Epoch 100 - Average loss: 0.0021
+Validation AUROC: 0.93646
+Epoch 101 - Average loss: 0.0020
+Validation AUROC: 0.93643
+Epoch 102 - Average loss: 0.0019
+Validation AUROC: 0.93655
+Epoch 103 - Average loss: 0.0019
+Validation AUROC: 0.93646
+Epoch 104 - Average loss: 0.0019
+Validation AUROC: 0.93641
+Epoch 105 - Average loss: 0.0020
+Validation AUROC: 0.93641
+Epoch 106 - Average loss: 0.0019
+Validation AUROC: 0.93643
+Epoch 107 - Average loss: 0.0019
+Validation AUROC: 0.93643
+Epoch 108 - Average loss: 0.0018
+Validation AUROC: 0.93646
+Epoch 109 - Average loss: 0.0017
+Validation AUROC: 0.93639
+Epoch 110 - Average loss: 0.0017
+Validation AUROC: 0.93641
+Epoch 111 - Average loss: 0.0017
+Validation AUROC: 0.93643
+Epoch 112 - Average loss: 0.0018
+Validation AUROC: 0.93643
+Epoch 113 - Average loss: 0.0017
+Validation AUROC: 0.93643
+Epoch 114 - Average loss: 0.0019
+Validation AUROC: 0.93631
+Epoch 115 - Average loss: 0.0017
+Validation AUROC: 0.93629
+Epoch 116 - Average loss: 0.0017
+Validation AUROC: 0.93634
+Epoch 117 - Average loss: 0.0017
+Validation AUROC: 0.93627
+Epoch 118 - Average loss: 0.0016
+Validation AUROC: 0.93648
+Epoch 119 - Average loss: 0.0015
+Validation AUROC: 0.93646
+Epoch 120 - Average loss: 0.0015
+Validation AUROC: 0.93650
+Epoch 121 - Average loss: 0.0015
+Validation AUROC: 0.93650
+Epoch 122 - Average loss: 0.0016
+Validation AUROC: 0.93648
+Epoch 123 - Average loss: 0.0016
+Validation AUROC: 0.93653
+Epoch 124 - Average loss: 0.0016
+Validation AUROC: 0.93648
+Epoch 125 - Average loss: 0.0016
+Validation AUROC: 0.93650
+Epoch 126 - Average loss: 0.0017
+Validation AUROC: 0.93634
+Epoch 127 - Average loss: 0.0016
+Validation AUROC: 0.93648
+Epoch 128 - Average loss: 0.0015
+Validation AUROC: 0.93646
+Epoch 129 - Average loss: 0.0016
+Validation AUROC: 0.93639
+Epoch 130 - Average loss: 0.0015
+Validation AUROC: 0.93646
+Epoch 131 - Average loss: 0.0015
+Validation AUROC: 0.93643
+Epoch 132 - Average loss: 0.0015
+Validation AUROC: 0.93643
+Epoch 133 - Average loss: 0.0014
+Validation AUROC: 0.93643
+Epoch 134 - Average loss: 0.0015
+Validation AUROC: 0.93643
+Epoch 135 - Average loss: 0.0015
+Validation AUROC: 0.93639
+Epoch 136 - Average loss: 0.0014
+Validation AUROC: 0.93639
+Epoch 137 - Average loss: 0.0015
+Validation AUROC: 0.93634
+Epoch 138 - Average loss: 0.0014
+Validation AUROC: 0.93634
+Epoch 139 - Average loss: 0.0014
+Validation AUROC: 0.93639
+Epoch 140 - Average loss: 0.0014
+Validation AUROC: 0.93643
+Epoch 141 - Average loss: 0.0014
+Validation AUROC: 0.93631
+Epoch 142 - Average loss: 0.0014
+Validation AUROC: 0.93636
+Epoch 143 - Average loss: 0.0014
+Validation AUROC: 0.93646
+Epoch 144 - Average loss: 0.0014
+Validation AUROC: 0.93643
+Epoch 145 - Average loss: 0.0014
+Validation AUROC: 0.93646
+Epoch 146 - Average loss: 0.0015
+Validation AUROC: 0.93643
+Epoch 147 - Average loss: 0.0014
+Validation AUROC: 0.93641
+Epoch 148 - Average loss: 0.0015
+Validation AUROC: 0.93641
+Epoch 149 - Average loss: 0.0014
+Validation AUROC: 0.93650
+Epoch 150 - Average loss: 0.0014
+Validation AUROC: 0.93648
+Epoch 151 - Average loss: 0.0014
+Validation AUROC: 0.93648
+Epoch 152 - Average loss: 0.0014
+Validation AUROC: 0.93639
+Early stopping triggered after 152 epochs
+
+--- Ensemble member 8/10 (training seed 54184) ---
+Training probe...
+Epoch 1 - Average loss: 0.8638
+Validation AUROC: 0.73995
+Epoch 2 - Average loss: 0.6516
+Validation AUROC: 0.78611
+Epoch 3 - Average loss: 0.6843
+Validation AUROC: 0.80430
+Epoch 4 - Average loss: 0.6362
+Validation AUROC: 0.83103
+Epoch 5 - Average loss: 0.5503
+Validation AUROC: 0.86069
+Epoch 6 - Average loss: 0.4956
+Validation AUROC: 0.88105
+Epoch 7 - Average loss: 0.4187
+Validation AUROC: 0.89006
+Epoch 8 - Average loss: 0.3191
+Validation AUROC: 0.89857
+Epoch 9 - Average loss: 0.2942
+Validation AUROC: 0.90071
+Epoch 10 - Average loss: 0.2754
+Validation AUROC: 0.90468
+Epoch 11 - Average loss: 0.2377
+Validation AUROC: 0.91151
+Epoch 12 - Average loss: 0.1825
+Validation AUROC: 0.91636
+Epoch 13 - Average loss: 0.1566
+Validation AUROC: 0.92093
+Epoch 14 - Average loss: 0.1172
+Validation AUROC: 0.92285
+Epoch 15 - Average loss: 0.0969
+Validation AUROC: 0.92528
+Epoch 16 - Average loss: 0.0951
+Validation AUROC: 0.92181
+Epoch 17 - Average loss: 0.0777
+Validation AUROC: 0.92052
+Epoch 18 - Average loss: 0.0623
+Validation AUROC: 0.91998
+Epoch 19 - Average loss: 0.0565
+Validation AUROC: 0.92164
+Epoch 20 - Average loss: 0.0442
+Validation AUROC: 0.92721
+Epoch 21 - Average loss: 0.0398
+Validation AUROC: 0.92801
+Epoch 22 - Average loss: 0.0364
+Validation AUROC: 0.93208
+Epoch 23 - Average loss: 0.0303
+Validation AUROC: 0.93237
+Epoch 24 - Average loss: 0.0254
+Validation AUROC: 0.93158
+Epoch 25 - Average loss: 0.0238
+Validation AUROC: 0.93194
+Epoch 26 - Average loss: 0.0194
+Validation AUROC: 0.93227
+Epoch 27 - Average loss: 0.0186
+Validation AUROC: 0.93087
+Epoch 28 - Average loss: 0.0154
+Validation AUROC: 0.93015
+Epoch 29 - Average loss: 0.0176
+Validation AUROC: 0.93106
+Epoch 30 - Average loss: 0.0113
+Validation AUROC: 0.93011
+Epoch 31 - Average loss: 0.0102
+Validation AUROC: 0.92951
+Epoch 32 - Average loss: 0.0156
+Validation AUROC: 0.93020
+Epoch 33 - Average loss: 0.0162
+Validation AUROC: 0.93084
+Epoch 34 - Average loss: 0.0144
+Validation AUROC: 0.93032
+Epoch 35 - Average loss: 0.0146
+Validation AUROC: 0.92927
+Epoch 36 - Average loss: 0.0123
+Validation AUROC: 0.93044
+Epoch 37 - Average loss: 0.0151
+Validation AUROC: 0.93027
+Epoch 38 - Average loss: 0.0103
+Validation AUROC: 0.92925
+Epoch 39 - Average loss: 0.0128
+Validation AUROC: 0.92932
+Epoch 40 - Average loss: 0.0131
+Validation AUROC: 0.93065
+Epoch 41 - Average loss: 0.0109
+Validation AUROC: 0.93044
+Epoch 42 - Average loss: 0.0118
+Validation AUROC: 0.92951
+Epoch 43 - Average loss: 0.0064
+Validation AUROC: 0.92942
+Epoch 44 - Average loss: 0.0056
+Validation AUROC: 0.92989
+Epoch 45 - Average loss: 0.0080
+Validation AUROC: 0.92961
+Epoch 46 - Average loss: 0.0063
+Validation AUROC: 0.92927
+Epoch 47 - Average loss: 0.0076
+Validation AUROC: 0.92930
+Epoch 48 - Average loss: 0.0059
+Validation AUROC: 0.93013
+Epoch 49 - Average loss: 0.0086
+Validation AUROC: 0.93051
+Epoch 50 - Average loss: 0.0051
+Validation AUROC: 0.92932
+Epoch 51 - Average loss: 0.0051
+Validation AUROC: 0.92897
+Epoch 52 - Average loss: 0.0054
+Validation AUROC: 0.92944
+Epoch 53 - Average loss: 0.0043
+Validation AUROC: 0.92951
+Epoch 54 - Average loss: 0.0051
+Validation AUROC: 0.92935
+Epoch 55 - Average loss: 0.0046
+Validation AUROC: 0.92906
+Epoch 56 - Average loss: 0.0039
+Validation AUROC: 0.92911
+Epoch 57 - Average loss: 0.0041
+Validation AUROC: 0.92932
+Epoch 58 - Average loss: 0.0040
+Validation AUROC: 0.92932
+Epoch 59 - Average loss: 0.0035
+Validation AUROC: 0.92949
+Epoch 60 - Average loss: 0.0036
+Validation AUROC: 0.92968
+Epoch 61 - Average loss: 0.0039
+Validation AUROC: 0.92956
+Epoch 62 - Average loss: 0.0033
+Validation AUROC: 0.92939
+Epoch 63 - Average loss: 0.0048
+Validation AUROC: 0.92973
+Epoch 64 - Average loss: 0.0032
+Validation AUROC: 0.92982
+Epoch 65 - Average loss: 0.0033
+Validation AUROC: 0.92970
+Epoch 66 - Average loss: 0.0037
+Validation AUROC: 0.92968
+Epoch 67 - Average loss: 0.0033
+Validation AUROC: 0.92980
+Epoch 68 - Average loss: 0.0032
+Validation AUROC: 0.92975
+Epoch 69 - Average loss: 0.0026
+Validation AUROC: 0.92973
+Epoch 70 - Average loss: 0.0034
+Validation AUROC: 0.92961
+Epoch 71 - Average loss: 0.0025
+Validation AUROC: 0.92954
+Epoch 72 - Average loss: 0.0025
+Validation AUROC: 0.92961
+Epoch 73 - Average loss: 0.0028
+Validation AUROC: 0.92980
+Early stopping triggered after 73 epochs
+
+--- Ensemble member 9/10 (training seed 65963) ---
+Training probe...
+Epoch 1 - Average loss: 1.0605
+Validation AUROC: 0.47971
+Epoch 2 - Average loss: 1.1084
+Validation AUROC: 0.67912
+Epoch 3 - Average loss: 0.8115
+Validation AUROC: 0.78440
+Epoch 4 - Average loss: 0.9976
+Validation AUROC: 0.81722
+Epoch 5 - Average loss: 0.6997
+Validation AUROC: 0.84790
+Epoch 6 - Average loss: 0.4885
+Validation AUROC: 0.87182
+Epoch 7 - Average loss: 0.4883
+Validation AUROC: 0.87981
+Epoch 8 - Average loss: 0.3677
+Validation AUROC: 0.87681
+Epoch 9 - Average loss: 0.3275
+Validation AUROC: 0.87099
+Epoch 10 - Average loss: 0.2462
+Validation AUROC: 0.86966
+Epoch 11 - Average loss: 0.2800
+Validation AUROC: 0.87172
+Epoch 12 - Average loss: 0.2931
+Validation AUROC: 0.87334
+Epoch 13 - Average loss: 0.1974
+Validation AUROC: 0.87727
+Epoch 14 - Average loss: 0.1712
+Validation AUROC: 0.88523
+Epoch 15 - Average loss: 0.1300
+Validation AUROC: 0.90002
+Epoch 16 - Average loss: 0.1190
+Validation AUROC: 0.90866
+Epoch 17 - Average loss: 0.0993
+Validation AUROC: 0.91163
+Epoch 18 - Average loss: 0.0930
+Validation AUROC: 0.91249
+Epoch 19 - Average loss: 0.0748
+Validation AUROC: 0.91529
+Epoch 20 - Average loss: 0.0789
+Validation AUROC: 0.91515
+Epoch 21 - Average loss: 0.0669
+Validation AUROC: 0.91532
+Epoch 22 - Average loss: 0.0603
+Validation AUROC: 0.91860
+Epoch 23 - Average loss: 0.0698
+Validation AUROC: 0.92055
+Epoch 24 - Average loss: 0.0554
+Validation AUROC: 0.92002
+Epoch 25 - Average loss: 0.0428
+Validation AUROC: 0.92185
+Epoch 26 - Average loss: 0.0319
+Validation AUROC: 0.92526
+Epoch 27 - Average loss: 0.0244
+Validation AUROC: 0.92514
+Epoch 28 - Average loss: 0.0239
+Validation AUROC: 0.92488
+Epoch 29 - Average loss: 0.0177
+Validation AUROC: 0.92426
+Epoch 30 - Average loss: 0.0191
+Validation AUROC: 0.92416
+Epoch 31 - Average loss: 0.0164
+Validation AUROC: 0.92547
+Epoch 32 - Average loss: 0.0151
+Validation AUROC: 0.92566
+Epoch 33 - Average loss: 0.0216
+Validation AUROC: 0.92649
+Epoch 34 - Average loss: 0.0170
+Validation AUROC: 0.92530
+Epoch 35 - Average loss: 0.0256
+Validation AUROC: 0.92400
+Epoch 36 - Average loss: 0.0202
+Validation AUROC: 0.92602
+Epoch 37 - Average loss: 0.0148
+Validation AUROC: 0.92599
+Epoch 38 - Average loss: 0.0155
+Validation AUROC: 0.92521
+Epoch 39 - Average loss: 0.0125
+Validation AUROC: 0.92485
+Epoch 40 - Average loss: 0.0109
+Validation AUROC: 0.92656
+Epoch 41 - Average loss: 0.0079
+Validation AUROC: 0.92661
+Epoch 42 - Average loss: 0.0124
+Validation AUROC: 0.92597
+Epoch 43 - Average loss: 0.0081
+Validation AUROC: 0.92580
+Epoch 44 - Average loss: 0.0062
+Validation AUROC: 0.92580
+Epoch 45 - Average loss: 0.0119
+Validation AUROC: 0.92580
+Epoch 46 - Average loss: 0.0100
+Validation AUROC: 0.92587
+Epoch 47 - Average loss: 0.0093
+Validation AUROC: 0.92585
+Epoch 48 - Average loss: 0.0083
+Validation AUROC: 0.92554
+Epoch 49 - Average loss: 0.0065
+Validation AUROC: 0.92556
+Epoch 50 - Average loss: 0.0059
+Validation AUROC: 0.92604
+Epoch 51 - Average loss: 0.0072
+Validation AUROC: 0.92640
+Epoch 52 - Average loss: 0.0088
+Validation AUROC: 0.92649
+Epoch 53 - Average loss: 0.0102
+Validation AUROC: 0.92623
+Epoch 54 - Average loss: 0.0060
+Validation AUROC: 0.92580
+Epoch 55 - Average loss: 0.0131
+Validation AUROC: 0.92654
+Epoch 56 - Average loss: 0.0056
+Validation AUROC: 0.92630
+Epoch 57 - Average loss: 0.0062
+Validation AUROC: 0.92642
+Epoch 58 - Average loss: 0.0059
+Validation AUROC: 0.92663
+Epoch 59 - Average loss: 0.0043
+Validation AUROC: 0.92633
+Epoch 60 - Average loss: 0.0055
+Validation AUROC: 0.92611
+Epoch 61 - Average loss: 0.0041
+Validation AUROC: 0.92637
+Epoch 62 - Average loss: 0.0038
+Validation AUROC: 0.92644
+Epoch 63 - Average loss: 0.0035
+Validation AUROC: 0.92671
+Epoch 64 - Average loss: 0.0040
+Validation AUROC: 0.92656
+Epoch 65 - Average loss: 0.0040
+Validation AUROC: 0.92644
+Epoch 66 - Average loss: 0.0033
+Validation AUROC: 0.92663
+Epoch 67 - Average loss: 0.0038
+Validation AUROC: 0.92647
+Epoch 68 - Average loss: 0.0034
+Validation AUROC: 0.92625
+Epoch 69 - Average loss: 0.0032
+Validation AUROC: 0.92604
+Epoch 70 - Average loss: 0.0030
+Validation AUROC: 0.92606
+Epoch 71 - Average loss: 0.0031
+Validation AUROC: 0.92595
+Epoch 72 - Average loss: 0.0033
+Validation AUROC: 0.92611
+Epoch 73 - Average loss: 0.0031
+Validation AUROC: 0.92602
+Epoch 74 - Average loss: 0.0029
+Validation AUROC: 0.92599
+Epoch 75 - Average loss: 0.0026
+Validation AUROC: 0.92576
+Epoch 76 - Average loss: 0.0024
+Validation AUROC: 0.92585
+Epoch 77 - Average loss: 0.0023
+Validation AUROC: 0.92552
+Epoch 78 - Average loss: 0.0027
+Validation AUROC: 0.92561
+Epoch 79 - Average loss: 0.0024
+Validation AUROC: 0.92552
+Epoch 80 - Average loss: 0.0022
+Validation AUROC: 0.92554
+Epoch 81 - Average loss: 0.0022
+Validation AUROC: 0.92561
+Epoch 82 - Average loss: 0.0023
+Validation AUROC: 0.92552
+Epoch 83 - Average loss: 0.0021
+Validation AUROC: 0.92580
+Epoch 84 - Average loss: 0.0023
+Validation AUROC: 0.92576
+Epoch 85 - Average loss: 0.0020
+Validation AUROC: 0.92576
+Epoch 86 - Average loss: 0.0023
+Validation AUROC: 0.92587
+Epoch 87 - Average loss: 0.0019
+Validation AUROC: 0.92573
+Epoch 88 - Average loss: 0.0018
+Validation AUROC: 0.92590
+Epoch 89 - Average loss: 0.0020
+Validation AUROC: 0.92602
+Epoch 90 - Average loss: 0.0019
+Validation AUROC: 0.92602
+Epoch 91 - Average loss: 0.0018
+Validation AUROC: 0.92595
+Epoch 92 - Average loss: 0.0018
+Validation AUROC: 0.92616
+Epoch 93 - Average loss: 0.0019
+Validation AUROC: 0.92623
+Epoch 94 - Average loss: 0.0017
+Validation AUROC: 0.92611
+Epoch 95 - Average loss: 0.0018
+Validation AUROC: 0.92628
+Epoch 96 - Average loss: 0.0017
+Validation AUROC: 0.92614
+Epoch 97 - Average loss: 0.0017
+Validation AUROC: 0.92587
+Epoch 98 - Average loss: 0.0016
+Validation AUROC: 0.92602
+Epoch 99 - Average loss: 0.0017
+Validation AUROC: 0.92609
+Epoch 100 - Average loss: 0.0019
+Validation AUROC: 0.92637
+Epoch 101 - Average loss: 0.0015
+Validation AUROC: 0.92649
+Epoch 102 - Average loss: 0.0016
+Validation AUROC: 0.92661
+Epoch 103 - Average loss: 0.0016
+Validation AUROC: 0.92642
+Epoch 104 - Average loss: 0.0016
+Validation AUROC: 0.92635
+Epoch 105 - Average loss: 0.0016
+Validation AUROC: 0.92633
+Epoch 106 - Average loss: 0.0014
+Validation AUROC: 0.92656
+Epoch 107 - Average loss: 0.0014
+Validation AUROC: 0.92678
+Epoch 108 - Average loss: 0.0015
+Validation AUROC: 0.92671
+Epoch 109 - Average loss: 0.0015
+Validation AUROC: 0.92678
+Epoch 110 - Average loss: 0.0014
+Validation AUROC: 0.92671
+Epoch 111 - Average loss: 0.0014
+Validation AUROC: 0.92675
+Epoch 112 - Average loss: 0.0014
+Validation AUROC: 0.92678
+Epoch 113 - Average loss: 0.0014
+Validation AUROC: 0.92685
+Epoch 114 - Average loss: 0.0014
+Validation AUROC: 0.92675
+Epoch 115 - Average loss: 0.0014
+Validation AUROC: 0.92685
+Epoch 116 - Average loss: 0.0013
+Validation AUROC: 0.92683
+Epoch 117 - Average loss: 0.0013
+Validation AUROC: 0.92685
+Epoch 118 - Average loss: 0.0015
+Validation AUROC: 0.92673
+Epoch 119 - Average loss: 0.0013
+Validation AUROC: 0.92671
+Epoch 120 - Average loss: 0.0013
+Validation AUROC: 0.92673
+Epoch 121 - Average loss: 0.0013
+Validation AUROC: 0.92659
+Epoch 122 - Average loss: 0.0013
+Validation AUROC: 0.92668
+Epoch 123 - Average loss: 0.0013
+Validation AUROC: 0.92663
+Epoch 124 - Average loss: 0.0012
+Validation AUROC: 0.92666
+Epoch 125 - Average loss: 0.0012
+Validation AUROC: 0.92656
+Epoch 126 - Average loss: 0.0012
+Validation AUROC: 0.92654
+Epoch 127 - Average loss: 0.0012
+Validation AUROC: 0.92663
+Epoch 128 - Average loss: 0.0014
+Validation AUROC: 0.92668
+Epoch 129 - Average loss: 0.0013
+Validation AUROC: 0.92671
+Epoch 130 - Average loss: 0.0013
+Validation AUROC: 0.92671
+Epoch 131 - Average loss: 0.0013
+Validation AUROC: 0.92661
+Epoch 132 - Average loss: 0.0013
+Validation AUROC: 0.92661
+Epoch 133 - Average loss: 0.0013
+Validation AUROC: 0.92661
+Epoch 134 - Average loss: 0.0012
+Validation AUROC: 0.92652
+Epoch 135 - Average loss: 0.0012
+Validation AUROC: 0.92647
+Epoch 136 - Average loss: 0.0013
+Validation AUROC: 0.92656
+Epoch 137 - Average loss: 0.0012
+Validation AUROC: 0.92654
+Epoch 138 - Average loss: 0.0012
+Validation AUROC: 0.92656
+Epoch 139 - Average loss: 0.0013
+Validation AUROC: 0.92659
+Epoch 140 - Average loss: 0.0012
+Validation AUROC: 0.92654
+Epoch 141 - Average loss: 0.0012
+Validation AUROC: 0.92656
+Epoch 142 - Average loss: 0.0012
+Validation AUROC: 0.92663
+Epoch 143 - Average loss: 0.0012
+Validation AUROC: 0.92661
+Epoch 144 - Average loss: 0.0012
+Validation AUROC: 0.92661
+Epoch 145 - Average loss: 0.0012
+Validation AUROC: 0.92661
+Epoch 146 - Average loss: 0.0012
+Validation AUROC: 0.92661
+Epoch 147 - Average loss: 0.0013
+Validation AUROC: 0.92663
+Epoch 148 - Average loss: 0.0012
+Validation AUROC: 0.92663
+Epoch 149 - Average loss: 0.0012
+Validation AUROC: 0.92661
+Epoch 150 - Average loss: 0.0012
+Validation AUROC: 0.92649
+Epoch 151 - Average loss: 0.0012
+Validation AUROC: 0.92652
+Epoch 152 - Average loss: 0.0012
+Validation AUROC: 0.92652
+Epoch 153 - Average loss: 0.0012
+Validation AUROC: 0.92659
+Epoch 154 - Average loss: 0.0012
+Validation AUROC: 0.92659
+Epoch 155 - Average loss: 0.0012
+Validation AUROC: 0.92659
+Epoch 156 - Average loss: 0.0012
+Validation AUROC: 0.92661
+Epoch 157 - Average loss: 0.0012
+Validation AUROC: 0.92666
+Epoch 158 - Average loss: 0.0012
+Validation AUROC: 0.92649
+Epoch 159 - Average loss: 0.0012
+Validation AUROC: 0.92652
+Epoch 160 - Average loss: 0.0012
+Validation AUROC: 0.92652
+Epoch 161 - Average loss: 0.0012
+Validation AUROC: 0.92659
+Epoch 162 - Average loss: 0.0012
+Validation AUROC: 0.92659
+Epoch 163 - Average loss: 0.0012
+Validation AUROC: 0.92656
+Early stopping triggered after 163 epochs
+
+--- Ensemble member 10/10 (training seed 69051) ---
+Training probe...
+Epoch 1 - Average loss: 0.9072
+Validation AUROC: 0.64576
+Epoch 2 - Average loss: 0.7041
+Validation AUROC: 0.77303
+Epoch 3 - Average loss: 0.5962
+Validation AUROC: 0.79115
+Epoch 4 - Average loss: 0.5574
+Validation AUROC: 0.81275
+Epoch 5 - Average loss: 0.4860
+Validation AUROC: 0.85363
+Epoch 6 - Average loss: 0.3882
+Validation AUROC: 0.86961
+Epoch 7 - Average loss: 0.3350
+Validation AUROC: 0.87472
+Epoch 8 - Average loss: 0.2850
+Validation AUROC: 0.87860
+Epoch 9 - Average loss: 0.2496
+Validation AUROC: 0.88604
+Epoch 10 - Average loss: 0.2092
+Validation AUROC: 0.89600
+Epoch 11 - Average loss: 0.1788
+Validation AUROC: 0.90314
+Epoch 12 - Average loss: 0.1634
+Validation AUROC: 0.91379
+Epoch 13 - Average loss: 0.1381
+Validation AUROC: 0.91348
+Epoch 14 - Average loss: 0.1584
+Validation AUROC: 0.91548
+Epoch 15 - Average loss: 0.1256
+Validation AUROC: 0.91929
+Epoch 16 - Average loss: 0.0877
+Validation AUROC: 0.92438
+Epoch 17 - Average loss: 0.0858
+Validation AUROC: 0.92740
+Epoch 18 - Average loss: 0.0781
+Validation AUROC: 0.92288
+Epoch 19 - Average loss: 0.0515
+Validation AUROC: 0.91529
+Epoch 20 - Average loss: 0.0666
+Validation AUROC: 0.90849
+Epoch 21 - Average loss: 0.0565
+Validation AUROC: 0.90961
+Epoch 22 - Average loss: 0.0399
+Validation AUROC: 0.91049
+Epoch 23 - Average loss: 0.0397
+Validation AUROC: 0.91025
+Epoch 24 - Average loss: 0.0321
+Validation AUROC: 0.90830
+Epoch 25 - Average loss: 0.0308
+Validation AUROC: 0.90830
+Epoch 26 - Average loss: 0.0260
+Validation AUROC: 0.91056
+Epoch 27 - Average loss: 0.0183
+Validation AUROC: 0.91277
+Epoch 28 - Average loss: 0.0232
+Validation AUROC: 0.91308
+Epoch 29 - Average loss: 0.0170
+Validation AUROC: 0.91220
+Epoch 30 - Average loss: 0.0237
+Validation AUROC: 0.91132
+Epoch 31 - Average loss: 0.0189
+Validation AUROC: 0.91539
+Epoch 32 - Average loss: 0.0229
+Validation AUROC: 0.91741
+Epoch 33 - Average loss: 0.0209
+Validation AUROC: 0.91620
+Epoch 34 - Average loss: 0.0109
+Validation AUROC: 0.91546
+Epoch 35 - Average loss: 0.0237
+Validation AUROC: 0.91662
+Epoch 36 - Average loss: 0.0118
+Validation AUROC: 0.91857
+Epoch 37 - Average loss: 0.0141
+Validation AUROC: 0.91981
+Epoch 38 - Average loss: 0.0146
+Validation AUROC: 0.91971
+Epoch 39 - Average loss: 0.0139
+Validation AUROC: 0.91898
+Epoch 40 - Average loss: 0.0124
+Validation AUROC: 0.92002
+Epoch 41 - Average loss: 0.0100
+Validation AUROC: 0.92074
+Epoch 42 - Average loss: 0.0107
+Validation AUROC: 0.92133
+Epoch 43 - Average loss: 0.0119
+Validation AUROC: 0.92178
+Epoch 44 - Average loss: 0.0106
+Validation AUROC: 0.92133
+Epoch 45 - Average loss: 0.0089
+Validation AUROC: 0.92064
+Epoch 46 - Average loss: 0.0141
+Validation AUROC: 0.92031
+Epoch 47 - Average loss: 0.0100
+Validation AUROC: 0.92166
+Epoch 48 - Average loss: 0.0157
+Validation AUROC: 0.92143
+Epoch 49 - Average loss: 0.0127
+Validation AUROC: 0.92166
+Epoch 50 - Average loss: 0.0090
+Validation AUROC: 0.92083
+Epoch 51 - Average loss: 0.0231
+Validation AUROC: 0.92088
+Epoch 52 - Average loss: 0.0181
+Validation AUROC: 0.92155
+Epoch 53 - Average loss: 0.0105
+Validation AUROC: 0.92143
+Epoch 54 - Average loss: 0.0230
+Validation AUROC: 0.92100
+Epoch 55 - Average loss: 0.0231
+Validation AUROC: 0.92081
+Epoch 56 - Average loss: 0.0087
+Validation AUROC: 0.92017
+Epoch 57 - Average loss: 0.0112
+Validation AUROC: 0.91971
+Epoch 58 - Average loss: 0.0106
+Validation AUROC: 0.91957
+Epoch 59 - Average loss: 0.0095
+Validation AUROC: 0.91955
+Epoch 60 - Average loss: 0.0095
+Validation AUROC: 0.91945
+Epoch 61 - Average loss: 0.0085
+Validation AUROC: 0.91898
+Epoch 62 - Average loss: 0.0081
+Validation AUROC: 0.91900
+Epoch 63 - Average loss: 0.0099
+Validation AUROC: 0.91924
+Epoch 64 - Average loss: 0.0079
+Validation AUROC: 0.91929
+Epoch 65 - Average loss: 0.0107
+Validation AUROC: 0.91926
+Epoch 66 - Average loss: 0.0098
+Validation AUROC: 0.91929
+Epoch 67 - Average loss: 0.0104
