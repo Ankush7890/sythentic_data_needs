@@ -1,0 +1,16 @@
+{
+ "arm": "hh_go_ednew",
+ "concept": "hu_harm",
+ "frac": 0.9,
+ "draw": 7,
+ "n": 171,
+ "n_all": 190,
+ "mean": 0.8889,
+ "splits": {
+  "eval_ai_dilemmas": 0.9712,
+  "eval_ant_hh": 0.7528,
+  "eval_balanced_refusal": 0.8522,
+  "eval_daily_dilemmas": 0.9795
+ },
+ "minutes": 2.5
+}
