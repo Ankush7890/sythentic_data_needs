@@ -432,3 +432,6 @@
 {"event": "round_end", "ts": 1788765703.2980368, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
 {"event": "round_end", "ts": 1788765709.282002, "round": 39, "iteration": 7, "model": "meta-llama/Llama-3.3-70B-Instruct", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
 {"event": "iteration_memo", "ts": 1788765715.950725, "iteration": 7, "n_attempts": 66, "n_successes": 0}
+{"event": "round_start", "ts": 1788765995.020998, "round": 40, "iteration": 8, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765995.0408943, "round": 40, "iteration": 8, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788765995.0584927, "round": 40, "iteration": 8, "model": "meta-llama/Llama-3.3-70B-Instruct", "provider": "openrouter"}
