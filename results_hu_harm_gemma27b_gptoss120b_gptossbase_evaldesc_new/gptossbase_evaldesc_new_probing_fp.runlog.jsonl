@@ -173,3 +173,38 @@
 {"event": "round_end", "ts": 1788771946.7173195, "round": 24, "iteration": 4, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
 {"event": "round_end", "ts": 1788771973.7534742, "round": 24, "iteration": 4, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
 {"event": "iteration_memo", "ts": 1788771981.7876427, "iteration": 4, "n_attempts": 75, "n_successes": 5}
+{"event": "round_start", "ts": 1788772732.8798895, "round": 25, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788772732.90121, "round": 25, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788772732.9217842, "round": 25, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_end", "ts": 1788772799.3757315, "round": 25, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788772813.4088674, "round": 25, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788772819.640513, "round": 25, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1788772825.4900746, "round": 25, "iteration": 5, "n_attempts": 15, "n_successes": 0}
+{"event": "round_start", "ts": 1788772825.496417, "round": 26, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788772825.5149744, "round": 26, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788772825.535199, "round": 26, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_end", "ts": 1788772888.7289348, "round": 26, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788772895.8909926, "round": 26, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788772903.2479832, "round": 26, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1788772909.0259616, "round": 26, "iteration": 5, "n_attempts": 15, "n_successes": 0}
+{"event": "round_start", "ts": 1788772909.0325353, "round": 27, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788772909.0536625, "round": 27, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788772909.0734274, "round": 27, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_end", "ts": 1788772976.100567, "round": 27, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788772987.0340106, "round": 27, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1788773008.947283, "round": 27, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1788773014.8675532, "round": 27, "iteration": 5, "n_attempts": 15, "n_successes": 1}
+{"event": "round_start", "ts": 1788773014.8742757, "round": 28, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788773014.8951087, "round": 28, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788773014.9153416, "round": 28, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_end", "ts": 1788773103.458628, "round": 28, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788773104.8180456, "round": 28, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788773124.1944635, "round": 28, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1788773129.2753975, "round": 28, "iteration": 5, "n_attempts": 15, "n_successes": 0}
+{"event": "round_start", "ts": 1788773129.2823756, "round": 29, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788773129.302048, "round": 29, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788773129.3218353, "round": 29, "iteration": 5, "model": "openai/gpt-oss-120b", "provider": "openrouter"}
+{"event": "round_end", "ts": 1788773190.5517232, "round": 29, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788773202.8604136, "round": 29, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1788773228.168742, "round": 29, "iteration": 5, "model": "openai/gpt-oss-120b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "iteration_memo", "ts": 1788773236.1597104, "iteration": 5, "n_attempts": 75, "n_successes": 2}
