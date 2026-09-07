@@ -141,3 +141,6 @@
 {"event": "round_end", "ts": 1788783495.8324077, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
 {"event": "round_end", "ts": 1788783601.3894083, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
 {"event": "iteration_memo", "ts": 1788783611.20643, "iteration": 3, "n_attempts": 74, "n_successes": 11}
+{"event": "round_start", "ts": 1788784278.6319256, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788784278.6527417, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1788784278.672597, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
