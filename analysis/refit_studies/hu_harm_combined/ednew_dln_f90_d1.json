@@ -1,0 +1,26 @@
+{
+ "combo": "ednew_dln",
+ "group": "ednew",
+ "codes": "dln",
+ "k": 3,
+ "label": "deepseek+llama70b+nemotron \u00b7 ednew",
+ "frac": 0.9,
+ "draw": 1,
+ "n": 452,
+ "n_pool": 502,
+ "per_arm": {
+  "ednew_d": 239,
+  "ednew_l": 32,
+  "ednew_n": 231
+ },
+ "base_rows": 150,
+ "scope_mixed": false,
+ "mean": 0.9287,
+ "splits": {
+  "eval_ai_dilemmas": 0.9885,
+  "eval_ant_hh": 0.7854,
+  "eval_balanced_refusal": 0.9595,
+  "eval_daily_dilemmas": 0.9813
+ },
+ "minutes": 4.2
+}
