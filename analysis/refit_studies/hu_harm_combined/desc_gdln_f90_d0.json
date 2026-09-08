@@ -1,0 +1,27 @@
+{
+ "combo": "desc_gdln",
+ "group": "desc",
+ "codes": "gdln",
+ "k": 4,
+ "label": "gpt-oss+deepseek+llama70b+nemotron \u00b7 desc",
+ "frac": 0.9,
+ "draw": 0,
+ "n": 666,
+ "n_pool": 740,
+ "per_arm": {
+  "desc_g": 250,
+  "desc_d": 235,
+  "desc_l": 15,
+  "desc_n": 240
+ },
+ "base_rows": 200,
+ "scope_mixed": true,
+ "mean": 0.9207,
+ "splits": {
+  "eval_ai_dilemmas": 0.992,
+  "eval_ant_hh": 0.7727,
+  "eval_balanced_refusal": 0.9244,
+  "eval_daily_dilemmas": 0.9939
+ },
+ "minutes": 6.6
+}
