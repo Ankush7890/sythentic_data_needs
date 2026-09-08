@@ -1,0 +1,25 @@
+{
+ "combo": "memo_dl",
+ "group": "memo",
+ "codes": "dl",
+ "k": 2,
+ "label": "deepseek+llama70b \u00b7 memo",
+ "frac": 0.9,
+ "draw": 2,
+ "n": 173,
+ "n_pool": 192,
+ "per_arm": {
+  "memo_d": 184,
+  "memo_l": 8
+ },
+ "base_rows": 100,
+ "scope_mixed": true,
+ "mean": 0.8947,
+ "splits": {
+  "eval_ai_dilemmas": 0.9849,
+  "eval_ant_hh": 0.7385,
+  "eval_balanced_refusal": 0.8705,
+  "eval_daily_dilemmas": 0.9851
+ },
+ "minutes": 1.9
+}
