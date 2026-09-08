@@ -1,0 +1,26 @@
+{
+ "combo": "att_gdl",
+ "group": "att",
+ "codes": "gdl",
+ "k": 3,
+ "label": "gpt-oss+deepseek+llama70b \u00b7 att",
+ "frac": 0.9,
+ "draw": 1,
+ "n": 399,
+ "n_pool": 443,
+ "per_arm": {
+  "att_g": 182,
+  "att_d": 210,
+  "att_l": 51
+ },
+ "base_rows": 150,
+ "scope_mixed": false,
+ "mean": 0.8557,
+ "splits": {
+  "eval_ai_dilemmas": 0.8616,
+  "eval_ant_hh": 0.7259,
+  "eval_balanced_refusal": 0.8644,
+  "eval_daily_dilemmas": 0.9709
+ },
+ "minutes": 3.2
+}
