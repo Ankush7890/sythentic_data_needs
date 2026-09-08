@@ -8,7 +8,7 @@ while true; do
     sleep 3600
     sets=$(ls data/*_deepseekv4pro_*_600.jsonl 2>/dev/null | grep -vc evaldesc)
     fits=$(cat scripts/instructions_gen90.csv scripts/highstakes_gen90_dev500.csv 2>/dev/null \
-           | grep -c "deepseekv4pro_[a-z_]*_600"); fits=${fits:-0}
+           | grep -cE "deepseekv4pro_(anthropic_harmless_refusal|bbq_substitution|hc_context_drift|hc_contradiction|mm_substitution|oig_context_drift|anthropic_hh_balanced|mt_balanced|mts_balanced|toolace_balanced)_600"); fits=${fits:-0}
     gen=$(pgrep -fc "[g]enerate_(instructions|highstakes)_dataset.py"); gen=${gen:-0}
     warm=$(pgrep -fc "[w]arm_set_activations.py"); warm=${warm:-0}
     fit=$(pgrep -fc "[s]ubsample_curve_concept.py"); fit=${fit:-0}
