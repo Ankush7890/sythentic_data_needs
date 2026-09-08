@@ -6,7 +6,15 @@ this concept, mirroring its three configurations exactly:
 
   memo  = rolling + cross-iteration memos only          (no eval.data_description)
   desc  = + eval.data_description, judge-side only      (the OLDER text)
+  ednew = + eval.data_description, judge-side only      (the REWRITTEN text)
   att   = + attacker.show_eval_data_description         (the REWRITTEN text)
+
+FOUR groups, not the high-stakes three. On that concept the judge-side arms carried the
+older text and the attacker-shown arms the rewritten one, so `desc -> att` moved TEXT and
+CHANNEL together. Human-harm has arms 9-12, which deliver the REWRITTEN text judge-side
+only, so the contrast decomposes: `desc -> ednew` is the text with the channel held fixed,
+and `ednew -> att` is the channel with the text held fixed. Dropping `ednew` would rebuild
+exactly the two-key confound those arms were run to remove.
 
 ONE DELIBERATE DEPARTURE: THE BASE IS MATCHED TO THE SUBSET.
 The high-stakes build_combos() held the base at all 200 rows for every subset size, so that
@@ -18,7 +26,7 @@ is already on disk and was built the same way, so the two are directly comparabl
 Each subset therefore needs its OWN base activation blob (the base cache is keyed on the
 base file's hash) — 11 blobs for k=2,3,4, about 1400 rows of extraction, computed once.
 
-WHAT IS HELD FIXED across the three groups: the member bases (the four 50-row sets are
+WHAT IS HELD FIXED across the four groups: the member bases (the four 50-row sets are
 pairwise disjoint), the probe template (architecture + metadata only — retrain_probe does
 not warm-start weights), the dev set, the eval splits, the judge-confidence gate, the fit
 seed, the message transforms and the filter + contrastive recipe.
@@ -96,15 +104,25 @@ ARMS = {
            "l70base_evaldesc_attacker", "probes/hu_harm_gemma27b_llama70b_l70base_evaldesc_attacker", None),
  "att_n": ("results_hu_harm_gemma27b_nemotron_nmbase_evaldesc_attacker",
            "nmbase_evaldesc_attacker", "probes/hu_harm_gemma27b_nemotron_nmbase_evaldesc_attacker", None),
+ # ednew (REWRITTEN text, JUDGE-SIDE only — arms 9-12) — all four local
+ "ednew_g": ("results_hu_harm_gemma27b_gptoss120b_gptossbase_evaldesc_new",
+             "gptossbase_evaldesc_new", "probes/hu_harm_gemma27b_gptoss120b_gptossbase_evaldesc_new", None),
+ "ednew_d": ("results_hu_harm_gemma27b_deepseekv4pro_dsbase_evaldesc_new",
+             "dsbase_evaldesc_new", "probes/hu_harm_gemma27b_deepseekv4pro_dsbase_evaldesc_new", None),
+ "ednew_l": ("results_hu_harm_gemma27b_llama70b_l70base_evaldesc_new",
+             "l70base_evaldesc_new", "probes/hu_harm_gemma27b_llama70b_l70base_evaldesc_new", None),
+ "ednew_n": ("results_hu_harm_gemma27b_nemotron_nmbase_evaldesc_new",
+             "nmbase_evaldesc_new", "probes/hu_harm_gemma27b_nemotron_nmbase_evaldesc_new", None),
 }
 # The description each GROUP's arms actually ran under; drives the contrastive cache key.
 GROUP_DESC_CONFIG = {
-    "memo": None,   # no description at all
-    "desc": "configs/nemotron_hu_harm_gemma27b_nmbase_evaldesc.md",            # the OLDER text
-    "att":  "configs/llama70b_hu_harm_gemma27b_l70base_evaldesc_attacker.md",  # the REWRITTEN text
+    "memo":  None,   # no description at all
+    "desc":  "configs/nemotron_hu_harm_gemma27b_nmbase_evaldesc.md",            # the OLDER text
+    "ednew": "configs/llama70b_hu_harm_gemma27b_l70base_evaldesc_new.md",       # REWRITTEN, judge-side
+    "att":   "configs/llama70b_hu_harm_gemma27b_l70base_evaldesc_attacker.md",  # REWRITTEN, + attacker
 }
 # Groups whose gpt-oss / deepseek members ran eval_scope_check ON while l/n ran it off.
-SCOPE_MIXED = {"memo": True, "desc": True, "att": False}
+SCOPE_MIXED = {"memo": True, "desc": True, "ednew": False, "att": False}
 TEMPLATE_PROBE = REPO / "probes/hu_harm_gemma27b_llama70b_l70base_itermemo150/probe_iter0.pkl"
 
 
@@ -170,7 +188,7 @@ def subset_base(codes: str) -> Path:
 
 def build_combos(sizes) -> dict:
     combos = {}
-    for g in ("memo", "desc", "att"):
+    for g in ("memo", "desc", "ednew", "att"):
         for k in sizes:
             for codes in itertools.combinations(ATTACKERS, k):
                 cs = "".join(codes)
@@ -249,7 +267,7 @@ def main():
     ap.add_argument("--draws", type=int, default=None,
                     help="draws per subset (default: 8 at k=4, 4 at k=2,3 — the hs cadence)")
     ap.add_argument("--fraction", type=float, default=0.9)
-    ap.add_argument("--groups", nargs="+", default=["memo", "desc", "att"])
+    ap.add_argument("--groups", nargs="+", default=["memo", "desc", "ednew", "att"])
     args = ap.parse_args()
 
     OUT.mkdir(parents=True, exist_ok=True)

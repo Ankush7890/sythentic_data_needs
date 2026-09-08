@@ -1,0 +1,26 @@
+{
+ "combo": "desc_gdn",
+ "group": "desc",
+ "codes": "gdn",
+ "k": 3,
+ "label": "gpt-oss+deepseek+nemotron \u00b7 desc",
+ "frac": 0.9,
+ "draw": 0,
+ "n": 652,
+ "n_pool": 725,
+ "per_arm": {
+  "desc_g": 250,
+  "desc_d": 235,
+  "desc_n": 240
+ },
+ "base_rows": 150,
+ "scope_mixed": true,
+ "mean": 0.9174,
+ "splits": {
+  "eval_ai_dilemmas": 0.9901,
+  "eval_ant_hh": 0.8,
+  "eval_balanced_refusal": 0.8864,
+  "eval_daily_dilemmas": 0.9933
+ },
+ "minutes": 5.8
+}
