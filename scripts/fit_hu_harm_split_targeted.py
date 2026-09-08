@@ -65,6 +65,10 @@ SETS = {
     # targeted sets must beat to have earned their descriptions; the 50-row base is a
     # weaker comparison because it differs in size AND in prompt.
     "generic_600": [REPO / "data/hu_harm_llama70b_600.jsonl"],
+    # refusal_600 re-run with the two verbatim refusal templates removed from the prompt
+    # (see REFUSAL_DESC_V2). Its predecessor's 0.9832 was inflated by template overlap:
+    # 17/200 eval negatives were reproduced exactly by a generated row.
+    "refusal_v2_600": [REPO / "data/hu_harm_llama70b_refusal_v2_600.jsonl"],
 }
 
 
