@@ -238,3 +238,6 @@ fetch_kaggle_eval_activations.py
 # Combination-study scratch (pooled draw JSONLs, per-subset bases, transient probe pickles)
 .hu_harm_combined_work/
 .hu_harm_gen_work/
+
+# Symlink to the shared activation cache (see the generator combination study)
+cache_gen_gemma27b_*
