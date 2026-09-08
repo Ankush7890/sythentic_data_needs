@@ -1,0 +1,25 @@
+{
+ "combo": "att_gd",
+ "group": "att",
+ "codes": "gd",
+ "k": 2,
+ "label": "gpt-oss+deepseek \u00b7 att",
+ "frac": 0.9,
+ "draw": 2,
+ "n": 353,
+ "n_pool": 392,
+ "per_arm": {
+  "att_g": 182,
+  "att_d": 210
+ },
+ "base_rows": 100,
+ "scope_mixed": false,
+ "mean": 0.8381,
+ "splits": {
+  "eval_ai_dilemmas": 0.8711,
+  "eval_ant_hh": 0.7532,
+  "eval_balanced_refusal": 0.8188,
+  "eval_daily_dilemmas": 0.9095
+ },
+ "minutes": 3.0
+}

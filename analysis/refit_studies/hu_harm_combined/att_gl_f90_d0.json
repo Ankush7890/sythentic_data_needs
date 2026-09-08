@@ -1,0 +1,25 @@
+{
+ "combo": "att_gl",
+ "group": "att",
+ "codes": "gl",
+ "k": 2,
+ "label": "gpt-oss+llama70b \u00b7 att",
+ "frac": 0.9,
+ "draw": 0,
+ "n": 210,
+ "n_pool": 233,
+ "per_arm": {
+  "att_g": 182,
+  "att_l": 51
+ },
+ "base_rows": 100,
+ "scope_mixed": false,
+ "mean": 0.8819,
+ "splits": {
+  "eval_ai_dilemmas": 0.9325,
+  "eval_ant_hh": 0.7407,
+  "eval_balanced_refusal": 0.872,
+  "eval_daily_dilemmas": 0.9825
+ },
+ "minutes": 4.7
+}

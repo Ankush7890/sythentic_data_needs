@@ -1,0 +1,25 @@
+{
+ "combo": "att_dn",
+ "group": "att",
+ "codes": "dn",
+ "k": 2,
+ "label": "deepseek+nemotron \u00b7 att",
+ "frac": 0.9,
+ "draw": 0,
+ "n": 415,
+ "n_pool": 461,
+ "per_arm": {
+  "att_d": 210,
+  "att_n": 251
+ },
+ "base_rows": 100,
+ "scope_mixed": false,
+ "mean": 0.8831,
+ "splits": {
+  "eval_ai_dilemmas": 0.9812,
+  "eval_ant_hh": 0.7434,
+  "eval_balanced_refusal": 0.8692,
+  "eval_daily_dilemmas": 0.9388
+ },
+ "minutes": 13.0
+}
