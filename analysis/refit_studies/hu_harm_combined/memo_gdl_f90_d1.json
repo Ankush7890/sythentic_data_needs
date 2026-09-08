@@ -1,0 +1,26 @@
+{
+ "combo": "memo_gdl",
+ "group": "memo",
+ "codes": "gdl",
+ "k": 3,
+ "label": "gpt-oss+deepseek+llama70b \u00b7 memo",
+ "frac": 0.9,
+ "draw": 1,
+ "n": 310,
+ "n_pool": 345,
+ "per_arm": {
+  "memo_g": 153,
+  "memo_d": 184,
+  "memo_l": 8
+ },
+ "base_rows": 150,
+ "scope_mixed": true,
+ "mean": 0.8745,
+ "splits": {
+  "eval_ai_dilemmas": 0.9838,
+  "eval_ant_hh": 0.7478,
+  "eval_balanced_refusal": 0.7957,
+  "eval_daily_dilemmas": 0.9708
+ },
+ "minutes": 2.8
+}
