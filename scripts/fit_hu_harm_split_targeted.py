@@ -46,6 +46,7 @@ from agentic_redteam.persistence import (                  # noqa: E402
 POS, NEG = "harmful_to_human", "not_harmful_to_human"
 
 OUT = REPO / "analysis/refit_studies/hu_harm_split_targeted"
+OUT_SIZE = REPO / "analysis/refit_studies/hu_harm_split_sizecurve"
 WORK = REPO / ".hu_harm_split_work"
 CACHE = REPO / "results_hu_harm_gemma27b_batch_ablation/base_activations"
 ECACHE = REPO / "results_hu_harm_gemma27b_batch_ablation/eval_activations"
@@ -137,9 +138,14 @@ def rows_for(name: str) -> list[str]:
     return [l if l.endswith("\n") else l + "\n" for l in src.open() if l.strip()]
 
 
-def run(name: str, draw: int | None, frac: float, dev: Path) -> dict:
+def run(name: str, draw: int | None, frac: float, dev: Path,
+        ensemble_size: int | None = None, out_dir: Path | None = None) -> dict:
     tag = f"{name}_full" if draw is None else f"{name}_f{int(frac * 100)}_d{draw}"
-    res_path = OUT / f"{tag}.json"
+    # Single-probe runs land in their own directory: they are NOT comparable with the
+    # 10-member ensemble grid (a one-member fit is a different estimator, not a cheaper
+    # one), and sharing a directory would let the two collide on identical tags.
+    out_dir = out_dir or OUT
+    res_path = out_dir / f"{tag}.json"
     if res_path.exists():
         return json.load(res_path.open())
     rows = rows_for(name)
@@ -160,7 +166,7 @@ def run(name: str, draw: int | None, frac: float, dev: Path) -> dict:
     retrain_probe(jsonl_path=[jl], base_probe_path=TEMPLATE_PROBE,
                   base_training_data_path=None, new_probe_path=probe_out,
                   preprocessing=None, min_judge_confidence=0,
-                  dev_data_path=dev, seed=42, ensemble_size=None,
+                  dev_data_path=dev, seed=42, ensemble_size=ensemble_size,
                   base_activation_cache_dir=CACHE,
                   combine_consecutive_messages=True, convert_tool_to_assistant=True,
                   verbose=True)
@@ -169,11 +175,13 @@ def run(name: str, draw: int | None, frac: float, dev: Path) -> dict:
                         combine_consecutive_messages=True, convert_tool_to_assistant=True)
     p = df.set_index("dataset")["auroc"]
     res = dict(condition=name, draw=draw, frac=(1.0 if draw is None else frac),
+               ensemble_size=(ensemble_size or "inherited"),
                n=len(keep), n_all=len(rows),
                ant_hh=round(float(p["eval_ant_hh"]), 4),
                refusal=round(float(p["eval_balanced_refusal"]), 4),
                mean=round(float(p[SPLITS].mean()), 4),
                minutes=round((time.time() - t0) / 60, 1))
+    out_dir.mkdir(parents=True, exist_ok=True)
     json.dump(res, res_path.open("w"), indent=1)
     print("RESULT " + json.dumps(res), flush=True)
     probe_out.unlink(missing_ok=True)
@@ -187,18 +195,28 @@ def main():
     ap.add_argument("--fraction", type=float, default=0.9)
     ap.add_argument("--conditions", nargs="+", default=sorted(SETS))
     ap.add_argument("--full-set", action="store_true", help="also fit each whole set once")
+    ap.add_argument("--fractions", type=float, nargs="+", default=None,
+                    help="sweep several subsample fractions (e.g. 0.9 0.8 0.7 0.6 0.5); "
+                         "overrides --fraction")
+    ap.add_argument("--ensemble-size", type=int, default=None,
+                    help="probes per fit. Default: inherit from the template probe (10). "
+                         "Pass 1 for SINGLE probes — results go to a separate directory "
+                         "because a one-member fit is a different estimator.")
     args = ap.parse_args()
 
-    OUT.mkdir(parents=True, exist_ok=True)
+    out_dir = OUT_SIZE if args.ensemble_size == 1 else OUT
+    out_dir.mkdir(parents=True, exist_ok=True)
     dev = dev_dir()
+    fracs = args.fractions or [args.fraction]
     for name in args.conditions:
         for p in SETS[name]:
             if not p.exists():
                 sys.exit(f"missing generated set: {p}")
         if args.full_set:
-            run(name, None, 1.0, dev)
-        for d in range(args.draws):
-            run(name, d, args.fraction, dev)
+            run(name, None, 1.0, dev, args.ensemble_size, out_dir)
+        for frac in fracs:
+            for d in range(args.draws):
+                run(name, d, frac, dev, args.ensemble_size, out_dir)
 
 
 if __name__ == "__main__":
