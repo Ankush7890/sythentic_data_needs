@@ -13,9 +13,10 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 INTERVAL="${INTERVAL:-3600}"
 BRANCH=generator_experiment_1
 FILES="scripts/generate_instructions_dataset.py scripts/generate_highstakes_dataset.py
+scripts/inspect_generated_set.py scripts/warm_set_activations.py
 scripts/instructions_gen90.csv scripts/highstakes_gen90_dev500.csv
 dev_samples/highstakes_500
-run_evaldesc_gen.sh run_evaldesc_fits.sh hourly_push_evaldesc.sh"
+run_evaldesc_gen.sh run_evaldesc_fits.sh hourly_push_evaldesc.sh watch_evaldesc.sh"
 for g in llama70b gptoss deepseekv4pro nemotron; do
     FILES="$FILES data/instructions_${g}_evaldesc_600.jsonl data/highstakes_${g}_evaldesc_600.jsonl"
 done
