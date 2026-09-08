@@ -71,6 +71,16 @@ SETS = {
     "refusal_v2_600": [REPO / "data/hu_harm_llama70b_refusal_v2_600.jsonl"],
 }
 
+# The same four conditions for the other three generators. Only the CLEAN (v2) refusal
+# description is used: v1's number was inflated by template overlap and is discarded, so
+# repeating it under three more generators would buy three more contaminated cells.
+for _g in ("gptoss", "nemotron", "deepseekv4pro"):
+    SETS[f"{_g}_ant_hh_600"] = [REPO / f"data/hu_harm_{_g}_antHH_600.jsonl"]
+    SETS[f"{_g}_refusal_v2_600"] = [REPO / f"data/hu_harm_{_g}_refusal_v2_600.jsonl"]
+    SETS[f"{_g}_pooled_1200"] = [REPO / f"data/hu_harm_{_g}_antHH_600.jsonl",
+                                 REPO / f"data/hu_harm_{_g}_refusal_v2_600.jsonl"]
+    SETS[f"{_g}_generic_600"] = [REPO / f"data/hu_harm_{_g}_600.jsonl"]
+
 
 def dev_dir() -> Path:
     """The two-split dev set, in its own directory so it gets its own cache key."""

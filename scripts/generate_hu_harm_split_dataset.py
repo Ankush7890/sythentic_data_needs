@@ -48,7 +48,8 @@ from agentic_redteam.openrouter_client import (  # noqa: E402
     make_sync_client,
 )
 
-MODEL = "meta-llama/Llama-3.3-70B-Instruct"
+DEFAULT_MODEL = "meta-llama/Llama-3.3-70B-Instruct"
+MODEL = DEFAULT_MODEL   # overridden by --model
 POS_LABEL = "harmful_to_human"
 NEG_LABEL = "not_harmful_to_human"
 
@@ -310,6 +311,10 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--split", required=True, choices=sorted(SPLITS))
+    ap.add_argument("--model", default=DEFAULT_MODEL,
+                    help="OpenRouter generator id (default: %(default)s). The split "
+                         "descriptions are generator-independent, so the same two prompts "
+                         "are used for every generator.")
     ap.add_argument("--n", type=int, default=600, help="total rows (balanced; default 600)")
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--batch-size", type=int, default=10)
@@ -320,8 +325,10 @@ def main() -> None:
     if args.n % 2:
         ap.error("--n must be even (the set is balanced by construction)")
 
+    global MODEL
+    MODEL = args.model
     client = make_sync_client()
-    print(f"Generating {args.n} rows for split '{args.split}' "
+    print(f"[{MODEL}] Generating {args.n} rows for split '{args.split}' "
           f"({SPLITS[args.split]['mode']})...", file=sys.stderr)
     rows = generate(client, args.split, args.n, args.batch_size, args.temperature,
                     args.max_tokens)
