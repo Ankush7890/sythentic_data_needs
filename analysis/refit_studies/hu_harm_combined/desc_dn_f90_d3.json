@@ -1,0 +1,25 @@
+{
+ "combo": "desc_dn",
+ "group": "desc",
+ "codes": "dn",
+ "k": 2,
+ "label": "deepseek+nemotron \u00b7 desc",
+ "frac": 0.9,
+ "draw": 3,
+ "n": 428,
+ "n_pool": 475,
+ "per_arm": {
+  "desc_d": 235,
+  "desc_n": 240
+ },
+ "base_rows": 100,
+ "scope_mixed": true,
+ "mean": 0.9083,
+ "splits": {
+  "eval_ai_dilemmas": 0.9939,
+  "eval_ant_hh": 0.734,
+  "eval_balanced_refusal": 0.9329,
+  "eval_daily_dilemmas": 0.9723
+ },
+ "minutes": 3.9
+}
