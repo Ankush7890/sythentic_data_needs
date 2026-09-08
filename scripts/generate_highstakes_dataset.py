@@ -401,7 +401,7 @@ def _one_call(
 def generate_for_label(
     client, model: str, label: str, n: int, batch_size: int, temperature: float,
     max_tokens: int, concurrency: int = 1, seed: int = 0, call_budget_factor: int = 2,
-    eval_description: str = "", token_budget=None,
+    eval_description: str = "", token_budget=None, only_kind: str = "",
 ) -> list[dict]:
     """Generate ``n`` unique rows for one label, in waves of ``concurrency`` calls.
 
@@ -417,6 +417,11 @@ def generate_for_label(
     # One kind per call, round-robin over the description's own items, so the label's rows
     # are spread across the eval kinds instead of collapsing onto the easiest one.
     kinds = eval_kinds(eval_description) if eval_description else []
+    if only_kind:
+        # Every call goes to ONE kind instead of round-robin: a per-split arm, whose set
+        # differs from the mixed steered set by exactly this pin. The full description is
+        # still shown, so the only change is which side of it this batch is asked for.
+        kinds = [only_kind]
     n_long = 0
     # The sequential version allowed 2x the minimum number of calls; that is the
     # default here too, counted in calls rather than sequential attempts. Raise it when
@@ -551,11 +556,20 @@ def main() -> None:
     )
     parser.add_argument("--probe-model", default=PROBE_MODEL,
                         help=f"tokenizer for --max-sample-tokens (default {PROBE_MODEL})")
+    parser.add_argument(
+        "--kind",
+        type=int,
+        default=0,
+        metavar="N",
+        help="With --eval-description, pin EVERY call to kind N (1-4, the four kinds of EVAL_DATA_DESCRIPTION, in the same order as sorted(eval_sets/highstakes)) instead of "
+             "rotating over all of them, producing a single-split arm. 0 (default) rotates.",
+    )
     parser.add_argument("--temperature", type=float, default=1.0)
     parser.add_argument("--max-tokens", type=int, default=4096)
     args = parser.parse_args()
 
     eval_description = ""
+    only_kind = ""
     if args.eval_description is not None:
         eval_description = (
             Path(args.eval_description).read_text(encoding="utf-8")
@@ -564,7 +578,15 @@ def main() -> None:
         kinds = eval_kinds(eval_description)
         if not kinds:
             raise SystemExit("--eval-description text has no numbered kinds to rotate over")
-        print(f"Steering on {len(kinds)} eval kinds, one per call.", file=sys.stderr)
+        if args.kind:
+            if not 1 <= args.kind <= len(kinds):
+                raise SystemExit(f"--kind must be 1..{len(kinds)}, got {args.kind}")
+            only_kind = kinds[args.kind - 1]
+            print(f"Pinned to kind {args.kind}: {only_kind[:90]}", file=sys.stderr)
+        else:
+            print(f"Steering on {len(kinds)} eval kinds, one per call.", file=sys.stderr)
+    elif args.kind:
+        raise SystemExit("--kind needs --eval-description")
 
     token_budget = None
     if args.max_sample_tokens > 0:
@@ -599,6 +621,7 @@ def main() -> None:
                 call_budget_factor=args.call_budget_factor,
                 eval_description=eval_description,
                 token_budget=token_budget,
+                only_kind=only_kind,
             )
         )
 
