@@ -7,7 +7,7 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 GENS="llama70b gptoss deepseekv4pro nemotron"
 
-( tail -F -n0 logs/evaldesc_gen_driver.log logs/evaldesc_fits_driver.log 2>/dev/null \
+( tail -F -n0 logs/evaldesc_gen_driver*.log logs/evaldesc_fits_driver.log 2>/dev/null \
   | grep -E --line-buffered "^>>>|Error|Traceback|FAILED|Killed|MISSING" \
   | grep -v --line-buffered "waiting on" ) &   # the wait poll fires every 2 min; the hourly line covers it
 

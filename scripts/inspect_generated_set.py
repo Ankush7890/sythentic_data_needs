@@ -119,6 +119,23 @@ def main() -> None:
     except Exception as exc:  # noqa: BLE001 — a missing tokenizer must not fail the check
         print(f"   tokens: not counted ({type(exc).__name__})")
 
+    # Rows the probe's own tokenizer cannot read at all. `count_tokens` reproduces
+    # `tokenize_inputs` exactly, so a None here is a row whose chat template application
+    # RAISES — it would take its extraction batch down, not merely score oddly. Fatal.
+    try:
+        from agentic_redteam.token_budget import count_tokens as _ct
+
+        untok = sum(
+            1 for r in rs
+            if _ct(PROBE_MODEL, json.loads(r["inputs"]), combine_consecutive_messages=True,
+                   convert_tool_to_assistant=True) is None
+        )
+        print(f"   untokenizable rows: {untok}")
+        if untok:
+            fatal.append(f"{untok} rows the probe's chat template cannot tokenize")
+    except Exception as exc:  # noqa: BLE001
+        print(f"   untokenizable rows: not checked ({type(exc).__name__})")
+
     refusals = collections.Counter(
         r["labels"] for r in rs
         if REFUSAL.match(json.loads(r["inputs"])[-1]["content"].strip())

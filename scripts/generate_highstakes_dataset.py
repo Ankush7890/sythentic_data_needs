@@ -328,6 +328,19 @@ def coerce_messages(item: dict) -> list[dict] | None:
         out.append({"role": role, "content": content})
     if out[-1]["role"] != "assistant" or not any(m["role"] == "user" for m in out):
         return None
+    # The probe's chat template (gemma-3) accepts an optional leading system turn and then
+    # requires user/assistant alternation from the first user turn, so a conversation that
+    # OPENS on the assistant — which is how a model writes a doctor greeting a patient —
+    # cannot be tokenized at all: `tokenize_inputs` raises "Conversation roles must
+    # alternate", and the row would take its whole extraction batch down with it. Measured
+    # at 45/600 on the first steered gpt-oss high-stakes set. Consecutive same-role turns
+    # are fine (combine_consecutive_messages merges them before tokenizing); a system turn
+    # anywhere but first is not.
+    if any(m["role"] == "system" for m in out[1:]):
+        return None
+    body = out[1:] if out[0]["role"] == "system" else out
+    if not body or body[0]["role"] != "user":
+        return None
     return out
 
 
