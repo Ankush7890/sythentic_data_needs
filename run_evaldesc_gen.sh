@@ -26,6 +26,11 @@ gen() {  # concept script_tag model tag concurrency extra_env
         --call-budget-factor 6 --max-tokens 8192 --eval-description \
         --out "$out" > "$log" 2>&1
     echo ">>> $(date -Is)  $out: $(wc -l < "$out" 2>/dev/null || echo 0) rows"
+    # Balance, contamination, turn shape, token width and the refusal-mislabel heuristic —
+    # the last of which is why the first llama70b set was thrown away and regenerated.
+    $PY scripts/inspect_generated_set.py --concept "$concept" "$out" \
+        --compare "data/${concept}_${tag}_50.jsonl" "data/${concept}_${tag}_600.jsonl" \
+        2>&1 | sed 's/^/>>>   /'
 }
 
 for concept in instructions highstakes; do

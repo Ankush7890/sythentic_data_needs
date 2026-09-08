@@ -21,21 +21,22 @@ PY=.venv_claude/bin/python
 GENS="llama70b gptoss deepseekv4pro nemotron"
 mkdir -p logs
 
-wait_for_sets() {  # concept — block until that concept's four steered sets are written
-    local concept=$1 g f missing
-    while :; do
-        missing=""
-        for g in $GENS; do
-            f="data/${concept}_${g}_evaldesc_600.jsonl"
-            # The generator writes the file once, at the end, so a non-empty file is a
-            # finished one. Guard on the row count anyway: a short set means the model
-            # could not fill its half and the arm is not comparable.
-            [ -s "$f" ] || missing="$missing $g"
-        done
-        [ -n "$missing" ] || break
-        echo ">>> $(date -Is)  waiting on $concept generation:$missing"
-        sleep 120
+wait_and_warm() {  # concept — extract each steered set as it lands, in generation order
+    # The extraction is the long pole (~2-3 s/sample x 600), so it runs against generation
+    # rather than after it: by the time the fourth set is written the first three are
+    # already cached and every fit below is a pure cache hit. ONE process touches the GPU
+    # at a time — warming and fitting are both in this script, and the generator does not
+    # use it at all — so nothing can collide over the card.
+    local concept=$1 g f
+    for g in $GENS; do
+        f="data/${concept}_${g}_evaldesc_600.jsonl"
+        while [ ! -s "$f" ]; do sleep 120; done
+        echo ">>> $(date -Is)  extracting $f"
+        $PY scripts/warm_set_activations.py --concept "$concept" "$f" \
+            >> "logs/warm_evaldesc_${concept}.log" 2>&1 \
+            || echo ">>> $(date -Is)  EXTRACTION FAILED for $f"
     done
+    echo ">>> $(date -Is)  $concept: all four steered sets extracted"
 }
 
 run() {  # concept set_file gen sizes draws
@@ -55,7 +56,7 @@ run() {  # concept set_file gen sizes draws
 }
 
 for concept in instructions highstakes; do
-    wait_for_sets "$concept"
+    wait_and_warm "$concept"
     # PASS A — full set, steered. First touch of these rows, so this is also what pays the
     # gemma-3-27b extraction; the 540-draw fits after it are pure cache hits.
     for g in $GENS; do run "$concept" "data/${concept}_${g}_evaldesc_600.jsonl" "$g" 600 1; done

@@ -218,8 +218,17 @@ def build_prompt(label: str, batch_size: int, avoid: list[str],
         )
     focus_block = ""
     if focus_kind:
+        # The kind descriptions name BOTH classes at once ("the reply either answers it or
+        # declines it"), because that is how the eval splits are built — as pairs. Without
+        # the second sentence here the generator writes the failure branch under both
+        # labels: measured at 42/300 of the positive class on the first llama70b set, every
+        # one of them a flat refusal labelled as FOLLOWING the instruction.
         focus_block = (
             f"\n\nFor THIS batch write every example in ONE kind only:\n{focus_kind}\n"
+            f"That description covers BOTH classes at once — it contrasts a high-stakes "
+            f"and a low-stakes example of this kind. Write only the '{label}' side of it: "
+            f"the setting comes from the kind, the label comes from what is actually at "
+            f"stake in it. "
             f"Stay inside that kind; vary the domain, subject matter, supplied content and "
             f"phrasing widely WITHIN it rather than varying the kind."
         )
