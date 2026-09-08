@@ -1,0 +1,25 @@
+{
+ "combo": "memo_gd",
+ "group": "memo",
+ "codes": "gd",
+ "k": 2,
+ "label": "gpt-oss+deepseek \u00b7 memo",
+ "frac": 0.9,
+ "draw": 0,
+ "n": 303,
+ "n_pool": 337,
+ "per_arm": {
+  "memo_g": 153,
+  "memo_d": 184
+ },
+ "base_rows": 100,
+ "scope_mixed": true,
+ "mean": 0.8865,
+ "splits": {
+  "eval_ai_dilemmas": 0.9898,
+  "eval_ant_hh": 0.743,
+  "eval_balanced_refusal": 0.8687,
+  "eval_daily_dilemmas": 0.9443
+ },
+ "minutes": 6.6
+}

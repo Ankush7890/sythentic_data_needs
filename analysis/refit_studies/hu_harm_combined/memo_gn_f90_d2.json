@@ -1,0 +1,25 @@
+{
+ "combo": "memo_gn",
+ "group": "memo",
+ "codes": "gn",
+ "k": 2,
+ "label": "gpt-oss+nemotron \u00b7 memo",
+ "frac": 0.9,
+ "draw": 2,
+ "n": 389,
+ "n_pool": 432,
+ "per_arm": {
+  "memo_g": 153,
+  "memo_n": 279
+ },
+ "base_rows": 100,
+ "scope_mixed": true,
+ "mean": 0.9105,
+ "splits": {
+  "eval_ai_dilemmas": 0.997,
+  "eval_ant_hh": 0.7682,
+  "eval_balanced_refusal": 0.8897,
+  "eval_daily_dilemmas": 0.987
+ },
+ "minutes": 4.5
+}
