@@ -1,0 +1,25 @@
+{
+ "combo": "ednew_dl",
+ "group": "ednew",
+ "codes": "dl",
+ "k": 2,
+ "label": "deepseek+llama70b \u00b7 ednew",
+ "frac": 0.9,
+ "draw": 2,
+ "n": 244,
+ "n_pool": 271,
+ "per_arm": {
+  "ednew_d": 239,
+  "ednew_l": 32
+ },
+ "base_rows": 100,
+ "scope_mixed": false,
+ "mean": 0.9121,
+ "splits": {
+  "eval_ai_dilemmas": 0.9622,
+  "eval_ant_hh": 0.8075,
+  "eval_balanced_refusal": 0.8935,
+  "eval_daily_dilemmas": 0.985
+ },
+ "minutes": 3.3
+}
