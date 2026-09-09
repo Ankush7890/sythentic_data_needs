@@ -98,9 +98,18 @@ def main() -> None:
         if p.exists():
             overlaps[p.name] = len(mine & hashes(p))
     print("   overlap: " + ", ".join(f"{k}={v}" for k, v in overlaps.items()))
+    # Only EVAL/DEV overlap is fatal — a training row that also sits in the set the probe
+    # is scored on (or early-stops against) is invisible in every downstream number. The
+    # `--compare` sets are sibling TRAINING sets, and two sets written by the same model
+    # from the same prompt for the same kind legitimately collide on a few short generic
+    # rows (8/600 between llama70b's refusal arm and its mixed set). That costs nothing:
+    # each set trains its own probe, and the shared rows can only make the two probes more
+    # alike, i.e. understate the difference being measured. Reported, not fatal.
     for k, v in overlaps.items():
-        if v:
+        if v and ("eval_sets/" in k or "dev_samples/" in k):
             fatal.append(f"{v} rows shared with {k}")
+        elif v:
+            print(f"   note: {v} rows also appear in {k} (sibling training set, not fatal)")
 
     turns = collections.Counter(len(json.loads(r["inputs"])) for r in rs)
     print(f"   turns: {dict(sorted(turns.items()))}")
