@@ -244,3 +244,6 @@ kaggle/
 
 # Console captures from long runs; some are tens of MB
 *.out
+
+# Scratch dir for the split-targeted study (probes, subsample jsonls, two-split dev copy)
+.hu_harm_split_work/
