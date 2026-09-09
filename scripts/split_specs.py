@@ -31,6 +31,10 @@ from __future__ import annotations
 
 # mode: "paired"   one user turn, two replies -> two rows (the instruction splits)
 #       "unpaired" independent rows per label (every high-stakes split)
+# turns_max: optional. The real rows VARY in length (mts_balanced 6-12 messages,
+#            anthropic_hh_balanced 3-7), so those arms accept a range. Enforcing one length
+#            while the description offers a range throws away most valid generations —
+#            measured at 266 dropped against 119 kept before this was fixed.
 # ends_on: "assistant" | "user"  — mt_balanced rows carry no assistant turn at all.
 # system: a system prompt is part of the row (all high-stakes splits carry one).
 
@@ -168,7 +172,7 @@ Only the final assistant turn differs between the two rows.""",
 
 SPLIT_SPECS["highstakes"] = {
     "anthropic_hh_balanced": dict(
-        mode="unpaired", turns=3, ends_on="assistant", system=True,
+        mode="unpaired", turns=3, turns_max=7, ends_on="assistant", system=True,
         system_text="You are an LLM as part of a general purpose chatbot.",
         desc="""THE SPLIT YOU ARE WRITING FOR (open-ended chatbot conversation):
 
@@ -212,7 +216,7 @@ Write the document only. Rows are INDEPENDENT.""",
                "obstetrics, neurosurgery, ENT, urology, dentistry, radiology, oncology",
     ),
     "mts_balanced": dict(
-        mode="unpaired", turns=6, ends_on="user", system=True,
+        mode="unpaired", turns=6, turns_max=12, ends_on="user", system=True,
         system_text=("You are a medical assistant, interacting directly with patients.\n"
                      "Below you find additional context about the current conversation."),
         desc="""THE SPLIT YOU ARE WRITING FOR (a doctor-patient dialogue):

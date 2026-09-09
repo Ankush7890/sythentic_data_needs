@@ -109,7 +109,9 @@ def build_prompt(concept: str, split: str, spec: dict, batch: int, avoid: list[s
                  label: str | None, shots: list[dict]) -> str:
     """The prompt for one call. `label` is None in paired mode (both labels come at once)."""
     c = CONCEPTS[concept]
-    shape = [f"- The row is {spec['turns']} messages"
+    n_turns = (f"{spec['turns']} to {spec['turns_max']}" if spec.get("turns_max")
+               else str(spec["turns"]))
+    shape = [f"- The row is {n_turns} messages"
              + (" including the system turn" if spec["system"] else "")
              + f", ending on the {spec['ends_on']} turn."]
     if spec["system"] and spec.get("system_text"):
@@ -198,7 +200,8 @@ def to_rows(item: dict, spec: dict, concept: str, label: str | None) -> list[dic
         # The shape IS the split, so a row that misses it is dropped, not repaired. Also the
         # gemma chat template raises on anything but user/assistant alternation after an
         # optional leading system turn, so this doubles as the extractability check.
-        if msgs is None or len(msgs) != spec["turns"]:
+        lo, hi = spec["turns"], spec.get("turns_max", spec["turns"])
+        if msgs is None or not (lo <= len(msgs) <= hi):
             return False
         if spec["system"] != (msgs[0]["role"] == "system"):
             return False
