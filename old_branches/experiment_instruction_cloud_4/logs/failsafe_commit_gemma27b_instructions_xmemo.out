@@ -1,0 +1,90 @@
+failsafe_commit_gemma27b_instructions_xmemo.sh: /root/.bash_env: Permission denied
+[failsafe 2026-08-20 16:13:16] stages:        2 (polled in order; hand-off when a stage's comparison CSV lands)
+[failsafe 2026-08-20 16:13:16]   [1] config=configs/gptoss120b_instructions_gemma27b_xmemo.md
+[failsafe 2026-08-20 16:13:16]       probe-out-dir=probes/instructions_gemma27b_xmemo_gptoss
+[failsafe 2026-08-20 16:13:16]       results=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_xmemo_gptoss
+[failsafe 2026-08-20 16:13:16]       log=logs/run_instructions_gemma27b_xmemo_gptoss.log
+[failsafe 2026-08-20 16:13:16]       finish-signal=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_xmemo_gptoss/gptoss120b_comparison.csv
+[failsafe 2026-08-20 16:13:16]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/base_activations eval=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations
+[failsafe 2026-08-20 16:13:16]   [2] config=configs/gptoss120b_instructions_gemma27b_xmemo_view8.md
+[failsafe 2026-08-20 16:13:16]       probe-out-dir=probes/instructions_gemma27b_xmemo_view8_gptoss
+[failsafe 2026-08-20 16:13:16]       results=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_xmemo_view8_gptoss
+[failsafe 2026-08-20 16:13:16]       log=logs/run_instructions_gemma27b_xmemo_view8_gptoss.log
+[failsafe 2026-08-20 16:13:16]       finish-signal=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_xmemo_view8_gptoss/gptoss120b_comparison.csv
+[failsafe 2026-08-20 16:13:16]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/base_activations eval=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations
+[failsafe 2026-08-20 16:13:16] branch:        experiment_instruction_cloud_4 -> origin   (current branch; not switched)
+[failsafe 2026-08-20 16:13:16] on completion: push final checkpoint, wait 120s, then `bash /workspace/cc_based_auto_improvement/close_this.sh`
+[failsafe 2026-08-20 16:13:16] WARN: /workspace/cc_based_auto_improvement/close_this.sh does not exist YET — the box will NOT be closed unless it
+[failsafe 2026-08-20 16:13:16]       appears before the last stage finishes. Pass --no-close to silence this.
+[failsafe 2026-08-20 16:13:16] committed: failsafe: startup snapshot @ 2026-08-20T16:13:16
+[failsafe 2026-08-20 16:13:18] pushed to origin/experiment_instruction_cloud_4 (494535d)
+[failsafe 2026-08-20 16:13:18] polling stage 1/2 (probes/instructions_gemma27b_xmemo_gptoss) every 30s (periodic snapshot every 2400s)
+[failsafe 2026-08-20 16:20:48] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T16:20:48
+[failsafe 2026-08-20 16:20:50] pushed to origin/experiment_instruction_cloud_4 (b093fde)
+[failsafe 2026-08-20 16:29:20] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T16:29:20
+[failsafe 2026-08-20 16:29:22] pushed to origin/experiment_instruction_cloud_4 (e130c85)
+[failsafe 2026-08-20 16:33:52] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T16:33:52
+[failsafe 2026-08-20 16:33:54] pushed to origin/experiment_instruction_cloud_4 (7ce73a1)
+[failsafe 2026-08-20 16:42:54] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T16:42:54
+[failsafe 2026-08-20 16:42:56] pushed to origin/experiment_instruction_cloud_4 (b5ad03a)
+[failsafe 2026-08-20 16:51:26] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T16:51:26
+[failsafe 2026-08-20 16:51:28] pushed to origin/experiment_instruction_cloud_4 (114f3b2)
+[failsafe 2026-08-20 16:56:28] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T16:56:28
+[failsafe 2026-08-20 16:56:30] pushed to origin/experiment_instruction_cloud_4 (b65a11c)
+[failsafe 2026-08-20 17:06:30] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T17:06:30
+[failsafe 2026-08-20 17:06:32] pushed to origin/experiment_instruction_cloud_4 (c7f70f3)
+[failsafe 2026-08-20 17:15:03] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T17:15:03
+[failsafe 2026-08-20 17:15:04] pushed to origin/experiment_instruction_cloud_4 (f46c7e1)
+[failsafe 2026-08-20 17:17:34] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T17:17:34
+[failsafe 2026-08-20 17:17:36] pushed to origin/experiment_instruction_cloud_4 (064e3ef)
+[failsafe 2026-08-20 17:27:07] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T17:27:07
+[failsafe 2026-08-20 17:27:08] pushed to origin/experiment_instruction_cloud_4 (7ab5e6d)
+[failsafe 2026-08-20 17:35:39] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T17:35:39
+[failsafe 2026-08-20 17:35:41] pushed to origin/experiment_instruction_cloud_4 (4e47483)
+[failsafe 2026-08-20 17:40:41] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T17:40:41
+[failsafe 2026-08-20 17:40:43] pushed to origin/experiment_instruction_cloud_4 (e7fcd48)
+[failsafe 2026-08-20 17:50:13] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T17:50:13
+[failsafe 2026-08-20 17:50:16] pushed to origin/experiment_instruction_cloud_4 (cd6618a)
+[failsafe 2026-08-20 17:57:46] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T17:57:46
+[failsafe 2026-08-20 17:57:48] pushed to origin/experiment_instruction_cloud_4 (2ff2fa5)
+[failsafe 2026-08-20 18:01:48] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-20T18:01:48
+[failsafe 2026-08-20 18:01:50] pushed to origin/experiment_instruction_cloud_4 (cd4f6f4)
+[failsafe 2026-08-20 18:01:51] committed: failsafe: stage 1/2 finished (configs/gptoss120b_instructions_gemma27b_xmemo.md) @ 2026-08-20T18:01:51
+[failsafe 2026-08-20 18:01:52] pushed to origin/experiment_instruction_cloud_4 (e6b1818)
+[failsafe 2026-08-20 18:01:52] handing over to stage 2/2: configs/gptoss120b_instructions_gemma27b_xmemo_view8.md (probes/instructions_gemma27b_xmemo_view8_gptoss)
+[failsafe 2026-08-20 18:02:22] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T18:02:22
+[failsafe 2026-08-20 18:02:24] pushed to origin/experiment_instruction_cloud_4 (b0b388e)
+[failsafe 2026-08-20 18:08:54] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T18:08:54
+[failsafe 2026-08-20 18:08:56] pushed to origin/experiment_instruction_cloud_4 (09d41fc)
+[failsafe 2026-08-20 18:16:56] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T18:16:56
+[failsafe 2026-08-20 18:16:58] pushed to origin/experiment_instruction_cloud_4 (5ce7905)
+[failsafe 2026-08-20 18:21:58] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T18:21:58
+[failsafe 2026-08-20 18:22:00] pushed to origin/experiment_instruction_cloud_4 (b5727c0)
+[failsafe 2026-08-20 18:31:30] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T18:31:30
+[failsafe 2026-08-20 18:31:32] pushed to origin/experiment_instruction_cloud_4 (e984d6d)
+[failsafe 2026-08-20 18:38:32] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T18:38:32
+[failsafe 2026-08-20 18:38:34] pushed to origin/experiment_instruction_cloud_4 (d5e32e2)
+[failsafe 2026-08-20 18:45:35] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T18:45:35
+[failsafe 2026-08-20 18:45:36] pushed to origin/experiment_instruction_cloud_4 (b92ef0b)
+[failsafe 2026-08-20 19:01:37] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T19:01:37
+[failsafe 2026-08-20 19:01:39] pushed to origin/experiment_instruction_cloud_4 (b15ff08)
+[failsafe 2026-08-20 19:11:39] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T19:11:39
+[failsafe 2026-08-20 19:11:41] pushed to origin/experiment_instruction_cloud_4 (00a15ff)
+[failsafe 2026-08-20 19:17:11] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T19:17:11
+[failsafe 2026-08-20 19:17:14] pushed to origin/experiment_instruction_cloud_4 (3e91720)
+[failsafe 2026-08-20 19:32:45] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T19:32:45
+[failsafe 2026-08-20 19:32:47] pushed to origin/experiment_instruction_cloud_4 (3aec3f4)
+[failsafe 2026-08-20 19:43:47] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T19:43:47
+[failsafe 2026-08-20 19:43:49] pushed to origin/experiment_instruction_cloud_4 (a2caf2a)
+[failsafe 2026-08-20 19:48:19] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T19:48:19
+[failsafe 2026-08-20 19:48:21] pushed to origin/experiment_instruction_cloud_4 (f26905b)
+[failsafe 2026-08-20 20:15:22] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T20:15:22
+[failsafe 2026-08-20 20:15:24] pushed to origin/experiment_instruction_cloud_4 (9c38ad5)
+[failsafe 2026-08-20 20:30:54] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T20:30:54
+[failsafe 2026-08-20 20:30:56] pushed to origin/experiment_instruction_cloud_4 (f937230)
+[failsafe 2026-08-20 20:38:27] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-20T20:38:27
+[failsafe 2026-08-20 20:38:29] pushed to origin/experiment_instruction_cloud_4 (063dc69)
+[failsafe 2026-08-20 20:38:29] committed: failsafe: stage 2/2 finished (configs/gptoss120b_instructions_gemma27b_xmemo_view8.md) @ 2026-08-20T20:38:29
+[failsafe 2026-08-20 20:38:32] pushed to origin/experiment_instruction_cloud_4 (54b47f2)
+[failsafe 2026-08-20 20:38:32] last stage finished — final commit, then shutdown
+[failsafe 2026-08-20 20:38:32] finalizing: capturing latest state before exit

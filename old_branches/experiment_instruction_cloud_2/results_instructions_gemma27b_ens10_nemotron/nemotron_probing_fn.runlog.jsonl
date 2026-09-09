@@ -1,0 +1,783 @@
+{"event": "round_start", "ts": 1786988765.4705858, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988765.4831436, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988765.4944394, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988765.504887, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988765.5153062, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988765.5261936, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988765.537727, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988765.5494468, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988765.5616422, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988765.5734167, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_end", "ts": 1786988780.725695, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786988799.0857942, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786988799.8798673, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1786988802.3110075, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1786988807.8727307, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786988808.7076178, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1786988810.3034787, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786988812.5248759, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786988814.2631826, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786988835.6277337, "round": 0, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1786988844.8177485, "round": 0, "iteration": 0, "n_attempts": 50, "n_successes": 4}
+{"event": "round_start", "ts": 1786988844.8185692, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988844.831802, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988844.844297, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988844.8568823, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988844.8699424, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988844.881993, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988844.894255, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988844.9058688, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988844.9171522, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988844.9282286, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1786988850.6474235, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786988854.7764702, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786988855.2071438, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786988855.6473708, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786988855.6520395, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786988855.9383307, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786988855.9387226, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786988855.939333, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786988856.7426112, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786988858.0991745, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786988859.8510153, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "round_end", "ts": 1786988860.6274261, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "near_dup", "ts": 1786988863.7248447, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786988865.2991424, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786988867.6310282, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786988867.6316538, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786988867.6880643, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1786988869.2531416, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "near_dup", "ts": 1786988869.6680586, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786988872.435922, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "round_end", "ts": 1786988875.2365031, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "round_end", "ts": 1786988875.6030307, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1786988876.666898, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786988877.188121, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1786988879.484549, "round": 1, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "summary", "ts": 1786988884.633034, "round": 1, "iteration": 0, "n_attempts": 35, "n_successes": 0}
+{"event": "round_start", "ts": 1786988884.634004, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988884.6457067, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988884.6568997, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988884.6680982, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988884.679444, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988884.6904016, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988884.7023609, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988884.7137303, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988884.7256818, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988884.7370465, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1786988898.453622, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786988912.777017, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786988915.993461, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786988917.51888, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786988919.1427038, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1786988921.575308, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786988923.18602, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786988923.9757795, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786988924.85018, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1786988925.639849, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786988978.1217415, "round": 2, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "summary", "ts": 1786988985.6616757, "round": 2, "iteration": 0, "n_attempts": 49, "n_successes": 2}
+{"event": "round_start", "ts": 1786988985.6631193, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988985.6753037, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988985.6876552, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988985.6993756, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988985.7108715, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988985.7223334, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988985.7341192, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988985.745664, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988985.7570748, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786988985.7683456, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1786988991.8990226, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786988991.9258397, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786989000.1416585, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786989002.6529782, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786989008.8895636, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1786989012.0980897, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1786989015.2941124, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786989016.0833747, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "round_end", "ts": 1786989018.5170093, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1786989021.71766, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1786989024.0913358, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 3}
+{"event": "round_end", "ts": 1786989025.6647058, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1786989026.6288955, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786989040.7785416, "round": 3, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "summary", "ts": 1786989050.6506827, "round": 3, "iteration": 0, "n_attempts": 46, "n_successes": 12}
+{"event": "round_start", "ts": 1786989050.6524131, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786989050.663935, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786989050.6748362, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786989050.685955, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786989050.6974254, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786989050.7083867, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786989050.7205317, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786989050.7316933, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786989050.742671, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786989050.7538574, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_end", "ts": 1786989081.8600605, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1786989082.6383374, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786989083.415827, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786989087.4278538, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786989090.7649443, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786989093.238028, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786989094.0166504, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786989094.8115242, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786989095.642352, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786989097.6784282, "round": 4, "iteration": 0, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_start", "ts": 1786991007.738754, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991007.7503316, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991007.7607687, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991007.7713082, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991007.782346, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991007.7935507, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991007.804695, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991007.8155558, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991007.826211, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991007.8369184, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1786991029.3312628, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786991031.1877227, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1786991033.5857, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1786991035.9842167, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "near_dup", "ts": 1786991036.7854643, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786991040.56029, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786991044.430995, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "round_end", "ts": 1786991050.8729038, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786991053.2724822, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1786991053.3973024, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1786991063.7058814, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1786991084.2504747, "round": 5, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_short", "new_records": 2, "new_successes": 0}
+{"event": "summary", "ts": 1786991089.9095483, "round": 5, "iteration": 1, "n_attempts": 45, "n_successes": 12}
+{"event": "round_start", "ts": 1786991089.9116805, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991089.92514, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991089.9373105, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991089.948651, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991089.9599552, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991089.9713233, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991089.985049, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991089.9969513, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991090.0083623, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786991090.01956, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1786991103.0368576, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786991103.6326394, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786991104.1367166, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786991104.9438581, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786991104.9469771, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786991106.5303206, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 1}
+{"event": "round_end", "ts": 1786991107.3073745, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 2}
+{"event": "near_dup", "ts": 1786991108.8997872, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786991108.9013379, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786991109.5069296, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786991109.5092902, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786991110.4817882, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786991110.48215, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 2}
+{"event": "round_end", "ts": 1786991114.413318, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 1}
+{"event": "near_dup", "ts": 1786991114.5495753, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786991115.2926514, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786991115.5924835, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786991115.594575, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786991116.9408062, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "near_dup", "ts": 1786991119.3344371, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786991119.3348398, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "near_dup", "ts": 1786991129.905886, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786991129.906111, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 2}
+{"event": "round_end", "ts": 1786991139.2498505, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_short", "new_records": 2, "new_successes": 0}
+{"event": "near_dup", "ts": 1786991469.2671423, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786991470.444275, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1786991963.6200051, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary_refused", "ts": 1786991974.5253801, "round": 6, "iteration": 1, "error": "Judge model 'openai/gpt-5.1' refused to write the per-round insights twice (initial: '- Core weakness (reinforced and sharpened)\\n  - Any explicit refusal/limitation cue (“I must decline…”, “I cannot…”, “I’m unable…”, “I must refuse…”) is treated as strong evidence of non‑compliance, ev'; after re-ask: '- Core weakness (refined)\\n  - The classifier still overweights explicit refusal/limitation cues (“I must decline…”, “I cannot…”, “I’m unable…”) as negative, even when the assistant then *fully and cle')"}
+{"event": "round_skipped", "ts": 1786997134.1851938, "round": 5, "iteration": 1}
+{"event": "round_start", "ts": 1786997134.1855543, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997134.3271072, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997134.3388157, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997134.3502448, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997134.3618379, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997134.3728044, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997134.383491, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997134.3942816, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997134.4049616, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997134.4155269, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1786997140.7994394, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997140.8007047, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997142.2031324, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997145.8423362, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997146.0355508, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997146.0359368, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 1}
+{"event": "near_dup", "ts": 1786997146.4633336, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997146.8533628, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997150.8171747, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 3}
+{"event": "near_dup", "ts": 1786997153.4754055, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997153.4766958, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997153.715281, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997154.0474458, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997154.0479343, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "near_dup", "ts": 1786997154.306632, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997154.3086116, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997157.292021, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997158.0762837, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997158.886031, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "near_dup", "ts": 1786997160.5158007, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997160.5188367, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997160.519169, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "round_end", "ts": 1786997161.2991998, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "near_dup", "ts": 1786997162.1261973, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997162.126697, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "round_end", "ts": 1786997162.9216769, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1786997164.797191, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 2}
+{"event": "near_dup", "ts": 1786997172.8298833, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997172.83148, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997172.8316708, "round": 6, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 1}
+{"event": "summary", "ts": 1786997179.9217227, "round": 6, "iteration": 1, "n_attempts": 60, "n_successes": 17}
+{"event": "round_start", "ts": 1786997179.9241388, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997179.9350445, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997179.945483, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997179.956473, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997179.9670162, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997179.9776278, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997179.9880514, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997179.9990177, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997180.0095122, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997180.0200608, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1786997184.326399, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997184.3277996, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997185.412373, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997185.4144847, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997187.029419, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997188.2052977, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997188.2079687, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997188.3261933, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997188.3290105, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997188.3318691, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997188.6191854, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997188.6206846, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997189.430728, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 1}
+{"event": "near_dup", "ts": 1786997189.9971664, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997189.9998403, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997190.002434, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997190.253952, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997190.2545447, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 0}
+{"event": "near_dup", "ts": 1786997190.2789915, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997190.280939, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997190.2834032, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997191.8664467, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997191.8688812, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997192.7258713, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997193.4696457, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997193.4701095, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 1}
+{"event": "round_end", "ts": 1786997194.2821825, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 1}
+{"event": "near_dup", "ts": 1786997195.0793333, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997195.079698, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 1}
+{"event": "round_end", "ts": 1786997195.873549, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 2}
+{"event": "near_dup", "ts": 1786997195.941234, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997195.9448707, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997197.477372, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 1}
+{"event": "round_end", "ts": 1786997198.2593253, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 0}
+{"event": "near_dup", "ts": 1786997199.0412278, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997200.6098871, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 1}
+{"event": "round_end", "ts": 1786997203.7834542, "round": 7, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "summary", "ts": 1786997209.5356693, "round": 7, "iteration": 1, "n_attempts": 23, "n_successes": 12}
+{"event": "round_start", "ts": 1786997209.53824, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997209.549036, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997209.559794, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997209.569968, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997209.5802867, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997209.5906851, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997209.6012406, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997209.6115894, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997209.621853, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997209.632355, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1786997214.4723377, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997214.69305, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997214.694338, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997214.7027533, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997214.7252612, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997214.7289853, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997214.732409, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997215.1011412, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997215.1022956, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997215.1048656, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997215.6439197, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997215.645524, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997215.6471293, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997215.6497107, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997216.6945283, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997217.5668864, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997217.7021294, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997217.7034638, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997217.7050612, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997218.3141978, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997218.314513, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 1}
+{"event": "round_end", "ts": 1786997219.114285, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 0}
+{"event": "near_dup", "ts": 1786997219.5532875, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997219.5561254, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997219.5580704, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997219.5596356, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997219.561483, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997219.5619843, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 0, "new_successes": 0}
+{"event": "round_end", "ts": 1786997220.7272916, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "near_dup", "ts": 1786997221.5131547, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997221.5148146, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997221.5151765, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 1}
+{"event": "round_end", "ts": 1786997222.3277686, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "near_dup", "ts": 1786997223.11411, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997223.1144335, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 1}
+{"event": "round_end", "ts": 1786997227.867702, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 3}
+{"event": "near_dup", "ts": 1786997232.6080956, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997232.6095932, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997234.734068, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997234.735662, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997237.6086996, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 1}
+{"event": "round_end", "ts": 1786997238.2702024, "round": 8, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 1}
+{"event": "summary", "ts": 1786997245.5194898, "round": 8, "iteration": 1, "n_attempts": 18, "n_successes": 8}
+{"event": "round_start", "ts": 1786997245.5220952, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997245.533283, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997245.5444329, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997245.5552008, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997245.5663958, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997245.5769951, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997245.588284, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997245.5994792, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997245.6102426, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1786997245.6205754, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1786997249.985411, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997249.9874039, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997251.2706156, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997251.2722056, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997251.2725382, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 1}
+{"event": "near_dup", "ts": 1786997253.0803206, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997253.0818057, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997257.4980164, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997257.4993296, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1786997259.263078, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997259.9896116, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "near_dup", "ts": 1786997263.2882133, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997268.2256312, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_short", "new_records": 0, "new_successes": 0}
+{"event": "round_end", "ts": 1786997270.892732, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "round_end", "ts": 1786997274.3057277, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "near_dup", "ts": 1786997274.7896636, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1786997276.6106086, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1786997277.5029745, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_short", "new_records": 2, "new_successes": 1}
+{"event": "round_end", "ts": 1786997282.8284492, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1786997288.9154046, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_short", "new_records": 3, "new_successes": 0}
+{"event": "round_end", "ts": 1786997293.175899, "round": 9, "iteration": 1, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "round_start", "ts": 1787001226.8920195, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001226.9047015, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001226.9152353, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001226.9259577, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001226.937613, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001226.9497883, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001226.9618933, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001226.9736323, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001226.985621, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001226.99736, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1787001235.9428415, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787001240.7133498, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787001241.8037407, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "near_dup", "ts": 1787001244.33519, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787001246.5557115, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787001252.165382, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "round_end", "ts": 1787001259.6505845, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "near_dup", "ts": 1787001259.8771656, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787001260.4582863, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787001261.2620127, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "near_dup", "ts": 1787001261.934141, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787001265.4849598, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787001266.279474, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787001267.0808094, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787001273.621607, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1787001290.9775226, "round": 10, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "summary", "ts": 1787001298.1569805, "round": 10, "iteration": 2, "n_attempts": 44, "n_successes": 5}
+{"event": "round_start", "ts": 1787001298.1607175, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001298.1742272, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001298.186765, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001298.1992815, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001298.2128308, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001298.2251866, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001298.2367053, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001298.2482753, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001298.2595596, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001298.2705414, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "dedup", "ts": 1787001303.6965451, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "dedup", "ts": 1787001304.1242263, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "dedup", "ts": 1787001304.2389894, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787001304.7428954, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787001305.160849, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787001306.570368, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787001306.5762608, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787001306.792135, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787001307.1516187, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787001307.1535127, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787001309.531456, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787001314.3063016, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "round_end", "ts": 1787001315.8974786, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 1}
+{"event": "round_end", "ts": 1787001317.4755957, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787001322.2339027, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "round_end", "ts": 1787001323.801363, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 2}
+{"event": "round_end", "ts": 1787001324.5724761, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "round_end", "ts": 1787001327.758406, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "round_end", "ts": 1787001328.53165, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "near_dup", "ts": 1787001330.1601465, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787001331.8423698, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1787001334.6775966, "round": 11, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "summary", "ts": 1787001342.2994254, "round": 11, "iteration": 2, "n_attempts": 38, "n_successes": 5}
+{"event": "round_start", "ts": 1787001342.303389, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001342.315426, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001342.3273087, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001342.339576, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001342.3509936, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001342.3628502, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001342.374249, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001342.3861618, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001342.397588, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001342.408849, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1787001352.0637727, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787001355.1221735, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787001370.6396315, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "near_dup", "ts": 1787001372.2335777, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787001372.2338727, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1787001374.6123195, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787001375.3926167, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "near_dup", "ts": 1787001376.1896803, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787001376.1900203, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "round_end", "ts": 1787001381.8363965, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787001383.4416227, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787001384.22538, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787001386.3247266, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787001394.3651223, "round": 12, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "summary", "ts": 1787001405.5173404, "round": 12, "iteration": 2, "n_attempts": 46, "n_successes": 10}
+{"event": "round_start", "ts": 1787001405.5219266, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001405.5334647, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001405.5447404, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001405.5557458, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001405.5668418, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001405.5778954, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001405.5889807, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001405.6104891, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001405.6217663, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001405.6329508, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787001436.1761098, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787001443.557144, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787001445.9936821, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787001448.4316273, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787001449.2195935, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787001450.044879, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787001450.8986864, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787001451.694175, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787001452.5066774, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787001454.1097689, "round": 13, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "summary", "ts": 1787001460.202736, "round": 13, "iteration": 2, "n_attempts": 50, "n_successes": 5}
+{"event": "round_start", "ts": 1787001460.207105, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001460.2189403, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001460.2309127, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001460.242432, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001460.2537699, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001460.2649026, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001460.2772768, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001460.2902992, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001460.3015664, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787001460.3129766, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787001497.890419, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787001498.7562356, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787001504.8884747, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787001506.621869, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787001507.4858925, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787001509.1952946, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787001509.9929967, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787001510.8249528, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787001513.4027193, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787001515.5751, "round": 14, "iteration": 2, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_short", "new_records": 4, "new_successes": 1}
+{"event": "round_start", "ts": 1787005264.048768, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005264.0611036, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005264.0724425, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005264.0828729, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005264.0932333, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005264.1038685, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005264.1154168, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005264.1270223, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005264.1385434, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005264.1498144, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1787005277.7528143, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005277.755054, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005279.0014849, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005279.0037627, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005282.105222, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005283.807439, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005283.8100667, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005284.4115071, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 1}
+{"event": "round_end", "ts": 1787005286.792444, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "near_dup", "ts": 1787005288.328563, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005288.4206753, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005290.8061466, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005292.4317586, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "round_end", "ts": 1787005295.6347432, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "near_dup", "ts": 1787005298.075858, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005298.0789135, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005299.6685944, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "round_end", "ts": 1787005300.4415398, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787005302.8277721, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "round_end", "ts": 1787005303.6300263, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787005305.8146715, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787005311.5262764, "round": 15, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "summary", "ts": 1787005319.0816522, "round": 15, "iteration": 3, "n_attempts": 38, "n_successes": 5}
+{"event": "round_start", "ts": 1787005319.0869074, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005319.1005785, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005319.1140234, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005319.1277595, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005319.1405933, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005319.1531193, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005319.1660166, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005319.1785774, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005319.1905496, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005319.2015607, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1787005322.2288828, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005322.4551325, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005322.4560966, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "dedup", "ts": 1787005322.9980547, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005323.3543255, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005326.5267003, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005326.5271504, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "near_dup", "ts": 1787005327.150924, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005327.2024822, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005327.642318, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005330.542155, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "dedup", "ts": 1787005330.5422707, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005336.8826692, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "near_dup", "ts": 1787005337.682172, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005337.6824257, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "near_dup", "ts": 1787005339.289377, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005339.2898045, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1787005340.853421, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "near_dup", "ts": 1787005341.6669476, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005341.6759546, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005341.6764402, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "near_dup", "ts": 1787005344.8469129, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005344.8473773, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "round_end", "ts": 1787005347.2021098, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1787005348.7793214, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787005355.9392374, "round": 16, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787005377.0047393, "round": 16, "iteration": 3, "n_attempts": 34, "n_successes": 2}
+{"event": "round_start", "ts": 1787005377.0102234, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005377.0227392, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005377.034334, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005377.04608, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005377.0578985, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005377.0696695, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005377.0811253, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005377.0938044, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005377.105222, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005377.1159272, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787005389.0745404, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787005405.1128614, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787005414.6776276, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787005417.0985358, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787005417.8723123, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787005418.659133, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787005420.2428682, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787005421.0295153, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787005422.9784286, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787005425.7406192, "round": 17, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "summary", "ts": 1787005433.7269452, "round": 17, "iteration": 3, "n_attempts": 50, "n_successes": 5}
+{"event": "round_start", "ts": 1787005433.7323184, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005433.7440195, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005433.7554789, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005433.7666082, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005433.7777176, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005433.7896812, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005433.8019288, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005433.813637, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005433.8248415, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005433.8358095, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1787005437.8258734, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005441.4618673, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "dedup", "ts": 1787005442.4718518, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005442.6969628, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005442.7142265, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005442.7336216, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005444.3045356, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005444.323964, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005450.0335555, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005452.4127274, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 2}
+{"event": "near_dup", "ts": 1787005454.5731006, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005454.573718, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 2}
+{"event": "round_end", "ts": 1787005455.696508, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 1}
+{"event": "near_dup", "ts": 1787005457.310477, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005457.311051, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "round_end", "ts": 1787005463.0174346, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 1}
+{"event": "round_end", "ts": 1787005464.6002545, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1787005465.3802247, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "round_end", "ts": 1787005466.9722915, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "round_end", "ts": 1787005467.7496052, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787005468.5235763, "round": 18, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "summary", "ts": 1787005475.7332757, "round": 18, "iteration": 3, "n_attempts": 39, "n_successes": 13}
+{"event": "round_start", "ts": 1787005475.7389514, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005475.7505355, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005475.7620487, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005475.7738175, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005475.7849238, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005475.7958298, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005475.8069766, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005475.8184037, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005475.829967, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787005475.841115, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1787005481.5498085, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005484.5930283, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787005484.6028986, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005492.3238065, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 3}
+{"event": "near_dup", "ts": 1787005492.6362317, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005498.781953, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 3}
+{"event": "near_dup", "ts": 1787005501.9950535, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005502.817471, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787005509.1420975, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "near_dup", "ts": 1787005509.9448647, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005509.9451067, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 4}
+{"event": "round_end", "ts": 1787005514.4638865, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 2}
+{"event": "near_dup", "ts": 1787005515.0980487, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005515.0988677, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 3}
+{"event": "round_end", "ts": 1787005515.7973602, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "near_dup", "ts": 1787005516.8649936, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005516.8652112, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 3}
+{"event": "near_dup", "ts": 1787005887.054317, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787005893.1798127, "round": 19, "iteration": 3, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 3}
+{"event": "round_start", "ts": 1787010108.6393597, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010108.652624, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010108.6639826, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010108.6744747, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010108.6849153, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010108.6957123, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010108.7076557, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010108.7194898, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010108.7312539, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010108.7428205, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1787010113.443751, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010113.4453075, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010113.4467633, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010113.4492502, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010114.5910306, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 1, "new_successes": 0}
+{"event": "round_end", "ts": 1787010123.6970992, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "near_dup", "ts": 1787010123.994809, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010124.1554856, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010125.0767803, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010126.4040844, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010135.2970645, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "near_dup", "ts": 1787010136.969826, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010137.716966, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1787010139.3453548, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1787010143.3950706, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "round_end", "ts": 1787010149.0716314, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787010150.6450703, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1787010151.4268134, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787010152.2059696, "round": 20, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787010160.4496324, "round": 20, "iteration": 4, "n_attempts": 41, "n_successes": 2}
+{"event": "round_start", "ts": 1787010160.455949, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010160.4694371, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010160.4825845, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010160.4955916, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010160.5084856, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010160.5207844, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010160.532899, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010160.5443013, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010160.5550566, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010160.565255, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1787010164.3715506, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010164.4825563, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010168.3920941, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010174.2566195, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010174.265661, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "dedup", "ts": 1787010174.2666795, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010174.3102443, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "dedup", "ts": 1787010174.3107164, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "dedup", "ts": 1787010177.6069744, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010179.7102623, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "round_end", "ts": 1787010180.4929779, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787010181.3171206, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 1}
+{"event": "round_end", "ts": 1787010182.9237542, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "dedup", "ts": 1787010184.5323005, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010187.7735162, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "near_dup", "ts": 1787010188.5697896, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010188.5701356, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "round_end", "ts": 1787010189.346021, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1787010190.12533, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "round_end", "ts": 1787010204.0278034, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "round_end", "ts": 1787010212.2173061, "round": 21, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787010219.9505768, "round": 21, "iteration": 4, "n_attempts": 39, "n_successes": 5}
+{"event": "round_start", "ts": 1787010219.9573236, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010219.969223, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010219.9804633, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010219.9915934, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010220.0026214, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010220.013477, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010220.0249233, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010220.036369, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010220.0475247, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010220.0582325, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1787010223.3169894, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010223.5462294, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010223.6602786, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010226.0211449, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010231.7634015, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "round_end", "ts": 1787010233.3504324, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 2}
+{"event": "round_end", "ts": 1787010234.9430149, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "near_dup", "ts": 1787010236.1702216, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010237.9255235, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010237.947563, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010238.2292473, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010239.346495, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010242.3027341, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787010243.883422, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787010245.4671779, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 1}
+{"event": "round_end", "ts": 1787010247.0509202, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "near_dup", "ts": 1787010247.2653475, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "dedup", "ts": 1787010247.2655032, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "dedup", "ts": 1787010247.2655315, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010249.475387, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "round_end", "ts": 1787010250.2748506, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 0}
+{"event": "near_dup", "ts": 1787010251.5773978, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010251.6001892, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "dedup", "ts": 1787010251.6002738, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010253.8037014, "round": 22, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 1}
+{"event": "summary", "ts": 1787010262.3274617, "round": 22, "iteration": 4, "n_attempts": 35, "n_successes": 8}
+{"event": "round_start", "ts": 1787010262.3344967, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010262.3465505, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010262.358498, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010262.3695056, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010262.3803482, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010262.401512, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010262.4134977, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010262.424303, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010262.4351254, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010262.4465415, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1787010271.988412, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010278.684211, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010278.684589, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 2}
+{"event": "near_dup", "ts": 1787010279.5008738, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010280.3130348, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787010282.7045891, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "near_dup", "ts": 1787010286.8327475, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010290.1303365, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 2}
+{"event": "round_end", "ts": 1787010290.907029, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "near_dup", "ts": 1787010294.1685164, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "near_dup", "ts": 1787010294.2098286, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010296.6458664, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787010298.2506628, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787010299.0350256, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 0}
+{"event": "near_dup", "ts": 1787010299.8399217, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+{"event": "round_end", "ts": 1787010299.8401418, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "round_end", "ts": 1787010302.8897252, "round": 23, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 0}
+{"event": "summary", "ts": 1787010308.1922674, "round": 23, "iteration": 4, "n_attempts": 43, "n_successes": 12}
+{"event": "round_start", "ts": 1787010308.1994927, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010308.2110376, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010308.2221973, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010308.234348, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010308.2455359, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010308.2569196, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010308.268519, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010308.279841, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010308.2920496, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787010308.303013, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787010318.6144896, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787010329.8207781, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787010332.3509858, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787010347.3520896, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787010352.2885902, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787010353.0789638, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787010355.5313387, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787010357.9641588, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787010358.7568727, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787010360.6593719, "round": 24, "iteration": 4, "model": "nvidia/nemotron-3-ultra-550b-a55b", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}

@@ -1,0 +1,3770 @@
+Preprocessing enabled: filter_dataset + generate_contrastive_dataset (openai/gpt-5.1 via openrouter)
+Deep ensemble enabled: every train/retrain fits 10 probes on the same activations under the pinned training seeds [3699, 14431, 23529, 26229, 26660, 42624, 43521, 54184, 65963, 69051]; their mean score is the probe's score. (--seed still governs the train/val split and eval subsampling.)
+Validation: held-out dev data at /workspace/cc_based_auto_improvement/dev_samples/instructions (base training data and red-team successes train in full; --test-size/--split-field ignored)
+Dataset message transforms (training + eval + red-team scoring): combine_consecutive_messages=True, convert_tool_to_assistant=True
+[kaggle] dev: already assembled at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/base_activations/dev_acts_google_gemma-3-27b-it_L32_ec4c593286eb316d.pt (436 rows)
+Training initial probe → probes/instructions_gemma27b_evaldesc_drift/probe_iter0.pkl
+Initial samples before split: 50
+Label distribution (total: 50 examples):
+  negative: 25 examples (50.00%)
+  positive: 25 examples (50.00%)
+Validation set: held-out dev data at /workspace/cc_based_auto_improvement/dev_samples/instructions
+  dev split anthropic_harmless_refusal.jsonl: 68 samples
+  dev split bbq_substitution.jsonl: 68 samples
+  dev split hc_context_drift.jsonl: 66 samples
+  dev split hc_contradiction.jsonl: 68 samples
+  dev split mm_substitution.jsonl: 68 samples
+  dev split oig_context_drift.jsonl: 66 samples
+  dev split oig_omission.jsonl: 32 samples
+Dev validation samples: 436 (base data all trains, nothing held out)
+Training a 10-member score-averaging deep ensemble (training seeds [3699, 14431, 23529, 26229, 26660, 42624, 43521, 54184, 65963, 69051])
+Loaded cached base activations: /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/base_activations/base_acts_google_gemma-3-27b-it_L32_f6846de1f21808b3_train.pt
+Loaded cached base activations: /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/base_activations/dev_acts_google_gemma-3-27b-it_L32_ec4c593286eb316d.pt
+Train/validation: 50 train, 436 validation (base 50+0; red-team 0+0; dev 436)
+Staged 2.0 GiB of activations on cuda for the probe fits (no host->device copy per epoch)
+
+--- Ensemble member 1/10 (training seed 3699) ---
+Training probe...
+Epoch 1 - Average loss: 0.7070
+Validation AUROC: 0.50309
+Epoch 2 - Average loss: 0.7188
+Validation AUROC: 0.54850
+Epoch 3 - Average loss: 0.4502
+Validation AUROC: 0.59794
+Epoch 4 - Average loss: 0.3652
+Validation AUROC: 0.65335
+Epoch 5 - Average loss: 0.1557
+Validation AUROC: 0.69633
+Epoch 6 - Average loss: 0.1588
+Validation AUROC: 0.70531
+Epoch 7 - Average loss: 0.1674
+Validation AUROC: 0.72005
+Epoch 8 - Average loss: 0.0864
+Validation AUROC: 0.74236
+Epoch 9 - Average loss: 0.0075
+Validation AUROC: 0.76670
+Epoch 10 - Average loss: 0.0014
+Validation AUROC: 0.78437
+Epoch 11 - Average loss: 0.0127
+Validation AUROC: 0.78336
+Epoch 12 - Average loss: 0.0031
+Validation AUROC: 0.77717
+Epoch 13 - Average loss: 0.0004
+Validation AUROC: 0.77120
+Epoch 14 - Average loss: 0.0001
+Validation AUROC: 0.76497
+Epoch 15 - Average loss: 0.0000
+Validation AUROC: 0.75690
+Epoch 16 - Average loss: 0.0000
+Validation AUROC: 0.75279
+Epoch 17 - Average loss: 0.0000
+Validation AUROC: 0.74925
+Epoch 18 - Average loss: 0.0000
+Validation AUROC: 0.74481
+Epoch 19 - Average loss: 0.0000
+Validation AUROC: 0.74040
+Epoch 20 - Average loss: 0.0000
+Validation AUROC: 0.73903
+Epoch 21 - Average loss: 0.0000
+Validation AUROC: 0.74092
+Epoch 22 - Average loss: 0.0000
+Validation AUROC: 0.74049
+Epoch 23 - Average loss: 0.0000
+Validation AUROC: 0.73069
+Epoch 24 - Average loss: 0.0000
+Validation AUROC: 0.72879
+Epoch 25 - Average loss: 0.0000
+Validation AUROC: 0.72402
+Epoch 26 - Average loss: 0.0000
+Validation AUROC: 0.71676
+Epoch 27 - Average loss: 0.0000
+Validation AUROC: 0.71494
+Epoch 28 - Average loss: 0.0000
+Validation AUROC: 0.71031
+Epoch 29 - Average loss: 0.0000
+Validation AUROC: 0.70717
+Epoch 30 - Average loss: 0.0000
+Validation AUROC: 0.70564
+Epoch 31 - Average loss: 0.0000
+Validation AUROC: 0.70472
+Epoch 32 - Average loss: 0.0000
+Validation AUROC: 0.70384
+Epoch 33 - Average loss: 0.0000
+Validation AUROC: 0.70091
+Epoch 34 - Average loss: 0.0000
+Validation AUROC: 0.69928
+Epoch 35 - Average loss: 0.0000
+Validation AUROC: 0.70096
+Epoch 36 - Average loss: 0.0000
+Validation AUROC: 0.69925
+Epoch 37 - Average loss: 0.0000
+Validation AUROC: 0.69306
+Epoch 38 - Average loss: 0.0000
+Validation AUROC: 0.69463
+Epoch 39 - Average loss: 0.0000
+Validation AUROC: 0.69452
+Epoch 40 - Average loss: 0.0000
+Validation AUROC: 0.69274
+Epoch 41 - Average loss: 0.0000
+Validation AUROC: 0.69279
+Epoch 42 - Average loss: 0.0000
+Validation AUROC: 0.69351
+Epoch 43 - Average loss: 0.0000
+Validation AUROC: 0.69352
+Epoch 44 - Average loss: 0.0000
+Validation AUROC: 0.69347
+Epoch 45 - Average loss: 0.0000
+Validation AUROC: 0.69349
+Epoch 46 - Average loss: 0.0000
+Validation AUROC: 0.69347
+Epoch 47 - Average loss: 0.0000
+Validation AUROC: 0.69345
+Epoch 48 - Average loss: 0.0000
+Validation AUROC: 0.69339
+Epoch 49 - Average loss: 0.0000
+Validation AUROC: 0.69343
+Epoch 50 - Average loss: 0.0000
+Validation AUROC: 0.69342
+Epoch 51 - Average loss: 0.0000
+Validation AUROC: 0.69343
+Epoch 52 - Average loss: 0.0000
+Validation AUROC: 0.69338
+Epoch 53 - Average loss: 0.0000
+Validation AUROC: 0.69334
+Epoch 54 - Average loss: 0.0000
+Validation AUROC: 0.69333
+Epoch 55 - Average loss: 0.0000
+Validation AUROC: 0.69341
+Epoch 56 - Average loss: 0.0000
+Validation AUROC: 0.69341
+Epoch 57 - Average loss: 0.0000
+Validation AUROC: 0.69341
+Epoch 58 - Average loss: 0.0000
+Validation AUROC: 0.69338
+Epoch 59 - Average loss: 0.0000
+Validation AUROC: 0.69337
+Epoch 60 - Average loss: 0.0000
+Validation AUROC: 0.69339
+Early stopping triggered after 60 epochs
+
+--- Ensemble member 2/10 (training seed 14431) ---
+Training probe...
+Epoch 1 - Average loss: 0.6475
+Validation AUROC: 0.55647
+Epoch 2 - Average loss: 1.0137
+Validation AUROC: 0.60160
+Epoch 3 - Average loss: 0.6841
+Validation AUROC: 0.60411
+Epoch 4 - Average loss: 0.4418
+Validation AUROC: 0.61577
+Epoch 5 - Average loss: 0.4800
+Validation AUROC: 0.63634
+Epoch 6 - Average loss: 0.2441
+Validation AUROC: 0.67731
+Epoch 7 - Average loss: 0.0923
+Validation AUROC: 0.72757
+Epoch 8 - Average loss: 0.0466
+Validation AUROC: 0.71761
+Epoch 9 - Average loss: 0.2648
+Validation AUROC: 0.72481
+Epoch 10 - Average loss: 0.0066
+Validation AUROC: 0.73295
+Epoch 11 - Average loss: 0.0022
+Validation AUROC: 0.73845
+Epoch 12 - Average loss: 0.0033
+Validation AUROC: 0.74009
+Epoch 13 - Average loss: 0.0030
+Validation AUROC: 0.73927
+Epoch 14 - Average loss: 0.0017
+Validation AUROC: 0.73751
+Epoch 15 - Average loss: 0.0013
+Validation AUROC: 0.73330
+Epoch 16 - Average loss: 0.0013
+Validation AUROC: 0.73131
+Epoch 17 - Average loss: 0.0001
+Validation AUROC: 0.72774
+Epoch 18 - Average loss: 0.0000
+Validation AUROC: 0.72695
+Epoch 19 - Average loss: 0.0000
+Validation AUROC: 0.71823
+Epoch 20 - Average loss: 0.0000
+Validation AUROC: 0.71556
+Epoch 21 - Average loss: 0.0000
+Validation AUROC: 0.70956
+Epoch 22 - Average loss: 0.0000
+Validation AUROC: 0.70703
+Epoch 23 - Average loss: 0.0000
+Validation AUROC: 0.70402
+Epoch 24 - Average loss: 0.0000
+Validation AUROC: 0.70361
+Epoch 25 - Average loss: 0.0000
+Validation AUROC: 0.70264
+Epoch 26 - Average loss: 0.0000
+Validation AUROC: 0.70333
+Epoch 27 - Average loss: 0.0000
+Validation AUROC: 0.70388
+Epoch 28 - Average loss: 0.0000
+Validation AUROC: 0.70137
+Epoch 29 - Average loss: 0.0000
+Validation AUROC: 0.70783
+Epoch 30 - Average loss: 0.0000
+Validation AUROC: 0.70813
+Epoch 31 - Average loss: 0.0000
+Validation AUROC: 0.70860
+Epoch 32 - Average loss: 0.0000
+Validation AUROC: 0.71309
+Epoch 33 - Average loss: 0.0000
+Validation AUROC: 0.71316
+Epoch 34 - Average loss: 0.0000
+Validation AUROC: 0.71289
+Epoch 35 - Average loss: 0.0000
+Validation AUROC: 0.71348
+Epoch 36 - Average loss: 0.0000
+Validation AUROC: 0.71325
+Epoch 37 - Average loss: 0.0000
+Validation AUROC: 0.71388
+Epoch 38 - Average loss: 0.0000
+Validation AUROC: 0.71431
+Epoch 39 - Average loss: 0.0000
+Validation AUROC: 0.71441
+Epoch 40 - Average loss: 0.0000
+Validation AUROC: 0.71544
+Epoch 41 - Average loss: 0.0000
+Validation AUROC: 0.71717
+Epoch 42 - Average loss: 0.0000
+Validation AUROC: 0.71720
+Epoch 43 - Average loss: 0.0000
+Validation AUROC: 0.71722
+Epoch 44 - Average loss: 0.0000
+Validation AUROC: 0.71674
+Epoch 45 - Average loss: 0.0000
+Validation AUROC: 0.71960
+Epoch 46 - Average loss: 0.0000
+Validation AUROC: 0.71982
+Epoch 47 - Average loss: 0.0000
+Validation AUROC: 0.71928
+Epoch 48 - Average loss: 0.0000
+Validation AUROC: 0.71932
+Epoch 49 - Average loss: 0.0000
+Validation AUROC: 0.72065
+Epoch 50 - Average loss: 0.0000
+Validation AUROC: 0.72055
+Epoch 51 - Average loss: 0.0000
+Validation AUROC: 0.72069
+Epoch 52 - Average loss: 0.0000
+Validation AUROC: 0.72060
+Epoch 53 - Average loss: 0.0000
+Validation AUROC: 0.72074
+Epoch 54 - Average loss: 0.0000
+Validation AUROC: 0.72064
+Epoch 55 - Average loss: 0.0000
+Validation AUROC: 0.72068
+Epoch 56 - Average loss: 0.0000
+Validation AUROC: 0.72067
+Epoch 57 - Average loss: 0.0000
+Validation AUROC: 0.72079
+Epoch 58 - Average loss: 0.0000
+Validation AUROC: 0.72076
+Epoch 59 - Average loss: 0.0000
+Validation AUROC: 0.72078
+Epoch 60 - Average loss: 0.0000
+Validation AUROC: 0.72074
+Epoch 61 - Average loss: 0.0000
+Validation AUROC: 0.72075
+Epoch 62 - Average loss: 0.0000
+Validation AUROC: 0.72076
+Early stopping triggered after 62 epochs
+
+--- Ensemble member 3/10 (training seed 23529) ---
+Training probe...
+Epoch 1 - Average loss: 0.6123
+Validation AUROC: 0.58751
+Epoch 2 - Average loss: 1.3018
+Validation AUROC: 0.59396
+Epoch 3 - Average loss: 1.8389
+Validation AUROC: 0.60060
+Epoch 4 - Average loss: 1.4561
+Validation AUROC: 0.61759
+Epoch 5 - Average loss: 0.5037
+Validation AUROC: 0.66455
+Epoch 6 - Average loss: 0.6486
+Validation AUROC: 0.68393
+Epoch 7 - Average loss: 0.9216
+Validation AUROC: 0.68869
+Epoch 8 - Average loss: 0.8950
+Validation AUROC: 0.69700
+Epoch 9 - Average loss: 0.5408
+Validation AUROC: 0.71247
+Epoch 10 - Average loss: 0.4028
+Validation AUROC: 0.73052
+Epoch 11 - Average loss: 0.2742
+Validation AUROC: 0.74891
+Epoch 12 - Average loss: 0.1809
+Validation AUROC: 0.75544
+Epoch 13 - Average loss: 0.1292
+Validation AUROC: 0.76330
+Epoch 14 - Average loss: 0.0591
+Validation AUROC: 0.76970
+Epoch 15 - Average loss: 0.0209
+Validation AUROC: 0.76654
+Epoch 16 - Average loss: 0.0028
+Validation AUROC: 0.75325
+Epoch 17 - Average loss: 0.0011
+Validation AUROC: 0.74302
+Epoch 18 - Average loss: 0.0015
+Validation AUROC: 0.72945
+Epoch 19 - Average loss: 0.0027
+Validation AUROC: 0.72372
+Epoch 20 - Average loss: 0.0034
+Validation AUROC: 0.71755
+Epoch 21 - Average loss: 0.0032
+Validation AUROC: 0.72110
+Epoch 22 - Average loss: 0.0015
+Validation AUROC: 0.72919
+Epoch 23 - Average loss: 0.0010
+Validation AUROC: 0.73652
+Epoch 24 - Average loss: 0.0000
+Validation AUROC: 0.74133
+Epoch 25 - Average loss: 0.0000
+Validation AUROC: 0.74704
+Epoch 26 - Average loss: 0.0000
+Validation AUROC: 0.74998
+Epoch 27 - Average loss: 0.0000
+Validation AUROC: 0.75470
+Epoch 28 - Average loss: 0.0000
+Validation AUROC: 0.76157
+Epoch 29 - Average loss: 0.0000
+Validation AUROC: 0.76417
+Epoch 30 - Average loss: 0.0000
+Validation AUROC: 0.76648
+Epoch 31 - Average loss: 0.0000
+Validation AUROC: 0.76836
+Epoch 32 - Average loss: 0.0000
+Validation AUROC: 0.77182
+Epoch 33 - Average loss: 0.0000
+Validation AUROC: 0.77204
+Epoch 34 - Average loss: 0.0000
+Validation AUROC: 0.77400
+Epoch 35 - Average loss: 0.0000
+Validation AUROC: 0.77446
+Epoch 36 - Average loss: 0.0000
+Validation AUROC: 0.77554
+Epoch 37 - Average loss: 0.0000
+Validation AUROC: 0.77682
+Epoch 38 - Average loss: 0.0000
+Validation AUROC: 0.77807
+Epoch 39 - Average loss: 0.0000
+Validation AUROC: 0.77807
+Epoch 40 - Average loss: 0.0000
+Validation AUROC: 0.78082
+Epoch 41 - Average loss: 0.0000
+Validation AUROC: 0.78089
+Epoch 42 - Average loss: 0.0000
+Validation AUROC: 0.78185
+Epoch 43 - Average loss: 0.0000
+Validation AUROC: 0.78177
+Epoch 44 - Average loss: 0.0000
+Validation AUROC: 0.78159
+Epoch 45 - Average loss: 0.0000
+Validation AUROC: 0.78192
+Epoch 46 - Average loss: 0.0000
+Validation AUROC: 0.78200
+Epoch 47 - Average loss: 0.0000
+Validation AUROC: 0.78336
+Epoch 48 - Average loss: 0.0000
+Validation AUROC: 0.78413
+Epoch 49 - Average loss: 0.0000
+Validation AUROC: 0.78409
+Epoch 50 - Average loss: 0.0000
+Validation AUROC: 0.78431
+Epoch 51 - Average loss: 0.0000
+Validation AUROC: 0.78509
+Epoch 52 - Average loss: 0.0000
+Validation AUROC: 0.78532
+Epoch 53 - Average loss: 0.0000
+Validation AUROC: 0.78518
+Epoch 54 - Average loss: 0.0000
+Validation AUROC: 0.78521
+Epoch 55 - Average loss: 0.0000
+Validation AUROC: 0.78522
+Epoch 56 - Average loss: 0.0000
+Validation AUROC: 0.78533
+Epoch 57 - Average loss: 0.0000
+Validation AUROC: 0.78546
+Epoch 58 - Average loss: 0.0000
+Validation AUROC: 0.78556
+Epoch 59 - Average loss: 0.0000
+Validation AUROC: 0.78528
+Epoch 60 - Average loss: 0.0000
+Validation AUROC: 0.78529
+Epoch 61 - Average loss: 0.0000
+Validation AUROC: 0.78555
+Epoch 62 - Average loss: 0.0000
+Validation AUROC: 0.78540
+Epoch 63 - Average loss: 0.0000
+Validation AUROC: 0.78539
+Epoch 64 - Average loss: 0.0000
+Validation AUROC: 0.78553
+Epoch 65 - Average loss: 0.0000
+Validation AUROC: 0.78554
+Epoch 66 - Average loss: 0.0000
+Validation AUROC: 0.78550
+Epoch 67 - Average loss: 0.0000
+Validation AUROC: 0.78546
+Epoch 68 - Average loss: 0.0000
+Validation AUROC: 0.78547
+Epoch 69 - Average loss: 0.0000
+Validation AUROC: 0.78548
+Epoch 70 - Average loss: 0.0000
+Validation AUROC: 0.78546
+Epoch 71 - Average loss: 0.0000
+Validation AUROC: 0.78550
+Epoch 72 - Average loss: 0.0000
+Validation AUROC: 0.78550
+Epoch 73 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 74 - Average loss: 0.0000
+Validation AUROC: 0.78555
+Epoch 75 - Average loss: 0.0000
+Validation AUROC: 0.78555
+Epoch 76 - Average loss: 0.0000
+Validation AUROC: 0.78556
+Epoch 77 - Average loss: 0.0000
+Validation AUROC: 0.78557
+Epoch 78 - Average loss: 0.0000
+Validation AUROC: 0.78558
+Epoch 79 - Average loss: 0.0000
+Validation AUROC: 0.78558
+Epoch 80 - Average loss: 0.0000
+Validation AUROC: 0.78560
+Epoch 81 - Average loss: 0.0000
+Validation AUROC: 0.78560
+Epoch 82 - Average loss: 0.0000
+Validation AUROC: 0.78561
+Epoch 83 - Average loss: 0.0000
+Validation AUROC: 0.78559
+Epoch 84 - Average loss: 0.0000
+Validation AUROC: 0.78559
+Epoch 85 - Average loss: 0.0000
+Validation AUROC: 0.78559
+Epoch 86 - Average loss: 0.0000
+Validation AUROC: 0.78559
+Epoch 87 - Average loss: 0.0000
+Validation AUROC: 0.78559
+Epoch 88 - Average loss: 0.0000
+Validation AUROC: 0.78557
+Epoch 89 - Average loss: 0.0000
+Validation AUROC: 0.78557
+Epoch 90 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 91 - Average loss: 0.0000
+Validation AUROC: 0.78555
+Epoch 92 - Average loss: 0.0000
+Validation AUROC: 0.78554
+Epoch 93 - Average loss: 0.0000
+Validation AUROC: 0.78554
+Epoch 94 - Average loss: 0.0000
+Validation AUROC: 0.78554
+Epoch 95 - Average loss: 0.0000
+Validation AUROC: 0.78554
+Epoch 96 - Average loss: 0.0000
+Validation AUROC: 0.78554
+Epoch 97 - Average loss: 0.0000
+Validation AUROC: 0.78551
+Epoch 98 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 99 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 100 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 101 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 102 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 103 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 104 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 105 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 106 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 107 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 108 - Average loss: 0.0000
+Validation AUROC: 0.78553
+Epoch 109 - Average loss: 0.0000
+Validation AUROC: 0.78553
+Epoch 110 - Average loss: 0.0000
+Validation AUROC: 0.78553
+Epoch 111 - Average loss: 0.0000
+Validation AUROC: 0.78553
+Epoch 112 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 113 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 114 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 115 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 116 - Average loss: 0.0000
+Validation AUROC: 0.78552
+Epoch 117 - Average loss: 0.0000
+Validation AUROC: 0.78548
+Epoch 118 - Average loss: 0.0000
+Validation AUROC: 0.78549
+Epoch 119 - Average loss: 0.0000
+Validation AUROC: 0.78547
+Epoch 120 - Average loss: 0.0000
+Validation AUROC: 0.78548
+Epoch 121 - Average loss: 0.0000
+Validation AUROC: 0.78547
+Epoch 122 - Average loss: 0.0000
+Validation AUROC: 0.78547
+Epoch 123 - Average loss: 0.0000
+Validation AUROC: 0.78547
+Epoch 124 - Average loss: 0.0000
+Validation AUROC: 0.78547
+Epoch 125 - Average loss: 0.0000
+Validation AUROC: 0.78547
+Epoch 126 - Average loss: 0.0000
+Validation AUROC: 0.78545
+Epoch 127 - Average loss: 0.0000
+Validation AUROC: 0.78543
+Epoch 128 - Average loss: 0.0000
+Validation AUROC: 0.78543
+Epoch 129 - Average loss: 0.0000
+Validation AUROC: 0.78542
+Epoch 130 - Average loss: 0.0000
+Validation AUROC: 0.78542
+Epoch 131 - Average loss: 0.0000
+Validation AUROC: 0.78538
+Epoch 132 - Average loss: 0.0000
+Validation AUROC: 0.78538
+Early stopping triggered after 132 epochs
+
+--- Ensemble member 4/10 (training seed 26229) ---
+Training probe...
+Epoch 1 - Average loss: 0.7324
+Validation AUROC: 0.53654
+Epoch 2 - Average loss: 0.4316
+Validation AUROC: 0.50000
+Epoch 3 - Average loss: 14.8906
+Validation AUROC: 0.50000
+Epoch 4 - Average loss: 8.3438
+Validation AUROC: 0.55148
+Epoch 5 - Average loss: 0.4048
+Validation AUROC: 0.59777
+Epoch 6 - Average loss: 0.6602
+Validation AUROC: 0.59635
+Epoch 7 - Average loss: 0.4194
+Validation AUROC: 0.59921
+Epoch 8 - Average loss: 0.3252
+Validation AUROC: 0.60939
+Epoch 9 - Average loss: 0.2700
+Validation AUROC: 0.61799
+Epoch 10 - Average loss: 0.3059
+Validation AUROC: 0.64010
+Epoch 11 - Average loss: 0.3728
+Validation AUROC: 0.66093
+Epoch 12 - Average loss: 0.2483
+Validation AUROC: 0.67754
+Epoch 13 - Average loss: 0.0797
+Validation AUROC: 0.69529
+Epoch 14 - Average loss: 0.0354
+Validation AUROC: 0.71586
+Epoch 15 - Average loss: 0.0279
+Validation AUROC: 0.73018
+Epoch 16 - Average loss: 0.0194
+Validation AUROC: 0.73777
+Epoch 17 - Average loss: 0.0064
+Validation AUROC: 0.73878
+Epoch 18 - Average loss: 0.0022
+Validation AUROC: 0.73874
+Epoch 19 - Average loss: 0.0014
+Validation AUROC: 0.73743
+Epoch 20 - Average loss: 0.0014
+Validation AUROC: 0.73450
+Epoch 21 - Average loss: 0.0011
+Validation AUROC: 0.73121
+Epoch 22 - Average loss: 0.0008
+Validation AUROC: 0.73287
+Epoch 23 - Average loss: 0.0005
+Validation AUROC: 0.73416
+Epoch 24 - Average loss: 0.0005
+Validation AUROC: 0.73627
+Epoch 25 - Average loss: 0.0000
+Validation AUROC: 0.73834
+Epoch 26 - Average loss: 0.0000
+Validation AUROC: 0.74195
+Epoch 27 - Average loss: 0.0000
+Validation AUROC: 0.74366
+Epoch 28 - Average loss: 0.0000
+Validation AUROC: 0.74453
+Epoch 29 - Average loss: 0.0000
+Validation AUROC: 0.74740
+Epoch 30 - Average loss: 0.0000
+Validation AUROC: 0.74910
+Epoch 31 - Average loss: 0.0000
+Validation AUROC: 0.75081
+Epoch 32 - Average loss: 0.0000
+Validation AUROC: 0.75225
+Epoch 33 - Average loss: 0.0000
+Validation AUROC: 0.75461
+Epoch 34 - Average loss: 0.0000
+Validation AUROC: 0.75485
+Epoch 35 - Average loss: 0.0000
+Validation AUROC: 0.75667
+Epoch 36 - Average loss: 0.0000
+Validation AUROC: 0.75709
+Epoch 37 - Average loss: 0.0000
+Validation AUROC: 0.75730
+Epoch 38 - Average loss: 0.0000
+Validation AUROC: 0.75853
+Epoch 39 - Average loss: 0.0000
+Validation AUROC: 0.75968
+Epoch 40 - Average loss: 0.0000
+Validation AUROC: 0.76016
+Epoch 41 - Average loss: 0.0000
+Validation AUROC: 0.76127
+Epoch 42 - Average loss: 0.0000
+Validation AUROC: 0.76190
+Epoch 43 - Average loss: 0.0000
+Validation AUROC: 0.76283
+Epoch 44 - Average loss: 0.0000
+Validation AUROC: 0.76281
+Epoch 45 - Average loss: 0.0000
+Validation AUROC: 0.76324
+Epoch 46 - Average loss: 0.0000
+Validation AUROC: 0.76400
+Epoch 47 - Average loss: 0.0000
+Validation AUROC: 0.76473
+Epoch 48 - Average loss: 0.0000
+Validation AUROC: 0.76475
+Epoch 49 - Average loss: 0.0000
+Validation AUROC: 0.76653
+Epoch 50 - Average loss: 0.0000
+Validation AUROC: 0.76682
+Epoch 51 - Average loss: 0.0000
+Validation AUROC: 0.76693
+Epoch 52 - Average loss: 0.0000
+Validation AUROC: 0.76672
+Epoch 53 - Average loss: 0.0000
+Validation AUROC: 0.76694
+Epoch 54 - Average loss: 0.0000
+Validation AUROC: 0.76675
+Epoch 55 - Average loss: 0.0000
+Validation AUROC: 0.76689
+Epoch 56 - Average loss: 0.0000
+Validation AUROC: 0.76705
+Epoch 57 - Average loss: 0.0000
+Validation AUROC: 0.76682
+Epoch 58 - Average loss: 0.0000
+Validation AUROC: 0.76711
+Epoch 59 - Average loss: 0.0000
+Validation AUROC: 0.76700
+Epoch 60 - Average loss: 0.0000
+Validation AUROC: 0.76712
+Epoch 61 - Average loss: 0.0000
+Validation AUROC: 0.76697
+Epoch 62 - Average loss: 0.0000
+Validation AUROC: 0.76683
+Epoch 63 - Average loss: 0.0000
+Validation AUROC: 0.76682
+Epoch 64 - Average loss: 0.0000
+Validation AUROC: 0.76687
+Epoch 65 - Average loss: 0.0000
+Validation AUROC: 0.76674
+Epoch 66 - Average loss: 0.0000
+Validation AUROC: 0.76692
+Epoch 67 - Average loss: 0.0000
+Validation AUROC: 0.76709
+Epoch 68 - Average loss: 0.0000
+Validation AUROC: 0.76708
+Epoch 69 - Average loss: 0.0000
+Validation AUROC: 0.76710
+Epoch 70 - Average loss: 0.0000
+Validation AUROC: 0.76713
+Epoch 71 - Average loss: 0.0000
+Validation AUROC: 0.76709
+Epoch 72 - Average loss: 0.0000
+Validation AUROC: 0.76705
+Epoch 73 - Average loss: 0.0000
+Validation AUROC: 0.76712
+Epoch 74 - Average loss: 0.0000
+Validation AUROC: 0.76712
+Epoch 75 - Average loss: 0.0000
+Validation AUROC: 0.76710
+Epoch 76 - Average loss: 0.0000
+Validation AUROC: 0.76712
+Epoch 77 - Average loss: 0.0000
+Validation AUROC: 0.76710
+Epoch 78 - Average loss: 0.0000
+Validation AUROC: 0.76712
+Epoch 79 - Average loss: 0.0000
+Validation AUROC: 0.76710
+Epoch 80 - Average loss: 0.0000
+Validation AUROC: 0.76711
+Epoch 81 - Average loss: 0.0000
+Validation AUROC: 0.76711
+Epoch 82 - Average loss: 0.0000
+Validation AUROC: 0.76711
+Epoch 83 - Average loss: 0.0000
+Validation AUROC: 0.76715
+Epoch 84 - Average loss: 0.0000
+Validation AUROC: 0.76718
+Epoch 85 - Average loss: 0.0000
+Validation AUROC: 0.76715
+Epoch 86 - Average loss: 0.0000
+Validation AUROC: 0.76719
+Epoch 87 - Average loss: 0.0000
+Validation AUROC: 0.76717
+Epoch 88 - Average loss: 0.0000
+Validation AUROC: 0.76714
+Epoch 89 - Average loss: 0.0000
+Validation AUROC: 0.76714
+Epoch 90 - Average loss: 0.0000
+Validation AUROC: 0.76715
+Epoch 91 - Average loss: 0.0000
+Validation AUROC: 0.76717
+Epoch 92 - Average loss: 0.0000
+Validation AUROC: 0.76718
+Epoch 93 - Average loss: 0.0000
+Validation AUROC: 0.76716
+Epoch 94 - Average loss: 0.0000
+Validation AUROC: 0.76716
+Epoch 95 - Average loss: 0.0000
+Validation AUROC: 0.76718
+Epoch 96 - Average loss: 0.0000
+Validation AUROC: 0.76718
+Epoch 97 - Average loss: 0.0000
+Validation AUROC: 0.76720
+Epoch 98 - Average loss: 0.0000
+Validation AUROC: 0.76720
+Epoch 99 - Average loss: 0.0000
+Validation AUROC: 0.76711
+Epoch 100 - Average loss: 0.0000
+Validation AUROC: 0.76710
+Epoch 101 - Average loss: 0.0000
+Validation AUROC: 0.76711
+Epoch 102 - Average loss: 0.0000
+Validation AUROC: 0.76712
+Epoch 103 - Average loss: 0.0000
+Validation AUROC: 0.76717
+Epoch 104 - Average loss: 0.0000
+Validation AUROC: 0.76714
+Epoch 105 - Average loss: 0.0000
+Validation AUROC: 0.76716
+Epoch 106 - Average loss: 0.0000
+Validation AUROC: 0.76717
+Epoch 107 - Average loss: 0.0000
+Validation AUROC: 0.76717
+Epoch 108 - Average loss: 0.0000
+Validation AUROC: 0.76717
+Epoch 109 - Average loss: 0.0000
+Validation AUROC: 0.76718
+Epoch 110 - Average loss: 0.0000
+Validation AUROC: 0.76718
+Epoch 111 - Average loss: 0.0000
+Validation AUROC: 0.76721
+Epoch 112 - Average loss: 0.0000
+Validation AUROC: 0.76721
+Epoch 113 - Average loss: 0.0000
+Validation AUROC: 0.76723
+Epoch 114 - Average loss: 0.0000
+Validation AUROC: 0.76726
+Epoch 115 - Average loss: 0.0000
+Validation AUROC: 0.76729
+Epoch 116 - Average loss: 0.0000
+Validation AUROC: 0.76732
+Epoch 117 - Average loss: 0.0000
+Validation AUROC: 0.76732
+Epoch 118 - Average loss: 0.0000
+Validation AUROC: 0.76731
+Epoch 119 - Average loss: 0.0000
+Validation AUROC: 0.76730
+Epoch 120 - Average loss: 0.0000
+Validation AUROC: 0.76726
+Epoch 121 - Average loss: 0.0000
+Validation AUROC: 0.76728
+Epoch 122 - Average loss: 0.0000
+Validation AUROC: 0.76729
+Epoch 123 - Average loss: 0.0000
+Validation AUROC: 0.76728
+Epoch 124 - Average loss: 0.0000
+Validation AUROC: 0.76726
+Epoch 125 - Average loss: 0.0000
+Validation AUROC: 0.76731
+Epoch 126 - Average loss: 0.0000
+Validation AUROC: 0.76731
+Epoch 127 - Average loss: 0.0000
+Validation AUROC: 0.76733
+Epoch 128 - Average loss: 0.0000
+Validation AUROC: 0.76732
+Epoch 129 - Average loss: 0.0000
+Validation AUROC: 0.76730
+Epoch 130 - Average loss: 0.0000
+Validation AUROC: 0.76730
+Epoch 131 - Average loss: 0.0000
+Validation AUROC: 0.76730
+Epoch 132 - Average loss: 0.0000
+Validation AUROC: 0.76730
+Epoch 133 - Average loss: 0.0000
+Validation AUROC: 0.76729
+Epoch 134 - Average loss: 0.0000
+Validation AUROC: 0.76730
+Epoch 135 - Average loss: 0.0000
+Validation AUROC: 0.76730
+Epoch 136 - Average loss: 0.0000
+Validation AUROC: 0.76726
+Epoch 137 - Average loss: 0.0000
+Validation AUROC: 0.76728
+Epoch 138 - Average loss: 0.0000
+Validation AUROC: 0.76729
+Epoch 139 - Average loss: 0.0000
+Validation AUROC: 0.76729
+Epoch 140 - Average loss: 0.0000
+Validation AUROC: 0.76728
+Epoch 141 - Average loss: 0.0000
+Validation AUROC: 0.76723
+Epoch 142 - Average loss: 0.0000
+Validation AUROC: 0.76729
+Epoch 143 - Average loss: 0.0000
+Validation AUROC: 0.76728
+Epoch 144 - Average loss: 0.0000
+Validation AUROC: 0.76728
+Epoch 145 - Average loss: 0.0000
+Validation AUROC: 0.76728
+Epoch 146 - Average loss: 0.0000
+Validation AUROC: 0.76728
+Epoch 147 - Average loss: 0.0000
+Validation AUROC: 0.76728
+Epoch 148 - Average loss: 0.0000
+Validation AUROC: 0.76728
+Epoch 149 - Average loss: 0.0000
+Validation AUROC: 0.76724
+Epoch 150 - Average loss: 0.0000
+Validation AUROC: 0.76724
+Epoch 151 - Average loss: 0.0000
+Validation AUROC: 0.76724
+Epoch 152 - Average loss: 0.0000
+Validation AUROC: 0.76726
+Epoch 153 - Average loss: 0.0000
+Validation AUROC: 0.76726
+Epoch 154 - Average loss: 0.0000
+Validation AUROC: 0.76726
+Epoch 155 - Average loss: 0.0000
+Validation AUROC: 0.76726
+Epoch 156 - Average loss: 0.0000
+Validation AUROC: 0.76726
+Epoch 157 - Average loss: 0.0000
+Validation AUROC: 0.76726
+Epoch 158 - Average loss: 0.0000
+Validation AUROC: 0.76726
+Epoch 159 - Average loss: 0.0000
+Validation AUROC: 0.76724
+Epoch 160 - Average loss: 0.0000
+Validation AUROC: 0.76723
+Epoch 161 - Average loss: 0.0000
+Validation AUROC: 0.76723
+Epoch 162 - Average loss: 0.0000
+Validation AUROC: 0.76723
+Epoch 163 - Average loss: 0.0000
+Validation AUROC: 0.76723
+Epoch 164 - Average loss: 0.0000
+Validation AUROC: 0.76723
+Epoch 165 - Average loss: 0.0000
+Validation AUROC: 0.76725
+Epoch 166 - Average loss: 0.0000
+Validation AUROC: 0.76725
+Epoch 167 - Average loss: 0.0000
+Validation AUROC: 0.76725
+Epoch 168 - Average loss: 0.0000
+Validation AUROC: 0.76725
+Epoch 169 - Average loss: 0.0000
+Validation AUROC: 0.76725
+Epoch 170 - Average loss: 0.0000
+Validation AUROC: 0.76725
+Epoch 171 - Average loss: 0.0000
+Validation AUROC: 0.76725
+Epoch 172 - Average loss: 0.0000
+Validation AUROC: 0.76725
+Epoch 173 - Average loss: 0.0000
+Validation AUROC: 0.76725
+Epoch 174 - Average loss: 0.0000
+Validation AUROC: 0.76725
+Epoch 175 - Average loss: 0.0000
+Validation AUROC: 0.76725
+Epoch 176 - Average loss: 0.0000
+Validation AUROC: 0.76725
+Epoch 177 - Average loss: 0.0000
+Validation AUROC: 0.76724
+Early stopping triggered after 177 epochs
+
+--- Ensemble member 5/10 (training seed 26660) ---
+Training probe...
+Epoch 1 - Average loss: 0.9482
+Validation AUROC: 0.59020
+Epoch 2 - Average loss: 1.0449
+Validation AUROC: 0.61490
+Epoch 3 - Average loss: 0.5820
+Validation AUROC: 0.60720
+Epoch 4 - Average loss: 0.4077
+Validation AUROC: 0.60220
+Epoch 5 - Average loss: 0.4136
+Validation AUROC: 0.61183
+Epoch 6 - Average loss: 0.4104
+Validation AUROC: 0.62433
+Epoch 7 - Average loss: 0.2441
+Validation AUROC: 0.66647
+Epoch 8 - Average loss: 0.1256
+Validation AUROC: 0.68551
+Epoch 9 - Average loss: 0.3871
+Validation AUROC: 0.69397
+Epoch 10 - Average loss: 0.0294
+Validation AUROC: 0.70125
+Epoch 11 - Average loss: 0.0235
+Validation AUROC: 0.71578
+Epoch 12 - Average loss: 0.0130
+Validation AUROC: 0.72464
+Epoch 13 - Average loss: 0.0035
+Validation AUROC: 0.72597
+Epoch 14 - Average loss: 0.0008
+Validation AUROC: 0.71734
+Epoch 15 - Average loss: 0.0002
+Validation AUROC: 0.71341
+Epoch 16 - Average loss: 0.0002
+Validation AUROC: 0.71275
+Epoch 17 - Average loss: 0.0005
+Validation AUROC: 0.70805
+Epoch 18 - Average loss: 0.0005
+Validation AUROC: 0.70005
+Epoch 19 - Average loss: 0.0005
+Validation AUROC: 0.69346
+Epoch 20 - Average loss: 0.0002
+Validation AUROC: 0.69445
+Epoch 21 - Average loss: 0.0000
+Validation AUROC: 0.69568
+Epoch 22 - Average loss: 0.0000
+Validation AUROC: 0.69649
+Epoch 23 - Average loss: 0.0000
+Validation AUROC: 0.69629
+Epoch 24 - Average loss: 0.0000
+Validation AUROC: 0.69567
+Epoch 25 - Average loss: 0.0000
+Validation AUROC: 0.69616
+Epoch 26 - Average loss: 0.0000
+Validation AUROC: 0.69928
+Epoch 27 - Average loss: 0.0000
+Validation AUROC: 0.69915
+Epoch 28 - Average loss: 0.0000
+Validation AUROC: 0.70332
+Epoch 29 - Average loss: 0.0000
+Validation AUROC: 0.70276
+Epoch 30 - Average loss: 0.0000
+Validation AUROC: 0.70635
+Epoch 31 - Average loss: 0.0000
+Validation AUROC: 0.70646
+Epoch 32 - Average loss: 0.0000
+Validation AUROC: 0.70672
+Epoch 33 - Average loss: 0.0000
+Validation AUROC: 0.70696
+Epoch 34 - Average loss: 0.0000
+Validation AUROC: 0.70736
+Epoch 35 - Average loss: 0.0000
+Validation AUROC: 0.70989
+Epoch 36 - Average loss: 0.0000
+Validation AUROC: 0.71045
+Epoch 37 - Average loss: 0.0000
+Validation AUROC: 0.71199
+Epoch 38 - Average loss: 0.0000
+Validation AUROC: 0.71248
+Epoch 39 - Average loss: 0.0000
+Validation AUROC: 0.71249
+Epoch 40 - Average loss: 0.0000
+Validation AUROC: 0.71396
+Epoch 41 - Average loss: 0.0000
+Validation AUROC: 0.71296
+Epoch 42 - Average loss: 0.0000
+Validation AUROC: 0.71371
+Epoch 43 - Average loss: 0.0000
+Validation AUROC: 0.71480
+Epoch 44 - Average loss: 0.0000
+Validation AUROC: 0.71519
+Epoch 45 - Average loss: 0.0000
+Validation AUROC: 0.71485
+Epoch 46 - Average loss: 0.0000
+Validation AUROC: 0.71451
+Epoch 47 - Average loss: 0.0000
+Validation AUROC: 0.71723
+Epoch 48 - Average loss: 0.0000
+Validation AUROC: 0.71733
+Epoch 49 - Average loss: 0.0000
+Validation AUROC: 0.71731
+Epoch 50 - Average loss: 0.0000
+Validation AUROC: 0.71745
+Epoch 51 - Average loss: 0.0000
+Validation AUROC: 0.71756
+Epoch 52 - Average loss: 0.0000
+Validation AUROC: 0.71757
+Epoch 53 - Average loss: 0.0000
+Validation AUROC: 0.71905
+Epoch 54 - Average loss: 0.0000
+Validation AUROC: 0.71908
+Epoch 55 - Average loss: 0.0000
+Validation AUROC: 0.71851
+Epoch 56 - Average loss: 0.0000
+Validation AUROC: 0.72113
+Epoch 57 - Average loss: 0.0000
+Validation AUROC: 0.72233
+Epoch 58 - Average loss: 0.0000
+Validation AUROC: 0.72245
+Epoch 59 - Average loss: 0.0000
+Validation AUROC: 0.72250
+Epoch 60 - Average loss: 0.0000
+Validation AUROC: 0.72386
+Epoch 61 - Average loss: 0.0000
+Validation AUROC: 0.72391
+Epoch 62 - Average loss: 0.0000
+Validation AUROC: 0.72401
+Epoch 63 - Average loss: 0.0000
+Validation AUROC: 0.72263
+Early stopping triggered after 63 epochs
+
+--- Ensemble member 6/10 (training seed 42624) ---
+Training probe...
+Epoch 1 - Average loss: 0.7490
+Validation AUROC: 0.54638
+Epoch 2 - Average loss: 0.5220
+Validation AUROC: 0.55972
+Epoch 3 - Average loss: 1.1152
+Validation AUROC: 0.56425
+Epoch 4 - Average loss: 0.6553
+Validation AUROC: 0.58667
+Epoch 5 - Average loss: 0.4177
+Validation AUROC: 0.64169
+Epoch 6 - Average loss: 0.2650
+Validation AUROC: 0.67387
+Epoch 7 - Average loss: 0.2142
+Validation AUROC: 0.69046
+Epoch 8 - Average loss: 0.1541
+Validation AUROC: 0.70226
+Epoch 9 - Average loss: 0.0365
+Validation AUROC: 0.70688
+Epoch 10 - Average loss: 0.0219
+Validation AUROC: 0.72603
+Epoch 11 - Average loss: 0.0102
+Validation AUROC: 0.74659
+Epoch 12 - Average loss: 0.0012
+Validation AUROC: 0.75329
+Epoch 13 - Average loss: 0.0001
+Validation AUROC: 0.75842
+Epoch 14 - Average loss: 0.0000
+Validation AUROC: 0.75990
+Epoch 15 - Average loss: 0.0000
+Validation AUROC: 0.76105
+Epoch 16 - Average loss: 0.0002
+Validation AUROC: 0.75857
+Epoch 17 - Average loss: 0.0007
+Validation AUROC: 0.75786
+Epoch 18 - Average loss: 0.0012
+Validation AUROC: 0.75650
+Epoch 19 - Average loss: 0.0007
+Validation AUROC: 0.76112
+Epoch 20 - Average loss: 0.0002
+Validation AUROC: 0.76592
+Epoch 21 - Average loss: 0.0000
+Validation AUROC: 0.76804
+Epoch 22 - Average loss: 0.0000
+Validation AUROC: 0.76909
+Epoch 23 - Average loss: 0.0000
+Validation AUROC: 0.77022
+Epoch 24 - Average loss: 0.0000
+Validation AUROC: 0.77351
+Epoch 25 - Average loss: 0.0000
+Validation AUROC: 0.77451
+Epoch 26 - Average loss: 0.0000
+Validation AUROC: 0.77533
+Epoch 27 - Average loss: 0.0000
+Validation AUROC: 0.77677
+Epoch 28 - Average loss: 0.0000
+Validation AUROC: 0.77978
+Epoch 29 - Average loss: 0.0000
+Validation AUROC: 0.77990
+Epoch 30 - Average loss: 0.0000
+Validation AUROC: 0.77998
+Epoch 31 - Average loss: 0.0000
+Validation AUROC: 0.78112
+Epoch 32 - Average loss: 0.0000
+Validation AUROC: 0.78095
+Epoch 33 - Average loss: 0.0000
+Validation AUROC: 0.78125
+Epoch 34 - Average loss: 0.0000
+Validation AUROC: 0.78137
+Epoch 35 - Average loss: 0.0000
+Validation AUROC: 0.78149
+Epoch 36 - Average loss: 0.0000
+Validation AUROC: 0.78146
+Epoch 37 - Average loss: 0.0000
+Validation AUROC: 0.78172
+Epoch 38 - Average loss: 0.0000
+Validation AUROC: 0.78164
+Epoch 39 - Average loss: 0.0000
+Validation AUROC: 0.78258
+Epoch 40 - Average loss: 0.0000
+Validation AUROC: 0.78288
+Epoch 41 - Average loss: 0.0000
+Validation AUROC: 0.78359
+Epoch 42 - Average loss: 0.0000
+Validation AUROC: 0.78351
+Epoch 43 - Average loss: 0.0000
+Validation AUROC: 0.78343
+Epoch 44 - Average loss: 0.0000
+Validation AUROC: 0.78448
+Epoch 45 - Average loss: 0.0000
+Validation AUROC: 0.78439
+Epoch 46 - Average loss: 0.0000
+Validation AUROC: 0.78453
+Epoch 47 - Average loss: 0.0001
+Validation AUROC: 0.78452
+Epoch 48 - Average loss: 0.0000
+Validation AUROC: 0.78453
+Epoch 49 - Average loss: 0.0000
+Validation AUROC: 0.78469
+Epoch 50 - Average loss: 0.0000
+Validation AUROC: 0.78456
+Epoch 51 - Average loss: 0.0000
+Validation AUROC: 0.78454
+Epoch 52 - Average loss: 0.0000
+Validation AUROC: 0.78478
+Epoch 53 - Average loss: 0.0000
+Validation AUROC: 0.78467
+Epoch 54 - Average loss: 0.0000
+Validation AUROC: 0.78458
+Epoch 55 - Average loss: 0.0000
+Validation AUROC: 0.78459
+Epoch 56 - Average loss: 0.0000
+Validation AUROC: 0.78456
+Epoch 57 - Average loss: 0.0000
+Validation AUROC: 0.78460
+Epoch 58 - Average loss: 0.0000
+Validation AUROC: 0.78458
+Epoch 59 - Average loss: 0.0000
+Validation AUROC: 0.78460
+Epoch 60 - Average loss: 0.0000
+Validation AUROC: 0.78459
+Epoch 61 - Average loss: 0.0000
+Validation AUROC: 0.78460
+Epoch 62 - Average loss: 0.0000
+Validation AUROC: 0.78479
+Epoch 63 - Average loss: 0.0000
+Validation AUROC: 0.78472
+Epoch 64 - Average loss: 0.0000
+Validation AUROC: 0.78471
+Epoch 65 - Average loss: 0.0000
+Validation AUROC: 0.78471
+Epoch 66 - Average loss: 0.0000
+Validation AUROC: 0.78466
+Epoch 67 - Average loss: 0.0000
+Validation AUROC: 0.78462
+Epoch 68 - Average loss: 0.0000
+Validation AUROC: 0.78469
+Epoch 69 - Average loss: 0.0000
+Validation AUROC: 0.78474
+Epoch 70 - Average loss: 0.0000
+Validation AUROC: 0.78467
+Epoch 71 - Average loss: 0.0000
+Validation AUROC: 0.78468
+Epoch 72 - Average loss: 0.0000
+Validation AUROC: 0.78470
+Epoch 73 - Average loss: 0.0000
+Validation AUROC: 0.78456
+Epoch 74 - Average loss: 0.0000
+Validation AUROC: 0.78454
+Epoch 75 - Average loss: 0.0000
+Validation AUROC: 0.78454
+Epoch 76 - Average loss: 0.0000
+Validation AUROC: 0.78446
+Epoch 77 - Average loss: 0.0000
+Validation AUROC: 0.78446
+Epoch 78 - Average loss: 0.0000
+Validation AUROC: 0.78451
+Epoch 79 - Average loss: 0.0000
+Validation AUROC: 0.78446
+Epoch 80 - Average loss: 0.0000
+Validation AUROC: 0.78447
+Epoch 81 - Average loss: 0.0000
+Validation AUROC: 0.78441
+Epoch 82 - Average loss: 0.0000
+Validation AUROC: 0.78446
+Epoch 83 - Average loss: 0.0000
+Validation AUROC: 0.78442
+Epoch 84 - Average loss: 0.0000
+Validation AUROC: 0.78447
+Epoch 85 - Average loss: 0.0000
+Validation AUROC: 0.78442
+Epoch 86 - Average loss: 0.0000
+Validation AUROC: 0.78441
+Epoch 87 - Average loss: 0.0000
+Validation AUROC: 0.78442
+Epoch 88 - Average loss: 0.0000
+Validation AUROC: 0.78440
+Epoch 89 - Average loss: 0.0000
+Validation AUROC: 0.78436
+Epoch 90 - Average loss: 0.0000
+Validation AUROC: 0.78436
+Epoch 91 - Average loss: 0.0000
+Validation AUROC: 0.78434
+Epoch 92 - Average loss: 0.0000
+Validation AUROC: 0.78434
+Epoch 93 - Average loss: 0.0000
+Validation AUROC: 0.78435
+Epoch 94 - Average loss: 0.0000
+Validation AUROC: 0.78436
+Epoch 95 - Average loss: 0.0000
+Validation AUROC: 0.78440
+Epoch 96 - Average loss: 0.0000
+Validation AUROC: 0.78440
+Epoch 97 - Average loss: 0.0000
+Validation AUROC: 0.78440
+Epoch 98 - Average loss: 0.0000
+Validation AUROC: 0.78440
+Epoch 99 - Average loss: 0.0000
+Validation AUROC: 0.78440
+Epoch 100 - Average loss: 0.0000
+Validation AUROC: 0.78441
+Epoch 101 - Average loss: 0.0000
+Validation AUROC: 0.78437
+Epoch 102 - Average loss: 0.0000
+Validation AUROC: 0.78434
+Epoch 103 - Average loss: 0.0001
+Validation AUROC: 0.78434
+Epoch 104 - Average loss: 0.0000
+Validation AUROC: 0.78436
+Epoch 105 - Average loss: 0.0000
+Validation AUROC: 0.78436
+Epoch 106 - Average loss: 0.0000
+Validation AUROC: 0.78435
+Epoch 107 - Average loss: 0.0000
+Validation AUROC: 0.78431
+Epoch 108 - Average loss: 0.0000
+Validation AUROC: 0.78432
+Epoch 109 - Average loss: 0.0000
+Validation AUROC: 0.78432
+Epoch 110 - Average loss: 0.0000
+Validation AUROC: 0.78432
+Epoch 111 - Average loss: 0.0000
+Validation AUROC: 0.78431
+Epoch 112 - Average loss: 0.0000
+Validation AUROC: 0.78430
+Early stopping triggered after 112 epochs
+
+--- Ensemble member 7/10 (training seed 43521) ---
+Training probe...
+Epoch 1 - Average loss: 0.7236
+Validation AUROC: 0.49753
+Epoch 2 - Average loss: 1.7148
+Validation AUROC: 0.54750
+Epoch 3 - Average loss: 1.2324
+Validation AUROC: 0.58147
+Epoch 4 - Average loss: 0.5376
+Validation AUROC: 0.59384
+Epoch 5 - Average loss: 0.8594
+Validation AUROC: 0.60951
+Epoch 6 - Average loss: 0.5166
+Validation AUROC: 0.64930
+Epoch 7 - Average loss: 0.4141
+Validation AUROC: 0.70019
+Epoch 8 - Average loss: 0.1433
+Validation AUROC: 0.72847
+Epoch 9 - Average loss: 0.0902
+Validation AUROC: 0.72541
+Epoch 10 - Average loss: 0.1272
+Validation AUROC: 0.73139
+Epoch 11 - Average loss: 0.0678
+Validation AUROC: 0.75188
+Epoch 12 - Average loss: 0.0112
+Validation AUROC: 0.76683
+Epoch 13 - Average loss: 0.0077
+Validation AUROC: 0.77297
+Epoch 14 - Average loss: 0.0048
+Validation AUROC: 0.77440
+Epoch 15 - Average loss: 0.0019
+Validation AUROC: 0.77349
+Epoch 16 - Average loss: 0.0011
+Validation AUROC: 0.77161
+Epoch 17 - Average loss: 0.0002
+Validation AUROC: 0.77077
+Epoch 18 - Average loss: 0.0001
+Validation AUROC: 0.76883
+Epoch 19 - Average loss: 0.0000
+Validation AUROC: 0.76665
+Epoch 20 - Average loss: 0.0000
+Validation AUROC: 0.76483
+Epoch 21 - Average loss: 0.0000
+Validation AUROC: 0.76506
+Epoch 22 - Average loss: 0.0000
+Validation AUROC: 0.76477
+Epoch 23 - Average loss: 0.0000
+Validation AUROC: 0.76314
+Epoch 24 - Average loss: 0.0000
+Validation AUROC: 0.75613
+Epoch 25 - Average loss: 0.0000
+Validation AUROC: 0.75527
+Epoch 26 - Average loss: 0.0000
+Validation AUROC: 0.75227
+Epoch 27 - Average loss: 0.0000
+Validation AUROC: 0.75290
+Epoch 28 - Average loss: 0.0000
+Validation AUROC: 0.75012
+Epoch 29 - Average loss: 0.0000
+Validation AUROC: 0.74910
+Epoch 30 - Average loss: 0.0000
+Validation AUROC: 0.74841
+Epoch 31 - Average loss: 0.0000
+Validation AUROC: 0.74791
+Epoch 32 - Average loss: 0.0000
+Validation AUROC: 0.74798
+Epoch 33 - Average loss: 0.0000
+Validation AUROC: 0.74831
+Epoch 34 - Average loss: 0.0000
+Validation AUROC: 0.74855
+Epoch 35 - Average loss: 0.0000
+Validation AUROC: 0.74881
+Epoch 36 - Average loss: 0.0000
+Validation AUROC: 0.74957
+Epoch 37 - Average loss: 0.0000
+Validation AUROC: 0.74958
+Epoch 38 - Average loss: 0.0000
+Validation AUROC: 0.75023
+Epoch 39 - Average loss: 0.0000
+Validation AUROC: 0.75006
+Epoch 40 - Average loss: 0.0000
+Validation AUROC: 0.75023
+Epoch 41 - Average loss: 0.0000
+Validation AUROC: 0.75035
+Epoch 42 - Average loss: 0.0000
+Validation AUROC: 0.75031
+Epoch 43 - Average loss: 0.0000
+Validation AUROC: 0.75033
+Epoch 44 - Average loss: 0.0000
+Validation AUROC: 0.75057
+Epoch 45 - Average loss: 0.0000
+Validation AUROC: 0.75058
+Epoch 46 - Average loss: 0.0000
+Validation AUROC: 0.75054
+Epoch 47 - Average loss: 0.0000
+Validation AUROC: 0.75031
+Epoch 48 - Average loss: 0.0000
+Validation AUROC: 0.74982
+Epoch 49 - Average loss: 0.0000
+Validation AUROC: 0.74936
+Epoch 50 - Average loss: 0.0000
+Validation AUROC: 0.74913
+Epoch 51 - Average loss: 0.0000
+Validation AUROC: 0.74926
+Epoch 52 - Average loss: 0.0000
+Validation AUROC: 0.75045
+Epoch 53 - Average loss: 0.0000
+Validation AUROC: 0.75046
+Epoch 54 - Average loss: 0.0000
+Validation AUROC: 0.74999
+Epoch 55 - Average loss: 0.0000
+Validation AUROC: 0.74982
+Epoch 56 - Average loss: 0.0000
+Validation AUROC: 0.75019
+Epoch 57 - Average loss: 0.0000
+Validation AUROC: 0.75011
+Epoch 58 - Average loss: 0.0000
+Validation AUROC: 0.74997
+Epoch 59 - Average loss: 0.0000
+Validation AUROC: 0.74969
+Epoch 60 - Average loss: 0.0000
+Validation AUROC: 0.74987
+Epoch 61 - Average loss: 0.0000
+Validation AUROC: 0.74982
+Epoch 62 - Average loss: 0.0000
+Validation AUROC: 0.74964
+Epoch 63 - Average loss: 0.0000
+Validation AUROC: 0.74982
+Epoch 64 - Average loss: 0.0000
+Validation AUROC: 0.74977
+Early stopping triggered after 64 epochs
+
+--- Ensemble member 8/10 (training seed 54184) ---
+Training probe...
+Epoch 1 - Average loss: 0.7422
+Validation AUROC: 0.50000
+Epoch 2 - Average loss: 13.2188
+Validation AUROC: 0.49620
+Epoch 3 - Average loss: 4.8789
+Validation AUROC: 0.52668
+Epoch 4 - Average loss: 1.2124
+Validation AUROC: 0.53765
+Epoch 5 - Average loss: 1.9561
+Validation AUROC: 0.54395
+Epoch 6 - Average loss: 0.6699
+Validation AUROC: 0.54674
+Epoch 7 - Average loss: 0.7793
+Validation AUROC: 0.55255
+Epoch 8 - Average loss: 0.7627
+Validation AUROC: 0.56502
+Epoch 9 - Average loss: 0.6064
+Validation AUROC: 0.59878
+Epoch 10 - Average loss: 0.3189
+Validation AUROC: 0.68998
+Epoch 11 - Average loss: 0.2203
+Validation AUROC: 0.71660
+Epoch 12 - Average loss: 0.3394
+Validation AUROC: 0.73157
+Epoch 13 - Average loss: 0.8937
+Validation AUROC: 0.74611
+Epoch 14 - Average loss: 0.2704
+Validation AUROC: 0.74083
+Epoch 15 - Average loss: 0.0385
+Validation AUROC: 0.71742
+Epoch 16 - Average loss: 0.0673
+Validation AUROC: 0.72100
+Epoch 17 - Average loss: 0.0843
+Validation AUROC: 0.74436
+Epoch 18 - Average loss: 0.0382
+Validation AUROC: 0.77220
+Epoch 19 - Average loss: 0.0056
+Validation AUROC: 0.77891
+Epoch 20 - Average loss: 0.0009
+Validation AUROC: 0.77362
+Epoch 21 - Average loss: 0.0015
+Validation AUROC: 0.76122
+Epoch 22 - Average loss: 0.0010
+Validation AUROC: 0.75432
+Epoch 23 - Average loss: 0.0015
+Validation AUROC: 0.73448
+Epoch 24 - Average loss: 0.0022
+Validation AUROC: 0.72580
+Epoch 25 - Average loss: 0.0022
+Validation AUROC: 0.71305
+Epoch 26 - Average loss: 0.0017
+Validation AUROC: 0.70587
+Epoch 27 - Average loss: 0.0012
+Validation AUROC: 0.70741
+Epoch 28 - Average loss: 0.0002
+Validation AUROC: 0.70594
+Epoch 29 - Average loss: 0.0000
+Validation AUROC: 0.70491
+Epoch 30 - Average loss: 0.0000
+Validation AUROC: 0.70250
+Epoch 31 - Average loss: 0.0000
+Validation AUROC: 0.70192
+Epoch 32 - Average loss: 0.0000
+Validation AUROC: 0.70571
+Epoch 33 - Average loss: 0.0000
+Validation AUROC: 0.70593
+Epoch 34 - Average loss: 0.0000
+Validation AUROC: 0.70511
+Epoch 35 - Average loss: 0.0000
+Validation AUROC: 0.70417
+Epoch 36 - Average loss: 0.0000
+Validation AUROC: 0.70659
+Epoch 37 - Average loss: 0.0000
+Validation AUROC: 0.70821
+Epoch 38 - Average loss: 0.0000
+Validation AUROC: 0.70885
+Epoch 39 - Average loss: 0.0000
+Validation AUROC: 0.70864
+Epoch 40 - Average loss: 0.0000
+Validation AUROC: 0.70881
+Epoch 41 - Average loss: 0.0000
+Validation AUROC: 0.70899
+Epoch 42 - Average loss: 0.0000
+Validation AUROC: 0.71026
+Epoch 43 - Average loss: 0.0000
+Validation AUROC: 0.71054
+Epoch 44 - Average loss: 0.0000
+Validation AUROC: 0.70986
+Epoch 45 - Average loss: 0.0000
+Validation AUROC: 0.70986
+Epoch 46 - Average loss: 0.0000
+Validation AUROC: 0.71019
+Epoch 47 - Average loss: 0.0000
+Validation AUROC: 0.70886
+Epoch 48 - Average loss: 0.0000
+Validation AUROC: 0.70881
+Epoch 49 - Average loss: 0.0000
+Validation AUROC: 0.70956
+Epoch 50 - Average loss: 0.0000
+Validation AUROC: 0.70802
+Epoch 51 - Average loss: 0.0000
+Validation AUROC: 0.70800
+Epoch 52 - Average loss: 0.0000
+Validation AUROC: 0.70723
+Epoch 53 - Average loss: 0.0000
+Validation AUROC: 0.70669
+Epoch 54 - Average loss: 0.0000
+Validation AUROC: 0.70673
+Epoch 55 - Average loss: 0.0000
+Validation AUROC: 0.70677
+Epoch 56 - Average loss: 0.0000
+Validation AUROC: 0.70678
+Epoch 57 - Average loss: 0.0000
+Validation AUROC: 0.70676
+Epoch 58 - Average loss: 0.0000
+Validation AUROC: 0.70675
+Epoch 59 - Average loss: 0.0000
+Validation AUROC: 0.70675
+Epoch 60 - Average loss: 0.0000
+Validation AUROC: 0.70672
+Epoch 61 - Average loss: 0.0000
+Validation AUROC: 0.70675
+Epoch 62 - Average loss: 0.0000
+Validation AUROC: 0.70674
+Epoch 63 - Average loss: 0.0000
+Validation AUROC: 0.70681
+Epoch 64 - Average loss: 0.0000
+Validation AUROC: 0.70679
+Epoch 65 - Average loss: 0.0000
+Validation AUROC: 0.70682
+Epoch 66 - Average loss: 0.0000
+Validation AUROC: 0.70684
+Epoch 67 - Average loss: 0.0000
+Validation AUROC: 0.70838
+Epoch 68 - Average loss: 0.0000
+Validation AUROC: 0.70834
+Epoch 69 - Average loss: 0.0000
+Validation AUROC: 0.70844
+Early stopping triggered after 69 epochs
+
+--- Ensemble member 9/10 (training seed 65963) ---
+Training probe...
+Epoch 1 - Average loss: 0.7266
+Validation AUROC: 0.48462
+Epoch 2 - Average loss: 1.0331
+Validation AUROC: 0.50000
+Epoch 3 - Average loss: 6.5859
+Validation AUROC: 0.48037
+Epoch 4 - Average loss: 1.6614
+Validation AUROC: 0.49077
+Epoch 5 - Average loss: 2.1094
+Validation AUROC: 0.50549
+Epoch 6 - Average loss: 0.5610
+Validation AUROC: 0.51486
+Epoch 7 - Average loss: 0.5088
+Validation AUROC: 0.52907
+Epoch 8 - Average loss: 0.3057
+Validation AUROC: 0.56859
+Epoch 9 - Average loss: 0.1925
+Validation AUROC: 0.63858
+Epoch 10 - Average loss: 0.0817
+Validation AUROC: 0.69125
+Epoch 11 - Average loss: 0.1004
+Validation AUROC: 0.71467
+Epoch 12 - Average loss: 0.0832
+Validation AUROC: 0.73519
+Epoch 13 - Average loss: 0.0167
+Validation AUROC: 0.75661
+Epoch 14 - Average loss: 0.0032
+Validation AUROC: 0.76739
+Epoch 15 - Average loss: 0.0089
+Validation AUROC: 0.77452
+Epoch 16 - Average loss: 0.0088
+Validation AUROC: 0.78215
+Epoch 17 - Average loss: 0.0011
+Validation AUROC: 0.78213
+Epoch 18 - Average loss: 0.0001
+Validation AUROC: 0.78042
+Epoch 19 - Average loss: 0.0000
+Validation AUROC: 0.77660
+Epoch 20 - Average loss: 0.0000
+Validation AUROC: 0.77364
+Epoch 21 - Average loss: 0.0000
+Validation AUROC: 0.76530
+Epoch 22 - Average loss: 0.0000
+Validation AUROC: 0.76300
+Epoch 23 - Average loss: 0.0000
+Validation AUROC: 0.76148
+Epoch 24 - Average loss: 0.0000
+Validation AUROC: 0.75338
+Epoch 25 - Average loss: 0.0000
+Validation AUROC: 0.75330
+Epoch 26 - Average loss: 0.0000
+Validation AUROC: 0.74744
+Epoch 27 - Average loss: 0.0000
+Validation AUROC: 0.74426
+Epoch 28 - Average loss: 0.0000
+Validation AUROC: 0.74067
+Epoch 29 - Average loss: 0.0000
+Validation AUROC: 0.73376
+Epoch 30 - Average loss: 0.0000
+Validation AUROC: 0.73427
+Epoch 31 - Average loss: 0.0000
+Validation AUROC: 0.73124
+Epoch 32 - Average loss: 0.0000
+Validation AUROC: 0.73151
+Epoch 33 - Average loss: 0.0000
+Validation AUROC: 0.72529
+Epoch 34 - Average loss: 0.0000
+Validation AUROC: 0.72636
+Epoch 35 - Average loss: 0.0000
+Validation AUROC: 0.72535
+Epoch 36 - Average loss: 0.0000
+Validation AUROC: 0.72207
+Epoch 37 - Average loss: 0.0000
+Validation AUROC: 0.71910
+Epoch 38 - Average loss: 0.0000
+Validation AUROC: 0.71991
+Epoch 39 - Average loss: 0.0000
+Validation AUROC: 0.72100
+Epoch 40 - Average loss: 0.0000
+Validation AUROC: 0.71953
+Epoch 41 - Average loss: 0.0000
+Validation AUROC: 0.72018
+Epoch 42 - Average loss: 0.0000
+Validation AUROC: 0.71964
+Epoch 43 - Average loss: 0.0000
+Validation AUROC: 0.71952
+Epoch 44 - Average loss: 0.0000
+Validation AUROC: 0.72121
+Epoch 45 - Average loss: 0.0000
+Validation AUROC: 0.72208
+Epoch 46 - Average loss: 0.0000
+Validation AUROC: 0.72207
+Epoch 47 - Average loss: 0.0000
+Validation AUROC: 0.72315
+Epoch 48 - Average loss: 0.0000
+Validation AUROC: 0.72327
+Epoch 49 - Average loss: 0.0000
+Validation AUROC: 0.72343
+Epoch 50 - Average loss: 0.0000
+Validation AUROC: 0.72599
+Epoch 51 - Average loss: 0.0000
+Validation AUROC: 0.72449
+Epoch 52 - Average loss: 0.0000
+Validation AUROC: 0.72539
+Epoch 53 - Average loss: 0.0000
+Validation AUROC: 0.72530
+Epoch 54 - Average loss: 0.0000
+Validation AUROC: 0.72478
+Epoch 55 - Average loss: 0.0000
+Validation AUROC: 0.72451
+Epoch 56 - Average loss: 0.0000
+Validation AUROC: 0.72457
+Epoch 57 - Average loss: 0.0000
+Validation AUROC: 0.72478
+Epoch 58 - Average loss: 0.0000
+Validation AUROC: 0.72485
+Epoch 59 - Average loss: 0.0000
+Validation AUROC: 0.72494
+Epoch 60 - Average loss: 0.0000
+Validation AUROC: 0.72499
+Epoch 61 - Average loss: 0.0000
+Validation AUROC: 0.72595
+Epoch 62 - Average loss: 0.0000
+Validation AUROC: 0.72588
+Epoch 63 - Average loss: 0.0000
+Validation AUROC: 0.72578
+Epoch 64 - Average loss: 0.0000
+Validation AUROC: 0.72511
+Epoch 65 - Average loss: 0.0000
+Validation AUROC: 0.72527
+Epoch 66 - Average loss: 0.0000
+Validation AUROC: 0.72524
+Early stopping triggered after 66 epochs
+
+--- Ensemble member 10/10 (training seed 69051) ---
+Training probe...
+Epoch 1 - Average loss: 0.8008
+Validation AUROC: 0.58589
+Epoch 2 - Average loss: 0.8135
+Validation AUROC: 0.60395
+Epoch 3 - Average loss: 0.6543
+Validation AUROC: 0.60629
+Epoch 4 - Average loss: 0.6484
+Validation AUROC: 0.60738
+Epoch 5 - Average loss: 0.8818
+Validation AUROC: 0.60267
+Epoch 6 - Average loss: 0.7769
+Validation AUROC: 0.58365
+Epoch 7 - Average loss: 0.4297
+Validation AUROC: 0.57475
+Epoch 8 - Average loss: 0.3697
+Validation AUROC: 0.59530
+Epoch 9 - Average loss: 0.4849
+Validation AUROC: 0.63232
+Epoch 10 - Average loss: 0.5610
+Validation AUROC: 0.66244
+Epoch 11 - Average loss: 0.3133
+Validation AUROC: 0.68275
+Epoch 12 - Average loss: 0.1917
+Validation AUROC: 0.69708
+Epoch 13 - Average loss: 0.1014
+Validation AUROC: 0.70330
+Epoch 14 - Average loss: 0.0309
+Validation AUROC: 0.68718
+Epoch 15 - Average loss: 0.0185
+Validation AUROC: 0.68665
+Epoch 16 - Average loss: 0.0197
+Validation AUROC: 0.71399
+Epoch 17 - Average loss: 0.0092
+Validation AUROC: 0.74194
+Epoch 18 - Average loss: 0.0021
+Validation AUROC: 0.75494
+Epoch 19 - Average loss: 0.0005
+Validation AUROC: 0.75773
+Epoch 20 - Average loss: 0.0001
+Validation AUROC: 0.75247
+Epoch 21 - Average loss: 0.0000
+Validation AUROC: 0.74437
+Epoch 22 - Average loss: 0.0000
+Validation AUROC: 0.73620
+Epoch 23 - Average loss: 0.0000
+Validation AUROC: 0.73258
+Epoch 24 - Average loss: 0.0000
+Validation AUROC: 0.73023
+Epoch 25 - Average loss: 0.0000
+Validation AUROC: 0.72494
+Epoch 26 - Average loss: 0.0000
+Validation AUROC: 0.71437
+Epoch 27 - Average loss: 0.0000
+Validation AUROC: 0.70263
+Epoch 28 - Average loss: 0.0000
+Validation AUROC: 0.69469
+Epoch 29 - Average loss: 0.0000
+Validation AUROC: 0.68929
+Epoch 30 - Average loss: 0.0000
+Validation AUROC: 0.68728
+Epoch 31 - Average loss: 0.0000
+Validation AUROC: 0.68840
+Epoch 32 - Average loss: 0.0000
+Validation AUROC: 0.68707
+Epoch 33 - Average loss: 0.0000
+Validation AUROC: 0.68832
+Epoch 34 - Average loss: 0.0000
+Validation AUROC: 0.69011
+Epoch 35 - Average loss: 0.0000
+Validation AUROC: 0.69034
+Epoch 36 - Average loss: 0.0000
+Validation AUROC: 0.69049
+Epoch 37 - Average loss: 0.0000
+Validation AUROC: 0.68922
+Epoch 38 - Average loss: 0.0000
+Validation AUROC: 0.68959
+Epoch 39 - Average loss: 0.0000
+Validation AUROC: 0.69139
+Epoch 40 - Average loss: 0.0000
+Validation AUROC: 0.69448
+Epoch 41 - Average loss: 0.0000
+Validation AUROC: 0.69454
+Epoch 42 - Average loss: 0.0000
+Validation AUROC: 0.69409
+Epoch 43 - Average loss: 0.0000
+Validation AUROC: 0.69540
+Epoch 44 - Average loss: 0.0000
+Validation AUROC: 0.69480
+Epoch 45 - Average loss: 0.0000
+Validation AUROC: 0.69507
+Epoch 46 - Average loss: 0.0000
+Validation AUROC: 0.69451
+Epoch 47 - Average loss: 0.0000
+Validation AUROC: 0.69633
+Epoch 48 - Average loss: 0.0000
+Validation AUROC: 0.69569
+Epoch 49 - Average loss: 0.0000
+Validation AUROC: 0.69577
+Epoch 50 - Average loss: 0.0000
+Validation AUROC: 0.69746
+Epoch 51 - Average loss: 0.0000
+Validation AUROC: 0.69762
+Epoch 52 - Average loss: 0.0000
+Validation AUROC: 0.69932
+Epoch 53 - Average loss: 0.0000
+Validation AUROC: 0.69934
+Epoch 54 - Average loss: 0.0000
+Validation AUROC: 0.69863
+Epoch 55 - Average loss: 0.0000
+Validation AUROC: 0.69864
+Epoch 56 - Average loss: 0.0000
+Validation AUROC: 0.69871
+Epoch 57 - Average loss: 0.0000
+Validation AUROC: 0.69889
+Epoch 58 - Average loss: 0.0000
+Validation AUROC: 0.69887
+Epoch 59 - Average loss: 0.0000
+Validation AUROC: 0.69893
+Epoch 60 - Average loss: 0.0000
+Validation AUROC: 0.69882
+Epoch 61 - Average loss: 0.0000
+Validation AUROC: 0.69888
+Epoch 62 - Average loss: 0.0000
+Validation AUROC: 0.69899
+Epoch 63 - Average loss: 0.0000
+Validation AUROC: 0.69894
+Epoch 64 - Average loss: 0.0000
+Validation AUROC: 0.69897
+Epoch 65 - Average loss: 0.0000
+Validation AUROC: 0.69830
+Epoch 66 - Average loss: 0.0000
+Validation AUROC: 0.69822
+Epoch 67 - Average loss: 0.0000
+Validation AUROC: 0.69815
+Epoch 68 - Average loss: 0.0000
+Validation AUROC: 0.69821
+Epoch 69 - Average loss: 0.0000
+Validation AUROC: 0.69812
+Early stopping triggered after 69 epochs
+Built a 10-member score-averaging ensemble (seeds [3699, 14431, 23529, 26229, 26660, 42624, 43521, 54184, 65963, 69051])
+Saved initial 10-member ensemble probe to probes/instructions_gemma27b_evaldesc_drift/probe_iter0.pkl
+
+===== EVALUATING iter0: probes/instructions_gemma27b_evaldesc_drift/probe_iter0.pkl =====
+[kaggle] anthropic_harmless_refusal: already cached at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations/anthropic_harmless_refusal-acts_full.pt
+[kaggle] bbq_substitution: already cached at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations/bbq_substitution-acts_full.pt
+[kaggle] hc_context_drift: already cached at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations/hc_context_drift-acts_full.pt
+[kaggle] hc_contradiction: already cached at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations/hc_contradiction-acts_full.pt
+[kaggle] mm_substitution: already cached at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations/mm_substitution-acts_full.pt
+[kaggle] oig_context_drift: already cached at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations/oig_context_drift-acts_full.pt
+[kaggle] oig_omission: already cached at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations/oig_omission-acts_full.pt
+Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+                   dataset    auroc  accuracy  tpr_at_fpr  fpr
+anthropic_harmless_refusal 0.347900  0.515000    0.120000 0.01
+          bbq_substitution 0.899100  0.780000    0.000000 0.01
+          hc_context_drift 0.766713  0.603093    0.000000 0.01
+          hc_contradiction 0.907750  0.830000    0.000000 0.01
+           mm_substitution 0.936300  0.890000    0.320000 0.01
+         oig_context_drift 0.745563  0.690722    0.000000 0.01
+              oig_omission 0.796553  0.684211    0.105263 0.01
+                      mean 0.771411  0.713289    0.077895 0.01
+
+Starting probe (iteration 0): probes/instructions_gemma27b_evaldesc_drift/probe_iter0.pkl
+Error types: ['false_positive', 'false_negative']
+Rounds per error type: 5
+
+########## ITERATION 0 ##########
+
+--- Error type: false_positive → /workspace/cc_based_auto_improvement/results_instructions_gemma27b_evaldesc_drift/gptoss120b_probing_fp.jsonl ---
+Probe under attack is a 10-member score-averaging ensemble; submissions are scored by the members' mean probability.
+[model_loading] loading google/gemma-3-27b-it, truncated to 33 layers (probe reads layer 32); max_memory={0: '22GiB', 'cpu': '45GiB'} (from AGENTIC_REDTEAM_MAX_MEMORY)
+[tuberlens] loading google/gemma-3-27b-it on device_map='auto'; max_memory={0: '22GiB', 'cpu': '45GiB'}
+Some parameters are on the meta device because they were offloaded to the cpu.
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 1 new successes (total 8); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 3 new successes (total 10); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 12); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 2 new successes (total 15); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 2 new successes (total 16); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 3 new successes (total 16); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 2 new successes (total 17); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 2 new successes (total 18); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 1 new successes (total 18); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 3 new successes (total 19); stop_reason=batch_complete ===
+=== Round 0 summarized (45 attempts, 19 successful) ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 21); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 3 new successes (total 22); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 3 new successes (total 38); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 2 new successes (total 43); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 4 new successes (total 43); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 4 new successes (total 44); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 4 new successes (total 45); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 3 new successes (total 47); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 4 new successes (total 49); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 4 new successes (total 50); stop_reason=batch_complete ===
+=== Round 1 summarized (43 attempts, 31 successful) ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 2 new successes (total 52); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 3 new successes (total 55); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 1 new successes (total 58); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 1 new successes (total 61); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 1 new successes (total 63); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 2 new successes (total 68); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 3 new successes (total 71); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 3 new successes (total 71); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 5 new successes (total 73); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 3 new successes (total 74); stop_reason=batch_complete ===
+=== Round 2 summarized (32 attempts, 24 successful) ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 4 new successes (total 78); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 1 new successes (total 81); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 1 new successes (total 84); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 84); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 3 new successes (total 85); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 2 new successes (total 88); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 5 new successes (total 91); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 91); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 2 new successes (total 92); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 2 new successes (total 94); stop_reason=batch_complete ===
+=== Round 3 summarized (38 attempts, 20 successful) ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 3 new successes (total 97); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 3 new successes (total 104); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 104); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 4 new successes (total 112); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 4 new successes (total 115); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 1 new successes (total 115); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 3 new successes (total 115); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 3 new successes (total 116); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 3 new successes (total 119); stop_reason=batch_complete ===
+Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+=== openai/gpt-oss-120b done — 1 new successes (total 119); stop_reason=batch_complete ===
+=== Iteration 0 memo written for the next iteration (200 attempts, 119 successful) ===
+Released the probe's LLM; 1.0 GiB free on the card
+  false_positive: 119 new successes across 50 model-rounds
+
+--- Error type: false_negative → /workspace/cc_based_auto_improvement/results_instructions_gemma27b_evaldesc_drift/gptoss120b_probing_fn.jsonl ---
+Probe under attack is a 10-member score-averaging ensemble; submissions are scored by the members' mean probability.
+[model_loading] loading google/gemma-3-27b-it, truncated to 33 layers (probe reads layer 32); max_memory={0: '22GiB', 'cpu': '45GiB'} (from AGENTIC_REDTEAM_MAX_MEMORY)
+[tuberlens] loading google/gemma-3-27b-it on device_map='auto'; max_memory={0: '22GiB', 'cpu': '45GiB'}
+Some parameters are on the meta device because they were offloaded to the cpu.
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 0 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 4 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 0); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 0); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 0); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 0); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 0); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 2: parsed 1 conversation(s) of 1 still wanted
+=== openai/gpt-oss-120b done — 1 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== Round 0 summarized (49 attempts, 1 successful) ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 1 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== Round 1 summarized (49 attempts, 0 successful) ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 2 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 4 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 2: parsed 1 conversation(s) of 1 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 1); stop_reason=batch_complete ===
+=== Round 2 summarized (49 attempts, 0 successful) ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 3 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 4 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 2); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 1 new successes (total 2); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 2); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 2); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 2: parsed 1 conversation(s) of 1 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 2); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 2); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 2); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 2); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 2); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 1 new successes (total 3); stop_reason=batch_complete ===
+=== Round 3 summarized (48 attempts, 2 successful) ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 4 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 1 new successes (total 4); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 4); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 4); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 4); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 4); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 4); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 4); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 4); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 4); stop_reason=batch_complete ===
+Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+=== openai/gpt-oss-120b done — 0 new successes (total 4); stop_reason=batch_complete ===
+=== Iteration 0 memo written for the next iteration (241 attempts, 4 successful) ===
+Released the probe's LLM; 1.0 GiB free on the card
+  false_negative: 4 new successes across 50 model-rounds
+Iteration 0: 123 new successes total
+Red-team successes loaded: 123 → 123 after dropping judge_confidence < 7
+filter_dataset: 123 → 98 records after dropping confounders
+Contrastive generation: 98 contrastive examples from 98 source records; label distribution {'assistant_follows_the_instruction': 94, 'assistant_does_not_follow_the_instruction': 4}
+Red-team training samples after preprocessing: 196
+Saved 196 postprocessed red-team samples to probes/instructions_gemma27b_evaldesc_drift/redteam_postprocessed_iter1.jsonl
+Validation set: held-out dev data at /workspace/cc_based_auto_improvement/dev_samples/instructions
+  dev split anthropic_harmless_refusal.jsonl: 68 samples
+  dev split bbq_substitution.jsonl: 68 samples
+  dev split hc_context_drift.jsonl: 66 samples
+  dev split hc_contradiction.jsonl: 68 samples
+  dev split mm_substitution.jsonl: 68 samples
+  dev split oig_context_drift.jsonl: 66 samples
+  dev split oig_omission.jsonl: 32 samples
+Dev validation samples: 436 (base + red-team data all train, nothing held out)
+Training a 10-member score-averaging deep ensemble (training seeds [3699, 14431, 23529, 26229, 26660, 42624, 43521, 54184, 65963, 69051])
+Total samples before split: 246 (base 50, red-team 196)
+Loaded cached base activations: /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/base_activations/base_acts_google_gemma-3-27b-it_L32_f6846de1f21808b3_train.pt
+Red-team activations: 0 loaded from cache, 196 to compute (chunk size 1) ...
+Loading model for activation extraction ...
+[model_loading] loading google/gemma-3-27b-it, truncated to 33 layers (probe reads layer 32); max_memory={0: '22GiB', 'cpu': '45GiB'} (from AGENTIC_REDTEAM_MAX_MEMORY)
+[tuberlens] loading google/gemma-3-27b-it on device_map='auto'; max_memory={0: '22GiB', 'cpu': '45GiB'}
+Some parameters are on the meta device because they were offloaded to the cpu.
+  [red-team activations] 10/196 (3.0s/sample, ~9 min left)
+  [red-team activations] 20/196 (2.4s/sample, ~7 min left)
+  [red-team activations] 30/196 (2.3s/sample, ~6 min left)
+  [red-team activations] 40/196 (2.2s/sample, ~6 min left)
+  [red-team activations] 50/196 (2.1s/sample, ~5 min left)
+  [red-team activations] 60/196 (2.1s/sample, ~5 min left)
+  [red-team activations] 70/196 (2.1s/sample, ~4 min left)
+  [red-team activations] 80/196 (2.0s/sample, ~4 min left)
+  [red-team activations] 90/196 (2.0s/sample, ~4 min left)
+  [red-team activations] 100/196 (2.0s/sample, ~3 min left)
+  [red-team activations] 110/196 (2.0s/sample, ~3 min left)
+  [red-team activations] 120/196 (2.0s/sample, ~3 min left)
+  [red-team activations] 130/196 (2.0s/sample, ~2 min left)
+  [red-team activations] 140/196 (2.0s/sample, ~2 min left)
+  [red-team activations] 150/196 (2.0s/sample, ~2 min left)
+  [red-team activations] 160/196 (2.0s/sample, ~1 min left)
+  [red-team activations] 170/196 (2.0s/sample, ~1 min left)
+  [red-team activations] 180/196 (2.0s/sample, ~1 min left)
+  [red-team activations] 190/196 (2.0s/sample, ~0 min left)
+  [red-team activations] 196/196 (2.0s/sample, ~0 min left)
+Loaded cached base activations: /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/base_activations/dev_acts_google_gemma-3-27b-it_L32_ec4c593286eb316d.pt
+Releasing extraction model before probe fit ...
+  22.4 GiB allocatable after the release (1.0 GiB of that free at the driver)
+Train/validation: 246 train, 436 validation (base 50+0; red-team 196+0; dev 436)
+Staged 2.6 GiB of activations on cuda for the probe fits (no host->device copy per epoch)
+
+--- Ensemble member 1/10 (training seed 3699) ---
+Training probe...
+Epoch 1 - Average loss: 1.7810
+Validation AUROC: 0.57390
+Epoch 2 - Average loss: 0.5959
+Validation AUROC: 0.67338
+Epoch 3 - Average loss: 0.3850
+Validation AUROC: 0.68635
+Epoch 4 - Average loss: 0.4412
+Validation AUROC: 0.71756
+Epoch 5 - Average loss: 0.3416
+Validation AUROC: 0.67727
+Epoch 6 - Average loss: 0.4645
+Validation AUROC: 0.65491
+Epoch 7 - Average loss: 0.3069
+Validation AUROC: 0.63945
+Epoch 8 - Average loss: 0.2273
+Validation AUROC: 0.67690
+Epoch 9 - Average loss: 0.2118
+Validation AUROC: 0.65824
+Epoch 10 - Average loss: 0.1329
+Validation AUROC: 0.67553
+Epoch 11 - Average loss: 0.1158
+Validation AUROC: 0.65614
+Epoch 12 - Average loss: 0.1343
+Validation AUROC: 0.67453
+Epoch 13 - Average loss: 0.1351
+Validation AUROC: 0.64938
+Epoch 14 - Average loss: 0.0882
+Validation AUROC: 0.65851
+Epoch 15 - Average loss: 0.0683
+Validation AUROC: 0.65412
+Epoch 16 - Average loss: 0.0749
+Validation AUROC: 0.65705
+Epoch 17 - Average loss: 0.1624
+Validation AUROC: 0.63692
+Epoch 18 - Average loss: 0.0575
+Validation AUROC: 0.65877
+Epoch 19 - Average loss: 0.0991
+Validation AUROC: 0.64384
+Epoch 20 - Average loss: 0.0977
+Validation AUROC: 0.65098
+Epoch 21 - Average loss: 0.0624
+Validation AUROC: 0.66193
+Epoch 22 - Average loss: 0.0666
+Validation AUROC: 0.66099
+Epoch 23 - Average loss: 0.0485
+Validation AUROC: 0.65275
+Epoch 24 - Average loss: 0.0717
+Validation AUROC: 0.66376
+Epoch 25 - Average loss: 0.1333
+Validation AUROC: 0.65682
+Epoch 26 - Average loss: 0.0505
+Validation AUROC: 0.66009
+Epoch 27 - Average loss: 0.0370
+Validation AUROC: 0.64686
+Epoch 28 - Average loss: 0.0434
+Validation AUROC: 0.65525
+Epoch 29 - Average loss: 0.0501
+Validation AUROC: 0.64815
+Epoch 30 - Average loss: 0.0445
+Validation AUROC: 0.65112
+Epoch 31 - Average loss: 0.0474
+Validation AUROC: 0.63990
+Epoch 32 - Average loss: 0.0276
+Validation AUROC: 0.64293
+Epoch 33 - Average loss: 0.0325
+Validation AUROC: 0.64380
+Epoch 34 - Average loss: 0.0167
+Validation AUROC: 0.64558
+Epoch 35 - Average loss: 0.0209
+Validation AUROC: 0.64122
+Epoch 36 - Average loss: 0.0191
+Validation AUROC: 0.64757
+Epoch 37 - Average loss: 0.0193
+Validation AUROC: 0.64930
+Epoch 38 - Average loss: 0.0199
+Validation AUROC: 0.63793
+Epoch 39 - Average loss: 0.0281
+Validation AUROC: 0.64071
+Epoch 40 - Average loss: 0.0311
+Validation AUROC: 0.64457
+Epoch 41 - Average loss: 0.0226
+Validation AUROC: 0.64250
+Epoch 42 - Average loss: 0.0256
+Validation AUROC: 0.63976
+Epoch 43 - Average loss: 0.0142
+Validation AUROC: 0.64195
+Epoch 44 - Average loss: 0.0192
+Validation AUROC: 0.64450
+Epoch 45 - Average loss: 0.0215
+Validation AUROC: 0.63730
+Epoch 46 - Average loss: 0.0183
+Validation AUROC: 0.64224
+Epoch 47 - Average loss: 0.0180
+Validation AUROC: 0.64351
+Epoch 48 - Average loss: 0.0157
+Validation AUROC: 0.63982
+Epoch 49 - Average loss: 0.0194
+Validation AUROC: 0.63698
+Epoch 50 - Average loss: 0.0131
+Validation AUROC: 0.64410
+Epoch 51 - Average loss: 0.0255
+Validation AUROC: 0.64665
+Epoch 52 - Average loss: 0.0181
+Validation AUROC: 0.64422
+Epoch 53 - Average loss: 0.0186
+Validation AUROC: 0.63568
+Epoch 54 - Average loss: 0.0268
+Validation AUROC: 0.63785
+Early stopping triggered after 54 epochs
+
+--- Ensemble member 2/10 (training seed 14431) ---
+Training probe...
+Epoch 1 - Average loss: 1.0679
+Validation AUROC: 0.51784
+Epoch 2 - Average loss: 2.9419
+Validation AUROC: 0.55730
+Epoch 3 - Average loss: 0.8553
+Validation AUROC: 0.53666
+Epoch 4 - Average loss: 0.8010
+Validation AUROC: 0.69090
+Epoch 5 - Average loss: 0.5928
+Validation AUROC: 0.69713
+Epoch 6 - Average loss: 0.6383
+Validation AUROC: 0.71249
+Epoch 7 - Average loss: 0.6545
+Validation AUROC: 0.71595
+Epoch 8 - Average loss: 0.5824
+Validation AUROC: 0.71672
+Epoch 9 - Average loss: 0.4373
+Validation AUROC: 0.71778
+Epoch 10 - Average loss: 0.3343
+Validation AUROC: 0.71897
+Epoch 11 - Average loss: 0.3071
+Validation AUROC: 0.72382
+Epoch 12 - Average loss: 0.2344
+Validation AUROC: 0.71065
+Epoch 13 - Average loss: 0.1857
+Validation AUROC: 0.71368
+Epoch 14 - Average loss: 0.2241
+Validation AUROC: 0.67823
+Epoch 15 - Average loss: 0.2264
+Validation AUROC: 0.68950
+Epoch 16 - Average loss: 0.1337
+Validation AUROC: 0.67871
+Epoch 17 - Average loss: 0.1095
+Validation AUROC: 0.68401
+Epoch 18 - Average loss: 0.2072
+Validation AUROC: 0.66674
+Epoch 19 - Average loss: 0.2270
+Validation AUROC: 0.69406
+Epoch 20 - Average loss: 0.1948
+Validation AUROC: 0.65511
+Epoch 21 - Average loss: 0.2181
+Validation AUROC: 0.68396
+Epoch 22 - Average loss: 0.1035
+Validation AUROC: 0.67388
+Epoch 23 - Average loss: 0.0973
+Validation AUROC: 0.66302
+Epoch 24 - Average loss: 0.0821
+Validation AUROC: 0.67664
+Epoch 25 - Average loss: 0.0879
+Validation AUROC: 0.67119
+Epoch 26 - Average loss: 0.1253
+Validation AUROC: 0.67118
+Epoch 27 - Average loss: 0.0861
+Validation AUROC: 0.66427
+Epoch 28 - Average loss: 0.0750
+Validation AUROC: 0.66278
+Epoch 29 - Average loss: 0.0660
+Validation AUROC: 0.65881
+Epoch 30 - Average loss: 0.0575
+Validation AUROC: 0.65854
+Epoch 31 - Average loss: 0.0670
+Validation AUROC: 0.66595
+Epoch 32 - Average loss: 0.0658
+Validation AUROC: 0.65343
+Epoch 33 - Average loss: 0.0590
+Validation AUROC: 0.66251
+Epoch 34 - Average loss: 0.0457
+Validation AUROC: 0.65534
+Epoch 35 - Average loss: 0.0391
+Validation AUROC: 0.65669
+Epoch 36 - Average loss: 0.0401
+Validation AUROC: 0.65919
+Epoch 37 - Average loss: 0.0335
+Validation AUROC: 0.65192
+Epoch 38 - Average loss: 0.0296
+Validation AUROC: 0.65540
+Epoch 39 - Average loss: 0.0292
+Validation AUROC: 0.64632
+Epoch 40 - Average loss: 0.0276
+Validation AUROC: 0.65653
+Epoch 41 - Average loss: 0.0290
+Validation AUROC: 0.65093
+Epoch 42 - Average loss: 0.0275
+Validation AUROC: 0.65496
+Epoch 43 - Average loss: 0.0260
+Validation AUROC: 0.65059
+Epoch 44 - Average loss: 0.0214
+Validation AUROC: 0.65133
+Epoch 45 - Average loss: 0.0208
+Validation AUROC: 0.65205
+Epoch 46 - Average loss: 0.0244
+Validation AUROC: 0.65632
+Epoch 47 - Average loss: 0.0248
+Validation AUROC: 0.64753
+Epoch 48 - Average loss: 0.0234
+Validation AUROC: 0.65440
+Epoch 49 - Average loss: 0.0217
+Validation AUROC: 0.64594
+Epoch 50 - Average loss: 0.0182
+Validation AUROC: 0.65689
+Epoch 51 - Average loss: 0.0177
+Validation AUROC: 0.64715
+Epoch 52 - Average loss: 0.0159
+Validation AUROC: 0.64856
+Epoch 53 - Average loss: 0.0163
+Validation AUROC: 0.64421
+Epoch 54 - Average loss: 0.0153
+Validation AUROC: 0.64897
+Epoch 55 - Average loss: 0.0143
+Validation AUROC: 0.64485
+Epoch 56 - Average loss: 0.0133
+Validation AUROC: 0.64292
+Epoch 57 - Average loss: 0.0144
+Validation AUROC: 0.64767
+Epoch 58 - Average loss: 0.0116
+Validation AUROC: 0.64310
+Epoch 59 - Average loss: 0.0117
+Validation AUROC: 0.64411
+Epoch 60 - Average loss: 0.0162
+Validation AUROC: 0.64622
+Epoch 61 - Average loss: 0.0113
+Validation AUROC: 0.64272
+Early stopping triggered after 61 epochs
+
+--- Ensemble member 3/10 (training seed 23529) ---
+Training probe...
+Epoch 1 - Average loss: 1.4194
+Validation AUROC: 0.59567
+Epoch 2 - Average loss: 1.2051
+Validation AUROC: 0.51688
+Epoch 3 - Average loss: 1.0356
+Validation AUROC: 0.50859
+Epoch 4 - Average loss: 0.6831
+Validation AUROC: 0.59720
+Epoch 5 - Average loss: 0.8090
+Validation AUROC: 0.63783
+Epoch 6 - Average loss: 0.8542
+Validation AUROC: 0.69631
+Epoch 7 - Average loss: 0.4673
+Validation AUROC: 0.68044
+Epoch 8 - Average loss: 0.8347
+Validation AUROC: 0.74746
+Epoch 9 - Average loss: 0.8016
+Validation AUROC: 0.75911
+Epoch 10 - Average loss: 0.5258
+Validation AUROC: 0.64486
+Epoch 11 - Average loss: 0.5930
+Validation AUROC: 0.62939
+Epoch 12 - Average loss: 0.9088
+Validation AUROC: 0.68942
+Epoch 13 - Average loss: 0.7030
+Validation AUROC: 0.70756
+Epoch 14 - Average loss: 0.3722
+Validation AUROC: 0.71753
+Epoch 15 - Average loss: 0.2862
+Validation AUROC: 0.72854
+Epoch 16 - Average loss: 0.4171
+Validation AUROC: 0.71764
+Epoch 17 - Average loss: 0.3000
+Validation AUROC: 0.70308
+Epoch 18 - Average loss: 0.2585
+Validation AUROC: 0.71221
+Epoch 19 - Average loss: 0.3007
+Validation AUROC: 0.69409
+Epoch 20 - Average loss: 0.2514
+Validation AUROC: 0.67483
+Epoch 21 - Average loss: 0.2025
+Validation AUROC: 0.70314
+Epoch 22 - Average loss: 0.1411
+Validation AUROC: 0.68838
+Epoch 23 - Average loss: 0.1313
+Validation AUROC: 0.68395
+Epoch 24 - Average loss: 0.0979
+Validation AUROC: 0.69034
+Epoch 25 - Average loss: 0.1018
+Validation AUROC: 0.66907
+Epoch 26 - Average loss: 0.1593
+Validation AUROC: 0.68682
+Epoch 27 - Average loss: 0.1934
+Validation AUROC: 0.66888
+Epoch 28 - Average loss: 0.0936
+Validation AUROC: 0.67757
+Epoch 29 - Average loss: 0.1193
+Validation AUROC: 0.65895
+Epoch 30 - Average loss: 0.1085
+Validation AUROC: 0.66866
+Epoch 31 - Average loss: 0.0547
+Validation AUROC: 0.66823
+Epoch 32 - Average loss: 0.0508
+Validation AUROC: 0.66734
+Epoch 33 - Average loss: 0.0534
+Validation AUROC: 0.66123
+Epoch 34 - Average loss: 0.0493
+Validation AUROC: 0.65950
+Epoch 35 - Average loss: 0.0415
+Validation AUROC: 0.66104
+Epoch 36 - Average loss: 0.0328
+Validation AUROC: 0.64959
+Epoch 37 - Average loss: 0.0386
+Validation AUROC: 0.65608
+Epoch 38 - Average loss: 0.0356
+Validation AUROC: 0.64318
+Epoch 39 - Average loss: 0.0227
+Validation AUROC: 0.65613
+Epoch 40 - Average loss: 0.0244
+Validation AUROC: 0.64433
+Epoch 41 - Average loss: 0.0284
+Validation AUROC: 0.65691
+Epoch 42 - Average loss: 0.0578
+Validation AUROC: 0.65433
+Epoch 43 - Average loss: 0.0228
+Validation AUROC: 0.64830
+Epoch 44 - Average loss: 0.0168
+Validation AUROC: 0.65380
+Epoch 45 - Average loss: 0.0185
+Validation AUROC: 0.64668
+Epoch 46 - Average loss: 0.0177
+Validation AUROC: 0.64965
+Epoch 47 - Average loss: 0.0138
+Validation AUROC: 0.65293
+Epoch 48 - Average loss: 0.0248
+Validation AUROC: 0.65281
+Epoch 49 - Average loss: 0.0235
+Validation AUROC: 0.65336
+Epoch 50 - Average loss: 0.0525
+Validation AUROC: 0.65116
+Epoch 51 - Average loss: 0.0387
+Validation AUROC: 0.65083
+Epoch 52 - Average loss: 0.0190
+Validation AUROC: 0.65265
+Epoch 53 - Average loss: 0.0173
+Validation AUROC: 0.64740
+Epoch 54 - Average loss: 0.0108
+Validation AUROC: 0.64332
+Epoch 55 - Average loss: 0.0131
+Validation AUROC: 0.65044
+Epoch 56 - Average loss: 0.0136
+Validation AUROC: 0.65069
+Epoch 57 - Average loss: 0.0106
+Validation AUROC: 0.64475
+Epoch 58 - Average loss: 0.0144
+Validation AUROC: 0.64463
+Epoch 59 - Average loss: 0.0129
+Validation AUROC: 0.64773
+Early stopping triggered after 59 epochs
+
+--- Ensemble member 4/10 (training seed 26229) ---
+Training probe...
+Epoch 1 - Average loss: 0.9753
+Validation AUROC: 0.53179
+Epoch 2 - Average loss: 1.5525
+Validation AUROC: 0.56821
+Epoch 3 - Average loss: 0.7271
+Validation AUROC: 0.70104
+Epoch 4 - Average loss: 0.5605
+Validation AUROC: 0.63210
+Epoch 5 - Average loss: 0.5039
+Validation AUROC: 0.74366
+Epoch 6 - Average loss: 0.4104
+Validation AUROC: 0.63266
+Epoch 7 - Average loss: 0.3898
+Validation AUROC: 0.68456
+Epoch 8 - Average loss: 0.5520
+Validation AUROC: 0.61870
+Epoch 9 - Average loss: 0.2202
+Validation AUROC: 0.65302
+Epoch 10 - Average loss: 0.3172
+Validation AUROC: 0.62233
+Epoch 11 - Average loss: 0.2463
+Validation AUROC: 0.63385
+Epoch 12 - Average loss: 0.2281
+Validation AUROC: 0.63006
+Epoch 13 - Average loss: 0.1961
+Validation AUROC: 0.63447
+Epoch 14 - Average loss: 0.1236
+Validation AUROC: 0.61121
+Epoch 15 - Average loss: 0.1048
+Validation AUROC: 0.62863
+Epoch 16 - Average loss: 0.1076
+Validation AUROC: 0.59773
+Epoch 17 - Average loss: 0.1089
+Validation AUROC: 0.59952
+Epoch 18 - Average loss: 0.0748
+Validation AUROC: 0.62506
+Epoch 19 - Average loss: 0.0614
+Validation AUROC: 0.62085
+Epoch 20 - Average loss: 0.0799
+Validation AUROC: 0.63672
+Epoch 21 - Average loss: 0.0766
+Validation AUROC: 0.60479
+Epoch 22 - Average loss: 0.0981
+Validation AUROC: 0.62561
+Epoch 23 - Average loss: 0.0902
+Validation AUROC: 0.60476
+Epoch 24 - Average loss: 0.0500
+Validation AUROC: 0.63154
+Epoch 25 - Average loss: 0.0377
+Validation AUROC: 0.61450
+Epoch 26 - Average loss: 0.0310
+Validation AUROC: 0.62010
+Epoch 27 - Average loss: 0.0382
+Validation AUROC: 0.61020
+Epoch 28 - Average loss: 0.0331
+Validation AUROC: 0.61755
+Epoch 29 - Average loss: 0.0185
+Validation AUROC: 0.61041
+Epoch 30 - Average loss: 0.0192
+Validation AUROC: 0.62469
+Epoch 31 - Average loss: 0.0178
+Validation AUROC: 0.60941
+Epoch 32 - Average loss: 0.0199
+Validation AUROC: 0.61866
+Epoch 33 - Average loss: 0.0135
+Validation AUROC: 0.60162
+Epoch 34 - Average loss: 0.0207
+Validation AUROC: 0.61558
+Epoch 35 - Average loss: 0.0244
+Validation AUROC: 0.61138
+Epoch 36 - Average loss: 0.0132
+Validation AUROC: 0.60091
+Epoch 37 - Average loss: 0.0126
+Validation AUROC: 0.61685
+Epoch 38 - Average loss: 0.0133
+Validation AUROC: 0.60671
+Epoch 39 - Average loss: 0.0130
+Validation AUROC: 0.60726
+Epoch 40 - Average loss: 0.0124
+Validation AUROC: 0.61199
+Epoch 41 - Average loss: 0.0106
+Validation AUROC: 0.60435
+Epoch 42 - Average loss: 0.0121
+Validation AUROC: 0.60759
+Epoch 43 - Average loss: 0.0093
+Validation AUROC: 0.61095
+Epoch 44 - Average loss: 0.0111
+Validation AUROC: 0.60645
+Epoch 45 - Average loss: 0.0108
+Validation AUROC: 0.60505
+Epoch 46 - Average loss: 0.0104
+Validation AUROC: 0.60685
+Epoch 47 - Average loss: 0.0096
+Validation AUROC: 0.60931
+Epoch 48 - Average loss: 0.0099
+Validation AUROC: 0.60630
+Epoch 49 - Average loss: 0.0093
+Validation AUROC: 0.60418
+Epoch 50 - Average loss: 0.0091
+Validation AUROC: 0.60806
+Epoch 51 - Average loss: 0.0090
+Validation AUROC: 0.60872
+Epoch 52 - Average loss: 0.0125
+Validation AUROC: 0.60684
+Epoch 53 - Average loss: 0.0094
+Validation AUROC: 0.60744
+Epoch 54 - Average loss: 0.0142
+Validation AUROC: 0.61028
+Epoch 55 - Average loss: 0.0148
+Validation AUROC: 0.60939
+Early stopping triggered after 55 epochs
+
+--- Ensemble member 5/10 (training seed 26660) ---
+Training probe...
+Epoch 1 - Average loss: 0.9961
+Validation AUROC: 0.60619
+Epoch 2 - Average loss: 0.7725
+Validation AUROC: 0.60487
+Epoch 3 - Average loss: 0.6945
+Validation AUROC: 0.68684
+Epoch 4 - Average loss: 0.7209
+Validation AUROC: 0.63790
+Epoch 5 - Average loss: 0.6089
+Validation AUROC: 0.70600
+Epoch 6 - Average loss: 0.5634
+Validation AUROC: 0.58729
+Epoch 7 - Average loss: 0.4913
+Validation AUROC: 0.67156
+Epoch 8 - Average loss: 0.4554
+Validation AUROC: 0.61523
+Epoch 9 - Average loss: 0.4860
+Validation AUROC: 0.64028
+Epoch 10 - Average loss: 0.4778
+Validation AUROC: 0.67025
+Epoch 11 - Average loss: 0.4028
+Validation AUROC: 0.62629
+Epoch 12 - Average loss: 0.4896
+Validation AUROC: 0.67164
+Epoch 13 - Average loss: 1.1378
+Validation AUROC: 0.66806
+Epoch 14 - Average loss: 0.5783
+Validation AUROC: 0.58842
+Epoch 15 - Average loss: 0.9329
+Validation AUROC: 0.54834
+Epoch 16 - Average loss: 0.6639
+Validation AUROC: 0.58316
+Epoch 17 - Average loss: 0.8361
+Validation AUROC: 0.63854
+Epoch 18 - Average loss: 0.4877
+Validation AUROC: 0.65177
+Epoch 19 - Average loss: 0.2966
+Validation AUROC: 0.67221
+Epoch 20 - Average loss: 0.2666
+Validation AUROC: 0.63644
+Epoch 21 - Average loss: 0.3186
+Validation AUROC: 0.62452
+Epoch 22 - Average loss: 0.2542
+Validation AUROC: 0.63012
+Epoch 23 - Average loss: 0.2079
+Validation AUROC: 0.61392
+Epoch 24 - Average loss: 0.2265
+Validation AUROC: 0.64450
+Epoch 25 - Average loss: 0.1759
+Validation AUROC: 0.62674
+Epoch 26 - Average loss: 0.1237
+Validation AUROC: 0.63408
+Epoch 27 - Average loss: 0.0847
+Validation AUROC: 0.61801
+Epoch 28 - Average loss: 0.0885
+Validation AUROC: 0.62538
+Epoch 29 - Average loss: 0.0766
+Validation AUROC: 0.61926
+Epoch 30 - Average loss: 0.1462
+Validation AUROC: 0.62182
+Epoch 31 - Average loss: 0.0910
+Validation AUROC: 0.61800
+Epoch 32 - Average loss: 0.0986
+Validation AUROC: 0.61711
+Epoch 33 - Average loss: 0.0590
+Validation AUROC: 0.61163
+Epoch 34 - Average loss: 0.0424
+Validation AUROC: 0.60439
+Epoch 35 - Average loss: 0.0373
+Validation AUROC: 0.61567
+Epoch 36 - Average loss: 0.0279
+Validation AUROC: 0.60894
+Epoch 37 - Average loss: 0.0270
+Validation AUROC: 0.61012
+Epoch 38 - Average loss: 0.0404
+Validation AUROC: 0.60783
+Epoch 39 - Average loss: 0.0485
+Validation AUROC: 0.60959
+Epoch 40 - Average loss: 0.0304
+Validation AUROC: 0.60455
+Epoch 41 - Average loss: 0.0108
+Validation AUROC: 0.60172
+Epoch 42 - Average loss: 0.0884
+Validation AUROC: 0.60317
+Epoch 43 - Average loss: 0.0892
+Validation AUROC: 0.60335
+Epoch 44 - Average loss: 0.0128
+Validation AUROC: 0.60405
+Epoch 45 - Average loss: 0.0155
+Validation AUROC: 0.60363
+Epoch 46 - Average loss: 0.0104
+Validation AUROC: 0.60356
+Epoch 47 - Average loss: 0.0161
+Validation AUROC: 0.60407
+Epoch 48 - Average loss: 0.0152
+Validation AUROC: 0.60487
+Epoch 49 - Average loss: 0.0131
+Validation AUROC: 0.60387
+Epoch 50 - Average loss: 0.0107
+Validation AUROC: 0.60534
+Epoch 51 - Average loss: 0.0185
+Validation AUROC: 0.60398
+Epoch 52 - Average loss: 0.0211
+Validation AUROC: 0.60428
+Epoch 53 - Average loss: 0.0163
+Validation AUROC: 0.60282
+Epoch 54 - Average loss: 0.0165
+Validation AUROC: 0.60486
+Epoch 55 - Average loss: 0.0207
+Validation AUROC: 0.60498
+Early stopping triggered after 55 epochs
+
+--- Ensemble member 6/10 (training seed 42624) ---
+Training probe...
+Epoch 1 - Average loss: 0.9258
+Validation AUROC: 0.47039
+Epoch 2 - Average loss: 0.9548
+Validation AUROC: 0.53871
+Epoch 3 - Average loss: 0.6078
+Validation AUROC: 0.60454
+Epoch 4 - Average loss: 0.6362
+Validation AUROC: 0.60310
+Epoch 5 - Average loss: 0.6600
+Validation AUROC: 0.66816
+Epoch 6 - Average loss: 0.5440
+Validation AUROC: 0.61639
+Epoch 7 - Average loss: 0.4152
+Validation AUROC: 0.65977
+Epoch 8 - Average loss: 0.3777
+Validation AUROC: 0.61955
+Epoch 9 - Average loss: 0.2554
+Validation AUROC: 0.66071
+Epoch 10 - Average loss: 0.2435
+Validation AUROC: 0.61270
+Epoch 11 - Average loss: 0.2718
+Validation AUROC: 0.66215
+Epoch 12 - Average loss: 0.3016
+Validation AUROC: 0.60423
+Epoch 13 - Average loss: 0.3065
+Validation AUROC: 0.66335
+Epoch 14 - Average loss: 0.6646
+Validation AUROC: 0.64532
+Epoch 15 - Average loss: 0.1740
+Validation AUROC: 0.62029
+Epoch 16 - Average loss: 0.1611
+Validation AUROC: 0.63332
+Epoch 17 - Average loss: 0.1473
+Validation AUROC: 0.62395
+Epoch 18 - Average loss: 0.0979
+Validation AUROC: 0.61603
+Epoch 19 - Average loss: 0.0667
+Validation AUROC: 0.61817
+Epoch 20 - Average loss: 0.0705
+Validation AUROC: 0.63977
+Epoch 21 - Average loss: 0.0872
+Validation AUROC: 0.61279
+Epoch 22 - Average loss: 0.0790
+Validation AUROC: 0.63907
+Epoch 23 - Average loss: 0.1009
+Validation AUROC: 0.59140
+Epoch 24 - Average loss: 0.1195
+Validation AUROC: 0.63068
+Epoch 25 - Average loss: 0.1346
+Validation AUROC: 0.61863
+Epoch 26 - Average loss: 0.0499
+Validation AUROC: 0.63264
+Epoch 27 - Average loss: 0.0500
+Validation AUROC: 0.62603
+Epoch 28 - Average loss: 0.0365
+Validation AUROC: 0.62956
+Epoch 29 - Average loss: 0.0360
+Validation AUROC: 0.62545
+Epoch 30 - Average loss: 0.0282
+Validation AUROC: 0.61641
+Epoch 31 - Average loss: 0.0228
+Validation AUROC: 0.62293
+Epoch 32 - Average loss: 0.0323
+Validation AUROC: 0.61566
+Epoch 33 - Average loss: 0.0221
+Validation AUROC: 0.62573
+Epoch 34 - Average loss: 0.0335
+Validation AUROC: 0.61511
+Epoch 35 - Average loss: 0.0137
+Validation AUROC: 0.61933
+Epoch 36 - Average loss: 0.0227
+Validation AUROC: 0.60553
+Epoch 37 - Average loss: 0.0203
+Validation AUROC: 0.62329
+Epoch 38 - Average loss: 0.0453
+Validation AUROC: 0.61169
+Epoch 39 - Average loss: 0.0178
+Validation AUROC: 0.61513
+Epoch 40 - Average loss: 0.0210
+Validation AUROC: 0.60822
+Epoch 41 - Average loss: 0.0157
+Validation AUROC: 0.61130
+Epoch 42 - Average loss: 0.0231
+Validation AUROC: 0.62035
+Epoch 43 - Average loss: 0.0200
+Validation AUROC: 0.60792
+Epoch 44 - Average loss: 0.0171
+Validation AUROC: 0.61725
+Epoch 45 - Average loss: 0.0127
+Validation AUROC: 0.60769
+Epoch 46 - Average loss: 0.0181
+Validation AUROC: 0.62255
+Epoch 47 - Average loss: 0.0162
+Validation AUROC: 0.60005
+Epoch 48 - Average loss: 0.0259
+Validation AUROC: 0.61320
+Epoch 49 - Average loss: 0.0176
+Validation AUROC: 0.61043
+Epoch 50 - Average loss: 0.0271
+Validation AUROC: 0.60008
+Epoch 51 - Average loss: 0.0237
+Validation AUROC: 0.62384
+Epoch 52 - Average loss: 0.0247
+Validation AUROC: 0.60286
+Epoch 53 - Average loss: 0.0202
+Validation AUROC: 0.62201
+Epoch 54 - Average loss: 0.0148
+Validation AUROC: 0.60260
+Epoch 55 - Average loss: 0.0149
+Validation AUROC: 0.60850
+Early stopping triggered after 55 epochs
+
+--- Ensemble member 7/10 (training seed 43521) ---
+Training probe...
+Epoch 1 - Average loss: 1.3967
+Validation AUROC: 0.51365
+Epoch 2 - Average loss: 0.9139
+Validation AUROC: 0.50474
+Epoch 3 - Average loss: 0.6794
+Validation AUROC: 0.54537
+Epoch 4 - Average loss: 0.6983
+Validation AUROC: 0.54003
+Epoch 5 - Average loss: 0.5562
+Validation AUROC: 0.59163
+Epoch 6 - Average loss: 0.4789
+Validation AUROC: 0.65368
+Epoch 7 - Average loss: 0.3771
+Validation AUROC: 0.66978
+Epoch 8 - Average loss: 0.3487
+Validation AUROC: 0.69464
+Epoch 9 - Average loss: 0.5662
+Validation AUROC: 0.59719
+Epoch 10 - Average loss: 0.7958
+Validation AUROC: 0.64621
+Epoch 11 - Average loss: 0.7286
+Validation AUROC: 0.69528
+Epoch 12 - Average loss: 0.4005
+Validation AUROC: 0.62819
+Epoch 13 - Average loss: 0.5563
+Validation AUROC: 0.66316
+Epoch 14 - Average loss: 0.2550
+Validation AUROC: 0.67339
+Epoch 15 - Average loss: 0.2294
+Validation AUROC: 0.67242
+Epoch 16 - Average loss: 0.3375
+Validation AUROC: 0.67314
+Epoch 17 - Average loss: 0.1563
+Validation AUROC: 0.67890
+Epoch 18 - Average loss: 0.1460
+Validation AUROC: 0.63986
+Epoch 19 - Average loss: 0.2012
+Validation AUROC: 0.65932
+Epoch 20 - Average loss: 0.2794
+Validation AUROC: 0.65550
+Epoch 21 - Average loss: 0.1336
+Validation AUROC: 0.63914
+Epoch 22 - Average loss: 0.0945
+Validation AUROC: 0.65390
+Epoch 23 - Average loss: 0.0873
+Validation AUROC: 0.63754
+Epoch 24 - Average loss: 0.0805
+Validation AUROC: 0.65267
+Epoch 25 - Average loss: 0.0643
+Validation AUROC: 0.64980
+Epoch 26 - Average loss: 0.0480
+Validation AUROC: 0.63544
+Epoch 27 - Average loss: 0.0758
+Validation AUROC: 0.65313
+Epoch 28 - Average loss: 0.0881
+Validation AUROC: 0.62740
+Epoch 29 - Average loss: 0.1580
+Validation AUROC: 0.63856
+Epoch 30 - Average loss: 0.0627
+Validation AUROC: 0.64813
+Epoch 31 - Average loss: 0.0525
+Validation AUROC: 0.63657
+Epoch 32 - Average loss: 0.0433
+Validation AUROC: 0.63959
+Epoch 33 - Average loss: 0.0389
+Validation AUROC: 0.64165
+Epoch 34 - Average loss: 0.0292
+Validation AUROC: 0.64548
+Epoch 35 - Average loss: 0.0268
+Validation AUROC: 0.64806
+Epoch 36 - Average loss: 0.0362
+Validation AUROC: 0.64443
+Epoch 37 - Average loss: 0.0255
+Validation AUROC: 0.63469
+Epoch 38 - Average loss: 0.0418
+Validation AUROC: 0.63449
+Epoch 39 - Average loss: 0.0324
+Validation AUROC: 0.63143
+Epoch 40 - Average loss: 0.0162
+Validation AUROC: 0.63922
+Epoch 41 - Average loss: 0.0201
+Validation AUROC: 0.62901
+Epoch 42 - Average loss: 0.0121
+Validation AUROC: 0.63278
+Epoch 43 - Average loss: 0.0171
+Validation AUROC: 0.63061
+Epoch 44 - Average loss: 0.0175
+Validation AUROC: 0.62693
+Epoch 45 - Average loss: 0.0129
+Validation AUROC: 0.62486
+Epoch 46 - Average loss: 0.0237
+Validation AUROC: 0.62176
+Epoch 47 - Average loss: 0.0100
+Validation AUROC: 0.62690
+Epoch 48 - Average loss: 0.0181
+Validation AUROC: 0.63021
+Epoch 49 - Average loss: 0.0109
+Validation AUROC: 0.62775
+Epoch 50 - Average loss: 0.0157
+Validation AUROC: 0.62480
+Epoch 51 - Average loss: 0.0108
+Validation AUROC: 0.62941
+Epoch 52 - Average loss: 0.0114
+Validation AUROC: 0.63139
+Epoch 53 - Average loss: 0.0186
+Validation AUROC: 0.62717
+Epoch 54 - Average loss: 0.0087
+Validation AUROC: 0.62548
+Epoch 55 - Average loss: 0.0173
+Validation AUROC: 0.63067
+Epoch 56 - Average loss: 0.0122
+Validation AUROC: 0.62881
+Epoch 57 - Average loss: 0.0197
+Validation AUROC: 0.61727
+Epoch 58 - Average loss: 0.0104
+Validation AUROC: 0.62559
+Epoch 59 - Average loss: 0.0103
+Validation AUROC: 0.62638
+Epoch 60 - Average loss: 0.0103
+Validation AUROC: 0.62747
+Epoch 61 - Average loss: 0.0092
+Validation AUROC: 0.63030
+Early stopping triggered after 61 epochs
+
+--- Ensemble member 8/10 (training seed 54184) ---
+Training probe...
+Epoch 1 - Average loss: 7.1924
+Validation AUROC: 0.49537
+Epoch 2 - Average loss: 1.5105
+Validation AUROC: 0.60044
+Epoch 3 - Average loss: 1.3794
+Validation AUROC: 0.59339
+Epoch 4 - Average loss: 1.1572
+Validation AUROC: 0.57685
+Epoch 5 - Average loss: 1.2017
+Validation AUROC: 0.55385
+Epoch 6 - Average loss: 0.7722
+Validation AUROC: 0.51960
+Epoch 7 - Average loss: 1.1451
+Validation AUROC: 0.50453
+Epoch 8 - Average loss: 0.7339
+Validation AUROC: 0.53877
+Epoch 9 - Average loss: 0.7325
+Validation AUROC: 0.54228
+Epoch 10 - Average loss: 0.8073
+Validation AUROC: 0.56817
+Epoch 11 - Average loss: 0.6765
+Validation AUROC: 0.55234
+Epoch 12 - Average loss: 0.8066
+Validation AUROC: 0.53350
+Epoch 13 - Average loss: 0.9532
+Validation AUROC: 0.61675
+Epoch 14 - Average loss: 0.6949
+Validation AUROC: 0.63255
+Epoch 15 - Average loss: 0.6035
+Validation AUROC: 0.61687
+Epoch 16 - Average loss: 0.5566
+Validation AUROC: 0.56451
+Epoch 17 - Average loss: 0.7407
+Validation AUROC: 0.54475
+Epoch 18 - Average loss: 0.6460
+Validation AUROC: 0.58165
+Epoch 19 - Average loss: 0.5131
+Validation AUROC: 0.62271
+Epoch 20 - Average loss: 0.7416
+Validation AUROC: 0.63937
+Epoch 21 - Average loss: 0.4999
+Validation AUROC: 0.60760
+Epoch 22 - Average loss: 0.3636
+Validation AUROC: 0.61959
+Epoch 23 - Average loss: 0.2470
+Validation AUROC: 0.60153
+Epoch 24 - Average loss: 0.4421
+Validation AUROC: 0.60347
+Epoch 25 - Average loss: 0.3763
+Validation AUROC: 0.61660
+Epoch 26 - Average loss: 0.2640
+Validation AUROC: 0.60835
+Epoch 27 - Average loss: 0.1894
+Validation AUROC: 0.62478
+Epoch 28 - Average loss: 0.1757
+Validation AUROC: 0.60678
+Epoch 29 - Average loss: 0.1761
+Validation AUROC: 0.61564
+Epoch 30 - Average loss: 0.1405
+Validation AUROC: 0.60467
+Epoch 31 - Average loss: 0.1048
+Validation AUROC: 0.61921
+Epoch 32 - Average loss: 0.2042
+Validation AUROC: 0.60802
+Epoch 33 - Average loss: 0.0728
+Validation AUROC: 0.61165
+Epoch 34 - Average loss: 0.0532
+Validation AUROC: 0.61276
+Epoch 35 - Average loss: 0.0502
+Validation AUROC: 0.62440
+Epoch 36 - Average loss: 0.0817
+Validation AUROC: 0.61608
+Epoch 37 - Average loss: 0.0816
+Validation AUROC: 0.62177
+Epoch 38 - Average loss: 0.0462
+Validation AUROC: 0.61411
+Epoch 39 - Average loss: 0.0584
+Validation AUROC: 0.62437
+Epoch 40 - Average loss: 0.0600
+Validation AUROC: 0.61852
+Epoch 41 - Average loss: 0.0491
+Validation AUROC: 0.61923
+Epoch 42 - Average loss: 0.0247
+Validation AUROC: 0.61547
+Epoch 43 - Average loss: 0.0200
+Validation AUROC: 0.62115
+Epoch 44 - Average loss: 0.0230
+Validation AUROC: 0.61787
+Epoch 45 - Average loss: 0.0185
+Validation AUROC: 0.61668
+Epoch 46 - Average loss: 0.0171
+Validation AUROC: 0.62155
+Epoch 47 - Average loss: 0.0187
+Validation AUROC: 0.62144
+Epoch 48 - Average loss: 0.0146
+Validation AUROC: 0.61791
+Epoch 49 - Average loss: 0.0171
+Validation AUROC: 0.62165
+Epoch 50 - Average loss: 0.0142
+Validation AUROC: 0.62063
+Epoch 51 - Average loss: 0.0130
+Validation AUROC: 0.61910
+Epoch 52 - Average loss: 0.0120
+Validation AUROC: 0.61583
+Epoch 53 - Average loss: 0.0195
+Validation AUROC: 0.61594
+Epoch 54 - Average loss: 0.0128
+Validation AUROC: 0.62157
+Epoch 55 - Average loss: 0.0168
+Validation AUROC: 0.62179
+Epoch 56 - Average loss: 0.0122
+Validation AUROC: 0.61931
+Epoch 57 - Average loss: 0.0111
+Validation AUROC: 0.61999
+Epoch 58 - Average loss: 0.0102
+Validation AUROC: 0.62242
+Epoch 59 - Average loss: 0.0213
+Validation AUROC: 0.62358
+Epoch 60 - Average loss: 0.0106
+Validation AUROC: 0.62250
+Epoch 61 - Average loss: 0.0106
+Validation AUROC: 0.62029
+Epoch 62 - Average loss: 0.0101
+Validation AUROC: 0.62072
+Epoch 63 - Average loss: 0.0108
+Validation AUROC: 0.62322
+Epoch 64 - Average loss: 0.0100
+Validation AUROC: 0.62245
+Epoch 65 - Average loss: 0.0101
+Validation AUROC: 0.62146
+Epoch 66 - Average loss: 0.0097
+Validation AUROC: 0.62168
+Epoch 67 - Average loss: 0.0100
+Validation AUROC: 0.62266
+Epoch 68 - Average loss: 0.0094
+Validation AUROC: 0.62256
+Epoch 69 - Average loss: 0.0090
+Validation AUROC: 0.62144
+Epoch 70 - Average loss: 0.0100
+Validation AUROC: 0.62165
+Early stopping triggered after 70 epochs
+
+--- Ensemble member 9/10 (training seed 65963) ---
+Training probe...
+Epoch 1 - Average loss: 0.9292
+Validation AUROC: 0.55336
+Epoch 2 - Average loss: 0.9670
+Validation AUROC: 0.57402
+Epoch 3 - Average loss: 0.8068
+Validation AUROC: 0.60344
+Epoch 4 - Average loss: 0.5848
+Validation AUROC: 0.60130
+Epoch 5 - Average loss: 0.4757
+Validation AUROC: 0.71762
+Epoch 6 - Average loss: 0.5775
+Validation AUROC: 0.72348
+Epoch 7 - Average loss: 0.4094
+Validation AUROC: 0.67676
+Epoch 8 - Average loss: 0.2731
+Validation AUROC: 0.62403
+Epoch 9 - Average loss: 0.2753
+Validation AUROC: 0.64968
+Epoch 10 - Average loss: 0.3229
+Validation AUROC: 0.61392
+Epoch 11 - Average loss: 0.2013
+Validation AUROC: 0.62157
+Epoch 12 - Average loss: 0.1750
+Validation AUROC: 0.63496
+Epoch 13 - Average loss: 0.1727
+Validation AUROC: 0.63640
+Epoch 14 - Average loss: 0.1357
+Validation AUROC: 0.62612
+Epoch 15 - Average loss: 0.1682
+Validation AUROC: 0.64409
+Epoch 16 - Average loss: 0.1500
+Validation AUROC: 0.64843
+Epoch 17 - Average loss: 0.0833
+Validation AUROC: 0.65344
+Epoch 18 - Average loss: 0.1279
+Validation AUROC: 0.64910
+Epoch 19 - Average loss: 0.1235
+Validation AUROC: 0.64546
+Epoch 20 - Average loss: 0.0980
+Validation AUROC: 0.64240
+Epoch 21 - Average loss: 0.1119
+Validation AUROC: 0.64780
+Epoch 22 - Average loss: 0.1584
+Validation AUROC: 0.64668
+Epoch 23 - Average loss: 0.2703
+Validation AUROC: 0.64009
+Epoch 24 - Average loss: 0.0936
+Validation AUROC: 0.64268
+Epoch 25 - Average loss: 0.0778
+Validation AUROC: 0.63955
+Epoch 26 - Average loss: 0.0894
+Validation AUROC: 0.62946
+Epoch 27 - Average loss: 0.0604
+Validation AUROC: 0.63708
+Epoch 28 - Average loss: 0.0271
+Validation AUROC: 0.64068
+Epoch 29 - Average loss: 0.0512
+Validation AUROC: 0.63781
+Epoch 30 - Average loss: 0.0418
+Validation AUROC: 0.64123
+Epoch 31 - Average loss: 0.0328
+Validation AUROC: 0.63649
+Epoch 32 - Average loss: 0.0746
+Validation AUROC: 0.63821
+Epoch 33 - Average loss: 0.0601
+Validation AUROC: 0.64760
+Epoch 34 - Average loss: 0.0362
+Validation AUROC: 0.64376
+Epoch 35 - Average loss: 0.0613
+Validation AUROC: 0.63694
+Epoch 36 - Average loss: 0.0350
+Validation AUROC: 0.64057
+Epoch 37 - Average loss: 0.0301
+Validation AUROC: 0.64738
+Epoch 38 - Average loss: 0.0294
+Validation AUROC: 0.64329
+Epoch 39 - Average loss: 0.0185
+Validation AUROC: 0.63907
+Epoch 40 - Average loss: 0.0339
+Validation AUROC: 0.63354
+Epoch 41 - Average loss: 0.0241
+Validation AUROC: 0.64988
+Epoch 42 - Average loss: 0.0639
+Validation AUROC: 0.64979
+Epoch 43 - Average loss: 0.0402
+Validation AUROC: 0.64652
+Epoch 44 - Average loss: 0.0389
+Validation AUROC: 0.64480
+Epoch 45 - Average loss: 0.0228
+Validation AUROC: 0.64213
+Epoch 46 - Average loss: 0.0261
+Validation AUROC: 0.64521
+Epoch 47 - Average loss: 0.0190
+Validation AUROC: 0.64533
+Epoch 48 - Average loss: 0.0342
+Validation AUROC: 0.64275
+Epoch 49 - Average loss: 0.0155
+Validation AUROC: 0.63598
+Epoch 50 - Average loss: 0.0192
+Validation AUROC: 0.63828
+Epoch 51 - Average loss: 0.0152
+Validation AUROC: 0.64395
+Epoch 52 - Average loss: 0.0149
+Validation AUROC: 0.64304
+Epoch 53 - Average loss: 0.0116
+Validation AUROC: 0.63927
+Epoch 54 - Average loss: 0.0102
+Validation AUROC: 0.64026
+Epoch 55 - Average loss: 0.0129
+Validation AUROC: 0.64112
+Epoch 56 - Average loss: 0.0121
+Validation AUROC: 0.64143
+Early stopping triggered after 56 epochs
+
+--- Ensemble member 10/10 (training seed 69051) ---
+Training probe...
+Epoch 1 - Average loss: 0.9136
+Validation AUROC: 0.61084
+Epoch 2 - Average loss: 0.6816
+Validation AUROC: 0.64321
+Epoch 3 - Average loss: 0.6504
+Validation AUROC: 0.60607
+Epoch 4 - Average loss: 0.6500
+Validation AUROC: 0.63099
+Epoch 5 - Average loss: 0.6022
+Validation AUROC: 0.63016
+Epoch 6 - Average loss: 0.5007
+Validation AUROC: 0.69288
+Epoch 7 - Average loss: 0.3547
+Validation AUROC: 0.71661
+Epoch 8 - Average loss: 0.2574
+Validation AUROC: 0.71932
+Epoch 9 - Average loss: 0.2566
+Validation AUROC: 0.68275
+Epoch 10 - Average loss: 0.1964
+Validation AUROC: 0.65399
+Epoch 11 - Average loss: 0.1464
+Validation AUROC: 0.63546
+Epoch 12 - Average loss: 0.1303
+Validation AUROC: 0.66608
+Epoch 13 - Average loss: 0.1273
+Validation AUROC: 0.66861
+Epoch 14 - Average loss: 0.1144
+Validation AUROC: 0.64759
+Epoch 15 - Average loss: 0.0878
+Validation AUROC: 0.65896
+Epoch 16 - Average loss: 0.1274
+Validation AUROC: 0.64647
+Epoch 17 - Average loss: 0.1295
+Validation AUROC: 0.64856
+Epoch 18 - Average loss: 0.0863
+Validation AUROC: 0.66848
+Epoch 19 - Average loss: 0.1107
+Validation AUROC: 0.65314
+Epoch 20 - Average loss: 0.0824
+Validation AUROC: 0.65439
+Epoch 21 - Average loss: 0.0527
+Validation AUROC: 0.63326
+Epoch 22 - Average loss: 0.0321
+Validation AUROC: 0.64187
+Epoch 23 - Average loss: 0.0530
+Validation AUROC: 0.62511
+Epoch 24 - Average loss: 0.0611
+Validation AUROC: 0.64604
+Epoch 25 - Average loss: 0.0581
+Validation AUROC: 0.63487
+Epoch 26 - Average loss: 0.0261
+Validation AUROC: 0.64169
+Epoch 27 - Average loss: 0.0220
+Validation AUROC: 0.65041
+Epoch 28 - Average loss: 0.0280
+Validation AUROC: 0.63625
+Epoch 29 - Average loss: 0.0695
+Validation AUROC: 0.64686
+Epoch 30 - Average loss: 0.0545
+Validation AUROC: 0.63706
+Epoch 31 - Average loss: 0.0194
+Validation AUROC: 0.64402
+Epoch 32 - Average loss: 0.0259
+Validation AUROC: 0.64199
+Epoch 33 - Average loss: 0.0233
+Validation AUROC: 0.63664
+Epoch 34 - Average loss: 0.0215
+Validation AUROC: 0.64413
+Epoch 35 - Average loss: 0.0221
+Validation AUROC: 0.63696
+Epoch 36 - Average loss: 0.0168
+Validation AUROC: 0.63880
+Epoch 37 - Average loss: 0.0225
+Validation AUROC: 0.63849
+Epoch 38 - Average loss: 0.0183
+Validation AUROC: 0.63962
+Epoch 39 - Average loss: 0.0265
+Validation AUROC: 0.64319
+Epoch 40 - Average loss: 0.0811
+Validation AUROC: 0.63032
+Epoch 41 - Average loss: 0.0490
+Validation AUROC: 0.63737
+Epoch 42 - Average loss: 0.0178
+Validation AUROC: 0.64375
+Epoch 43 - Average loss: 0.0257
+Validation AUROC: 0.63748
+Epoch 44 - Average loss: 0.0224
+Validation AUROC: 0.63519
+Epoch 45 - Average loss: 0.0212
+Validation AUROC: 0.63470
+Epoch 46 - Average loss: 0.0328
+Validation AUROC: 0.63535
+Epoch 47 - Average loss: 0.0347
+Validation AUROC: 0.63820
+Epoch 48 - Average loss: 0.0211
+Validation AUROC: 0.63760
+Epoch 49 - Average loss: 0.0158
+Validation AUROC: 0.63646
+Epoch 50 - Average loss: 0.0082
+Validation AUROC: 0.64015
+Epoch 51 - Average loss: 0.0205
+Validation AUROC: 0.64100
+Epoch 52 - Average loss: 0.0199
+Validation AUROC: 0.63862
+Epoch 53 - Average loss: 0.0118
+Validation AUROC: 0.63794
+Epoch 54 - Average loss: 0.0106
+Validation AUROC: 0.63862
+Epoch 55 - Average loss: 0.0109
+Validation AUROC: 0.64037
+Epoch 56 - Average loss: 0.0171
+Validation AUROC: 0.63987
+Epoch 57 - Average loss: 0.0141
+Validation AUROC: 0.63960
+Epoch 58 - Average loss: 0.0198
+Validation AUROC: 0.64203
+Early stopping triggered after 58 epochs
+Built a 10-member score-averaging ensemble (seeds [3699, 14431, 23529, 26229, 26660, 42624, 43521, 54184, 65963, 69051])
+Saved retrained 10-member ensemble probe to probes/instructions_gemma27b_evaldesc_drift/probe_iter1.pkl
+Iteration 0: trained on 246 samples (196 from red-team) → probes/instructions_gemma27b_evaldesc_drift/probe_iter1.pkl [10-member ensemble]
+
+===== EVALUATING iter1: probes/instructions_gemma27b_evaldesc_drift/probe_iter1.pkl =====
+[kaggle] anthropic_harmless_refusal: already cached at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations/anthropic_harmless_refusal-acts_full.pt
+[kaggle] bbq_substitution: already cached at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations/bbq_substitution-acts_full.pt
+[kaggle] hc_context_drift: already cached at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations/hc_context_drift-acts_full.pt
+[kaggle] hc_contradiction: already cached at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations/hc_contradiction-acts_full.pt
+[kaggle] mm_substitution: already cached at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations/mm_substitution-acts_full.pt
+[kaggle] oig_context_drift: already cached at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations/oig_context_drift-acts_full.pt
+[kaggle] oig_omission: already cached at /workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations/oig_omission-acts_full.pt
+Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+                   dataset    auroc  accuracy  tpr_at_fpr  fpr
+anthropic_harmless_refusal 0.669800  0.500000    0.020000 0.01
+          bbq_substitution 0.762500  0.500000    0.020000 0.01
+          hc_context_drift 0.987671  0.876289    0.773196 0.01
+          hc_contradiction 0.535300  0.500000    0.000000 0.01
+           mm_substitution 0.709600  0.520000    0.030000 0.01
+         oig_context_drift 0.672760  0.556701    0.000000 0.01
+              oig_omission 0.633733  0.508772    0.000000 0.01
+                      mean 0.710195  0.565966    0.120457 0.01
+
+########## ITERATION 1 ##########
+
+--- Error type: false_positive → /workspace/cc_based_auto_improvement/results_instructions_gemma27b_evaldesc_drift/gptoss120b_probing_fp.jsonl ---
+Probe under attack is a 10-member score-averaging ensemble; submissions are scored by the members' mean probability.
+[model_loading] loading google/gemma-3-27b-it, truncated to 33 layers (probe reads layer 32); max_memory={0: '22GiB', 'cpu': '45GiB'} (from AGENTIC_REDTEAM_MAX_MEMORY)
+[tuberlens] loading google/gemma-3-27b-it on device_map='auto'; max_memory={0: '22GiB', 'cpu': '45GiB'}
+Some parameters are on the meta device because they were offloaded to the cpu.
+
+=== Round 5 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 5 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 5 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 5 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 5 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 5 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 5 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 5 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 5 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 5 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 119); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 120); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 1 new successes (total 120); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 122); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 1 new successes (total 122); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 122); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 123); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 1 new successes (total 123); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 1 new successes (total 123); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 123); stop_reason=batch_complete ===
+=== Round 5 summarized (41 attempts, 4 successful) ===
+
+=== Round 6 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 6 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 6 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 6 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 6 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 6 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 6 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 6 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 6 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 6 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 123); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 123); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 123); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 123); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 2 new successes (total 125); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 1 new successes (total 126); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 126); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 126); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 126); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 126); stop_reason=batch_complete ===
+=== Round 6 summarized (35 attempts, 3 successful) ===
+
+=== Round 7 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 7 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 7 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 7 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 7 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 7 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 7 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 7 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 7 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 7 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 126); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 1 new successes (total 128); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 128); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 1 new successes (total 128); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 128); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 128); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 128); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 129); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 2 new successes (total 130); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 130); stop_reason=batch_complete ===
+=== Round 7 summarized (35 attempts, 4 successful) ===
+
+=== Round 8 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 8 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 8 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 8 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 8 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 8 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 8 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 8 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 8 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 8 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 136); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 136); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 1 new successes (total 136); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 3 new successes (total 136); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 1 new successes (total 138); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 2 new successes (total 140); stop_reason=batch_complete ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 4 new successes (total 143); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 2 new successes (total 144); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 2 new successes (total 145); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 145); stop_reason=batch_complete ===
+=== Round 8 summarized (36 attempts, 15 successful) ===
+
+=== Round 9 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 9 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 9 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 9 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 9 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 9 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 9 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 9 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 9 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+
+=== Round 9 | attacker=openai/gpt-oss-120b (openrouter) | shared round budget=30 successes | batch of 5 in one reply ===
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+[openai/gpt-oss-120b] batch call 1: parsed 5 conversation(s) of 5 still wanted
+=== openai/gpt-oss-120b done — 0 new successes (total 146); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 146); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 146); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 1 new successes (total 147); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 147); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 147); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 1 new successes (total 147); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 147); stop_reason=batch_complete ===
+=== openai/gpt-oss-120b done — 0 new successes (total 147); stop_reason=batch_complete ===
+Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
+=== openai/gpt-oss-120b done — 1 new successes (total 148); stop_reason=batch_complete ===
+=== Iteration 1 memo written for the next iteration (186 attempts, 29 successful) ===
+Released the probe's LLM; 1.0 GiB free on the card
+  false_positive: 29 new successes across 50 model-rounds
+
+--- Error type: false_negative → /workspace/cc_based_auto_improvement/results_instructions_gemma27b_evaldesc_drift/gptoss120b_probing_fn.jsonl ---
+Probe under attack is a 10-member score-averaging ensemble; submissions are scored by the members' mean probability.
+[model_loading] loading google/gemma-3-27b-it, truncated to 33 layers (probe reads layer 32); max_memory={0: '22GiB', 'cpu': '45GiB'} (from AGENTIC_REDTEAM_MAX_MEMORY)
+[tuberlens] loading google/gemma-3-27b-it on device_map='auto'; max_memory={0: '22GiB', 'cpu': '45GiB'}
+Some parameters are on the meta device because they were offloaded to the cpu.

@@ -1,0 +1,106 @@
+failsafe_commit_gemma27b_instructions_xmemodesc.sh: /root/.bash_env: Permission denied
+[failsafe 2026-08-21 11:03:06] stages:        2 (polled in order; hand-off when a stage's comparison CSV lands)
+[failsafe 2026-08-21 11:03:06]   [1] config=configs/gptoss120b_instructions_gemma27b_xmemodesc.md
+[failsafe 2026-08-21 11:03:06]       probe-out-dir=probes/instructions_gemma27b_xmemodesc_gptoss
+[failsafe 2026-08-21 11:03:06]       results=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_xmemodesc_gptoss
+[failsafe 2026-08-21 11:03:06]       log=logs/run_instructions_gemma27b_xmemodesc_gptoss.log
+[failsafe 2026-08-21 11:03:06]       finish-signal=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_xmemodesc_gptoss/gptoss120b_comparison.csv
+[failsafe 2026-08-21 11:03:06]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/base_activations eval=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations
+[failsafe 2026-08-21 11:03:06]   [2] config=configs/nemotron_instructions_gemma27b_xmemodesc.md
+[failsafe 2026-08-21 11:03:06]       probe-out-dir=probes/instructions_gemma27b_xmemodesc_nemotron
+[failsafe 2026-08-21 11:03:06]       results=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_xmemodesc_nemotron
+[failsafe 2026-08-21 11:03:06]       log=logs/run_instructions_gemma27b_xmemodesc_nemotron.log
+[failsafe 2026-08-21 11:03:06]       finish-signal=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_xmemodesc_nemotron/nemotron_comparison.csv
+[failsafe 2026-08-21 11:03:06]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/base_activations eval=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations
+[failsafe 2026-08-21 11:03:06] branch:        experiment_instruction_cloud_5 -> origin   (current branch; not switched)
+[failsafe 2026-08-21 11:03:06] on completion: exit WITHOUT closing the box (--no-close)
+[failsafe 2026-08-21 11:03:06] committed: failsafe: startup snapshot @ 2026-08-21T11:03:06
+[failsafe 2026-08-21 11:03:08] pushed to origin/experiment_instruction_cloud_5 (884fb077)
+[failsafe 2026-08-21 11:03:08] polling stage 1/2 (probes/instructions_gemma27b_xmemodesc_gptoss) every 30s (periodic snapshot every 900s)
+[failsafe 2026-08-21 11:18:08] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-21T11:18:08
+[failsafe 2026-08-21 11:18:10] pushed to origin/experiment_instruction_cloud_5 (5cd09327)
+[failsafe 2026-08-21 11:33:10] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-21T11:33:10
+[failsafe 2026-08-21 11:33:12] pushed to origin/experiment_instruction_cloud_5 (9c66c9d9)
+[failsafe 2026-08-21 11:48:12] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-21T11:48:12
+[failsafe 2026-08-21 11:48:14] pushed to origin/experiment_instruction_cloud_5 (d62e6299)
+[failsafe 2026-08-21 12:03:14] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-21T12:03:14
+[failsafe 2026-08-21 12:03:16] pushed to origin/experiment_instruction_cloud_5 (f500af0f)
+[failsafe 2026-08-21 12:18:16] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-21T12:18:16
+[failsafe 2026-08-21 12:18:17] pushed to origin/experiment_instruction_cloud_5 (0964e208)
+[failsafe 2026-08-21 12:20:17] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T12:20:17
+[failsafe 2026-08-21 12:20:19] pushed to origin/experiment_instruction_cloud_5 (e5618bf7)
+[failsafe 2026-08-21 12:33:49] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T12:33:49
+[failsafe 2026-08-21 12:33:51] pushed to origin/experiment_instruction_cloud_5 (e9b5ce02)
+[failsafe 2026-08-21 12:39:51] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T12:39:51
+[failsafe 2026-08-21 12:39:52] pushed to origin/experiment_instruction_cloud_5 (f3c17888)
+[failsafe 2026-08-21 12:47:22] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T12:47:22
+[failsafe 2026-08-21 12:47:24] pushed to origin/experiment_instruction_cloud_5 (75a13804)
+[failsafe 2026-08-21 12:54:54] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T12:54:54
+[failsafe 2026-08-21 12:54:56] pushed to origin/experiment_instruction_cloud_5 (42b50fb3)
+[failsafe 2026-08-21 13:01:26] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T13:01:26
+[failsafe 2026-08-21 13:01:28] pushed to origin/experiment_instruction_cloud_5 (57133c82)
+[failsafe 2026-08-21 13:06:58] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T13:06:58
+[failsafe 2026-08-21 13:07:01] pushed to origin/experiment_instruction_cloud_5 (8839341e)
+[failsafe 2026-08-21 13:15:31] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T13:15:31
+[failsafe 2026-08-21 13:15:33] pushed to origin/experiment_instruction_cloud_5 (3a0c1d02)
+[failsafe 2026-08-21 13:25:34] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T13:25:34
+[failsafe 2026-08-21 13:25:36] pushed to origin/experiment_instruction_cloud_5 (af88fdae)
+[failsafe 2026-08-21 13:31:36] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T13:31:36
+[failsafe 2026-08-21 13:31:40] pushed to origin/experiment_instruction_cloud_5 (68677d6c)
+[failsafe 2026-08-21 13:42:40] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T13:42:40
+[failsafe 2026-08-21 13:42:43] pushed to origin/experiment_instruction_cloud_5 (f66b1fba)
+[failsafe 2026-08-21 13:55:13] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T13:55:13
+[failsafe 2026-08-21 13:55:16] pushed to origin/experiment_instruction_cloud_5 (bbd26260)
+[failsafe 2026-08-21 14:02:17] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T14:02:17
+[failsafe 2026-08-21 14:02:20] pushed to origin/experiment_instruction_cloud_5 (70659cea)
+[failsafe 2026-08-21 14:13:51] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T14:13:51
+[failsafe 2026-08-21 14:13:53] pushed to origin/experiment_instruction_cloud_5 (3cbc2be2)
+[failsafe 2026-08-21 14:28:54] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-21T14:28:54
+[failsafe 2026-08-21 14:28:57] pushed to origin/experiment_instruction_cloud_5 (5741caa1)
+[failsafe 2026-08-21 14:31:27] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T14:31:27
+[failsafe 2026-08-21 14:31:31] pushed to origin/experiment_instruction_cloud_5 (9e6e1897)
+[failsafe 2026-08-21 14:37:31] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-21T14:37:31
+[failsafe 2026-08-21 14:37:36] pushed to origin/experiment_instruction_cloud_5 (8a3e21ca)
+[failsafe 2026-08-21 14:37:36] committed: failsafe: stage 1/2 finished (configs/gptoss120b_instructions_gemma27b_xmemodesc.md) @ 2026-08-21T14:37:36
+[failsafe 2026-08-21 14:37:39] pushed to origin/experiment_instruction_cloud_5 (9e2fdc3e)
+[failsafe 2026-08-21 14:37:39] handing over to stage 2/2: configs/nemotron_instructions_gemma27b_xmemodesc.md (probes/instructions_gemma27b_xmemodesc_nemotron)
+[failsafe 2026-08-21 14:38:40] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T14:38:40
+[failsafe 2026-08-21 14:38:41] pushed to origin/experiment_instruction_cloud_5 (9fb56eef)
+[failsafe 2026-08-21 14:45:11] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T14:45:11
+[failsafe 2026-08-21 14:45:13] pushed to origin/experiment_instruction_cloud_5 (8f869568)
+[failsafe 2026-08-21 14:51:13] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T14:51:13
+[failsafe 2026-08-21 14:51:14] pushed to origin/experiment_instruction_cloud_5 (98fb55dd)
+[failsafe 2026-08-21 14:58:44] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T14:58:44
+[failsafe 2026-08-21 14:58:46] pushed to origin/experiment_instruction_cloud_5 (f5b077dd)
+[failsafe 2026-08-21 15:04:16] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T15:04:16
+[failsafe 2026-08-21 15:04:18] pushed to origin/experiment_instruction_cloud_5 (c1139b8d)
+[failsafe 2026-08-21 15:13:18] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T15:13:18
+[failsafe 2026-08-21 15:13:20] pushed to origin/experiment_instruction_cloud_5 (96d9b30a)
+[failsafe 2026-08-21 15:19:20] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T15:19:20
+[failsafe 2026-08-21 15:19:23] pushed to origin/experiment_instruction_cloud_5 (72b71106)
+[failsafe 2026-08-21 15:25:53] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T15:25:53
+[failsafe 2026-08-21 15:25:55] pushed to origin/experiment_instruction_cloud_5 (21feebf9)
+[failsafe 2026-08-21 15:32:55] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T15:32:55
+[failsafe 2026-08-21 15:32:58] pushed to origin/experiment_instruction_cloud_5 (7202f83e)
+[failsafe 2026-08-21 15:39:28] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T15:39:28
+[failsafe 2026-08-21 15:39:31] pushed to origin/experiment_instruction_cloud_5 (8a5e133e)
+[failsafe 2026-08-21 15:47:02] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T15:47:02
+[failsafe 2026-08-21 15:47:04] pushed to origin/experiment_instruction_cloud_5 (57d233e7)
+[failsafe 2026-08-21 15:57:34] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T15:57:34
+[failsafe 2026-08-21 15:57:37] pushed to origin/experiment_instruction_cloud_5 (dc9bae44)
+[failsafe 2026-08-21 16:04:08] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T16:04:08
+[failsafe 2026-08-21 16:04:12] pushed to origin/experiment_instruction_cloud_5 (1d15af0c)
+[failsafe 2026-08-21 16:13:12] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T16:13:12
+[failsafe 2026-08-21 16:13:16] pushed to origin/experiment_instruction_cloud_5 (cafe8ac6)
+[failsafe 2026-08-21 16:27:16] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T16:27:16
+[failsafe 2026-08-21 16:27:19] pushed to origin/experiment_instruction_cloud_5 (9e713768)
+[failsafe 2026-08-21 16:34:20] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-21T16:34:20
+[failsafe 2026-08-21 16:34:24] pushed to origin/experiment_instruction_cloud_5 (92ac9aa7)
+[failsafe 2026-08-21 16:34:25] committed: failsafe: stage 2/2 finished (configs/nemotron_instructions_gemma27b_xmemodesc.md) @ 2026-08-21T16:34:25
+[failsafe 2026-08-21 16:34:28] pushed to origin/experiment_instruction_cloud_5 (f76bb411)
+[failsafe 2026-08-21 16:34:28] last stage finished — final commit, then shutdown
+[failsafe 2026-08-21 16:34:28] finalizing: capturing latest state before exit
+[failsafe 2026-08-21 16:34:28] committed: failsafe: final snapshot @ 2026-08-21T16:34:28
+[failsafe 2026-08-21 16:34:29] pushed to origin/experiment_instruction_cloud_5 (d21f705e)
+[failsafe 2026-08-21 16:34:29] done.
+[failsafe 2026-08-21 16:34:29] --no-close: leaving the box running

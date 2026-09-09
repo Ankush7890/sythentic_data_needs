@@ -1,0 +1,72 @@
+nohup: ignoring input
+[failsafe 2026-08-12 14:28:07] stages:        2 (polled in order; hand-off when a stage's comparison CSV lands)
+[failsafe 2026-08-12 14:28:07]   [1] config=configs/gptoss120b_instructions_gemma27b_batch_target60.md
+[failsafe 2026-08-12 14:28:07]       probe-out-dir=probes/instructions_gemma27b_gptoss
+[failsafe 2026-08-12 14:28:07]       results=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_gptoss
+[failsafe 2026-08-12 14:28:07]       log=logs/run_instructions_gemma27b_gptoss.log
+[failsafe 2026-08-12 14:28:07]       finish-signal=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_gptoss/gptoss120b_comparison.csv
+[failsafe 2026-08-12 14:28:07]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/base_activations eval=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations
+[failsafe 2026-08-12 14:28:07]   [2] config=configs/nemotron_instructions_gemma27b_batch_target60.md
+[failsafe 2026-08-12 14:28:07]       probe-out-dir=probes/instructions_gemma27b_nemotron
+[failsafe 2026-08-12 14:28:07]       results=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_nemotron
+[failsafe 2026-08-12 14:28:07]       log=logs/run_instructions_gemma27b_nemotron.log
+[failsafe 2026-08-12 14:28:07]       finish-signal=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_nemotron/nemotron_comparison.csv
+[failsafe 2026-08-12 14:28:07]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/base_activations eval=/workspace/cc_based_auto_improvement/results_instructions_gemma27b_shared/eval_activations
+[failsafe 2026-08-12 14:28:07] branch:        experiment_instruction_cloud_1 -> origin   (current branch; not switched)
+[failsafe 2026-08-12 14:28:07] on completion: push final checkpoint, wait 120s, then `bash /workspace/cc_based_auto_improvement/close_this.sh`
+[failsafe 2026-08-12 14:28:07] WARN: /workspace/cc_based_auto_improvement/close_this.sh does not exist YET — the box will NOT be closed unless it
+[failsafe 2026-08-12 14:28:07]       appears before the last stage finishes. Pass --no-close to silence this.
+[failsafe 2026-08-12 14:28:07] committed: failsafe: startup snapshot @ 2026-08-12T14:28:07
+[failsafe 2026-08-12 14:28:09] pushed to origin/experiment_instruction_cloud_1 (e8c6cca)
+[failsafe 2026-08-12 14:28:09] polling stage 1/2 (probes/instructions_gemma27b_gptoss) every 30s (periodic snapshot every 900s)
+[failsafe 2026-08-12 14:37:39] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-12T14:37:39
+[failsafe 2026-08-12 14:37:41] pushed to origin/experiment_instruction_cloud_1 (63684be)
+[failsafe 2026-08-12 14:50:42] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-12T14:50:42
+[failsafe 2026-08-12 14:50:43] pushed to origin/experiment_instruction_cloud_1 (b7b475f)
+[failsafe 2026-08-12 15:02:44] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-12T15:02:44
+[failsafe 2026-08-12 15:02:45] pushed to origin/experiment_instruction_cloud_1 (08c5723)
+[failsafe 2026-08-12 15:17:46] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-12T15:17:46
+[failsafe 2026-08-12 15:17:50] pushed to origin/experiment_instruction_cloud_1 (ae814b7)
+[failsafe 2026-08-12 15:30:20] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-12T15:30:20
+[failsafe 2026-08-12 15:30:22] pushed to origin/experiment_instruction_cloud_1 (93a0a5e)
+[failsafe 2026-08-12 15:45:22] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-12T15:45:22
+[failsafe 2026-08-12 15:45:24] pushed to origin/experiment_instruction_cloud_1 (cea16d8)
+[failsafe 2026-08-12 15:54:24] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-12T15:54:24
+[failsafe 2026-08-12 15:54:26] pushed to origin/experiment_instruction_cloud_1 (34b8636)
+[failsafe 2026-08-12 16:09:27] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-12T16:09:27
+[failsafe 2026-08-12 16:09:29] pushed to origin/experiment_instruction_cloud_1 (1387368)
+[failsafe 2026-08-12 16:14:59] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-12T16:14:59
+[failsafe 2026-08-12 16:15:01] pushed to origin/experiment_instruction_cloud_1 (9b1564f)
+[failsafe 2026-08-12 16:30:02] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-12T16:30:02
+[failsafe 2026-08-12 16:30:04] pushed to origin/experiment_instruction_cloud_1 (b4becde)
+[failsafe 2026-08-12 16:30:34] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-12T16:30:34
+[failsafe 2026-08-12 16:30:36] pushed to origin/experiment_instruction_cloud_1 (282dccb)
+[failsafe 2026-08-12 16:37:06] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-12T16:37:06
+[failsafe 2026-08-12 16:37:08] pushed to origin/experiment_instruction_cloud_1 (4cc3009)
+[failsafe 2026-08-12 16:37:08] committed: failsafe: stage 1/2 finished (configs/gptoss120b_instructions_gemma27b_batch_target60.md) @ 2026-08-12T16:37:08
+[failsafe 2026-08-12 16:37:09] pushed to origin/experiment_instruction_cloud_1 (1461619)
+[failsafe 2026-08-12 16:37:09] handing over to stage 2/2: configs/nemotron_instructions_gemma27b_batch_target60.md (probes/instructions_gemma27b_nemotron)
+[failsafe 2026-08-12 16:47:09] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-12T16:47:09
+[failsafe 2026-08-12 16:47:11] pushed to origin/experiment_instruction_cloud_1 (12012eb)
+[failsafe 2026-08-12 17:02:11] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-12T17:02:11
+[failsafe 2026-08-12 17:02:13] pushed to origin/experiment_instruction_cloud_1 (7c10147)
+[failsafe 2026-08-12 17:03:13] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-12T17:03:13
+[failsafe 2026-08-12 17:03:15] pushed to origin/experiment_instruction_cloud_1 (b838fa9)
+[failsafe 2026-08-12 17:16:45] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-12T17:16:45
+[failsafe 2026-08-12 17:16:47] pushed to origin/experiment_instruction_cloud_1 (e278e0c)
+[failsafe 2026-08-12 17:23:47] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-12T17:23:47
+[failsafe 2026-08-12 17:23:49] pushed to origin/experiment_instruction_cloud_1 (8ce7777)
+[failsafe 2026-08-12 17:32:49] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-12T17:32:49
+[failsafe 2026-08-12 17:32:51] pushed to origin/experiment_instruction_cloud_1 (c0f9517)
+[failsafe 2026-08-12 17:40:21] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-12T17:40:21
+[failsafe 2026-08-12 17:40:23] pushed to origin/experiment_instruction_cloud_1 (1cb313f)
+[failsafe 2026-08-12 17:48:24] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-12T17:48:24
+[failsafe 2026-08-12 17:48:26] pushed to origin/experiment_instruction_cloud_1 (41fa30e)
+[failsafe 2026-08-12 17:59:26] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-12T17:59:26
+[failsafe 2026-08-12 17:59:28] pushed to origin/experiment_instruction_cloud_1 (d065a61)
+[failsafe 2026-08-12 18:07:28] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-12T18:07:28
+[failsafe 2026-08-12 18:07:30] pushed to origin/experiment_instruction_cloud_1 (e0e79f5)
+[failsafe 2026-08-12 18:07:30] committed: failsafe: stage 2/2 finished (configs/nemotron_instructions_gemma27b_batch_target60.md) @ 2026-08-12T18:07:30
+[failsafe 2026-08-12 18:07:32] pushed to origin/experiment_instruction_cloud_1 (83e8d50)
+[failsafe 2026-08-12 18:07:32] last stage finished — final commit, then shutdown
+[failsafe 2026-08-12 18:07:32] finalizing: capturing latest state before exit
