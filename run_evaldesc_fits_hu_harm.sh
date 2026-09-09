@@ -20,6 +20,8 @@
 set -u
 cd "$(dirname "${BASH_SOURCE[0]}")"
 if [ -f .env ]; then set -a; . ./.env; set +a; fi
+if [ -f .env2 ]; then set -a; . ./.env2; set +a; fi
+TAGSUFFIX="${TAGSUFFIX:-evaldesc}"      # which steered arm to fit; see run_evaldesc_gen_hu_harm.sh
 export AGENTIC_REDTEAM_MAX_MEMORY="${AGENTIC_REDTEAM_MAX_MEMORY:-0=22GiB,cpu=45GiB}"
 export MAX_MEMORY="${MAX_MEMORY:-$AGENTIC_REDTEAM_MAX_MEMORY}"
 PY=.venv_claude/bin/python
@@ -51,16 +53,16 @@ for g in $GENS; do warm "data/hu_harm_${g}_600.jsonl"; done
 # PASS 1 — warm each steered set as it lands, in generation order. ONE process touches the
 # GPU at a time (warming and fitting are both here; the generator does not use it at all).
 for g in $GENS; do
-    f="data/hu_harm_${g}_evaldesc_600.jsonl"
+    f="data/hu_harm_${g}_${TAGSUFFIX}_600.jsonl"
     while [ ! -s "$f" ]; do sleep 120; done
     warm "$f"
 done
 echo ">>> $(date -Is)  all four steered sets extracted"
 
 # PASS A — full set, steered (the headline).
-for g in $GENS; do run "data/hu_harm_${g}_evaldesc_600.jsonl" "$g" 600 1; done
+for g in $GENS; do run "data/hu_harm_${g}_${TAGSUFFIX}_600.jsonl" "$g" 600 1; done
 # PASS B — full set, unsteered counterpart, at the same n.
 for g in $GENS; do run "data/hu_harm_${g}_600.jsonl" "$g" 600 1; done
 # PASS C — 8 draws at 90%, steered (the noise bar the unsteered arms already have).
-for g in $GENS; do run "data/hu_harm_${g}_evaldesc_600.jsonl" "$g" 540 8; done
+for g in $GENS; do run "data/hu_harm_${g}_${TAGSUFFIX}_600.jsonl" "$g" 540 8; done
 echo ">>> $(date -Is)  all hu_harm eval-description fits finished."

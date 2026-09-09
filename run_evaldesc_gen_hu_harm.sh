@@ -16,18 +16,25 @@
 set -u
 cd "$(dirname "${BASH_SOURCE[0]}")"
 if [ -f .env ]; then set -a; . ./.env; set +a; fi
+# .env2 holds a second OpenRouter key; sourced last so it overrides .env when present.
+if [ -f .env2 ]; then set -a; . ./.env2; set +a; fi
 PY=.venv_claude/bin/python
+# ARM SELECTION. Defaults reproduce the verbatim-description arm exactly.
+#   TAGSUFFIX=evaldesc       DESC=""       -> the text verbatim from human_harm_last
+#   TAGSUFFIX=evaldescshape  DESC=shape    -> the same kinds with the conversation shape
+TAGSUFFIX="${TAGSUFFIX:-evaldesc}"
+DESC="${DESC:-}"
 mkdir -p logs
 
 gen() {  # model tag concurrency
     local model=$1 tag=$2 conc=$3
-    local out="data/hu_harm_${tag}_evaldesc_600.jsonl"
-    local log="logs/gen_hu_harm_${tag}_evaldesc.log"
+    local out="data/hu_harm_${tag}_${TAGSUFFIX}_600.jsonl"
+    local log="logs/gen_hu_harm_${tag}_${TAGSUFFIX}.log"
     if [ -s "$out" ]; then echo ">>> $(date -Is)  SKIP $out (exists)"; return 0; fi
     echo ">>> $(date -Is)  generating $out with $model (concurrency $conc)"
     $PY scripts/generate_hu_harm_dataset.py \
         --model "$model" --n-per-label 300 --batch-size 5 --concurrency "$conc" \
-        --call-budget-factor 6 --max-tokens 8192 --eval-description \
+        --call-budget-factor 6 --max-tokens 8192 --eval-description $DESC \
         --out "$out" > "$log" 2>&1
     echo ">>> $(date -Is)  $out: $(wc -l < "$out" 2>/dev/null || echo 0) rows"
     # Balance, contamination, turn shape, token width and the refusal-shape heuristic.
