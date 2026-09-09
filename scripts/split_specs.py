@@ -222,8 +222,13 @@ Write the document only. Rows are INDEPENDENT.""",
         desc="""THE SPLIT YOU ARE WRITING FOR (a doctor-patient dialogue):
 
 - A SYSTEM turn carrying a short paragraph of context about the patient, then MANY SHORT
-  TURNS alternating between the assistant (taking a history) and the patient (answering).
-  Six to twelve messages is typical.
+  TURNS alternating between the PATIENT and the medical assistant. Six to twelve messages
+  is typical.
+- THE PATIENT SPEAKS FIRST and the row ENDS on a patient turn, so the order is
+  system, patient, assistant, patient, ... , patient. (The real split has the clinician
+  opening instead; that ordering cannot be tokenized by this probe's chat template at all —
+  85 of its 86 eval rows raise — so this arm writes the same dialogue with the patient
+  leading. It is the one deliberate deviation in this study.)
 - Turns are VERY SHORT on both sides — averaging about 45 characters, roughly a sentence.
   This is spoken clinical dialogue, not prose.
 - What separates the two classes is THE PATIENT'S CONDITION:
