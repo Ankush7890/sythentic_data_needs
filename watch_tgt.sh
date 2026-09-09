@@ -2,7 +2,9 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 PAT='_(tgtshot|tgtnone)_[a-z_]+_600'
 ( tail -F -n0 logs/tgt_gen_driver.log logs/tgt_fits_driver.log 2>/dev/null \
-  | grep -E --line-buffered "^>>>|Error|Traceback|FAILED|Killed" ) &
+  | grep -E --line-buffered "^>>>|Error|Traceback|FAILED|Killed" \
+  | grep -v --line-buffered "not yet generated" ) &   # the work-stealing sweep polls every
+                                                      # 2 min; the hourly line covers it
 while true; do
     sleep 3600
     sets=$(ls data/*_tgt*_600.jsonl 2>/dev/null | wc -l)
