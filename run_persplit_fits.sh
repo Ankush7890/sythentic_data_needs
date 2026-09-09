@@ -15,7 +15,7 @@ if [ -f .env ]; then set -a; . ./.env; set +a; fi
 export AGENTIC_REDTEAM_MAX_MEMORY="${AGENTIC_REDTEAM_MAX_MEMORY:-0=22GiB,cpu=45GiB}"
 export MAX_MEMORY="${MAX_MEMORY:-$AGENTIC_REDTEAM_MAX_MEMORY}"
 PY=.venv_claude/bin/python
-TAG=deepseekv4pro
+TAG="${TAG:-deepseekv4pro}"
 
 ARMS="
 instructions anthropic_harmless_refusal

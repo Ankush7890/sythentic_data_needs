@@ -19,8 +19,10 @@ set -u
 cd "$(dirname "${BASH_SOURCE[0]}")"
 if [ -f .env ]; then set -a; . ./.env; set +a; fi
 PY=.venv_claude/bin/python
-GEN=deepseek/deepseek-v4-pro
-TAG=deepseekv4pro
+# One generator per invocation; the arms are named after it, so two generators' studies
+# live side by side in the same CSVs without colliding on the resume key.
+GEN="${GEN:-deepseek/deepseek-v4-pro}"
+TAG="${TAG:-deepseekv4pro}"
 mkdir -p logs
 
 # "<concept> <kind index> <split stem>"

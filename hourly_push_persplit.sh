@@ -10,20 +10,22 @@ BRANCH=generator_experiment_1
 FILES="scripts/generate_instructions_dataset.py scripts/generate_highstakes_dataset.py
 scripts/instructions_gen90.csv scripts/highstakes_gen90_dev500.csv
 run_persplit_gen.sh run_persplit_fits.sh hourly_push_persplit.sh watch_persplit.sh"
-for s in anthropic_harmless_refusal bbq_substitution hc_context_drift hc_contradiction \
-         mm_substitution oig_context_drift; do
-    FILES="$FILES data/instructions_deepseekv4pro_${s}_600.jsonl"
-done
-for s in anthropic_hh_balanced mt_balanced mts_balanced toolace_balanced; do
-    FILES="$FILES data/highstakes_deepseekv4pro_${s}_600.jsonl"
+for t in deepseekv4pro llama70b; do
+    for s in anthropic_harmless_refusal bbq_substitution hc_context_drift hc_contradiction \
+             mm_substitution oig_context_drift; do
+        FILES="$FILES data/instructions_${t}_${s}_600.jsonl"
+    done
+    for s in anthropic_hh_balanced mt_balanced mts_balanced toolace_balanced; do
+        FILES="$FILES data/highstakes_${t}_${s}_600.jsonl"
+    done
 done
 
 status () {
     local sets fits
-    sets=$(ls data/*_deepseekv4pro_*_600.jsonl 2>/dev/null | grep -vc evaldesc)
+    sets=$(ls data/*_600.jsonl 2>/dev/null | grep -cE "_(anthropic_harmless_refusal|bbq_substitution|hc_context_drift|hc_contradiction|mm_substitution|oig_context_drift|anthropic_hh_balanced|mt_balanced|mts_balanced|toolace_balanced)_600")
     fits=$(cat scripts/instructions_gen90.csv scripts/highstakes_gen90_dev500.csv 2>/dev/null \
-           | grep -cE "deepseekv4pro_(anthropic_harmless_refusal|bbq_substitution|hc_context_drift|hc_contradiction|mm_substitution|oig_context_drift|anthropic_hh_balanced|mt_balanced|mts_balanced|toolace_balanced)_600" || true)
-    echo "${sets}/10 per-split sets, ${fits} per-split fits"
+           | grep -cE "_(anthropic_harmless_refusal|bbq_substitution|hc_context_drift|hc_contradiction|mm_substitution|oig_context_drift|anthropic_hh_balanced|mt_balanced|mts_balanced|toolace_balanced)_600" || true)
+    echo "${sets}/20 per-split sets, ${fits} per-split fits"
 }
 
 while true; do
