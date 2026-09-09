@@ -1,0 +1,45 @@
+nohup: ignoring input
+[failsafe 2026-07-24 14:46:45] config:        configs/gptoss120b_hu_harm_llama70b50_run2.md
+[failsafe 2026-07-24 14:46:45] probe-out-dir: probes/llama70b50_gptoss120b_run2
+[failsafe 2026-07-24 14:46:45] results dir:   /workspace/cc_based_auto_improvement/results_hu_harm_llama70b50_gptoss120b_run2
+[failsafe 2026-07-24 14:46:45] log file:      logs/run_hh_llama70b50_gptoss120b_run2.log
+[failsafe 2026-07-24 14:46:45] NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hu_harm_llama70b50/llama1b_base_activations eval=/workspace/cc_based_auto_improvement/results_hu_harm_prompt_llama1b/llama1b_eval_activations
+[failsafe 2026-07-24 14:46:45] branch:        experiment3_cloud -> origin   (current branch; not switched)
+[failsafe 2026-07-24 14:46:45] mode:          runs forever — stop manually (Ctrl-C / kill) for a final commit
+[failsafe 2026-07-24 14:46:45] committed: failsafe: startup snapshot @ 2026-07-24T14:46:45
+[failsafe 2026-07-24 14:46:47] pushed to origin/experiment3_cloud (480579e)
+[failsafe 2026-07-24 14:46:47] polling every 30s (periodic snapshot every 900s)
+[failsafe 2026-07-24 14:50:47] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T14:50:47
+[failsafe 2026-07-24 14:50:48] pushed to origin/experiment3_cloud (3076bcc)
+[failsafe 2026-07-24 14:52:19] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T14:52:19
+[failsafe 2026-07-24 14:52:20] pushed to origin/experiment3_cloud (ab46e51)
+[failsafe 2026-07-24 15:07:20] committed: failsafe: periodic snapshot @ 2026-07-24T15:07:20
+[failsafe 2026-07-24 15:07:22] pushed to origin/experiment3_cloud (0f1c6b9)
+[failsafe 2026-07-24 15:09:52] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T15:09:52
+[failsafe 2026-07-24 15:09:53] pushed to origin/experiment3_cloud (b7cd27f)
+[failsafe 2026-07-24 15:24:53] committed: failsafe: periodic snapshot @ 2026-07-24T15:24:53
+[failsafe 2026-07-24 15:24:55] pushed to origin/experiment3_cloud (999bd4d)
+[failsafe 2026-07-24 15:27:55] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T15:27:55
+[failsafe 2026-07-24 15:27:56] pushed to origin/experiment3_cloud (60b3c07)
+[failsafe 2026-07-24 15:31:56] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T15:31:56
+[failsafe 2026-07-24 15:31:58] pushed to origin/experiment3_cloud (2cda16f)
+[failsafe 2026-07-24 15:46:58] committed: failsafe: periodic snapshot @ 2026-07-24T15:46:58
+[failsafe 2026-07-24 15:47:00] pushed to origin/experiment3_cloud (7a30acb)
+[failsafe 2026-07-24 16:02:00] committed: failsafe: periodic snapshot @ 2026-07-24T16:02:00
+[failsafe 2026-07-24 16:02:09] pushed to origin/experiment3_cloud (dab7d67)
+[failsafe 2026-07-24 16:10:39] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T16:10:39
+[failsafe 2026-07-24 16:10:48] pushed to origin/experiment3_cloud (7b93267)
+[failsafe 2026-07-24 16:25:48] committed: failsafe: periodic snapshot @ 2026-07-24T16:25:48
+[failsafe 2026-07-24 16:25:54] pushed to origin/experiment3_cloud (8b11445)
+[failsafe 2026-07-24 16:40:54] committed: failsafe: periodic snapshot @ 2026-07-24T16:40:54
+[failsafe 2026-07-24 16:40:56] pushed to origin/experiment3_cloud (64e52d8)
+[failsafe 2026-07-24 16:41:56] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T16:41:56
+[failsafe 2026-07-24 16:41:58] pushed to origin/experiment3_cloud (70d1051)
+[failsafe 2026-07-24 16:43:59] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T16:43:59
+[failsafe 2026-07-24 16:44:00] pushed to origin/experiment3_cloud (8f6503b)
+[failsafe 2026-07-24 16:59:01] committed: failsafe: periodic snapshot @ 2026-07-24T16:59:01
+[failsafe 2026-07-24 16:59:02] pushed to origin/experiment3_cloud (e211c92)
+[failsafe 2026-07-24 17:02:02] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T17:02:02
+[failsafe 2026-07-24 17:02:04] pushed to origin/experiment3_cloud (9c80db8)
+[failsafe 2026-07-24 17:13:05] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T17:13:05
+[failsafe 2026-07-24 17:13:06] pushed to origin/experiment3_cloud (e945836)

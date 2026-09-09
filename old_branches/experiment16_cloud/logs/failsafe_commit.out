@@ -1,0 +1,55 @@
+nohup: ignoring input
+[failsafe 2026-08-17 17:04:59] stages:        2 (polled in order; hand-off when a stage's comparison CSV lands)
+[failsafe 2026-08-17 17:04:59]   [1] config=configs/gptoss120b_hu_harm_gemma27b_batch_ens10.md
+[failsafe 2026-08-17 17:04:59]       probe-out-dir=probes/hu_harm_gemma27b_gptoss120b_batch_ens10
+[failsafe 2026-08-17 17:04:59]       results=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_gptoss120b_batch_ens10
+[failsafe 2026-08-17 17:04:59]       log=logs/run_hu_harm_gemma27b_gptoss120b_batch_ens10.log
+[failsafe 2026-08-17 17:04:59]       finish-signal=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_gptoss120b_batch_ens10/gptoss120b_comparison.csv
+[failsafe 2026-08-17 17:04:59]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_batch_ablation/base_activations eval=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_batch_ablation/eval_activations
+[failsafe 2026-08-17 17:04:59]   [2] config=configs/deepseekv4pro_hu_harm_gemma27b_batch_ens10.md
+[failsafe 2026-08-17 17:04:59]       probe-out-dir=probes/hu_harm_gemma27b_deepseekv4pro_batch_ens10
+[failsafe 2026-08-17 17:04:59]       results=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_deepseekv4pro_batch_ens10
+[failsafe 2026-08-17 17:04:59]       log=logs/run_hu_harm_gemma27b_deepseekv4pro_batch_ens10.log
+[failsafe 2026-08-17 17:04:59]       finish-signal=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_deepseekv4pro_batch_ens10/deepseekv4pro_comparison.csv
+[failsafe 2026-08-17 17:04:59]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_batch_ablation/base_activations eval=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_batch_ablation/eval_activations
+[failsafe 2026-08-17 17:04:59] branch:        experiment16_cloud -> origin   (current branch; not switched)
+[failsafe 2026-08-17 17:05:00] committed: failsafe: startup snapshot @ 2026-08-17T17:05:00
+[failsafe 2026-08-17 17:05:03] pushed to origin/experiment16_cloud (29b9d2f)
+[failsafe 2026-08-17 17:05:03] polling stage 1/2 (probes/hu_harm_gemma27b_gptoss120b_batch_ens10) every 30s (periodic snapshot every 900s)
+[failsafe 2026-08-17 17:13:03] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-17T17:13:03
+[failsafe 2026-08-17 17:13:07] pushed to origin/experiment16_cloud (9406548)
+[failsafe 2026-08-17 17:28:08] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-17T17:28:08
+[failsafe 2026-08-17 17:28:13] pushed to origin/experiment16_cloud (ee06104)
+[failsafe 2026-08-17 17:43:15] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-17T17:43:15
+[failsafe 2026-08-17 17:43:19] pushed to origin/experiment16_cloud (88a0fc9)
+[failsafe 2026-08-17 17:58:21] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-17T17:58:21
+[failsafe 2026-08-17 17:58:25] pushed to origin/experiment16_cloud (928ca7b)
+[failsafe 2026-08-17 18:13:27] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-17T18:13:27
+[failsafe 2026-08-17 18:13:32] pushed to origin/experiment16_cloud (5d49646)
+[failsafe 2026-08-17 18:19:03] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-17T18:19:03
+[failsafe 2026-08-17 18:19:09] pushed to origin/experiment16_cloud (57f0e9c)
+[failsafe 2026-08-17 18:19:40] committed: failsafe: stage 1/2 finished (configs/gptoss120b_hu_harm_gemma27b_batch_ens10.md) @ 2026-08-17T18:19:40
+[failsafe 2026-08-17 18:19:43] pushed to origin/experiment16_cloud (3ca7273)
+[failsafe 2026-08-17 18:19:43] handing over to stage 2/2: configs/deepseekv4pro_hu_harm_gemma27b_batch_ens10.md (probes/hu_harm_gemma27b_deepseekv4pro_batch_ens10)
+[failsafe 2026-08-17 18:20:13] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-17T18:20:13
+[failsafe 2026-08-17 18:20:15] pushed to origin/experiment16_cloud (92a03c6)
+[failsafe 2026-08-17 18:33:45] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-17T18:33:45
+[failsafe 2026-08-17 18:33:47] pushed to origin/experiment16_cloud (957087a)
+[failsafe 2026-08-17 18:48:47] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-17T18:48:47
+[failsafe 2026-08-17 18:48:49] pushed to origin/experiment16_cloud (f24bd0b)
+[failsafe 2026-08-17 18:52:19] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-17T18:52:19
+[failsafe 2026-08-17 18:52:21] pushed to origin/experiment16_cloud (75635f8)
+[failsafe 2026-08-17 19:07:21] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-17T19:07:21
+[failsafe 2026-08-17 19:07:23] pushed to origin/experiment16_cloud (e78ba78)
+[failsafe 2026-08-17 19:22:24] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-17T19:22:24
+[failsafe 2026-08-17 19:22:26] pushed to origin/experiment16_cloud (d33fb4b)
+[failsafe 2026-08-17 19:35:57] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-17T19:35:57
+[failsafe 2026-08-17 19:35:59] pushed to origin/experiment16_cloud (4983fe7)
+[failsafe 2026-08-17 19:51:00] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-17T19:51:00
+[failsafe 2026-08-17 19:51:02] pushed to origin/experiment16_cloud (611716a)
+[failsafe 2026-08-17 19:55:32] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-17T19:55:32
+[failsafe 2026-08-17 19:55:35] pushed to origin/experiment16_cloud (ec12926)
+[failsafe 2026-08-17 20:10:35] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-17T20:10:35
+[failsafe 2026-08-17 20:10:38] pushed to origin/experiment16_cloud (d545c7a)
+[failsafe 2026-08-17 20:11:08] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-17T20:11:08
+[failsafe 2026-08-17 20:11:10] pushed to origin/experiment16_cloud (49cbb59)

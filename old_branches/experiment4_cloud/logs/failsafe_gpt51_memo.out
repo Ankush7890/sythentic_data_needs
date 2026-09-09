@@ -1,0 +1,27 @@
+nohup: ignoring input
+[failsafe 2026-07-27 16:46:42] config:        configs/gpt51_hu_harm_llama70b50_memo.md
+[failsafe 2026-07-27 16:46:42] probe-out-dir: probes/llama70b50_gpt51_memo
+[failsafe 2026-07-27 16:46:42] results dir:   /workspace/cc_based_auto_improvement/results_hu_harm_llama70b50_gpt51_memo
+[failsafe 2026-07-27 16:46:42] log file:      logs/run_hh_llama70b50_gpt51_memo.log
+[failsafe 2026-07-27 16:46:42] NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hu_harm_llama70b50_gpt51/base_activations eval=/workspace/cc_based_auto_improvement/results_hu_harm_llama70b50_gpt51/eval_activations
+[failsafe 2026-07-27 16:46:42] branch:        experiment4_cloud -> origin   (current branch; not switched)
+[failsafe 2026-07-27 16:46:42] mode:          runs forever — stop manually (Ctrl-C / kill) for a final commit
+[failsafe 2026-07-27 16:46:42] committed: failsafe: startup snapshot @ 2026-07-27T16:46:42
+[failsafe 2026-07-27 16:46:45] pushed to origin/experiment4_cloud (ab60d1d)
+[failsafe 2026-07-27 16:46:45] polling every 45s (periodic snapshot every 660s)
+[failsafe 2026-07-27 16:56:30] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-27T16:56:30
+[failsafe 2026-07-27 16:56:32] pushed to origin/experiment4_cloud (c614457)
+[failsafe 2026-07-27 17:01:47] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-27T17:01:47
+[failsafe 2026-07-27 17:01:49] pushed to origin/experiment4_cloud (9ace024)
+[failsafe 2026-07-27 17:13:04] committed: failsafe: periodic snapshot @ 2026-07-27T17:13:04
+[failsafe 2026-07-27 17:13:07] pushed to origin/experiment4_cloud (08e306f)
+[failsafe 2026-07-27 17:15:22] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-27T17:15:22
+[failsafe 2026-07-27 17:15:24] pushed to origin/experiment4_cloud (1049a3b)
+[failsafe 2026-07-27 17:26:39] committed: failsafe: periodic snapshot @ 2026-07-27T17:26:39
+[failsafe 2026-07-27 17:26:41] pushed to origin/experiment4_cloud (ed3c636)
+[failsafe 2026-07-27 17:35:41] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-27T17:35:41
+[failsafe 2026-07-27 17:35:44] pushed to origin/experiment4_cloud (244402a)
+[failsafe 2026-07-27 17:41:44] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-27T17:41:44
+[failsafe 2026-07-27 17:41:46] pushed to origin/experiment4_cloud (6c29c2e)
+[failsafe 2026-07-27 17:53:01] committed: failsafe: periodic snapshot @ 2026-07-27T17:53:01
+[failsafe 2026-07-27 17:53:03] pushed to origin/experiment4_cloud (7832368)

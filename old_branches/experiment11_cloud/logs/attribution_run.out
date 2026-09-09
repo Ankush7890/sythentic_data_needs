@@ -1,0 +1,173 @@
+nohup: ignoring input
+>>> GPU: NVIDIA GeForce RTX 4060  7.4 GB free / 8.6 GB
+>>> 2026-08-10T15:49:36+00:00  verification refits: gptoss120b
+gptoss120b: 389 pairs; flagged on LOO seeds 42..66 (25 of 50), verifying on held-out seeds 67..116
+  drop_harmful_bh                 0 pairs
+  drop_harmful_2se                8 pairs
+  drop_inert                    327 pairs
+  drop_harmful2se_and_inert     335 pairs
+  drop_random_control             8 pairs
+  (pairs flagged as useful)      54 pairs
+packed gptoss120b: train 662 rows / 2.84 GB, val 166 rows / 0.71 GB, eval 866 rows / 0.81 GB (host)
+  seed 67 done (1/50)
+  seed 68 done (2/50)
+  seed 69 done (3/50)
+  seed 70 done (4/50)
+  seed 71 done (5/50)
+  seed 72 done (6/50)
+  seed 73 done (7/50)
+  seed 74 done (8/50)
+  seed 75 done (9/50)
+  seed 76 done (10/50)
+  seed 77 done (11/50)
+  seed 78 done (12/50)
+  seed 79 done (13/50)
+  seed 80 done (14/50)
+  seed 81 done (15/50)
+  seed 82 done (16/50)
+  seed 83 done (17/50)
+  seed 84 done (18/50)
+  seed 85 done (19/50)
+  seed 86 done (20/50)
+  seed 87 done (21/50)
+  seed 88 done (22/50)
+  seed 89 done (23/50)
+  seed 90 done (24/50)
+  seed 91 done (25/50)
+  seed 92 done (26/50)
+  seed 93 done (27/50)
+  seed 94 done (28/50)
+  seed 95 done (29/50)
+  seed 96 done (30/50)
+  seed 97 done (31/50)
+  seed 98 done (32/50)
+  seed 99 done (33/50)
+  seed 100 done (34/50)
+  seed 101 done (35/50)
+  seed 102 done (36/50)
+  seed 103 done (37/50)
+  seed 104 done (38/50)
+  seed 105 done (39/50)
+  seed 106 done (40/50)
+  seed 107 done (41/50)
+  seed 108 done (42/50)
+  seed 109 done (43/50)
+  seed 110 done (44/50)
+  seed 111 done (45/50)
+  seed 112 done (46/50)
+  seed 113 done (47/50)
+  seed 114 done (48/50)
+  seed 115 done (49/50)
+  seed 116 done (50/50)
+
+paired change vs the full-data baseline, pipeline scale, mean +/- SE over 50 seeds
+variant                                ai_dilemmas                ant_hh      balanced_refusal        daily_dilemmas                  mean
+drop_harmful_bh                   +0.0000+-0.0000       +0.0000+-0.0000       +0.0000+-0.0000       +0.0000+-0.0000       +0.0000+-0.0000 
+drop_harmful_2se                  +0.0012+-0.0007       -0.0021+-0.0015       +0.0005+-0.0039       -0.0009+-0.0008       -0.0003+-0.0012 
+drop_inert                        -0.0128+-0.0034*      +0.0064+-0.0028*      -0.0342+-0.0087*      -0.0035+-0.0011*      -0.0110+-0.0029*
+drop_harmful2se_and_inert         -0.0110+-0.0028*      -0.0062+-0.0024*      -0.0140+-0.0067*      -0.0011+-0.0012       -0.0081+-0.0022*
+drop_random_control               +0.0006+-0.0005       +0.0012+-0.0017       -0.0076+-0.0065       -0.0001+-0.0006       -0.0015+-0.0018 
+  baseline eval_ai_dilemmas         0.99691 +- 0.00057
+  baseline eval_ant_hh              0.75152 +- 0.00142
+  baseline eval_balanced_refusal    0.94916 +- 0.00345
+  baseline eval_daily_dilemmas      0.98454 +- 0.00074
+  baseline mean                     0.92053 +- 0.00110
+
+* = |mean| > 2 SE. Read drop_random_control FIRST: any variant that does not
+beat it by more than its error bar has not demonstrated that the flagging
+identified anything — only that the training set changed size.
+
+wrote /workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_batch_ablation/attribution/gptoss120b_iter3_verify.json
+>>> 2026-08-10T16:02:39+00:00  verification refits: deepseekv4pro
+deepseekv4pro: 439 pairs; flagged on LOO seeds 42..66 (25 of 50), verifying on held-out seeds 67..116
+  drop_harmful_bh                 0 pairs
+  drop_harmful_2se               18 pairs
+  drop_inert                    379 pairs
+  drop_harmful2se_and_inert     397 pairs
+  drop_random_control            18 pairs
+  (pairs flagged as useful)      44 pairs
+packed deepseekv4pro: train 747 rows / 3.40 GB, val 181 rows / 0.79 GB, eval 866 rows / 0.81 GB (host)
+  seed 67 done (1/50)
+  seed 68 done (2/50)
+  seed 69 done (3/50)
+  seed 70 done (4/50)
+  seed 71 done (5/50)
+  seed 72 done (6/50)
+  seed 73 done (7/50)
+  seed 74 done (8/50)
+  seed 75 done (9/50)
+  seed 76 done (10/50)
+  seed 77 done (11/50)
+  seed 78 done (12/50)
+  seed 79 done (13/50)
+  seed 80 done (14/50)
+  seed 81 done (15/50)
+  seed 82 done (16/50)
+  seed 83 done (17/50)
+  seed 84 done (18/50)
+  seed 85 done (19/50)
+  seed 86 done (20/50)
+  seed 87 done (21/50)
+  seed 88 done (22/50)
+  seed 89 done (23/50)
+  seed 90 done (24/50)
+  seed 91 done (25/50)
+  seed 92 done (26/50)
+  seed 93 done (27/50)
+  seed 94 done (28/50)
+  seed 95 done (29/50)
+  seed 96 done (30/50)
+  seed 97 done (31/50)
+  seed 98 done (32/50)
+  seed 99 done (33/50)
+  seed 100 done (34/50)
+  seed 101 done (35/50)
+  seed 102 done (36/50)
+  seed 103 done (37/50)
+  seed 104 done (38/50)
+  seed 105 done (39/50)
+  seed 106 done (40/50)
+  seed 107 done (41/50)
+  seed 108 done (42/50)
+  seed 109 done (43/50)
+  seed 110 done (44/50)
+  seed 111 done (45/50)
+  seed 112 done (46/50)
+  seed 113 done (47/50)
+  seed 114 done (48/50)
+  seed 115 done (49/50)
+  seed 116 done (50/50)
+
+paired change vs the full-data baseline, pipeline scale, mean +/- SE over 50 seeds
+variant                                ai_dilemmas                ant_hh      balanced_refusal        daily_dilemmas                  mean
+drop_harmful_bh                   +0.0000+-0.0000       +0.0000+-0.0000       +0.0000+-0.0000       +0.0000+-0.0000       +0.0000+-0.0000 
+drop_harmful_2se                  +0.0134+-0.0016*      -0.0134+-0.0014*      +0.0404+-0.0036*      +0.0032+-0.0004*      +0.0109+-0.0012*
+drop_inert                        -0.0431+-0.0077*      +0.0164+-0.0039*      -0.0913+-0.0099*      -0.0083+-0.0013*      -0.0315+-0.0036*
+drop_harmful2se_and_inert         +0.0074+-0.0042       +0.0020+-0.0027       -0.0120+-0.0057*      -0.0029+-0.0011*      -0.0014+-0.0020 
+drop_random_control               +0.0021+-0.0023       -0.0017+-0.0018       -0.0062+-0.0082       -0.0013+-0.0006*      -0.0018+-0.0025 
+  baseline eval_ai_dilemmas         0.97953 +- 0.00160
+  baseline eval_ant_hh              0.73199 +- 0.00141
+  baseline eval_balanced_refusal    0.88398 +- 0.00315
+  baseline eval_daily_dilemmas      0.98470 +- 0.00037
+  baseline mean                     0.89505 +- 0.00104
+
+* = |mean| > 2 SE. Read drop_random_control FIRST: any variant that does not
+beat it by more than its error bar has not demonstrated that the flagging
+identified anything — only that the training set changed size.
+
+wrote /workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_batch_ablation/attribution/deepseekv4pro_iter3_verify.json
+>>> 2026-08-10T16:22:06+00:00  done. Results in results_hu_harm_gemma27b_batch_ablation/attribution:
+total 11692
+drwxr-xr-x 2 root root    4096 Aug 10 15:34 .
+drwxr-xr-x 5 root root    4096 Aug 10 10:14 ..
+-rw-r--r-- 1 root root  882909 Aug 10 15:33 deepseekv4pro_iter3_loo.npz
+-rw-r--r-- 1 root root 5287940 Aug 10 15:33 deepseekv4pro_iter3_loo_progress.jsonl
+-rw-r--r-- 1 root root  186000 Aug 10 16:22 deepseekv4pro_iter3_verify.json
+-rw-r--r-- 1 root root  737272 Aug 10 15:33 gptoss120b_iter3_loo.npz
+-rw-r--r-- 1 root root 4662771 Aug 10 15:33 gptoss120b_iter3_loo_progress.jsonl
+-rw-r--r-- 1 root root  184880 Aug 10 16:02 gptoss120b_iter3_verify.json
+-rw-r--r-- 1 root root    6437 Aug 10 10:05 gptoss120b_noisefloor.json
+
+Read <arm>_iter3_verify.json (or the verify log) first, and inside it compare every
+variant against drop_random_control — a flagged set that does not beat a same-sized
+random set by more than its error bar has identified nothing.

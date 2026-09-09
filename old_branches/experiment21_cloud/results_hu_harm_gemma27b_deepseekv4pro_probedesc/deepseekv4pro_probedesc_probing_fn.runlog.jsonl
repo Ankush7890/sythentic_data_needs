@@ -1,0 +1,534 @@
+{"event": "round_start", "ts": 1787321361.73679, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321361.7641592, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321361.7901497, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321361.8146505, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321361.8390822, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321361.86415, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321361.8909879, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321361.917961, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321361.9445493, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321361.9702737, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787321455.8191214, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787321483.2147954, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787321505.8819568, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787321511.113265, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787321515.484978, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787321516.6048477, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787321527.7242036, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787321556.010776, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787321564.213248, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787321584.3263593, "round": 0, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787321591.0577402, "round": 0, "iteration": 0, "n_attempts": 50, "n_successes": 6}
+{"event": "round_start", "ts": 1787321591.0593452, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321591.0861278, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321591.1122007, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321591.1388092, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321591.1656153, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321591.1914582, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321591.2182343, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321591.2449088, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321591.2714605, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321591.2983286, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787321702.0282078, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787321760.4241629, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787321777.6961126, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787321796.905651, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787321811.614246, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787321831.1890035, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787321837.5339122, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787321838.5023735, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787321863.543314, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787321931.156188, "round": 1, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_short", "new_records": 3, "new_successes": 0}
+{"event": "summary", "ts": 1787321955.5017276, "round": 1, "iteration": 0, "n_attempts": 48, "n_successes": 28}
+{"event": "round_start", "ts": 1787321955.504042, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321955.5299382, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321955.5543692, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321955.579273, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321955.604269, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321955.6287215, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321955.6530921, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321955.678443, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321955.7029743, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787321955.7272608, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787322034.7634509, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787322057.0775595, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787322068.581693, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787322072.5794523, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787322083.0511322, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787322089.0912063, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787322114.04114, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787322115.1064117, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787322126.9194636, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "target_reached", "new_records": 2, "new_successes": 2}
+{"event": "round_end", "ts": 1787322143.4696276, "round": 2, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "target_reached", "new_records": 4, "new_successes": 3}
+{"event": "summary", "ts": 1787322150.7367697, "round": 2, "iteration": 0, "n_attempts": 46, "n_successes": 33}
+{"event": "round_start", "ts": 1787322150.7400327, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322150.764496, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322150.7893226, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322150.8134809, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322150.8376284, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322150.8617415, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322150.8866763, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322150.9111779, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322150.9356408, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322150.9599476, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787322189.5063913, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787322231.018688, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787322239.741275, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787322280.6970246, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787322287.2799563, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_short", "new_records": 3, "new_successes": 3}
+{"event": "round_end", "ts": 1787322294.0929835, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787322297.8165357, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "probe_error", "ts": 1787322300.700552, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1787322302.7318916, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787322304.8264525, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 3}
+{"event": "round_end", "ts": 1787322318.2456977, "round": 3, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "target_reached", "new_records": 4, "new_successes": 4}
+{"event": "summary", "ts": 1787322325.2791557, "round": 3, "iteration": 0, "n_attempts": 46, "n_successes": 38}
+{"event": "round_start", "ts": 1787322325.2834427, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322325.3085692, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322325.332921, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322325.357526, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322325.3821516, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322325.4065967, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322325.4312425, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322325.4557428, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322325.4801793, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787322325.5044537, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787322452.2624192, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787322460.7574127, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "probe_error", "ts": 1787322461.8843193, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1787322469.4741561, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787322478.4102323, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "probe_error", "ts": 1787322479.7548091, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1787322479.7553654, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 3, "new_successes": 2}
+{"event": "round_end", "ts": 1787322486.6922586, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787322487.8225589, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "probe_error", "ts": 1787322487.8226554, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1787322491.222052, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "probe_error", "ts": 1787322491.3983214, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1787322491.3986096, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 2, "new_successes": 2}
+{"event": "round_end", "ts": 1787322511.016729, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787322531.4429417, "round": 4, "iteration": 0, "model": "deepseek/deepseek-v4-pro", "stop_reason": "target_reached", "new_records": 4, "new_successes": 4}
+{"event": "iteration_memo", "ts": 1787322535.861355, "iteration": 0, "n_attempts": 234, "n_successes": 145}
+{"event": "round_start", "ts": 1787324449.00818, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324449.0353496, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324449.0615578, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324449.086815, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324449.1116698, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324449.136744, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324449.1638777, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324449.1905446, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324449.2172415, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324449.2426236, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787324510.4225936, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787324575.28212, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787324590.3299344, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787324600.6507463, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787324605.833454, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787324611.2537923, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787324612.3635454, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787324629.6825852, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787324683.989364, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787324686.0231647, "round": 5, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787324692.2069547, "round": 5, "iteration": 1, "n_attempts": 50, "n_successes": 3}
+{"event": "round_start", "ts": 1787324692.212769, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324692.2398083, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324692.265529, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324692.2914484, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324692.3179052, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324692.3442159, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324692.3706567, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324692.3968632, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324692.423494, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787324692.4501722, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787324874.54341, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787324888.0541723, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787324893.3175511, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787324901.926543, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787324919.873023, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787324925.4822073, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787324930.6744523, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787324940.9440107, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787324987.9462874, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787325035.2752774, "round": 6, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787325042.20328, "round": 6, "iteration": 1, "n_attempts": 50, "n_successes": 3}
+{"event": "round_start", "ts": 1787325042.209884, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325042.2346945, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325042.2596366, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325042.2849321, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325042.3096688, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325042.3343153, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325042.3598561, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325042.38451, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325042.409226, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325042.433764, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787325164.0125768, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787325177.3227372, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787325200.2856188, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787325215.4176812, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787325216.557333, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787325220.182055, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787325224.7659283, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787325259.7579694, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787325264.4671116, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787325290.5833251, "round": 7, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787325295.7178998, "round": 7, "iteration": 1, "n_attempts": 50, "n_successes": 4}
+{"event": "round_start", "ts": 1787325295.7256389, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325295.7518408, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325295.7774918, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325295.804241, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325295.8307323, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325295.8570046, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325295.8831918, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325295.9098437, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325295.9355218, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325295.961834, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787325323.7514565, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787325373.173658, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787325425.161752, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787325442.366521, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787325454.5414357, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787325462.4901168, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787325476.8351605, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787325550.0173512, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787325570.543553, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787325602.3574572, "round": 8, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "summary", "ts": 1787325607.5385993, "round": 8, "iteration": 1, "n_attempts": 50, "n_successes": 7}
+{"event": "round_start", "ts": 1787325607.5473084, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325607.571737, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325607.5959296, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325607.6202664, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325607.644599, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325607.6690905, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325607.693525, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325607.7178175, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325607.7422128, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787325607.7664473, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787325726.713651, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787325757.060563, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787325762.5343997, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787325763.5631387, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787325777.6190445, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787325780.0398955, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787325786.9779372, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787325789.8910167, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787325823.5761745, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787325831.5996337, "round": 9, "iteration": 1, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "iteration_memo", "ts": 1787325836.1949563, "iteration": 1, "n_attempts": 250, "n_successes": 39}
+{"event": "round_start", "ts": 1787328000.4646325, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328000.491653, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328000.5179682, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328000.543176, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328000.56817, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328000.5934196, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328000.6201782, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328000.647618, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328000.6745396, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328000.7003214, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787328082.199541, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328099.05774, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328102.0167334, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328114.8495383, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328117.9784033, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328130.0432363, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328149.5742064, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328150.8230095, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328154.0164764, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787328155.2638094, "round": 10, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787328163.048939, "round": 10, "iteration": 2, "n_attempts": 50, "n_successes": 1}
+{"event": "round_start", "ts": 1787328163.0617585, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328163.096439, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328163.1228552, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328163.1491532, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328163.1766307, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328163.2035408, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328163.230775, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328163.257276, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328163.284145, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328163.310975, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787328250.4535608, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328254.7584977, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328271.3138828, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328289.7688532, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787328290.8577156, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328300.7607691, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328301.8376565, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328305.784324, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787328306.8581877, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328319.7436087, "round": 11, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787328326.2974036, "round": 11, "iteration": 2, "n_attempts": 50, "n_successes": 2}
+{"event": "round_start", "ts": 1787328326.3080707, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328326.3323784, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328326.3573434, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328326.3819065, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328326.4069276, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328326.4320338, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328326.4568956, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328326.4810307, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328326.5055542, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328326.5298717, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787328422.7905025, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328425.2457027, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328428.1312082, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787328462.3855429, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328480.0087032, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787328485.3634505, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328486.5638654, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328490.4041457, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328493.6468945, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328533.8381615, "round": 12, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787328542.3943245, "round": 12, "iteration": 2, "n_attempts": 50, "n_successes": 4}
+{"event": "round_start", "ts": 1787328542.4063663, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328542.4315062, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328542.456413, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328542.4816265, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328542.5075815, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328542.5326786, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328542.5574548, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328542.5823064, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328542.6074302, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328542.6326988, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787328607.6909156, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328656.185922, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328657.5506237, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328670.0068562, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328674.5677533, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328689.052442, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328709.8165598, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328712.2051728, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787328715.3182502, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328776.8512197, "round": 13, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787328782.905288, "round": 13, "iteration": 2, "n_attempts": 50, "n_successes": 1}
+{"event": "round_start", "ts": 1787328782.9179919, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328782.942635, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328782.9672546, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328782.994124, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328783.0185342, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328783.0429447, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328783.0673072, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328783.0920143, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328783.1163938, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787328783.1407168, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787328901.4401336, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_short", "new_records": 3, "new_successes": 0}
+{"event": "round_end", "ts": 1787328906.6767936, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328930.9059503, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787328947.1411297, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328951.5554776, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328957.5099912, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787328961.6637928, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787328967.145403, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787328994.4119127, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787329048.423022, "round": 14, "iteration": 2, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "iteration_memo", "ts": 1787329053.2361045, "iteration": 2, "n_attempts": 248, "n_successes": 11}
+{"event": "round_start", "ts": 1787330848.875983, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787330848.9039216, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787330848.9306965, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787330848.956101, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787330848.9818363, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787330849.0074759, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787330849.035082, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787330849.0615819, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787330849.089066, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787330849.1146164, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787330952.2693, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787330958.1378512, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "probe_error", "ts": 1787330978.9469678, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1787330982.9059064, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 1}
+{"event": "round_end", "ts": 1787330999.3772268, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331003.5952146, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787331006.516191, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331017.567038, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331029.1996808, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331042.803576, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787331063.204746, "round": 15, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787331068.3868506, "round": 15, "iteration": 3, "n_attempts": 49, "n_successes": 3}
+{"event": "round_start", "ts": 1787331068.4004083, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331068.4286857, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331068.4560177, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331068.4824054, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331068.5097337, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331068.535872, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331068.562765, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331068.5890477, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331068.6161807, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331068.6434083, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787331154.8883405, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331193.9542582, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787331196.6468098, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787331211.8330235, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331214.2524192, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331225.52569, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331243.3825197, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787331322.9087598, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787331329.4139397, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331334.432602, "round": 16, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787331339.254121, "round": 16, "iteration": 3, "n_attempts": 50, "n_successes": 4}
+{"event": "round_start", "ts": 1787331339.2683735, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331339.2924716, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331339.316724, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331339.3413424, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331339.366523, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331339.391098, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331339.4154353, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331339.4413025, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331339.4663818, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331339.4915376, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787331435.8806026, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331465.4542816, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331475.0701077, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787331500.2636106, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331501.3495095, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787331508.917487, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787331511.5414426, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331512.6103418, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331534.2276485, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331555.6036603, "round": 17, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "summary", "ts": 1787331561.179869, "round": 17, "iteration": 3, "n_attempts": 50, "n_successes": 5}
+{"event": "round_start", "ts": 1787331561.1947675, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331561.2191703, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331561.2432666, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331561.2672827, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331561.2917063, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331561.3158464, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331561.3402464, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331561.3646908, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331561.3887782, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331561.412941, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787331619.750181, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331669.2590842, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787331681.9790847, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787331702.703045, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787331706.4422927, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331717.540182, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331721.8113873, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331728.7643087, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331774.8878841, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787331870.4180343, "round": 18, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787331876.121499, "round": 18, "iteration": 3, "n_attempts": 50, "n_successes": 5}
+{"event": "round_start", "ts": 1787331876.1375833, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331876.161998, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331876.1863132, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331876.2107046, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331876.2352407, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331876.2596695, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331876.28409, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331876.3082244, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331876.332103, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787331876.3571796, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787331943.7961278, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787331982.9104502, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787331989.9681938, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787331996.4693608, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787332012.0912688, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787332020.1605392, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787332023.2100174, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787332048.7954838, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787332078.5940948, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787332081.4890873, "round": 19, "iteration": 3, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "iteration_memo", "ts": 1787332090.45871, "iteration": 3, "n_attempts": 249, "n_successes": 24}
+{"event": "round_start", "ts": 1787333666.5054238, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333666.532318, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333666.5580926, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333666.582787, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333666.6092489, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333666.6353724, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333666.6621141, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333666.688459, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333666.71486, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333666.740207, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787333731.4695027, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787333743.7441607, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787333779.414284, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787333808.931575, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787333811.7578003, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 2}
+{"event": "round_end", "ts": 1787333823.6608613, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787333854.8429563, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787333858.07126, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787333872.6635447, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787333930.7909927, "round": 20, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "summary", "ts": 1787333941.0243313, "round": 20, "iteration": 4, "n_attempts": 50, "n_successes": 5}
+{"event": "round_start", "ts": 1787333941.0420542, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333941.0691895, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333941.095188, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333941.1223974, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333941.1495652, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333941.1754644, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333941.2024012, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333941.2289298, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333941.2557259, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787333941.2825518, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787334039.027829, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787334080.4213998, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "probe_error", "ts": 1787334098.7279782, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1787334108.7380817, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787334111.914665, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787334112.9862447, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 4}
+{"event": "round_end", "ts": 1787334125.3463528, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787334129.9164987, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334135.1845858, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334144.1609728, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334161.147059, "round": 21, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "summary", "ts": 1787334168.2371624, "round": 21, "iteration": 4, "n_attempts": 49, "n_successes": 45}
+{"event": "round_start", "ts": 1787334168.2568138, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334168.2815118, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334168.305725, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334168.3304777, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334168.355237, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334168.3796616, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334168.4040954, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334168.4285939, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334168.4530926, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334168.4782202, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787334257.3259156, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787334258.3901908, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334271.86898, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 0}
+{"event": "round_end", "ts": 1787334281.1111288, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787334295.9750428, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787334297.036698, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "round_end", "ts": 1787334321.7893312, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 1}
+{"event": "round_end", "ts": 1787334326.5650895, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334327.6466982, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787334334.3851502, "round": 22, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "summary", "ts": 1787334344.3298662, "round": 22, "iteration": 4, "n_attempts": 50, "n_successes": 31}
+{"event": "round_start", "ts": 1787334344.3503613, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334344.3747988, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334344.3989365, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334344.4236329, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334344.4479022, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334344.4721358, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334344.496228, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334344.520823, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334344.5449972, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334344.5692365, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787334378.0505402, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787334397.6229293, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_short", "new_records": 3, "new_successes": 1}
+{"event": "round_end", "ts": 1787334437.325401, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334463.85831, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_short", "new_records": 3, "new_successes": 1}
+{"event": "round_end", "ts": 1787334507.3390872, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334514.135447, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334515.2345624, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334516.289655, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334526.959481, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "target_reached", "new_records": 3, "new_successes": 3}
+{"event": "round_end", "ts": 1787334536.1044402, "round": 23, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "summary", "ts": 1787334540.9974046, "round": 23, "iteration": 4, "n_attempts": 44, "n_successes": 37}
+{"event": "round_start", "ts": 1787334541.018558, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334541.0431914, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334541.0680945, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334541.0932658, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334541.11797, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334541.142422, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334541.1666825, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334541.1922307, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334541.2173142, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_start", "ts": 1787334541.2427988, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "provider": "openrouter"}
+{"event": "round_end", "ts": 1787334615.94902, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334658.7595892, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787334676.649614, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334684.0096514, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334693.34182, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 4}
+{"event": "round_end", "ts": 1787334700.5683796, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 3}
+{"event": "probe_error", "ts": 1787334706.188829, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "error": "Conversation roles must alternate user/assistant/user/assistant/..."}
+{"event": "round_end", "ts": 1787334712.8300104, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 4, "new_successes": 4}
+{"event": "round_end", "ts": 1787334715.910047, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334716.952728, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "round_end", "ts": 1787334722.2792559, "round": 24, "iteration": 4, "model": "deepseek/deepseek-v4-pro", "stop_reason": "batch_complete", "new_records": 5, "new_successes": 5}
+{"event": "iteration_memo", "ts": 1787334726.9089837, "iteration": 4, "n_attempts": 242, "n_successes": 163}

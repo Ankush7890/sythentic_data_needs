@@ -1,0 +1,154 @@
+gptoss120b: 389 pairs, LOO used 50 seeds
+  drop_harmful_bh                 0 pairs
+  drop_harmful_2se               52 pairs
+  drop_inert                    332 pairs
+  drop_harmful2se_and_inert     384 pairs
+  drop_random_control            52 pairs
+  (pairs flagged as useful)       6 pairs
+packed gptoss120b: train 662 rows / 2.84 GB, val 166 rows / 0.71 GB, eval 866 rows / 0.81 GB (host)
+  seed 42 done (1/50)
+  seed 43 done (2/50)
+  seed 44 done (3/50)
+  seed 45 done (4/50)
+  seed 46 done (5/50)
+  seed 47 done (6/50)
+  seed 48 done (7/50)
+  seed 49 done (8/50)
+  seed 50 done (9/50)
+  seed 51 done (10/50)
+  seed 52 done (11/50)
+  seed 53 done (12/50)
+  seed 54 done (13/50)
+  seed 55 done (14/50)
+  seed 56 done (15/50)
+  seed 57 done (16/50)
+  seed 58 done (17/50)
+  seed 59 done (18/50)
+  seed 60 done (19/50)
+  seed 61 done (20/50)
+  seed 62 done (21/50)
+  seed 63 done (22/50)
+  seed 64 done (23/50)
+  seed 65 done (24/50)
+  seed 66 done (25/50)
+  seed 67 done (26/50)
+  seed 68 done (27/50)
+  seed 69 done (28/50)
+  seed 70 done (29/50)
+  seed 71 done (30/50)
+  seed 72 done (31/50)
+  seed 73 done (32/50)
+  seed 74 done (33/50)
+  seed 75 done (34/50)
+  seed 76 done (35/50)
+  seed 77 done (36/50)
+  seed 78 done (37/50)
+  seed 79 done (38/50)
+  seed 80 done (39/50)
+  seed 81 done (40/50)
+  seed 82 done (41/50)
+  seed 83 done (42/50)
+  seed 84 done (43/50)
+  seed 85 done (44/50)
+  seed 86 done (45/50)
+  seed 87 done (46/50)
+  seed 88 done (47/50)
+  seed 89 done (48/50)
+  seed 90 done (49/50)
+  seed 91 done (50/50)
+
+paired change vs the full-data baseline, pipeline scale, mean +/- SE over 50 seeds
+variant                                ai_dilemmas                ant_hh      balanced_refusal        daily_dilemmas                  mean
+drop_harmful_bh                   +0.0000+-0.0000       +0.0000+-0.0000       +0.0000+-0.0000       +0.0000+-0.0000       +0.0000+-0.0000 
+drop_harmful_2se                  +0.0016+-0.0006*      +0.0135+-0.0018*      -0.0030+-0.0050       +0.0045+-0.0007*      +0.0041+-0.0015*
+drop_inert                        -0.0364+-0.0044*      -0.0485+-0.0032*      -0.0869+-0.0113*      -0.0085+-0.0016*      -0.0451+-0.0035*
+drop_harmful2se_and_inert         -0.0784+-0.0101*      -0.0247+-0.0072*      -0.1361+-0.0156*      -0.0324+-0.0045*      -0.0679+-0.0059*
+drop_random_control               +0.0004+-0.0005       -0.0065+-0.0020*      -0.0088+-0.0069       +0.0027+-0.0008*      -0.0031+-0.0020 
+  baseline eval_ai_dilemmas         0.99745 +- 0.00052
+  baseline eval_ant_hh              0.75205 +- 0.00150
+  baseline eval_balanced_refusal    0.94776 +- 0.00382
+  baseline eval_daily_dilemmas      0.98488 +- 0.00075
+  baseline mean                     0.92053 +- 0.00121
+
+* = |mean| > 2 SE. Read drop_random_control FIRST: any variant that does not
+beat it by more than its error bar has not demonstrated that the flagging
+identified anything — only that the training set changed size.
+
+wrote /workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_batch_ablation/attribution/gptoss120b_iter3_verify.json
+gptoss120b: 389 pairs; flagged on LOO seeds 42..66 (25 of 50), verifying on held-out seeds 67..116
+  drop_harmful_bh                 0 pairs
+  drop_harmful_2se                8 pairs
+  drop_inert                    327 pairs
+  drop_harmful2se_and_inert     335 pairs
+  drop_random_control             8 pairs
+  (pairs flagged as useful)      54 pairs
+packed gptoss120b: train 662 rows / 2.84 GB, val 166 rows / 0.71 GB, eval 866 rows / 0.81 GB (host)
+  seed 67 done (1/50)
+  seed 68 done (2/50)
+  seed 69 done (3/50)
+  seed 70 done (4/50)
+  seed 71 done (5/50)
+  seed 72 done (6/50)
+  seed 73 done (7/50)
+  seed 74 done (8/50)
+  seed 75 done (9/50)
+  seed 76 done (10/50)
+  seed 77 done (11/50)
+  seed 78 done (12/50)
+  seed 79 done (13/50)
+  seed 80 done (14/50)
+  seed 81 done (15/50)
+  seed 82 done (16/50)
+  seed 83 done (17/50)
+  seed 84 done (18/50)
+  seed 85 done (19/50)
+  seed 86 done (20/50)
+  seed 87 done (21/50)
+  seed 88 done (22/50)
+  seed 89 done (23/50)
+  seed 90 done (24/50)
+  seed 91 done (25/50)
+  seed 92 done (26/50)
+  seed 93 done (27/50)
+  seed 94 done (28/50)
+  seed 95 done (29/50)
+  seed 96 done (30/50)
+  seed 97 done (31/50)
+  seed 98 done (32/50)
+  seed 99 done (33/50)
+  seed 100 done (34/50)
+  seed 101 done (35/50)
+  seed 102 done (36/50)
+  seed 103 done (37/50)
+  seed 104 done (38/50)
+  seed 105 done (39/50)
+  seed 106 done (40/50)
+  seed 107 done (41/50)
+  seed 108 done (42/50)
+  seed 109 done (43/50)
+  seed 110 done (44/50)
+  seed 111 done (45/50)
+  seed 112 done (46/50)
+  seed 113 done (47/50)
+  seed 114 done (48/50)
+  seed 115 done (49/50)
+  seed 116 done (50/50)
+
+paired change vs the full-data baseline, pipeline scale, mean +/- SE over 50 seeds
+variant                                ai_dilemmas                ant_hh      balanced_refusal        daily_dilemmas                  mean
+drop_harmful_bh                   +0.0000+-0.0000       +0.0000+-0.0000       +0.0000+-0.0000       +0.0000+-0.0000       +0.0000+-0.0000 
+drop_harmful_2se                  +0.0012+-0.0007       -0.0021+-0.0015       +0.0005+-0.0039       -0.0009+-0.0008       -0.0003+-0.0012 
+drop_inert                        -0.0128+-0.0034*      +0.0064+-0.0028*      -0.0342+-0.0087*      -0.0035+-0.0011*      -0.0110+-0.0029*
+drop_harmful2se_and_inert         -0.0110+-0.0028*      -0.0062+-0.0024*      -0.0140+-0.0067*      -0.0011+-0.0012       -0.0081+-0.0022*
+drop_random_control               +0.0006+-0.0005       +0.0012+-0.0017       -0.0076+-0.0065       -0.0001+-0.0006       -0.0015+-0.0018 
+  baseline eval_ai_dilemmas         0.99691 +- 0.00057
+  baseline eval_ant_hh              0.75152 +- 0.00142
+  baseline eval_balanced_refusal    0.94916 +- 0.00345
+  baseline eval_daily_dilemmas      0.98454 +- 0.00074
+  baseline mean                     0.92053 +- 0.00110
+
+* = |mean| > 2 SE. Read drop_random_control FIRST: any variant that does not
+beat it by more than its error bar has not demonstrated that the flagging
+identified anything — only that the training set changed size.
+
+wrote /workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_batch_ablation/attribution/gptoss120b_iter3_verify.json

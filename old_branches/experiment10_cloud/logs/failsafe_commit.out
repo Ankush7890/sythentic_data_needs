@@ -1,0 +1,69 @@
+nohup: ignoring input
+[failsafe 2026-08-04 16:26:30] stages:        2 (polled in order; hand-off when a stage's comparison CSV lands)
+[failsafe 2026-08-04 16:26:30]   [1] config=configs/gptoss120b_hu_harm_llama1b_batch.md
+[failsafe 2026-08-04 16:26:30]       probe-out-dir=probes/hu_harm_llama1b_gptoss120b_batch
+[failsafe 2026-08-04 16:26:30]       results=/workspace/cc_based_auto_improvement/results_hu_harm_llama70b50_gptoss120b_batch
+[failsafe 2026-08-04 16:26:30]       log=logs/run_hu_harm_llama1b_gptoss120b_batch.log
+[failsafe 2026-08-04 16:26:30]       finish-signal=/workspace/cc_based_auto_improvement/results_hu_harm_llama70b50_gptoss120b_batch/gptoss120b_comparison.csv
+[failsafe 2026-08-04 16:26:30]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hu_harm_llama70b50_batch_ablation/base_activations eval=/workspace/cc_based_auto_improvement/results_hu_harm_llama70b50_batch_ablation/eval_activations
+[failsafe 2026-08-04 16:26:30]   [2] config=configs/deepseekv4pro_hu_harm_llama1b_batch.md
+[failsafe 2026-08-04 16:26:30]       probe-out-dir=probes/hu_harm_llama1b_deepseekv4pro_batch
+[failsafe 2026-08-04 16:26:30]       results=/workspace/cc_based_auto_improvement/results_hu_harm_llama70b50_deepseekv4pro_batch
+[failsafe 2026-08-04 16:26:30]       log=logs/run_hu_harm_llama1b_deepseekv4pro_batch.log
+[failsafe 2026-08-04 16:26:30]       finish-signal=/workspace/cc_based_auto_improvement/results_hu_harm_llama70b50_deepseekv4pro_batch/deepseekv4pro_comparison.csv
+[failsafe 2026-08-04 16:26:30]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hu_harm_llama70b50_batch_ablation/base_activations eval=/workspace/cc_based_auto_improvement/results_hu_harm_llama70b50_batch_ablation/eval_activations
+[failsafe 2026-08-04 16:26:30] branch:        experiment10_cloud -> origin   (current branch; not switched)
+[failsafe 2026-08-04 16:26:30] committed: failsafe: startup snapshot @ 2026-08-04T16:26:30
+[failsafe 2026-08-04 16:26:32] pushed to origin/experiment10_cloud (678f6c5)
+[failsafe 2026-08-04 16:26:32] polling stage 1/2 (probes/hu_harm_llama1b_gptoss120b_batch) every 30s (periodic snapshot every 900s)
+[failsafe 2026-08-04 16:34:03] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-04T16:34:03
+[failsafe 2026-08-04 16:34:05] pushed to origin/experiment10_cloud (0802d79)
+[failsafe 2026-08-04 16:49:05] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-04T16:49:05
+[failsafe 2026-08-04 16:49:07] pushed to origin/experiment10_cloud (a60da54)
+[failsafe 2026-08-04 16:51:07] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-04T16:51:07
+[failsafe 2026-08-04 16:51:09] pushed to origin/experiment10_cloud (90d61b3)
+[failsafe 2026-08-04 16:54:40] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-04T16:54:40
+[failsafe 2026-08-04 16:54:42] pushed to origin/experiment10_cloud (8f84937)
+[failsafe 2026-08-04 17:08:13] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-04T17:08:13
+[failsafe 2026-08-04 17:08:15] pushed to origin/experiment10_cloud (6fa80df)
+[failsafe 2026-08-04 17:18:45] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-04T17:18:45
+[failsafe 2026-08-04 17:18:47] pushed to origin/experiment10_cloud (e7b412b)
+[failsafe 2026-08-04 17:23:18] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-04T17:23:18
+[failsafe 2026-08-04 17:23:20] pushed to origin/experiment10_cloud (aba6b58)
+[failsafe 2026-08-04 17:38:21] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-04T17:38:21
+[failsafe 2026-08-04 17:38:23] pushed to origin/experiment10_cloud (6c4e247)
+[failsafe 2026-08-04 17:51:24] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-04T17:51:24
+[failsafe 2026-08-04 17:51:26] pushed to origin/experiment10_cloud (38c83b6)
+[failsafe 2026-08-04 18:06:27] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-04T18:06:27
+[failsafe 2026-08-04 18:06:29] pushed to origin/experiment10_cloud (ea35276)
+[failsafe 2026-08-04 18:09:29] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-04T18:09:29
+[failsafe 2026-08-04 18:09:31] pushed to origin/experiment10_cloud (667fe8f)
+[failsafe 2026-08-04 18:15:32] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-04T18:15:32
+[failsafe 2026-08-04 18:15:35] pushed to origin/experiment10_cloud (84072e8)
+[failsafe 2026-08-04 18:15:35] committed: failsafe: stage 1/2 finished (configs/gptoss120b_hu_harm_llama1b_batch.md) @ 2026-08-04T18:15:35
+[failsafe 2026-08-04 18:15:37] pushed to origin/experiment10_cloud (c8a49a3)
+[failsafe 2026-08-04 18:15:37] handing over to stage 2/2: configs/deepseekv4pro_hu_harm_llama1b_batch.md (probes/hu_harm_llama1b_deepseekv4pro_batch)
+[failsafe 2026-08-04 18:16:07] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-04T18:16:07
+[failsafe 2026-08-04 18:16:09] pushed to origin/experiment10_cloud (502e5b7)
+[failsafe 2026-08-04 18:30:10] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-04T18:30:10
+[failsafe 2026-08-04 18:30:12] pushed to origin/experiment10_cloud (d6c6964)
+[failsafe 2026-08-04 18:41:12] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-04T18:41:12
+[failsafe 2026-08-04 18:41:14] pushed to origin/experiment10_cloud (e2e4f78)
+[failsafe 2026-08-04 18:44:14] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-04T18:44:14
+[failsafe 2026-08-04 18:44:16] pushed to origin/experiment10_cloud (b2b304a)
+[failsafe 2026-08-04 18:52:47] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-04T18:52:47
+[failsafe 2026-08-04 18:52:49] pushed to origin/experiment10_cloud (c0a77c9)
+[failsafe 2026-08-04 19:01:20] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-04T19:01:20
+[failsafe 2026-08-04 19:01:22] pushed to origin/experiment10_cloud (80ff799)
+[failsafe 2026-08-04 19:06:23] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-04T19:06:23
+[failsafe 2026-08-04 19:06:25] pushed to origin/experiment10_cloud (2e19a44)
+[failsafe 2026-08-04 19:14:25] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-04T19:14:25
+[failsafe 2026-08-04 19:14:28] pushed to origin/experiment10_cloud (e2b66cb)
+[failsafe 2026-08-04 19:23:58] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-04T19:23:58
+[failsafe 2026-08-04 19:24:00] pushed to origin/experiment10_cloud (d77efd7)
+[failsafe 2026-08-04 19:28:30] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-04T19:28:30
+[failsafe 2026-08-04 19:28:33] pushed to origin/experiment10_cloud (c448447)
+[failsafe 2026-08-04 19:28:33] committed: failsafe: stage 2/2 finished (configs/deepseekv4pro_hu_harm_llama1b_batch.md) @ 2026-08-04T19:28:33
+[failsafe 2026-08-04 19:28:34] pushed to origin/experiment10_cloud (d003031)
+[failsafe 2026-08-04 19:28:34] last stage finished — exiting after final commit
+[failsafe 2026-08-04 19:28:34] finalizing: capturing latest state before exit

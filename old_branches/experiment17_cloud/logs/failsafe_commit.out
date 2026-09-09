@@ -1,0 +1,172 @@
+nohup: ignoring input
+[failsafe 2026-08-18 16:02:33] stages:        2 (polled in order; hand-off when a stage's comparison CSV lands)
+[failsafe 2026-08-18 16:02:33]   [1] config=configs/gptoss120b_hu_harm_gemma27b_batch_ens10_devval.md
+[failsafe 2026-08-18 16:02:33]       probe-out-dir=probes/hu_harm_gemma27b_gptoss120b_batch_ens10_devval
+[failsafe 2026-08-18 16:02:33]       results=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_gptoss120b_batch_ens10_devval
+[failsafe 2026-08-18 16:02:33]       log=logs/run_hu_harm_gemma27b_gptoss120b_batch_ens10_devval.log
+[failsafe 2026-08-18 16:02:33]       finish-signal=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_gptoss120b_batch_ens10_devval/gptoss120b_comparison.csv
+[failsafe 2026-08-18 16:02:33]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_batch_ablation/base_activations eval=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_batch_ablation/eval_activations
+[failsafe 2026-08-18 16:02:33]   [2] config=configs/deepseekv4pro_hu_harm_gemma27b_batch_ens10_devval.md
+[failsafe 2026-08-18 16:02:33]       probe-out-dir=probes/hu_harm_gemma27b_deepseekv4pro_batch_ens10_devval
+[failsafe 2026-08-18 16:02:33]       results=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_deepseekv4pro_batch_ens10_devval
+[failsafe 2026-08-18 16:02:33]       log=logs/run_hu_harm_gemma27b_deepseekv4pro_batch_ens10_devval.log
+[failsafe 2026-08-18 16:02:33]       finish-signal=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_deepseekv4pro_batch_ens10_devval/deepseekv4pro_comparison.csv
+[failsafe 2026-08-18 16:02:33]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_batch_ablation/base_activations eval=/workspace/cc_based_auto_improvement/results_hu_harm_gemma27b_batch_ablation/eval_activations
+[failsafe 2026-08-18 16:02:33] branch:        experiment17_cloud -> origin   (current branch; not switched)
+[failsafe 2026-08-18 16:02:34] committed: failsafe: startup snapshot @ 2026-08-18T16:02:34
+[failsafe 2026-08-18 16:02:39] pushed to origin/experiment17_cloud (788eb1c)
+[failsafe 2026-08-18 16:02:39] polling stage 1/2 (probes/hu_harm_gemma27b_gptoss120b_batch_ens10_devval) every 30s (periodic snapshot every 900s)
+[failsafe 2026-08-18 16:17:43] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T16:17:43
+[failsafe 2026-08-18 16:17:47] pushed to origin/experiment17_cloud (3a3d658)
+[failsafe 2026-08-18 16:32:50] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T16:32:50
+[failsafe 2026-08-18 16:32:54] pushed to origin/experiment17_cloud (a2fe769)
+[failsafe 2026-08-18 16:47:59] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T16:47:59
+[failsafe 2026-08-18 16:48:04] pushed to origin/experiment17_cloud (5385b4e)
+[failsafe 2026-08-18 17:03:08] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T17:03:08
+[failsafe 2026-08-18 17:03:13] pushed to origin/experiment17_cloud (3bcf1ca)
+[failsafe 2026-08-18 17:18:17] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T17:18:17
+[failsafe 2026-08-18 17:18:22] pushed to origin/experiment17_cloud (862031c)
+[failsafe 2026-08-18 17:30:25] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-18T17:30:25
+[failsafe 2026-08-18 17:30:29] pushed to origin/experiment17_cloud (a0fb4db)
+[failsafe 2026-08-18 17:45:32] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T17:45:32
+[failsafe 2026-08-18 17:45:36] pushed to origin/experiment17_cloud (333d4be)
+[failsafe 2026-08-18 17:48:07] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-18T17:48:07
+[failsafe 2026-08-18 17:48:10] pushed to origin/experiment17_cloud (213557f)
+[failsafe 2026-08-18 18:03:12] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T18:03:12
+[failsafe 2026-08-18 18:03:16] pushed to origin/experiment17_cloud (ce9bc27)
+[failsafe 2026-08-18 18:06:16] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-18T18:06:16
+[failsafe 2026-08-18 18:06:20] pushed to origin/experiment17_cloud (05ebe90)
+[failsafe 2026-08-18 18:21:22] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T18:21:22
+[failsafe 2026-08-18 18:21:26] pushed to origin/experiment17_cloud (f6efc0b)
+[failsafe 2026-08-18 18:36:29] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T18:36:29
+[failsafe 2026-08-18 18:36:34] pushed to origin/experiment17_cloud (043268f)
+[failsafe 2026-08-18 18:51:39] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T18:51:39
+[failsafe 2026-08-18 18:51:45] pushed to origin/experiment17_cloud (3d70fd2)
+[failsafe 2026-08-18 19:06:49] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T19:06:49
+[failsafe 2026-08-18 19:06:55] pushed to origin/experiment17_cloud (5bfdfbb)
+[failsafe 2026-08-18 19:21:59] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T19:21:59
+[failsafe 2026-08-18 19:22:06] pushed to origin/experiment17_cloud (e8475ea)
+[failsafe 2026-08-18 19:37:10] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T19:37:10
+[failsafe 2026-08-18 19:37:16] pushed to origin/experiment17_cloud (07e859c)
+[failsafe 2026-08-18 19:52:21] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T19:52:21
+[failsafe 2026-08-18 19:52:28] pushed to origin/experiment17_cloud (86c6050)
+[failsafe 2026-08-18 20:07:33] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T20:07:33
+[failsafe 2026-08-18 20:07:40] pushed to origin/experiment17_cloud (3eb9fea)
+[failsafe 2026-08-18 20:22:46] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T20:22:46
+[failsafe 2026-08-18 20:22:53] pushed to origin/experiment17_cloud (e612048)
+[failsafe 2026-08-18 20:37:57] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T20:37:57
+[failsafe 2026-08-18 20:38:04] pushed to origin/experiment17_cloud (cf8627c)
+[failsafe 2026-08-18 20:53:09] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T20:53:09
+[failsafe 2026-08-18 20:53:16] pushed to origin/experiment17_cloud (7f7b692)
+[failsafe 2026-08-18 21:08:20] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T21:08:20
+[failsafe 2026-08-18 21:08:28] pushed to origin/experiment17_cloud (981cc2a)
+[failsafe 2026-08-18 21:23:33] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T21:23:32
+[failsafe 2026-08-18 21:23:40] pushed to origin/experiment17_cloud (ac8f4c2)
+[failsafe 2026-08-18 21:38:45] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T21:38:45
+[failsafe 2026-08-18 21:38:53] pushed to origin/experiment17_cloud (0dbe07c)
+[failsafe 2026-08-18 21:53:58] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T21:53:58
+[failsafe 2026-08-18 21:54:06] pushed to origin/experiment17_cloud (e97a397)
+[failsafe 2026-08-18 22:09:11] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T22:09:11
+[failsafe 2026-08-18 22:09:21] pushed to origin/experiment17_cloud (0a11f26)
+[failsafe 2026-08-18 22:24:26] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T22:24:26
+[failsafe 2026-08-18 22:24:34] pushed to origin/experiment17_cloud (d751a0b)
+[failsafe 2026-08-18 22:39:40] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T22:39:40
+[failsafe 2026-08-18 22:39:50] pushed to origin/experiment17_cloud (c8a8a62)
+[failsafe 2026-08-18 22:54:55] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T22:54:55
+[failsafe 2026-08-18 22:55:05] pushed to origin/experiment17_cloud (4450dab)
+[failsafe 2026-08-18 23:10:12] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T23:10:12
+[failsafe 2026-08-18 23:10:21] pushed to origin/experiment17_cloud (77ca3c0)
+[failsafe 2026-08-18 23:13:57] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-18T23:13:57
+[failsafe 2026-08-18 23:14:06] pushed to origin/experiment17_cloud (ce916a1)
+[failsafe 2026-08-18 23:29:09] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T23:29:09
+[failsafe 2026-08-18 23:29:14] pushed to origin/experiment17_cloud (321a7c6)
+[failsafe 2026-08-18 23:30:45] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-18T23:30:45
+[failsafe 2026-08-18 23:30:49] pushed to origin/experiment17_cloud (a8cd629)
+[failsafe 2026-08-18 23:45:51] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-18T23:45:51
+[failsafe 2026-08-18 23:45:55] pushed to origin/experiment17_cloud (36066f6)
+[failsafe 2026-08-18 23:47:56] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-18T23:47:56
+[failsafe 2026-08-18 23:48:00] pushed to origin/experiment17_cloud (74f135a)
+[failsafe 2026-08-19 00:03:07] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T00:03:07
+[failsafe 2026-08-19 00:03:14] pushed to origin/experiment17_cloud (40e2294)
+[failsafe 2026-08-19 00:18:20] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T00:18:20
+[failsafe 2026-08-19 00:18:29] pushed to origin/experiment17_cloud (6d0fed8)
+[failsafe 2026-08-19 00:33:35] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T00:33:35
+[failsafe 2026-08-19 00:33:43] pushed to origin/experiment17_cloud (f7033c6)
+[failsafe 2026-08-19 00:48:50] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T00:48:50
+[failsafe 2026-08-19 00:48:58] pushed to origin/experiment17_cloud (5386ea1)
+[failsafe 2026-08-19 01:04:06] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T01:04:05
+[failsafe 2026-08-19 01:04:14] pushed to origin/experiment17_cloud (abb19db)
+[failsafe 2026-08-19 01:19:20] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T01:19:20
+[failsafe 2026-08-19 01:19:30] pushed to origin/experiment17_cloud (9683c7f)
+[failsafe 2026-08-19 01:34:37] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T01:34:37
+[failsafe 2026-08-19 01:34:47] pushed to origin/experiment17_cloud (01e305c)
+[failsafe 2026-08-19 01:49:53] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T01:49:52
+[failsafe 2026-08-19 01:50:02] pushed to origin/experiment17_cloud (5fd0a44)
+[failsafe 2026-08-19 02:05:08] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T02:05:08
+[failsafe 2026-08-19 02:05:19] pushed to origin/experiment17_cloud (df95f49)
+[failsafe 2026-08-19 02:20:25] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T02:20:25
+[failsafe 2026-08-19 02:20:35] pushed to origin/experiment17_cloud (b819a9f)
+[failsafe 2026-08-19 02:35:42] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T02:35:42
+[failsafe 2026-08-19 02:35:52] pushed to origin/experiment17_cloud (2bcafc4)
+[failsafe 2026-08-19 02:50:59] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T02:50:59
+[failsafe 2026-08-19 02:51:09] pushed to origin/experiment17_cloud (e9279e7)
+[failsafe 2026-08-19 03:06:15] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T03:06:15
+[failsafe 2026-08-19 03:06:25] pushed to origin/experiment17_cloud (7d3dab1)
+[failsafe 2026-08-19 03:21:32] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T03:21:32
+[failsafe 2026-08-19 03:21:43] pushed to origin/experiment17_cloud (3bc3ac4)
+[failsafe 2026-08-19 03:36:51] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T03:36:51
+[failsafe 2026-08-19 03:37:02] pushed to origin/experiment17_cloud (d362629)
+[failsafe 2026-08-19 03:37:33] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-19T03:37:33
+[failsafe 2026-08-19 03:37:37] pushed to origin/experiment17_cloud (4173851)
+[failsafe 2026-08-19 03:52:40] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T03:52:40
+[failsafe 2026-08-19 03:52:45] pushed to origin/experiment17_cloud (0989d88)
+[failsafe 2026-08-19 03:53:46] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-19T03:53:46
+[failsafe 2026-08-19 03:53:51] pushed to origin/experiment17_cloud (56bcd8d)
+[failsafe 2026-08-19 04:08:54] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T04:08:54
+[failsafe 2026-08-19 04:08:58] pushed to origin/experiment17_cloud (dda7808)
+[failsafe 2026-08-19 04:11:00] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-19T04:11:00
+[failsafe 2026-08-19 04:11:04] pushed to origin/experiment17_cloud (593be73)
+[failsafe 2026-08-19 04:26:13] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T04:26:13
+[failsafe 2026-08-19 04:26:26] pushed to origin/experiment17_cloud (6df601f)
+[failsafe 2026-08-19 04:41:34] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T04:41:34
+[failsafe 2026-08-19 04:41:48] pushed to origin/experiment17_cloud (a150cce)
+[failsafe 2026-08-19 04:56:54] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T04:56:54
+[failsafe 2026-08-19 04:57:08] pushed to origin/experiment17_cloud (5255967)
+[failsafe 2026-08-19 05:12:15] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T05:12:14
+[failsafe 2026-08-19 05:12:29] pushed to origin/experiment17_cloud (f7609d2)
+[failsafe 2026-08-19 05:27:37] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T05:27:37
+[failsafe 2026-08-19 05:27:51] pushed to origin/experiment17_cloud (0ab091a)
+[failsafe 2026-08-19 05:42:58] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T05:42:58
+[failsafe 2026-08-19 05:43:12] pushed to origin/experiment17_cloud (ba2b432)
+[failsafe 2026-08-19 05:58:21] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T05:58:20
+[failsafe 2026-08-19 05:58:35] pushed to origin/experiment17_cloud (b0bc38a)
+[failsafe 2026-08-19 06:13:43] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T06:13:43
+[failsafe 2026-08-19 06:13:57] pushed to origin/experiment17_cloud (bb51c9e)
+[failsafe 2026-08-19 06:29:05] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T06:29:05
+[failsafe 2026-08-19 06:29:20] pushed to origin/experiment17_cloud (6c67cb7)
+[failsafe 2026-08-19 06:44:28] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T06:44:28
+[failsafe 2026-08-19 06:44:44] pushed to origin/experiment17_cloud (a9ce19b)
+[failsafe 2026-08-19 06:59:52] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T06:59:52
+[failsafe 2026-08-19 07:00:08] pushed to origin/experiment17_cloud (a618393)
+[failsafe 2026-08-19 07:15:17] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T07:15:17
+[failsafe 2026-08-19 07:15:33] pushed to origin/experiment17_cloud (f1dce7a)
+[failsafe 2026-08-19 07:30:41] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T07:30:41
+[failsafe 2026-08-19 07:31:18] WARN: push failed; commit is local, will retry on next checkpoint
+[failsafe 2026-08-19 07:45:56] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T07:45:56
+[failsafe 2026-08-19 07:46:46] WARN: push failed; commit is local, will retry on next checkpoint
+[failsafe 2026-08-19 08:01:25] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T08:01:25
+[failsafe 2026-08-19 08:02:29] WARN: push failed; commit is local, will retry on next checkpoint
+[failsafe 2026-08-19 08:16:40] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T08:16:39
+[failsafe 2026-08-19 08:18:30] WARN: push failed; commit is local, will retry on next checkpoint
+[failsafe 2026-08-19 08:32:08] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T08:32:08
+[failsafe 2026-08-19 08:33:42] WARN: push failed; commit is local, will retry on next checkpoint
+[failsafe 2026-08-19 08:47:19] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T08:47:19
+[failsafe 2026-08-19 08:49:05] WARN: push failed; commit is local, will retry on next checkpoint
+[failsafe 2026-08-19 08:54:08] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-19T08:54:08
+[failsafe 2026-08-19 08:56:26] WARN: push failed; commit is local, will retry on next checkpoint
+[failsafe 2026-08-19 09:10:59] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-19T09:10:59
+[failsafe 2026-08-19 09:11:58] WARN: push failed; commit is local, will retry on next checkpoint
+[failsafe 2026-08-19 09:19:29] finalizing: capturing latest state before exit
+[failsafe 2026-08-19 09:19:31] committed: failsafe: final snapshot @ 2026-08-19T09:19:31
+[failsafe 2026-08-19 09:22:27] WARN: push failed; commit is local, will retry on next checkpoint
+[failsafe 2026-08-19 09:22:27] done.

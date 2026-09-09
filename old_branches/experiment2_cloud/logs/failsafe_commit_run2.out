@@ -1,0 +1,61 @@
+nohup: ignoring input
+[failsafe 2026-07-24 08:04:23] config:        configs/gptoss120b_hu_harm_llama70b50_run2.md
+[failsafe 2026-07-24 08:04:23] probe-out-dir: probes/llama70b50_gptoss120b_run2
+[failsafe 2026-07-24 08:04:23] results dir:   /workspace/cc_based_auto_improvement/results_hu_harm_llama70b50_gptoss120b_run2
+[failsafe 2026-07-24 08:04:23] log file:      logs/run_hh_llama70b50_gptoss120b_run2.log
+[failsafe 2026-07-24 08:04:23] NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hu_harm_llama70b50/llama1b_base_activations eval=/workspace/cc_based_auto_improvement/results_hu_harm_prompt_llama1b/llama1b_eval_activations
+[failsafe 2026-07-24 08:04:23] branch:        experiment2_cloud -> origin   (current branch; not switched)
+[failsafe 2026-07-24 08:04:23] mode:          runs forever — stop manually (Ctrl-C / kill) for a final commit
+[failsafe 2026-07-24 08:04:23] WARN: git commit failed (startup snapshot)
+[failsafe 2026-07-24 08:04:23] polling every 30s (periodic snapshot every 900s)
+[failsafe 2026-07-24 08:04:53] WARN: git commit failed (checkpoint (new marker/probe))
+[failsafe 2026-07-24 08:09:23] WARN: git commit failed (checkpoint (new marker/probe))
+[failsafe 2026-07-24 08:21:23] WARN: git commit failed (checkpoint (new marker/probe))
+[failsafe 2026-07-24 08:21:53] WARN: git commit failed (checkpoint (new marker/probe))
+[failsafe 2026-07-24 08:36:53] WARN: git commit failed (periodic snapshot)
+[failsafe 2026-07-24 08:45:53] WARN: git commit failed (checkpoint (new marker/probe))
+[failsafe 2026-07-24 08:50:23] WARN: git commit failed (checkpoint (new marker/probe))
+[failsafe 2026-07-24 09:05:24] WARN: git commit failed (periodic snapshot)
+[failsafe 2026-07-24 09:20:24] committed: failsafe: periodic snapshot @ 2026-07-24T09:20:24
+[failsafe 2026-07-24 09:20:26] pushed to origin/experiment2_cloud (59ef595)
+[failsafe 2026-07-24 09:22:26] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T09:22:26
+[failsafe 2026-07-24 09:22:27] pushed to origin/experiment2_cloud (08ed7de)
+[failsafe 2026-07-24 09:29:27] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T09:29:27
+[failsafe 2026-07-24 09:29:29] pushed to origin/experiment2_cloud (dcae091)
+[failsafe 2026-07-24 09:32:59] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T09:32:59
+[failsafe 2026-07-24 09:33:01] pushed to origin/experiment2_cloud (8559c8c)
+[failsafe 2026-07-24 09:48:01] committed: failsafe: periodic snapshot @ 2026-07-24T09:48:01
+[failsafe 2026-07-24 09:48:03] pushed to origin/experiment2_cloud (a25246f)
+[failsafe 2026-07-24 10:03:03] committed: failsafe: periodic snapshot @ 2026-07-24T10:03:03
+[failsafe 2026-07-24 10:03:05] pushed to origin/experiment2_cloud (ae2d1dc)
+[failsafe 2026-07-24 10:16:35] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T10:16:35
+[failsafe 2026-07-24 10:16:37] pushed to origin/experiment2_cloud (a22ed31)
+[failsafe 2026-07-24 10:31:37] committed: failsafe: periodic snapshot @ 2026-07-24T10:31:37
+[failsafe 2026-07-24 10:31:39] pushed to origin/experiment2_cloud (d98538f)
+[failsafe 2026-07-24 10:37:39] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T10:37:39
+[failsafe 2026-07-24 10:37:41] pushed to origin/experiment2_cloud (9f5621b)
+[failsafe 2026-07-24 10:45:42] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T10:45:42
+[failsafe 2026-07-24 10:45:44] pushed to origin/experiment2_cloud (bd62688)
+[failsafe 2026-07-24 11:00:45] committed: failsafe: periodic snapshot @ 2026-07-24T11:00:45
+[failsafe 2026-07-24 11:00:46] pushed to origin/experiment2_cloud (8a2513c)
+[failsafe 2026-07-24 11:15:47] committed: failsafe: periodic snapshot @ 2026-07-24T11:15:47
+[failsafe 2026-07-24 11:15:49] pushed to origin/experiment2_cloud (0de4cad)
+[failsafe 2026-07-24 11:30:49] committed: failsafe: periodic snapshot @ 2026-07-24T11:30:49
+[failsafe 2026-07-24 11:30:50] pushed to origin/experiment2_cloud (9af2ebb)
+[failsafe 2026-07-24 11:42:20] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T11:42:20
+[failsafe 2026-07-24 11:42:22] pushed to origin/experiment2_cloud (cb47286)
+[failsafe 2026-07-24 11:57:23] committed: failsafe: periodic snapshot @ 2026-07-24T11:57:23
+[failsafe 2026-07-24 11:57:24] pushed to origin/experiment2_cloud (860f18d)
+[failsafe 2026-07-24 12:12:25] committed: failsafe: periodic snapshot @ 2026-07-24T12:12:25
+[failsafe 2026-07-24 12:12:26] pushed to origin/experiment2_cloud (9a75955)
+[failsafe 2026-07-24 12:20:57] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T12:20:57
+[failsafe 2026-07-24 12:20:59] pushed to origin/experiment2_cloud (c779693)
+[failsafe 2026-07-24 12:30:00] committed: failsafe: checkpoint (new marker/probe) @ 2026-07-24T12:29:59
+[failsafe 2026-07-24 12:30:02] pushed to origin/experiment2_cloud (35922b1)
+[failsafe 2026-07-24 12:45:03] committed: failsafe: periodic snapshot @ 2026-07-24T12:45:03
+[failsafe 2026-07-24 12:45:04] pushed to origin/experiment2_cloud (7e75ed5)
+[failsafe 2026-07-24 13:00:05] committed: failsafe: periodic snapshot @ 2026-07-24T13:00:05
+[failsafe 2026-07-24 13:00:06] pushed to origin/experiment2_cloud (2b6fa77)
+[failsafe 2026-07-24 13:15:06] committed: failsafe: periodic snapshot @ 2026-07-24T13:15:06
+[failsafe 2026-07-24 13:15:08] pushed to origin/experiment2_cloud (f4ee6c0)
+[failsafe 2026-07-24 13:24:38] finalizing: capturing latest state before exit

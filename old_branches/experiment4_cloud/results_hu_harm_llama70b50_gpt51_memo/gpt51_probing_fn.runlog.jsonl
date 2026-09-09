@@ -1,0 +1,455 @@
+{"event": "round_start", "ts": 1785169394.9857018, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169395.0009692, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169395.0160444, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169395.0312376, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169395.0463736, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169395.0615027, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169395.0765438, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169395.091628, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169395.1066773, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169395.1217964, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785169415.03161, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 35, "new_successes": 2}
+{"event": "round_end", "ts": 1785169416.7026312, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 38, "new_successes": 3}
+{"event": "round_end", "ts": 1785169417.4623227, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 40, "new_successes": 4}
+{"event": "round_end", "ts": 1785169419.7214122, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 41, "new_successes": 4}
+{"event": "round_end", "ts": 1785169421.2570114, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 44, "new_successes": 5}
+{"event": "round_end", "ts": 1785169421.3884356, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 45, "new_successes": 5}
+{"event": "round_end", "ts": 1785169424.4330158, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 46, "new_successes": 5}
+{"event": "round_end", "ts": 1785169424.5837746, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 47, "new_successes": 6}
+{"event": "round_end", "ts": 1785169424.8069043, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 48, "new_successes": 6}
+{"event": "round_end", "ts": 1785169432.5438404, "round": 0, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 50, "new_successes": 6}
+{"event": "summary", "ts": 1785169447.9087696, "round": 0, "iteration": 0, "n_attempts": 50, "n_successes": 6}
+{"event": "round_start", "ts": 1785169447.9096885, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169447.928059, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169447.944155, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169447.9597728, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169447.975352, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169447.9911313, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169448.007079, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169448.0226424, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169448.0381637, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169448.0537283, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785169480.9282544, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 40, "new_successes": 10}
+{"event": "round_end", "ts": 1785169481.2990184, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 41, "new_successes": 10}
+{"event": "round_end", "ts": 1785169483.2189054, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 42, "new_successes": 10}
+{"event": "round_end", "ts": 1785169483.3213794, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 43, "new_successes": 10}
+{"event": "round_end", "ts": 1785169484.8477554, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 45, "new_successes": 10}
+{"event": "round_end", "ts": 1785169486.207293, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 46, "new_successes": 10}
+{"event": "round_end", "ts": 1785169487.9073627, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 47, "new_successes": 10}
+{"event": "round_end", "ts": 1785169488.4694858, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 48, "new_successes": 10}
+{"event": "round_end", "ts": 1785169490.9123905, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 49, "new_successes": 10}
+{"event": "round_end", "ts": 1785169492.8274806, "round": 1, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 50, "new_successes": 10}
+{"event": "summary", "ts": 1785169506.1622834, "round": 1, "iteration": 0, "n_attempts": 50, "n_successes": 10}
+{"event": "round_start", "ts": 1785169506.1629994, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169506.1796405, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169506.1959772, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169506.212617, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169506.229162, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169506.2451668, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169506.261697, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169506.277814, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169506.293892, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169506.3099837, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "near_dup", "ts": 1785169512.5564816, "round": 2, "iteration": 0, "model": "openai/gpt-5.1"}
+{"event": "round_end", "ts": 1785169541.2099957, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 40, "new_successes": 4}
+{"event": "round_end", "ts": 1785169542.4162335, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 41, "new_successes": 4}
+{"event": "round_end", "ts": 1785169543.0217292, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 42, "new_successes": 4}
+{"event": "round_end", "ts": 1785169545.6293788, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 43, "new_successes": 5}
+{"event": "round_end", "ts": 1785169548.0876637, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 44, "new_successes": 5}
+{"event": "round_end", "ts": 1785169548.7675476, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 45, "new_successes": 5}
+{"event": "round_end", "ts": 1785169549.2693741, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 46, "new_successes": 5}
+{"event": "round_end", "ts": 1785169549.9483857, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 47, "new_successes": 5}
+{"event": "round_end", "ts": 1785169552.717013, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 48, "new_successes": 5}
+{"event": "round_end", "ts": 1785169555.083462, "round": 2, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 49, "new_successes": 5}
+{"event": "summary", "ts": 1785169574.0664768, "round": 2, "iteration": 0, "n_attempts": 49, "n_successes": 5}
+{"event": "round_start", "ts": 1785169574.0672448, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169574.0881264, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169574.1049478, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169574.1264832, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169574.1434186, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169574.160167, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169574.1769621, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169574.194156, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169574.2109594, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169574.2279685, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785169617.8379474, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 36, "new_successes": 17}
+{"event": "round_end", "ts": 1785169619.4898927, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 38, "new_successes": 18}
+{"event": "round_end", "ts": 1785169621.2009025, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 40, "new_successes": 18}
+{"event": "round_end", "ts": 1785169621.4093304, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 41, "new_successes": 19}
+{"event": "round_end", "ts": 1785169622.251298, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 42, "new_successes": 19}
+{"event": "round_end", "ts": 1785169623.8298998, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 43, "new_successes": 19}
+{"event": "round_end", "ts": 1785169626.567112, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 44, "new_successes": 19}
+{"event": "round_end", "ts": 1785169630.8293035, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 46, "new_successes": 19}
+{"event": "round_end", "ts": 1785169641.5068016, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 49, "new_successes": 19}
+{"event": "round_end", "ts": 1785169656.1246164, "round": 3, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 50, "new_successes": 19}
+{"event": "summary", "ts": 1785169672.6077487, "round": 3, "iteration": 0, "n_attempts": 50, "n_successes": 19}
+{"event": "round_start", "ts": 1785169672.6082587, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169672.6278894, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169672.6459785, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169672.664094, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169672.6819963, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169672.6999462, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169672.7177355, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169672.735532, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169672.7538457, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785169672.7720585, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785169730.5774362, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 41, "new_successes": 18}
+{"event": "round_end", "ts": 1785169730.7219627, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 42, "new_successes": 18}
+{"event": "round_end", "ts": 1785169731.839046, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 43, "new_successes": 18}
+{"event": "round_end", "ts": 1785169732.6834967, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 44, "new_successes": 18}
+{"event": "round_end", "ts": 1785169732.7152107, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 45, "new_successes": 18}
+{"event": "round_end", "ts": 1785169733.5054274, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 46, "new_successes": 19}
+{"event": "round_end", "ts": 1785169733.8049173, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 47, "new_successes": 20}
+{"event": "round_end", "ts": 1785169734.832142, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 48, "new_successes": 20}
+{"event": "round_end", "ts": 1785169739.9965463, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 49, "new_successes": 21}
+{"event": "round_end", "ts": 1785169746.2033348, "round": 4, "iteration": 0, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 50, "new_successes": 22}
+{"event": "iteration_memo", "ts": 1785169760.5966632, "iteration": 0, "n_attempts": 249, "n_successes": 62}
+{"event": "round_start", "ts": 1785170633.1358857, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170633.1548514, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170633.1742368, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170633.1933668, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170633.2123063, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170633.2312353, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170633.2502544, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170633.26921, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170633.2882576, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170633.3073227, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785170711.0251946, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 41, "new_successes": 2}
+{"event": "round_end", "ts": 1785170714.19213, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 42, "new_successes": 2}
+{"event": "round_end", "ts": 1785170714.7259493, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 43, "new_successes": 2}
+{"event": "round_end", "ts": 1785170715.4657636, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 44, "new_successes": 2}
+{"event": "round_end", "ts": 1785170715.683986, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 45, "new_successes": 2}
+{"event": "round_end", "ts": 1785170717.3105993, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 46, "new_successes": 2}
+{"event": "round_end", "ts": 1785170717.6490238, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 47, "new_successes": 2}
+{"event": "round_end", "ts": 1785170720.8074014, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 48, "new_successes": 2}
+{"event": "round_end", "ts": 1785170721.1524603, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 49, "new_successes": 2}
+{"event": "round_end", "ts": 1785170731.7933264, "round": 5, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 50, "new_successes": 2}
+{"event": "summary", "ts": 1785170748.955126, "round": 5, "iteration": 1, "n_attempts": 50, "n_successes": 2}
+{"event": "round_start", "ts": 1785170748.955855, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170748.9787145, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170748.9992054, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170749.0194197, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170749.0398016, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170749.060089, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170749.0801253, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170749.1000566, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170749.1203303, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170749.140851, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785170856.2242262, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 37, "new_successes": 25}
+{"event": "round_end", "ts": 1785170856.6031623, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 38, "new_successes": 26}
+{"event": "round_end", "ts": 1785170858.5395713, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 39, "new_successes": 27}
+{"event": "round_end", "ts": 1785170859.7694037, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 40, "new_successes": 28}
+{"event": "round_end", "ts": 1785170860.1489203, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 41, "new_successes": 29}
+{"event": "round_end", "ts": 1785170860.3751755, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 42, "new_successes": 30}
+{"event": "round_end", "ts": 1785170866.8085127, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 43, "new_successes": 31}
+{"event": "round_end", "ts": 1785170871.2846303, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 44, "new_successes": 32}
+{"event": "round_end", "ts": 1785170872.936652, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 45, "new_successes": 33}
+{"event": "round_end", "ts": 1785170874.557456, "round": 6, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 46, "new_successes": 34}
+{"event": "summary", "ts": 1785170893.733135, "round": 6, "iteration": 1, "n_attempts": 46, "n_successes": 34}
+{"event": "round_start", "ts": 1785170893.734013, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170893.7593496, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170893.7809694, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170893.8019881, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170893.8230054, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170893.8502645, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170893.872616, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170893.8938577, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170893.9149172, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785170893.936029, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785171017.9336326, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 40, "new_successes": 24}
+{"event": "round_end", "ts": 1785171021.5509555, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 41, "new_successes": 25}
+{"event": "round_end", "ts": 1785171025.7265258, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 43, "new_successes": 27}
+{"event": "round_end", "ts": 1785171025.7894802, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 44, "new_successes": 28}
+{"event": "round_end", "ts": 1785171028.0319414, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 44, "new_successes": 28}
+{"event": "round_end", "ts": 1785171031.2407088, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 45, "new_successes": 29}
+{"event": "round_end", "ts": 1785171040.0321338, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 46, "new_successes": 30}
+{"event": "round_end", "ts": 1785171042.7790332, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 47, "new_successes": 31}
+{"event": "round_end", "ts": 1785171054.655524, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 48, "new_successes": 32}
+{"event": "round_end", "ts": 1785171058.235905, "round": 7, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 49, "new_successes": 33}
+{"event": "summary", "ts": 1785171081.6835275, "round": 7, "iteration": 1, "n_attempts": 49, "n_successes": 33}
+{"event": "round_start", "ts": 1785171081.6842859, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171081.709579, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171081.731689, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171081.7551422, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171081.777939, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171081.8003626, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171081.8228698, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171081.8452675, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171081.8674772, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171081.890242, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785171188.9192972, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 31, "new_successes": 30}
+{"event": "round_end", "ts": 1785171191.5371187, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 32, "new_successes": 31}
+{"event": "round_end", "ts": 1785171191.6511896, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 33, "new_successes": 32}
+{"event": "round_end", "ts": 1785171191.8969276, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 34, "new_successes": 33}
+{"event": "round_end", "ts": 1785171192.0311394, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 35, "new_successes": 34}
+{"event": "round_end", "ts": 1785171192.8704627, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 36, "new_successes": 35}
+{"event": "round_end", "ts": 1785171194.2918675, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 37, "new_successes": 36}
+{"event": "round_end", "ts": 1785171194.8564382, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 38, "new_successes": 37}
+{"event": "round_end", "ts": 1785171197.2217734, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 39, "new_successes": 38}
+{"event": "round_end", "ts": 1785171197.3644605, "round": 8, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 40, "new_successes": 39}
+{"event": "summary", "ts": 1785171220.9597054, "round": 8, "iteration": 1, "n_attempts": 40, "n_successes": 39}
+{"event": "round_start", "ts": 1785171220.960399, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171220.9879704, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171221.0120146, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171221.035339, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171221.0588248, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171221.0831513, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171221.1071784, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171221.130926, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171221.1546726, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785171221.1779907, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785171329.5867896, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 30, "new_successes": 30}
+{"event": "round_end", "ts": 1785171329.7451785, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 31, "new_successes": 31}
+{"event": "round_end", "ts": 1785171330.1571734, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 32, "new_successes": 32}
+{"event": "round_end", "ts": 1785171330.9065323, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 33, "new_successes": 33}
+{"event": "round_end", "ts": 1785171331.3725226, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 34, "new_successes": 34}
+{"event": "round_end", "ts": 1785171340.9276845, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 35, "new_successes": 35}
+{"event": "round_end", "ts": 1785171345.6635194, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 36, "new_successes": 36}
+{"event": "round_end", "ts": 1785171345.8969765, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 37, "new_successes": 37}
+{"event": "round_end", "ts": 1785171348.4128265, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 38, "new_successes": 38}
+{"event": "round_end", "ts": 1785171362.6286387, "round": 9, "iteration": 1, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 39, "new_successes": 39}
+{"event": "iteration_memo", "ts": 1785171374.831164, "iteration": 1, "n_attempts": 224, "n_successes": 147}
+{"event": "round_start", "ts": 1785172509.3515656, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172509.3781204, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172509.4035633, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172509.4290998, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172509.4547224, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172509.4797475, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172509.5059733, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172509.531296, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172509.5573602, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172509.5832567, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785172617.1730072, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 38, "new_successes": 11}
+{"event": "round_end", "ts": 1785172619.4610822, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 39, "new_successes": 12}
+{"event": "round_end", "ts": 1785172622.4021018, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 41, "new_successes": 13}
+{"event": "round_end", "ts": 1785172622.7681487, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 42, "new_successes": 14}
+{"event": "round_end", "ts": 1785172626.0150976, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 43, "new_successes": 15}
+{"event": "round_end", "ts": 1785172632.828894, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 44, "new_successes": 15}
+{"event": "round_end", "ts": 1785172640.6101959, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 46, "new_successes": 17}
+{"event": "round_end", "ts": 1785172651.658401, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 47, "new_successes": 18}
+{"event": "round_end", "ts": 1785172655.5477521, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 48, "new_successes": 18}
+{"event": "round_end", "ts": 1785172705.0425892, "round": 10, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 50, "new_successes": 19}
+{"event": "summary", "ts": 1785172725.5847852, "round": 10, "iteration": 2, "n_attempts": 50, "n_successes": 19}
+{"event": "round_start", "ts": 1785172725.5856638, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172725.6154218, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172725.6430914, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172725.6699772, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172725.6966207, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172725.7243197, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172725.750974, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172725.778289, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172725.804877, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172725.8315241, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785172838.5099473, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 36, "new_successes": 19}
+{"event": "round_end", "ts": 1785172850.5228996, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 39, "new_successes": 21}
+{"event": "round_end", "ts": 1785172852.0550635, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 40, "new_successes": 22}
+{"event": "round_end", "ts": 1785172865.8416991, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 42, "new_successes": 23}
+{"event": "round_end", "ts": 1785172866.102016, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 43, "new_successes": 23}
+{"event": "round_end", "ts": 1785172879.9723294, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 46, "new_successes": 25}
+{"event": "round_end", "ts": 1785172880.7295952, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 47, "new_successes": 26}
+{"event": "round_end", "ts": 1785172892.0287902, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 48, "new_successes": 27}
+{"event": "round_end", "ts": 1785172901.4952435, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 49, "new_successes": 28}
+{"event": "round_end", "ts": 1785172910.2520325, "round": 11, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 50, "new_successes": 29}
+{"event": "summary", "ts": 1785172946.595627, "round": 11, "iteration": 2, "n_attempts": 50, "n_successes": 29}
+{"event": "round_start", "ts": 1785172946.5968661, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172946.626233, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172946.6548645, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172946.6841412, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172946.7138739, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172946.7429066, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172946.773621, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172946.8027, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172946.8314245, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785172946.860077, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785173094.6720536, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 30, "new_successes": 30}
+{"event": "round_end", "ts": 1785173095.7267876, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 31, "new_successes": 31}
+{"event": "round_end", "ts": 1785173096.5758493, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 32, "new_successes": 31}
+{"event": "round_end", "ts": 1785173103.1398895, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 33, "new_successes": 32}
+{"event": "round_end", "ts": 1785173103.5705466, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 34, "new_successes": 33}
+{"event": "round_end", "ts": 1785173106.7911875, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 35, "new_successes": 34}
+{"event": "round_end", "ts": 1785173109.3443844, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 36, "new_successes": 35}
+{"event": "round_end", "ts": 1785173112.1291697, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 37, "new_successes": 36}
+{"event": "round_end", "ts": 1785173128.395517, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 38, "new_successes": 37}
+{"event": "round_end", "ts": 1785173139.004983, "round": 12, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 39, "new_successes": 38}
+{"event": "summary", "ts": 1785173155.6764863, "round": 12, "iteration": 2, "n_attempts": 39, "n_successes": 38}
+{"event": "round_start", "ts": 1785173155.6769438, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173155.7104056, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173155.7417965, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173155.7741456, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173155.8050547, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173155.8362968, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173155.8667498, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173155.8977058, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173155.9290686, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173155.959909, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785173319.2633152, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 30, "new_successes": 30}
+{"event": "round_end", "ts": 1785173326.6513338, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 31, "new_successes": 31}
+{"event": "round_end", "ts": 1785173328.2050173, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 32, "new_successes": 32}
+{"event": "round_end", "ts": 1785173328.2677975, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 33, "new_successes": 33}
+{"event": "round_end", "ts": 1785173333.2786372, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 34, "new_successes": 34}
+{"event": "round_end", "ts": 1785173341.7991252, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 35, "new_successes": 35}
+{"event": "round_end", "ts": 1785173343.75522, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 36, "new_successes": 36}
+{"event": "round_end", "ts": 1785173350.8663468, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 37, "new_successes": 37}
+{"event": "round_end", "ts": 1785173354.5080786, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 38, "new_successes": 38}
+{"event": "round_end", "ts": 1785173355.3303974, "round": 13, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 39, "new_successes": 39}
+{"event": "summary", "ts": 1785173378.1775863, "round": 13, "iteration": 2, "n_attempts": 39, "n_successes": 39}
+{"event": "round_start", "ts": 1785173378.1783774, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173378.2140057, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173378.2473764, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173378.2812748, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173378.3147714, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173378.3486223, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173378.3822508, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173378.415245, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173378.448581, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785173378.4818351, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785173579.044425, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 31, "new_successes": 30}
+{"event": "round_end", "ts": 1785173597.6238332, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 33, "new_successes": 32}
+{"event": "round_end", "ts": 1785173597.6258364, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 33, "new_successes": 32}
+{"event": "round_end", "ts": 1785173597.6689866, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 34, "new_successes": 33}
+{"event": "round_end", "ts": 1785173597.98515, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 35, "new_successes": 34}
+{"event": "round_end", "ts": 1785173598.2667525, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 36, "new_successes": 35}
+{"event": "round_end", "ts": 1785173598.5633085, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 37, "new_successes": 36}
+{"event": "round_end", "ts": 1785173599.5727348, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 38, "new_successes": 37}
+{"event": "round_end", "ts": 1785173609.868948, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 39, "new_successes": 38}
+{"event": "round_end", "ts": 1785173679.570385, "round": 14, "iteration": 2, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 40, "new_successes": 39}
+{"event": "iteration_memo", "ts": 1785173699.2455208, "iteration": 2, "n_attempts": 218, "n_successes": 164}
+{"event": "round_start", "ts": 1785178850.6859517, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785178850.7118845, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785178850.7368944, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785178850.761614, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785178850.7864392, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785178850.8120575, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785178850.837025, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785178850.8620942, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785178850.8867664, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785178850.911939, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785179028.5246422, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 28, "new_successes": 23}
+{"event": "round_end", "ts": 1785179078.1705592, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 35, "new_successes": 30}
+{"event": "round_end", "ts": 1785179078.5399113, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 36, "new_successes": 31}
+{"event": "round_end", "ts": 1785179078.6945097, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 37, "new_successes": 32}
+{"event": "round_end", "ts": 1785179081.0318248, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 38, "new_successes": 33}
+{"event": "round_end", "ts": 1785179083.5921648, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 39, "new_successes": 34}
+{"event": "round_end", "ts": 1785179098.0559282, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 40, "new_successes": 34}
+{"event": "round_end", "ts": 1785179101.4887252, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 41, "new_successes": 34}
+{"event": "round_end", "ts": 1785179109.155146, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 42, "new_successes": 35}
+{"event": "round_end", "ts": 1785179115.2505708, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 43, "new_successes": 36}
+{"event": "summary", "ts": 1785179132.9472656, "round": 15, "iteration": 3, "n_attempts": 43, "n_successes": 36}
+{"event": "round_start", "ts": 1785179132.9474797, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785179132.9754481, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785179133.00268, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785179133.030349, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785179133.058116, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785179133.0850215, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785179133.1117225, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785179133.1387143, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785179133.1652682, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785179133.1921713, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_error", "ts": 1785179297.839657, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "error: RuntimeError: OpenRouter attacker call for model 'openai/gpt-5.1' failed after 4 attempts: APIStatusError: Error code: 402 - {'error': {'message': \"This request requires more credits, or fewer max_tokens. You requested up to 65536 tokens, but can only afford 18633. To increase, visit https://openrouter.ai/workspaces/default/keys/80b591cda80603caa5c217c764a82c3dd7ff8ea9d204435b50db489b2ca012da and adjust the key's total limit\", 'code': 402, 'metadata': {'provider_name': None, 'previous_errors': [{'code': 402, 'message': \"This request requires more credits, or fewer max_tokens. You requested up to 65536 tokens, but can only afford 18633. To increase, visit https://openrouter.ai/workspaces/default/keys/80b591cda80603caa5c217c764a82c3dd7ff8ea9d204435b50db489b2ca012da and adjust the key's total limit\"}]}}, 'user_id': 'org_33VcHXBqYDkzH75AH80r63G13q3'}", "new_records": 26, "new_successes": 22, "error": "RuntimeError: OpenRouter attacker call for model 'openai/gpt-5.1' failed after 4 attempts: APIStatusError: Error code: 402 - {'error': {'message': \"This request requires more credits, or fewer max_tokens. You requested up to 65536 tokens, but can only afford 18633. To increase, visit https://openrouter.ai/workspaces/default/keys/80b591cda80603caa5c217c764a82c3dd7ff8ea9d204435b50db489b2ca012da and adjust the key's total limit\", 'code': 402, 'metadata': {'provider_name': None, 'previous_errors': [{'code': 402, 'message': \"This request requires more credits, or fewer max_tokens. You requested up to 65536 tokens, but can only afford 18633. To increase, visit https://openrouter.ai/workspaces/default/keys/80b591cda80603caa5c217c764a82c3dd7ff8ea9d204435b50db489b2ca012da and adjust the key's total limit\"}]}}, 'user_id': 'org_33VcHXBqYDkzH75AH80r63G13q3'}"}
+{"event": "round_error", "ts": 1785179298.1009672, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "error: RuntimeError: OpenRouter attacker call for model 'openai/gpt-5.1' failed after 4 attempts: APIStatusError: Error code: 402 - {'error': {'message': \"This request requires more credits, or fewer max_tokens. You requested up to 65536 tokens, but can only afford 18633. To increase, visit https://openrouter.ai/workspaces/default/keys/80b591cda80603caa5c217c764a82c3dd7ff8ea9d204435b50db489b2ca012da and adjust the key's total limit\", 'code': 402, 'metadata': {'provider_name': None, 'previous_errors': [{'code': 402, 'message': \"This request requires more credits, or fewer max_tokens. You requested up to 65536 tokens, but can only afford 18633. To increase, visit https://openrouter.ai/workspaces/default/keys/80b591cda80603caa5c217c764a82c3dd7ff8ea9d204435b50db489b2ca012da and adjust the key's total limit\"}]}}, 'user_id': 'org_33VcHXBqYDkzH75AH80r63G13q3'}", "new_records": 27, "new_successes": 23, "error": "RuntimeError: OpenRouter attacker call for model 'openai/gpt-5.1' failed after 4 attempts: APIStatusError: Error code: 402 - {'error': {'message': \"This request requires more credits, or fewer max_tokens. You requested up to 65536 tokens, but can only afford 18633. To increase, visit https://openrouter.ai/workspaces/default/keys/80b591cda80603caa5c217c764a82c3dd7ff8ea9d204435b50db489b2ca012da and adjust the key's total limit\", 'code': 402, 'metadata': {'provider_name': None, 'previous_errors': [{'code': 402, 'message': \"This request requires more credits, or fewer max_tokens. You requested up to 65536 tokens, but can only afford 18633. To increase, visit https://openrouter.ai/workspaces/default/keys/80b591cda80603caa5c217c764a82c3dd7ff8ea9d204435b50db489b2ca012da and adjust the key's total limit\"}]}}, 'user_id': 'org_33VcHXBqYDkzH75AH80r63G13q3'}"}
+{"event": "openrouter_outage", "ts": 1785179298.370265, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "error": "3 consecutive non-recoverable OpenRouter errors (limit 3). These do not resolve on their own — check your credit balance and API key. Last error — attacker model 'openai/gpt-5.1': Error code: 402 - {'error': {'message': \"This request requires more credits, or fewer max_tokens. You requested up to 65536 tokens, but can only afford 18633. To increase, visit https://openrouter.ai/workspaces/default/keys/80b591cda80603caa5c217c764a82c3dd7ff8ea9d204435b50db489b2ca012da and adjust the key's total limit\", 'code': 402, 'metadata': {'provider_name': None, 'previous_errors': [{'code': 402, 'message': \"This request requires more credits, or fewer max_tokens. You requested up to 65536 tokens, but can only afford 18633. To increase, visit https://openrouter.ai/workspaces/default/keys/80b591cda80603caa5c217c764a82c3dd7ff8ea9d204435b50db489b2ca012da and adjust the key's total limit\"}]}}, 'user_id': 'org_33VcHXBqYDkzH75AH80r63G13q3'}"}
+{"event": "round_start", "ts": 1785180347.5842175, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180347.6883802, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180347.7167218, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180347.7439404, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180347.7712352, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180347.7988722, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180347.8266199, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180347.8545654, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180347.882445, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180347.9096823, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785180517.716341, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 27, "new_successes": 17}
+{"event": "round_end", "ts": 1785180608.6386833, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "max_turns", "new_records": 38, "new_successes": 27}
+{"event": "round_end", "ts": 1785180628.7325466, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 41, "new_successes": 30}
+{"event": "round_end", "ts": 1785180633.758667, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 42, "new_successes": 31}
+{"event": "round_end", "ts": 1785180636.7218716, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 43, "new_successes": 32}
+{"event": "round_end", "ts": 1785180642.5485663, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 44, "new_successes": 33}
+{"event": "round_end", "ts": 1785180646.1103048, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 45, "new_successes": 34}
+{"event": "round_end", "ts": 1785180660.6800785, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 46, "new_successes": 35}
+{"event": "round_end", "ts": 1785180683.3915858, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 47, "new_successes": 36}
+{"event": "round_end", "ts": 1785180690.032345, "round": 15, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 48, "new_successes": 37}
+{"event": "summary", "ts": 1785180704.6361783, "round": 15, "iteration": 3, "n_attempts": 91, "n_successes": 73}
+{"event": "round_start", "ts": 1785180704.6365106, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180704.6677465, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180704.6977866, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180704.7283864, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180704.7585697, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180704.788367, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180704.8182082, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180704.847762, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180704.8779185, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785180704.9077053, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785180990.7124035, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 30, "new_successes": 30}
+{"event": "round_end", "ts": 1785180992.5100985, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 31, "new_successes": 31}
+{"event": "round_end", "ts": 1785181003.5796525, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 32, "new_successes": 32}
+{"event": "round_end", "ts": 1785181005.600091, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 33, "new_successes": 33}
+{"event": "round_end", "ts": 1785181006.5014381, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 34, "new_successes": 34}
+{"event": "round_end", "ts": 1785181006.5419753, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 35, "new_successes": 35}
+{"event": "round_end", "ts": 1785181010.3919728, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 36, "new_successes": 36}
+{"event": "round_end", "ts": 1785181025.601378, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 37, "new_successes": 37}
+{"event": "round_end", "ts": 1785181027.5564487, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 38, "new_successes": 38}
+{"event": "round_end", "ts": 1785181060.6460564, "round": 16, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 39, "new_successes": 39}
+{"event": "summary", "ts": 1785181071.3233144, "round": 16, "iteration": 3, "n_attempts": 66, "n_successes": 62}
+{"event": "round_start", "ts": 1785181071.3236969, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181071.3589551, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181071.3909156, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181071.4229565, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181071.4546187, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181071.4866219, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181071.5181184, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181071.550316, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181071.582152, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181071.613603, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785181358.1864595, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 30, "new_successes": 30}
+{"event": "round_end", "ts": 1785181368.085822, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 31, "new_successes": 31}
+{"event": "round_end", "ts": 1785181375.3874626, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 32, "new_successes": 32}
+{"event": "round_end", "ts": 1785181379.8820665, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 33, "new_successes": 33}
+{"event": "round_end", "ts": 1785181380.2263737, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 34, "new_successes": 34}
+{"event": "round_end", "ts": 1785181380.6941369, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 35, "new_successes": 35}
+{"event": "round_end", "ts": 1785181381.6949139, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 36, "new_successes": 36}
+{"event": "round_end", "ts": 1785181381.8347676, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 37, "new_successes": 37}
+{"event": "round_end", "ts": 1785181389.5097759, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 38, "new_successes": 38}
+{"event": "round_end", "ts": 1785181417.2607954, "round": 17, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 39, "new_successes": 39}
+{"event": "summary", "ts": 1785181436.7067816, "round": 17, "iteration": 3, "n_attempts": 39, "n_successes": 39}
+{"event": "round_start", "ts": 1785181436.707122, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181436.747415, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181436.7859302, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181436.8245785, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181436.863113, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181436.9013777, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181436.939024, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181436.9761245, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181437.0139523, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181437.0519447, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785181751.1363175, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 30, "new_successes": 30}
+{"event": "round_end", "ts": 1785181761.72076, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 31, "new_successes": 31}
+{"event": "round_end", "ts": 1785181764.006352, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 32, "new_successes": 32}
+{"event": "round_end", "ts": 1785181764.4367502, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 33, "new_successes": 33}
+{"event": "round_end", "ts": 1785181764.972112, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 34, "new_successes": 34}
+{"event": "round_end", "ts": 1785181765.4030437, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 35, "new_successes": 35}
+{"event": "round_end", "ts": 1785181765.9182177, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 36, "new_successes": 36}
+{"event": "round_end", "ts": 1785181766.8777096, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 37, "new_successes": 37}
+{"event": "round_end", "ts": 1785181768.666323, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 38, "new_successes": 38}
+{"event": "round_end", "ts": 1785181808.686792, "round": 18, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 39, "new_successes": 39}
+{"event": "summary", "ts": 1785181820.1854138, "round": 18, "iteration": 3, "n_attempts": 39, "n_successes": 39}
+{"event": "round_start", "ts": 1785181820.1856256, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181820.2237337, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181820.259045, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181820.2950742, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181820.5153224, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181820.5659344, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181820.608506, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181820.6478724, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181820.683348, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_start", "ts": 1785181820.7188199, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "provider": "openrouter"}
+{"event": "round_end", "ts": 1785182087.4494107, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 30, "new_successes": 30}
+{"event": "round_end", "ts": 1785182135.7609015, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 31, "new_successes": 31}
+{"event": "round_end", "ts": 1785182136.0383527, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 32, "new_successes": 32}
+{"event": "round_end", "ts": 1785182136.5441346, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 33, "new_successes": 33}
+{"event": "round_end", "ts": 1785182137.1087108, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 34, "new_successes": 34}
+{"event": "round_end", "ts": 1785182139.488899, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 35, "new_successes": 35}
+{"event": "round_end", "ts": 1785182139.9677715, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 36, "new_successes": 36}
+{"event": "round_end", "ts": 1785182140.5929954, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 37, "new_successes": 37}
+{"event": "round_end", "ts": 1785182141.0899298, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 38, "new_successes": 38}
+{"event": "round_end", "ts": 1785182142.722592, "round": 19, "iteration": 3, "model": "openai/gpt-5.1", "stop_reason": "target_reached", "new_records": 39, "new_successes": 39}
+{"event": "iteration_memo", "ts": 1785182154.9569046, "iteration": 3, "n_attempts": 274, "n_successes": 252}
