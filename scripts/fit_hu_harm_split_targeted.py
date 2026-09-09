@@ -86,6 +86,29 @@ PAIRS = {
             "generic_600": [REPO / f"data/hu_harm_{GEN}_600.jsonl"],
         },
     ),
+    # The ORIGINAL pair, re-fit here under this branch's protocol. The sets themselves are
+    # human_harm_last's (commits 9fcdda21 / e350e258), copied across unchanged; what is new
+    # is that they are measured against the same template probe, the same caches and the
+    # same conditions as the dilemmas pair, so all four hu_ha splits finally sit in one
+    # comparable table instead of two branches' worth of separately-anchored numbers.
+    "refusal": dict(
+        splits=["eval_ant_hh", "eval_balanced_refusal"],
+        dev_files=["dev_ant_hh.jsonl", "dev_balanced_refusal.jsonl"],
+        out=OUT_ROOT / "hu_harm_split_targeted_refusal",
+        sets={
+            "ant_hh_600": [REPO / f"data/hu_harm_{GEN}_antHH_600.jsonl"],
+            "refusal_v2_600": [REPO / f"data/hu_harm_{GEN}_refusal_v2_600.jsonl"],
+            # v1: the CONTAMINATED refusal set, kept as a condition rather than discarded.
+            # Its description quoted two real refusal templates verbatim, and that branch
+            # measured the resulting inflation at 0.043 (80dab791). Re-fitting it here says
+            # whether that cost reproduces under a different probe and dev set — which is
+            # worth more than deleting the file and asserting it.
+            "refusal_v1_600_CONTAMINATED": [REPO / f"data/hu_harm_{GEN}_refusal_600.jsonl"],
+            "pooled_1200": [REPO / f"data/hu_harm_{GEN}_antHH_600.jsonl",
+                            REPO / f"data/hu_harm_{GEN}_refusal_v2_600.jsonl"],
+            "generic_600": [REPO / f"data/hu_harm_{GEN}_600.jsonl"],
+        },
+    ),
 }
 
 
