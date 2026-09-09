@@ -1,0 +1,12 @@
+failsafe_commit_vintage.sh: /root/.bash_env: Permission denied
+>>> 2026-08-15T12:20:15+00:00  watching results_hs_gemma27b_batch_ablation/vintage on branch 'experiment9_cloud', every 1800s (NO_PUSH=unset)
+>>> 2026-08-15T12:20:15+00:00  self-test: 3 result file(s) on disk, 19 newly staged, 19 already tracked
+>>> 2026-08-15T12:20:19+00:00  checkpointed (10 fits)
+>>> 2026-08-15T12:50:24+00:00  checkpointed (20 fits)
+>>> 2026-08-15T13:20:28+00:00  checkpointed (30 fits)
+>>> 2026-08-15T13:50:32+00:00  checkpointed (50 fits)
+>>> 2026-08-15T14:20:36+00:00  checkpointed (60 fits)
+>>> 2026-08-15T14:50:40+00:00  checkpointed (70 fits)
+Terminated
+>>> 2026-08-15T15:11:53+00:00  stopping — final snapshot
+>>> 2026-08-15T15:11:57+00:00  committed

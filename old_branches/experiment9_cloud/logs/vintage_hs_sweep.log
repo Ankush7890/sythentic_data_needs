@@ -1,0 +1,206 @@
+
+=== deepseekv4pro ===
+  over-long drop (pair): {'n_at_cap': 6, 'n_at_cap_generated': 6, 'n_at_cap_source': 0, 'max_width': 1024, 'mode': 'pair', 'n_pairs_dropped': 6, 'n_dropped': 12}
+  vintage 1:  294 rows of iter3 (147 of 186 iter1 pairs survive; 37 dropped before iter3)
+  vintage 2:  542 rows of iter3 (271 of 284 iter2 pairs survive; 12 dropped before iter3)
+  vintage 3:  716 rows of iter3 (358 of 364 iter3 pairs survive; 0 dropped before iter3)
+  pairs in vintage 1 but not vintage 2: 7
+  vintage 0: assembled train=160 val=40 width=57 (0.1 GB, 0s); 10 fit(s) to run
+    seed 42 vintage 0: fit   4.9s best_epoch=1
+    seed 43 vintage 0: fit   3.7s best_epoch=1
+    seed 44 vintage 0: fit   4.2s best_epoch=2
+    seed 45 vintage 0: fit   4.0s best_epoch=3
+    seed 46 vintage 0: fit   3.8s best_epoch=1
+    seed 47 vintage 0: fit   4.9s best_epoch=2
+    seed 48 vintage 0: fit   3.6s best_epoch=1
+    seed 49 vintage 0: fit   4.1s best_epoch=1
+    seed 50 vintage 0: fit   3.7s best_epoch=1
+    seed 51 vintage 0: fit   4.5s best_epoch=4
+  vintage 0: scored 10 seed(s) in 132s
+    seed 42 v0: anthropic=0.9530  mt       =0.8090  mts      =0.9493  toolace  =0.7261  MEAN=0.8593
+    seed 43 v0: anthropic=0.9489  mt       =0.8764  mts      =0.9363  toolace  =0.6894  MEAN=0.8627
+    seed 44 v0: anthropic=0.9548  mt       =0.8229  mts      =0.9513  toolace  =0.7092  MEAN=0.8596
+    seed 45 v0: anthropic=0.9572  mt       =0.9051  mts      =0.9376  toolace  =0.7091  MEAN=0.8773
+    seed 46 v0: anthropic=0.9609  mt       =0.9034  mts      =0.9588  toolace  =0.7174  MEAN=0.8851
+    seed 47 v0: anthropic=0.9459  mt       =0.8378  mts      =0.9393  toolace  =0.7160  MEAN=0.8598
+    seed 48 v0: anthropic=0.9552  mt       =0.8719  mts      =0.9456  toolace  =0.7119  MEAN=0.8711
+    seed 49 v0: anthropic=0.9517  mt       =0.9156  mts      =0.9357  toolace  =0.7474  MEAN=0.8876
+    seed 50 v0: anthropic=0.9543  mt       =0.7925  mts      =0.9531  toolace  =0.7030  MEAN=0.8507
+    seed 51 v0: anthropic=0.9493  mt       =0.9384  mts      =0.9294  toolace  =0.6506  MEAN=0.8669
+  vintage 3: assembled train=756 val=160 width=856 (8.4 GB, 4s); 10 fit(s) to run
+    seed 42 vintage 3: fit 236.1s best_epoch=3
+    seed 43 vintage 3: fit 236.2s best_epoch=3
+    seed 44 vintage 3: fit 236.7s best_epoch=3
+    seed 45 vintage 3: fit 244.9s best_epoch=5
+    seed 46 vintage 3: fit 232.0s best_epoch=2
+    seed 47 vintage 3: fit 232.5s best_epoch=2
+    seed 48 vintage 3: fit 245.6s best_epoch=5
+    seed 49 vintage 3: fit 263.3s best_epoch=9
+    seed 50 vintage 3: fit 236.6s best_epoch=3
+    seed 51 vintage 3: fit 241.5s best_epoch=4
+  vintage 3: scored 10 seed(s) in 121s
+    seed 42 v3: anthropic=0.9569  mt       =0.9127  mts      =0.9477  toolace  =0.7620  MEAN=0.8948
+    seed 43 v3: anthropic=0.9573  mt       =0.9272  mts      =0.9361  toolace  =0.7793  MEAN=0.8999
+    seed 44 v3: anthropic=0.9566  mt       =0.8955  mts      =0.9247  toolace  =0.7750  MEAN=0.8879
+    seed 45 v3: anthropic=0.9515  mt       =0.9211  mts      =0.9218  toolace  =0.7567  MEAN=0.8878
+    seed 46 v3: anthropic=0.9545  mt       =0.9045  mts      =0.9485  toolace  =0.7759  MEAN=0.8959
+    seed 47 v3: anthropic=0.9548  mt       =0.9188  mts      =0.9445  toolace  =0.7618  MEAN=0.8950
+    seed 48 v3: anthropic=0.9535  mt       =0.9173  mts      =0.9152  toolace  =0.7865  MEAN=0.8931
+    seed 49 v3: anthropic=0.9487  mt       =0.9114  mts      =0.9013  toolace  =0.7677  MEAN=0.8823
+    seed 50 v3: anthropic=0.9536  mt       =0.9170  mts      =0.9347  toolace  =0.7764  MEAN=0.8954
+    seed 51 v3: anthropic=0.9514  mt       =0.9015  mts      =0.9004  toolace  =0.7672  MEAN=0.8801
+  vintage 1: assembled train=407 val=87 width=822 (4.4 GB, 2s); 10 fit(s) to run
+    seed 42 vintage 1: fit 125.8s best_epoch=4
+    seed 43 vintage 1: fit 124.7s best_epoch=4
+    seed 44 vintage 1: fit 124.5s best_epoch=4
+    seed 45 vintage 1: fit 124.7s best_epoch=4
+    seed 46 vintage 1: fit 122.7s best_epoch=3
+    seed 47 vintage 1: fit 124.1s best_epoch=4
+    seed 48 vintage 1: fit 124.5s best_epoch=3
+    seed 49 vintage 1: fit 215.9s best_epoch=43
+    seed 50 vintage 1: fit 124.5s best_epoch=4
+    seed 51 vintage 1: fit 124.9s best_epoch=4
+  vintage 1: scored 10 seed(s) in 122s
+    seed 42 v1: anthropic=0.9227  mt       =0.9442  mts      =0.8976  toolace  =0.7600  MEAN=0.8811
+    seed 43 v1: anthropic=0.9358  mt       =0.9509  mts      =0.8938  toolace  =0.7773  MEAN=0.8895
+    seed 44 v1: anthropic=0.9166  mt       =0.9472  mts      =0.9017  toolace  =0.7665  MEAN=0.8830
+    seed 45 v1: anthropic=0.9424  mt       =0.9408  mts      =0.8833  toolace  =0.7630  MEAN=0.8824
+    seed 46 v1: anthropic=0.9418  mt       =0.9587  mts      =0.8996  toolace  =0.7682  MEAN=0.8921
+    seed 47 v1: anthropic=0.9388  mt       =0.9555  mts      =0.8856  toolace  =0.7573  MEAN=0.8843
+    seed 48 v1: anthropic=0.9033  mt       =0.9397  mts      =0.8615  toolace  =0.7925  MEAN=0.8743
+    seed 49 v1: anthropic=0.9214  mt       =0.9448  mts      =0.8610  toolace  =0.7752  MEAN=0.8756
+    seed 50 v1: anthropic=0.9148  mt       =0.9337  mts      =0.8868  toolace  =0.7539  MEAN=0.8723
+    seed 51 v1: anthropic=0.9440  mt       =0.9544  mts      =0.8862  toolace  =0.7414  MEAN=0.8815
+  vintage 2: assembled train=611 val=131 width=772 (6.2 GB, 3s); 10 fit(s) to run
+    seed 42 vintage 2: fit 187.9s best_epoch=7
+    seed 43 vintage 2: fit 181.5s best_epoch=5
+    seed 44 vintage 2: fit 181.5s best_epoch=5
+    seed 45 vintage 2: fit 178.5s best_epoch=4
+    seed 46 vintage 2: fit 175.0s best_epoch=3
+    seed 47 vintage 2: fit 178.4s best_epoch=4
+    seed 48 vintage 2: fit 183.6s best_epoch=5
+    seed 49 vintage 2: fit 172.5s best_epoch=2
+    seed 50 vintage 2: fit 172.6s best_epoch=2
+    seed 51 vintage 2: fit 189.2s best_epoch=7
+  vintage 2: scored 10 seed(s) in 122s
+    seed 42 v2: anthropic=0.9646  mt       =0.9361  mts      =0.9485  toolace  =0.8133  MEAN=0.9156
+    seed 43 v2: anthropic=0.9656  mt       =0.9421  mts      =0.9519  toolace  =0.8266  MEAN=0.9215
+    seed 44 v2: anthropic=0.9653  mt       =0.9355  mts      =0.9423  toolace  =0.8335  MEAN=0.9192
+    seed 45 v2: anthropic=0.9630  mt       =0.9325  mts      =0.9532  toolace  =0.8188  MEAN=0.9169
+    seed 46 v2: anthropic=0.9599  mt       =0.9321  mts      =0.9422  toolace  =0.8156  MEAN=0.9124
+    seed 47 v2: anthropic=0.9633  mt       =0.9242  mts      =0.9401  toolace  =0.8129  MEAN=0.9101
+    seed 48 v2: anthropic=0.9602  mt       =0.9222  mts      =0.8999  toolace  =0.8272  MEAN=0.9024
+    seed 49 v2: anthropic=0.9671  mt       =0.9405  mts      =0.9421  toolace  =0.8157  MEAN=0.9163
+    seed 50 v2: anthropic=0.9665  mt       =0.9383  mts      =0.9579  toolace  =0.8103  MEAN=0.9182
+    seed 51 v2: anthropic=0.9653  mt       =0.9277  mts      =0.9468  toolace  =0.8157  MEAN=0.9139
+
+=== gptoss120b ===
+  over-long drop (pair): {'n_at_cap': 14, 'n_at_cap_generated': 14, 'n_at_cap_source': 0, 'max_width': 1024, 'mode': 'pair', 'n_pairs_dropped': 14, 'n_dropped': 28}
+  vintage 1:  228 rows of iter3 (114 of 152 iter1 pairs survive; 24 dropped before iter3)
+  vintage 2:  422 rows of iter3 (211 of 233 iter2 pairs survive; 9 dropped before iter3)
+  vintage 3:  562 rows of iter3 (281 of 295 iter3 pairs survive; 0 dropped before iter3)
+  pairs in vintage 1 but not vintage 2: 10
+  vintage 0: assembled train=160 val=40 width=57 (0.1 GB, 0s); 10 fit(s) to run
+    seed 42 vintage 0: fit   4.0s best_epoch=1
+    seed 43 vintage 0: fit   3.9s best_epoch=1
+    seed 44 vintage 0: fit   3.8s best_epoch=2
+    seed 45 vintage 0: fit   4.6s best_epoch=3
+    seed 46 vintage 0: fit   3.8s best_epoch=1
+    seed 47 vintage 0: fit   4.4s best_epoch=2
+    seed 48 vintage 0: fit   3.6s best_epoch=1
+    seed 49 vintage 0: fit   4.1s best_epoch=1
+    seed 50 vintage 0: fit   3.7s best_epoch=1
+    seed 51 vintage 0: fit   4.3s best_epoch=4
+  vintage 0: scored 10 seed(s) in 121s
+    seed 42 v0: anthropic=0.9530  mt       =0.8090  mts      =0.9493  toolace  =0.7261  MEAN=0.8593
+    seed 43 v0: anthropic=0.9489  mt       =0.8764  mts      =0.9363  toolace  =0.6894  MEAN=0.8627
+    seed 44 v0: anthropic=0.9548  mt       =0.8229  mts      =0.9513  toolace  =0.7092  MEAN=0.8596
+    seed 45 v0: anthropic=0.9572  mt       =0.9051  mts      =0.9376  toolace  =0.7091  MEAN=0.8773
+    seed 46 v0: anthropic=0.9609  mt       =0.9034  mts      =0.9588  toolace  =0.7174  MEAN=0.8851
+    seed 47 v0: anthropic=0.9459  mt       =0.8378  mts      =0.9393  toolace  =0.7160  MEAN=0.8598
+    seed 48 v0: anthropic=0.9552  mt       =0.8719  mts      =0.9456  toolace  =0.7119  MEAN=0.8711
+    seed 49 v0: anthropic=0.9517  mt       =0.9156  mts      =0.9357  toolace  =0.7474  MEAN=0.8876
+    seed 50 v0: anthropic=0.9543  mt       =0.7925  mts      =0.9531  toolace  =0.7030  MEAN=0.8507
+    seed 51 v0: anthropic=0.9493  mt       =0.9384  mts      =0.9294  toolace  =0.6506  MEAN=0.8669
+  vintage 3: assembled train=620 val=142 width=926 (7.6 GB, 4s); 10 fit(s) to run
+    seed 42 vintage 3: fit 211.3s best_epoch=3
+    seed 43 vintage 3: fit 215.9s best_epoch=4
+    seed 44 vintage 3: fit 240.2s best_epoch=10
+    seed 45 vintage 3: fit 280.5s best_epoch=20
+    seed 46 vintage 3: fit 203.9s best_epoch=1
+    seed 47 vintage 3: fit 212.4s best_epoch=3
+    seed 48 vintage 3: fit 235.4s best_epoch=9
+    seed 49 vintage 3: fit 248.1s best_epoch=12
+    seed 50 vintage 3: fit 221.6s best_epoch=5
+    seed 51 vintage 3: fit 224.2s best_epoch=6
+  vintage 3: scored 10 seed(s) in 121s
+    seed 42 v3: anthropic=0.9651  mt       =0.9622  mts      =0.9590  toolace  =0.8239  MEAN=0.9276
+    seed 43 v3: anthropic=0.9664  mt       =0.9792  mts      =0.9686  toolace  =0.8303  MEAN=0.9362
+    seed 44 v3: anthropic=0.9700  mt       =0.9796  mts      =0.9670  toolace  =0.8260  MEAN=0.9357
+    seed 45 v3: anthropic=0.9688  mt       =0.9821  mts      =0.9612  toolace  =0.8044  MEAN=0.9291
+    seed 46 v3: anthropic=0.9655  mt       =0.9707  mts      =0.9624  toolace  =0.8319  MEAN=0.9326
+    seed 47 v3: anthropic=0.9677  mt       =0.9769  mts      =0.9706  toolace  =0.8152  MEAN=0.9326
+    seed 48 v3: anthropic=0.9690  mt       =0.9777  mts      =0.9658  toolace  =0.8271  MEAN=0.9349
+    seed 49 v3: anthropic=0.9706  mt       =0.9734  mts      =0.9664  toolace  =0.8266  MEAN=0.9342
+    seed 50 v3: anthropic=0.9695  mt       =0.9709  mts      =0.9623  toolace  =0.8090  MEAN=0.9279
+    seed 51 v3: anthropic=0.9691  mt       =0.9752  mts      =0.9698  toolace  =0.8260  MEAN=0.9350
+  vintage 1: assembled train=353 val=75 width=926 (4.3 GB, 2s); 10 fit(s) to run
+    seed 42 vintage 1: fit 119.0s best_epoch=3
+    seed 43 vintage 1: fit 116.3s best_epoch=2
+    seed 44 vintage 1: fit 117.3s best_epoch=2
+    seed 45 vintage 1: fit 117.4s best_epoch=2
+    seed 46 vintage 1: fit 116.4s best_epoch=2
+    seed 47 vintage 1: fit 119.7s best_epoch=4
+    seed 48 vintage 1: fit 118.8s best_epoch=3
+    seed 49 vintage 1: fit 117.6s best_epoch=2
+    seed 50 vintage 1: fit 117.1s best_epoch=2
+    seed 51 vintage 1: fit 119.6s best_epoch=3
+  vintage 1: scored 10 seed(s) in 122s
+    seed 42 v1: anthropic=0.9576  mt       =0.9532  mts      =0.9372  toolace  =0.7368  MEAN=0.8962
+    seed 43 v1: anthropic=0.9540  mt       =0.9546  mts      =0.9406  toolace  =0.7791  MEAN=0.9071
+    seed 44 v1: anthropic=0.9562  mt       =0.9768  mts      =0.9512  toolace  =0.7528  MEAN=0.9092
+    seed 45 v1: anthropic=0.9379  mt       =0.9666  mts      =0.9420  toolace  =0.7421  MEAN=0.8971
+    seed 46 v1: anthropic=0.9593  mt       =0.9636  mts      =0.9349  toolace  =0.7440  MEAN=0.9004
+    seed 47 v1: anthropic=0.9583  mt       =0.9386  mts      =0.9289  toolace  =0.7444  MEAN=0.8926
+    seed 48 v1: anthropic=0.9589  mt       =0.9728  mts      =0.9484  toolace  =0.7803  MEAN=0.9151
+    seed 49 v1: anthropic=0.9508  mt       =0.9644  mts      =0.9423  toolace  =0.7705  MEAN=0.9070
+    seed 50 v1: anthropic=0.9593  mt       =0.9464  mts      =0.9351  toolace  =0.7108  MEAN=0.8879
+    seed 51 v1: anthropic=0.9600  mt       =0.9625  mts      =0.9417  toolace  =0.7590  MEAN=0.9058
+  vintage 2: assembled train=505 val=117 width=926 (6.2 GB, 3s); 10 fit(s) to run
+    seed 42 vintage 2: fit 173.1s best_epoch=3
+    seed 43 vintage 2: fit 177.0s best_epoch=4
+    seed 44 vintage 2: fit 176.7s best_epoch=4
+    seed 45 vintage 2: fit 167.6s best_epoch=1
+    seed 46 vintage 2: fit 170.2s best_epoch=2
+    seed 47 vintage 2: fit 169.5s best_epoch=2
+    seed 48 vintage 2: fit 179.8s best_epoch=5
+    seed 49 vintage 2: fit 176.9s best_epoch=4
+    seed 50 vintage 2: fit 170.2s best_epoch=2
+    seed 51 vintage 2: fit 189.0s best_epoch=8
+  vintage 2: scored 10 seed(s) in 121s
+    seed 42 v2: anthropic=0.9600  mt       =0.9693  mts      =0.9588  toolace  =0.8109  MEAN=0.9248
+    seed 43 v2: anthropic=0.9680  mt       =0.9744  mts      =0.9635  toolace  =0.8287  MEAN=0.9336
+    seed 44 v2: anthropic=0.9652  mt       =0.9701  mts      =0.9650  toolace  =0.8141  MEAN=0.9286
+    seed 45 v2: anthropic=0.9666  mt       =0.9775  mts      =0.9642  toolace  =0.8183  MEAN=0.9316
+    seed 46 v2: anthropic=0.9674  mt       =0.9700  mts      =0.9677  toolace  =0.8235  MEAN=0.9322
+    seed 47 v2: anthropic=0.9567  mt       =0.9609  mts      =0.9616  toolace  =0.7910  MEAN=0.9175
+    seed 48 v2: anthropic=0.9668  mt       =0.9807  mts      =0.9650  toolace  =0.8109  MEAN=0.9309
+    seed 49 v2: anthropic=0.9688  mt       =0.9676  mts      =0.9645  toolace  =0.8201  MEAN=0.9302
+    seed 50 v2: anthropic=0.9631  mt       =0.9652  mts      =0.9585  toolace  =0.8215  MEAN=0.9271
+    seed 51 v2: anthropic=0.9605  mt       =0.9650  mts      =0.9558  toolace  =0.8175  MEAN=0.9247
+
+
+=== eval AUROC by red-team vintage — mean +/- sd over seeds (pipeline) ===
+arm            vint  rows   n           anthropic                  mt                 mts             toolace               MEAN
+--------------------------------------------------------------------------------------------------------------------------------
+deepseekv4pro     0     0  10     0.9531+/-0.0044     0.8673+/-0.0495     0.9436+/-0.0094     0.7080+/-0.0252     0.8680+/-0.0121
+deepseekv4pro     1   294  10     0.9282+/-0.0142     0.9470+/-0.0079     0.8857+/-0.0144     0.7655+/-0.0141     0.8816+/-0.0063
+deepseekv4pro     2   542  10     0.9641+/-0.0025     0.9331+/-0.0067     0.9425+/-0.0160     0.8190+/-0.0075     0.9147+/-0.0054
+deepseekv4pro     3   716  10     0.9539+/-0.0028     0.9127+/-0.0097     0.9275+/-0.0179     0.7708+/-0.0093     0.8912+/-0.0064
+gptoss120b        0     0  10     0.9531+/-0.0044     0.8673+/-0.0495     0.9436+/-0.0094     0.7080+/-0.0252     0.8680+/-0.0121
+gptoss120b        1   228  10     0.9552+/-0.0067     0.9599+/-0.0117     0.9402+/-0.0066     0.7520+/-0.0213     0.9018+/-0.0084
+gptoss120b        2   422  10     0.9643+/-0.0040     0.9701+/-0.0060     0.9625+/-0.0037     0.8156+/-0.0103     0.9281+/-0.0048
+gptoss120b        3   562  10     0.9682+/-0.0019     0.9748+/-0.0058     0.9653+/-0.0039     0.8220+/-0.0093     0.9326+/-0.0032
+
+wrote /workspace/cc_based_auto_improvement/results_hs_gemma27b_batch_ablation/vintage/vintage_auroc.csv
+wrote /workspace/cc_based_auto_improvement/results_hs_gemma27b_batch_ablation/vintage/vintage_summary.csv

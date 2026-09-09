@@ -1,0 +1,67 @@
+nohup: ignoring input
+[failsafe 2026-08-01 12:06:01] stages:        2 (polled in order; hand-off when a stage's comparison CSV lands)
+[failsafe 2026-08-01 12:06:01]   [1] config=configs/gptoss120b_hs_gemma27b_noguidance.md
+[failsafe 2026-08-01 12:06:01]       probe-out-dir=probes/hs_gemma27b_gptoss120b_noguidance
+[failsafe 2026-08-01 12:06:01]       results=/workspace/cc_based_auto_improvement/results_hs_gemma27b_gptoss120b_noguidance
+[failsafe 2026-08-01 12:06:01]       log=logs/run_hs_gemma27b_gptoss120b_noguidance.log
+[failsafe 2026-08-01 12:06:01]       finish-signal=/workspace/cc_based_auto_improvement/results_hs_gemma27b_gptoss120b_noguidance/gptoss120b_comparison.csv
+[failsafe 2026-08-01 12:06:01]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hs_gemma27b_attacker_ablation/base_activations eval=/workspace/cc_based_auto_improvement/results_hs_gemma27b_attacker_ablation/eval_activations
+[failsafe 2026-08-01 12:06:01]   [2] config=configs/deepseekv4pro_hs_gemma27b_noguidance.md
+[failsafe 2026-08-01 12:06:01]       probe-out-dir=probes/hs_gemma27b_deepseekv4pro_noguidance
+[failsafe 2026-08-01 12:06:01]       results=/workspace/cc_based_auto_improvement/results_hs_gemma27b_deepseekv4pro_noguidance
+[failsafe 2026-08-01 12:06:01]       log=logs/run_hs_gemma27b_deepseekv4pro_noguidance.log
+[failsafe 2026-08-01 12:06:01]       finish-signal=/workspace/cc_based_auto_improvement/results_hs_gemma27b_deepseekv4pro_noguidance/deepseekv4pro_comparison.csv
+[failsafe 2026-08-01 12:06:01]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hs_gemma27b_attacker_ablation/base_activations eval=/workspace/cc_based_auto_improvement/results_hs_gemma27b_attacker_ablation/eval_activations
+[failsafe 2026-08-01 12:06:01] branch:        experiment8_cloud -> origin   (current branch; not switched)
+[failsafe 2026-08-01 12:06:01] stage 1 (configs/gptoss120b_hs_gemma27b_noguidance.md) already finished — skipping
+[failsafe 2026-08-01 12:06:01] committed: failsafe: startup snapshot @ 2026-08-01T12:06:01
+[failsafe 2026-08-01 12:06:02] pushed to origin/experiment8_cloud (c09609c)
+[failsafe 2026-08-01 12:06:02] polling stage 2/2 (probes/hs_gemma27b_deepseekv4pro_noguidance) every 30s (periodic snapshot every 900s)
+[failsafe 2026-08-01 12:15:33] finalizing: capturing latest state before exit
+[failsafe 2026-08-01 12:15:33] committed: failsafe: final snapshot @ 2026-08-01T12:15:33
+[failsafe 2026-08-01 12:15:34] pushed to origin/experiment8_cloud (dbebf3a)
+[failsafe 2026-08-01 12:15:34] done.
+-01 12:15:23] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T12:15:23
+[failsafe 2026-08-01 12:15:25] pushed to origin/experiment8_cloud (0cd926f)
+[failsafe 2026-08-01 12:30:30] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T12:30:29
+[failsafe 2026-08-01 12:30:34] pushed to origin/experiment8_cloud (0f23397)
+[failsafe 2026-08-01 12:45:38] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T12:45:38
+[failsafe 2026-08-01 12:45:39] pushed to origin/experiment8_cloud (a561240)
+[failsafe 2026-08-01 13:00:43] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T13:00:43
+[failsafe 2026-08-01 13:00:45] pushed to origin/experiment8_cloud (82d4459)
+[failsafe 2026-08-01 13:15:47] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T13:15:47
+[failsafe 2026-08-01 13:15:49] pushed to origin/experiment8_cloud (a9ab84f)
+[failsafe 2026-08-01 13:30:53] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T13:30:53
+[failsafe 2026-08-01 13:30:54] pushed to origin/experiment8_cloud (c2b64a3)
+[failsafe 2026-08-01 13:45:58] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T13:45:58
+[failsafe 2026-08-01 13:45:59] pushed to origin/experiment8_cloud (37c9ffc)
+[failsafe 2026-08-01 14:01:02] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T14:01:02
+[failsafe 2026-08-01 14:01:05] pushed to origin/experiment8_cloud (cd62713)
+[failsafe 2026-08-01 14:16:08] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T14:16:08
+[failsafe 2026-08-01 14:16:10] pushed to origin/experiment8_cloud (7e27232)
+[failsafe 2026-08-01 14:31:13] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T14:31:12
+[failsafe 2026-08-01 14:31:14] pushed to origin/experiment8_cloud (d82a9d0)
+[failsafe 2026-08-01 14:46:17] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T14:46:17
+[failsafe 2026-08-01 14:46:19] pushed to origin/experiment8_cloud (19461cd)
+[failsafe 2026-08-01 15:01:22] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T15:01:22
+[failsafe 2026-08-01 15:01:24] pushed to origin/experiment8_cloud (5cdae18)
+[failsafe 2026-08-01 15:16:27] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T15:16:27
+[failsafe 2026-08-01 15:16:29] pushed to origin/experiment8_cloud (1c53fbc)
+[failsafe 2026-08-01 15:31:32] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T15:31:32
+[failsafe 2026-08-01 15:31:34] pushed to origin/experiment8_cloud (5cd321c)
+[failsafe 2026-08-01 15:46:37] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T15:46:37
+[failsafe 2026-08-01 15:46:39] pushed to origin/experiment8_cloud (c425b35)
+[failsafe 2026-08-01 16:01:43] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T16:01:43
+[failsafe 2026-08-01 16:01:45] pushed to origin/experiment8_cloud (53b4cef)
+[failsafe 2026-08-01 16:16:48] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T16:16:48
+[failsafe 2026-08-01 16:16:50] pushed to origin/experiment8_cloud (9273099)
+[failsafe 2026-08-01 16:31:53] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T16:31:53
+[failsafe 2026-08-01 16:31:55] pushed to origin/experiment8_cloud (b89602f)
+[failsafe 2026-08-01 16:46:59] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T16:46:59
+[failsafe 2026-08-01 16:47:00] pushed to origin/experiment8_cloud (88ea6fa)
+[failsafe 2026-08-01 17:02:04] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T17:02:04
+[failsafe 2026-08-01 17:02:06] pushed to origin/experiment8_cloud (0ab17bc)
+[failsafe 2026-08-01 17:17:09] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T17:17:09
+[failsafe 2026-08-01 17:17:11] pushed to origin/experiment8_cloud (b363df5)
+[failsafe 2026-08-01 17:32:14] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-01T17:32:14
+[failsafe 2026-08-01 17:32:16] pushed to origin/experiment8_cloud (02bb233)

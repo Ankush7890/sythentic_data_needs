@@ -1,0 +1,90 @@
+nohup: ignoring input
+[failsafe 2026-08-11 14:45:39] stages:        2 (polled in order; hand-off when a stage's comparison CSV lands)
+[failsafe 2026-08-11 14:45:39]   [1] config=configs/gptoss120b_hs_gemma27b_batch_itermemo.md
+[failsafe 2026-08-11 14:45:39]       probe-out-dir=probes/hs_gemma27b_gptoss_batch_itermemo
+[failsafe 2026-08-11 14:45:39]       results=/workspace/cc_based_auto_improvement/results_hs_gemma27b_gptoss_batch_itermemo
+[failsafe 2026-08-11 14:45:39]       log=logs/run_hs_gemma27b_gptoss_batch_itermemo.log
+[failsafe 2026-08-11 14:45:39]       finish-signal=/workspace/cc_based_auto_improvement/results_hs_gemma27b_gptoss_batch_itermemo/gptoss120b_comparison.csv
+[failsafe 2026-08-11 14:45:39]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hs_gemma27b_itermemo_shared/base_activations eval=/workspace/cc_based_auto_improvement/results_hs_gemma27b_itermemo_shared/eval_activations
+[failsafe 2026-08-11 14:45:39]   [2] config=configs/gptoss120b_hs_gemma27b_batch_guidance.md
+[failsafe 2026-08-11 14:45:39]       probe-out-dir=probes/hs_gemma27b_gptoss_batch_guidance
+[failsafe 2026-08-11 14:45:39]       results=/workspace/cc_based_auto_improvement/results_hs_gemma27b_gptoss_batch_guidance
+[failsafe 2026-08-11 14:45:39]       log=logs/run_hs_gemma27b_gptoss_batch_guidance.log
+[failsafe 2026-08-11 14:45:39]       finish-signal=/workspace/cc_based_auto_improvement/results_hs_gemma27b_gptoss_batch_guidance/gptoss120b_comparison.csv
+[failsafe 2026-08-11 14:45:39]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hs_gemma27b_itermemo_shared/base_activations eval=/workspace/cc_based_auto_improvement/results_hs_gemma27b_itermemo_shared/eval_activations
+[failsafe 2026-08-11 14:45:39] branch:        experiment13_cloud -> origin   (current branch; not switched)
+[failsafe 2026-08-11 14:45:39] on completion: push final checkpoint, wait 120s, then `bash /workspace/cc_based_auto_improvement/close_this.sh`
+[failsafe 2026-08-11 14:45:39] WARN: /workspace/cc_based_auto_improvement/close_this.sh does not exist YET — the box will NOT be closed unless it
+[failsafe 2026-08-11 14:45:39]       appears before the last stage finishes. Pass --no-close to silence this.
+[failsafe 2026-08-11 14:45:39] committed: failsafe: startup snapshot @ 2026-08-11T14:45:39
+[failsafe 2026-08-11 14:45:41] pushed to origin/experiment13_cloud (3071d29)
+[failsafe 2026-08-11 14:45:41] polling stage 1/2 (probes/hs_gemma27b_gptoss_batch_itermemo) every 30s (periodic snapshot every 900s)
+[failsafe 2026-08-11 14:46:11] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-11T14:46:11
+[failsafe 2026-08-11 14:46:13] pushed to origin/experiment13_cloud (beed6ad)
+[failsafe 2026-08-11 15:01:14] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-11T15:01:14
+[failsafe 2026-08-11 15:01:15] pushed to origin/experiment13_cloud (9adb0ed)
+[failsafe 2026-08-11 15:16:16] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-11T15:16:16
+[failsafe 2026-08-11 15:16:18] pushed to origin/experiment13_cloud (9c1b945)
+[failsafe 2026-08-11 15:31:19] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-11T15:31:19
+[failsafe 2026-08-11 15:31:21] pushed to origin/experiment13_cloud (a3873e5)
+[failsafe 2026-08-11 15:46:22] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-11T15:46:22
+[failsafe 2026-08-11 15:46:24] pushed to origin/experiment13_cloud (c6e65e8)
+[failsafe 2026-08-11 16:01:25] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-11T16:01:25
+[failsafe 2026-08-11 16:01:27] pushed to origin/experiment13_cloud (a026c82)
+[failsafe 2026-08-11 16:13:28] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-11T16:13:28
+[failsafe 2026-08-11 16:13:29] pushed to origin/experiment13_cloud (07326a8)
+[failsafe 2026-08-11 16:28:30] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-11T16:28:30
+[failsafe 2026-08-11 16:28:32] pushed to origin/experiment13_cloud (1d51669)
+[failsafe 2026-08-11 16:43:33] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-11T16:43:33
+[failsafe 2026-08-11 16:43:35] pushed to origin/experiment13_cloud (55651cc)
+[failsafe 2026-08-11 16:51:05] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-11T16:51:05
+[failsafe 2026-08-11 16:51:07] pushed to origin/experiment13_cloud (8fe5caf)
+[failsafe 2026-08-11 17:05:08] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-11T17:05:08
+[failsafe 2026-08-11 17:05:10] pushed to origin/experiment13_cloud (be6c480)
+[failsafe 2026-08-11 17:17:11] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-11T17:17:11
+[failsafe 2026-08-11 17:17:13] pushed to origin/experiment13_cloud (2338577)
+[failsafe 2026-08-11 17:27:43] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-11T17:27:43
+[failsafe 2026-08-11 17:27:45] pushed to origin/experiment13_cloud (745dc1f)
+[failsafe 2026-08-11 17:34:46] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-11T17:34:46
+[failsafe 2026-08-11 17:34:48] pushed to origin/experiment13_cloud (73fccf2)
+[failsafe 2026-08-11 17:45:48] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-11T17:45:48
+[failsafe 2026-08-11 17:45:50] pushed to origin/experiment13_cloud (52ddfbb)
+[failsafe 2026-08-11 17:56:51] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-11T17:56:51
+[failsafe 2026-08-11 17:56:53] pushed to origin/experiment13_cloud (7fd18e6)
+[failsafe 2026-08-11 18:02:54] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-11T18:02:54
+[failsafe 2026-08-11 18:02:56] pushed to origin/experiment13_cloud (2ca18c2)
+[failsafe 2026-08-11 18:03:26] committed: failsafe: stage 1/2 finished (configs/gptoss120b_hs_gemma27b_batch_itermemo.md) @ 2026-08-11T18:03:26
+[failsafe 2026-08-11 18:03:28] pushed to origin/experiment13_cloud (2a064e9)
+[failsafe 2026-08-11 18:03:28] handing over to stage 2/2: configs/gptoss120b_hs_gemma27b_batch_guidance.md (probes/hs_gemma27b_gptoss_batch_guidance)
+[failsafe 2026-08-11 18:03:58] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-11T18:03:58
+[failsafe 2026-08-11 18:04:00] pushed to origin/experiment13_cloud (8a6f592)
+[failsafe 2026-08-11 18:18:30] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-11T18:18:30
+[failsafe 2026-08-11 18:18:32] pushed to origin/experiment13_cloud (892036b)
+[failsafe 2026-08-11 18:29:03] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-11T18:29:03
+[failsafe 2026-08-11 18:29:05] pushed to origin/experiment13_cloud (a76ad04)
+[failsafe 2026-08-11 18:43:35] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-11T18:43:35
+[failsafe 2026-08-11 18:43:38] pushed to origin/experiment13_cloud (b9897e1)
+[failsafe 2026-08-11 18:58:39] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-11T18:58:39
+[failsafe 2026-08-11 18:58:41] pushed to origin/experiment13_cloud (76cd579)
+[failsafe 2026-08-11 19:02:41] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-11T19:02:41
+[failsafe 2026-08-11 19:02:43] pushed to origin/experiment13_cloud (6ea7b6f)
+[failsafe 2026-08-11 19:17:44] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-11T19:17:44
+[failsafe 2026-08-11 19:17:46] pushed to origin/experiment13_cloud (17dd3d2)
+[failsafe 2026-08-11 19:24:46] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-11T19:24:46
+[failsafe 2026-08-11 19:24:48] pushed to origin/experiment13_cloud (a0c85dc)
+[failsafe 2026-08-11 19:34:49] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-11T19:34:49
+[failsafe 2026-08-11 19:34:51] pushed to origin/experiment13_cloud (d4ff733)
+[failsafe 2026-08-11 19:49:52] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-11T19:49:52
+[failsafe 2026-08-11 19:49:54] pushed to origin/experiment13_cloud (e27486a)
+[failsafe 2026-08-11 19:54:54] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-11T19:54:54
+[failsafe 2026-08-11 19:54:56] pushed to origin/experiment13_cloud (76d07b6)
+[failsafe 2026-08-11 20:09:57] committed: failsafe: periodic snapshot (stage 2) @ 2026-08-11T20:09:57
+[failsafe 2026-08-11 20:09:59] pushed to origin/experiment13_cloud (efe9fb0)
+[failsafe 2026-08-11 20:13:29] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-11T20:13:29
+[failsafe 2026-08-11 20:13:31] pushed to origin/experiment13_cloud (44bf2f7)
+[failsafe 2026-08-11 20:25:32] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-08-11T20:25:32
+[failsafe 2026-08-11 20:25:35] pushed to origin/experiment13_cloud (d85102c)
+[failsafe 2026-08-11 20:26:05] committed: failsafe: stage 2/2 finished (configs/gptoss120b_hs_gemma27b_batch_guidance.md) @ 2026-08-11T20:26:05
+[failsafe 2026-08-11 20:26:07] pushed to origin/experiment13_cloud (24f980f)
+[failsafe 2026-08-11 20:26:07] last stage finished — final commit, then shutdown
+[failsafe 2026-08-11 20:26:07] finalizing: capturing latest state before exit

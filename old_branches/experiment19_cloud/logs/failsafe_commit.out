@@ -1,0 +1,37 @@
+./failsafe_commit.sh: /root/.bash_env: Permission denied
+[failsafe 2026-08-19 14:54:49] stages:        1 (polled in order; hand-off when a stage's comparison CSV lands)
+[failsafe 2026-08-19 14:54:49]   [1] config=configs/gptoss120b_hs_gemma27b_ens3.md
+[failsafe 2026-08-19 14:54:49]       probe-out-dir=probes/hs_gemma27b_gptoss120b_ens3
+[failsafe 2026-08-19 14:54:49]       results=/workspace/cc_based_auto_improvement/results_hs_gemma27b_gptoss120b_ens3
+[failsafe 2026-08-19 14:54:49]       log=logs/run_hs_gemma27b_gptoss120b_ens3.log
+[failsafe 2026-08-19 14:54:49]       finish-signal=/workspace/cc_based_auto_improvement/results_hs_gemma27b_gptoss120b_ens3/gptoss120b_comparison.csv
+[failsafe 2026-08-19 14:54:49]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hs_gemma27b_devval/base_activations eval=/workspace/cc_based_auto_improvement/results_hs_gemma27b_devval/eval_activations
+[failsafe 2026-08-19 14:54:49] branch:        experiment19_cloud -> origin   (current branch; not switched)
+[failsafe 2026-08-19 14:54:50] committed: failsafe: startup snapshot @ 2026-08-19T14:54:50
+[failsafe 2026-08-19 14:54:53] pushed to origin/experiment19_cloud (aa27ef0)
+[failsafe 2026-08-19 14:54:53] polling stage 1/1 (probes/hs_gemma27b_gptoss120b_ens3) every 30s (periodic snapshot every 900s)
+[failsafe 2026-08-19 15:09:54] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T15:09:54
+[failsafe 2026-08-19 15:09:56] pushed to origin/experiment19_cloud (dd75a4a)
+[failsafe 2026-08-19 15:24:57] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T15:24:57
+[failsafe 2026-08-19 15:24:59] pushed to origin/experiment19_cloud (5e6cac1)
+[failsafe 2026-08-19 15:28:30] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-19T15:28:30
+[failsafe 2026-08-19 15:28:32] pushed to origin/experiment19_cloud (a88848f)
+[failsafe 2026-08-19 15:40:02] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-19T15:40:02
+[failsafe 2026-08-19 15:40:05] pushed to origin/experiment19_cloud (8f65ea1)
+[failsafe 2026-08-19 15:47:35] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-19T15:47:35
+[failsafe 2026-08-19 15:47:37] pushed to origin/experiment19_cloud (16cfa1b)
+[failsafe 2026-08-19 16:02:39] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T16:02:39
+[failsafe 2026-08-19 16:02:42] pushed to origin/experiment19_cloud (2145099)
+[failsafe 2026-08-19 16:17:44] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T16:17:44
+[failsafe 2026-08-19 16:17:47] pushed to origin/experiment19_cloud (02357d3)
+[failsafe 2026-08-19 16:32:49] committed: failsafe: periodic snapshot (stage 1) @ 2026-08-19T16:32:49
+[failsafe 2026-08-19 16:32:52] pushed to origin/experiment19_cloud (e8e6e49)
+[failsafe 2026-08-19 16:46:23] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-08-19T16:46:23
+[failsafe 2026-08-19 16:46:26] pushed to origin/experiment19_cloud (9735f01)
+[failsafe 2026-08-19 16:48:56] committed: failsafe: stage 1/1 finished (configs/gptoss120b_hs_gemma27b_ens3.md) @ 2026-08-19T16:48:56
+[failsafe 2026-08-19 16:48:58] pushed to origin/experiment19_cloud (bd5b809)
+[failsafe 2026-08-19 16:48:58] last stage finished — exiting after final commit
+[failsafe 2026-08-19 16:48:58] finalizing: capturing latest state before exit
+[failsafe 2026-08-19 16:48:59] committed: failsafe: final snapshot @ 2026-08-19T16:48:59
+[failsafe 2026-08-19 16:49:00] pushed to origin/experiment19_cloud (69fc19f)
+[failsafe 2026-08-19 16:49:00] done.

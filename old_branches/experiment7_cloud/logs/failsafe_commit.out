@@ -1,0 +1,105 @@
+nohup: ignoring input
+[failsafe 2026-07-29 11:22:30] stages:        2 (polled in order; hand-off when a stage's comparison CSV lands)
+[failsafe 2026-07-29 11:22:30]   [1] config=configs/gptoss120b_hs_llama1b_noguidance.md
+[failsafe 2026-07-29 11:22:30]       probe-out-dir=probes/hs_llama1b_gptoss120b_noguidance
+[failsafe 2026-07-29 11:22:30]       results=/workspace/cc_based_auto_improvement/results_hs_llama1b_gptoss120b_noguidance
+[failsafe 2026-07-29 11:22:30]       log=logs/run_hs_llama1b_gptoss120b_noguidance.log
+[failsafe 2026-07-29 11:22:30]       finish-signal=/workspace/cc_based_auto_improvement/results_hs_llama1b_gptoss120b_noguidance/gptoss120b_comparison.csv
+[failsafe 2026-07-29 11:22:30]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hs_llama1b_gptoss120b_guidance_ablation/base_activations eval=/workspace/cc_based_auto_improvement/results_hs_llama1b_gptoss120b_guidance_ablation/eval_activations
+[failsafe 2026-07-29 11:22:30]   [2] config=configs/gptoss120b_hs_llama1b_guidance.md
+[failsafe 2026-07-29 11:22:30]       probe-out-dir=probes/hs_llama1b_gptoss120b_guidance
+[failsafe 2026-07-29 11:22:30]       results=/workspace/cc_based_auto_improvement/results_hs_llama1b_gptoss120b_guidance
+[failsafe 2026-07-29 11:22:30]       log=logs/run_hs_llama1b_gptoss120b_guidance.log
+[failsafe 2026-07-29 11:22:30]       finish-signal=/workspace/cc_based_auto_improvement/results_hs_llama1b_gptoss120b_guidance/gptoss120b_comparison.csv
+[failsafe 2026-07-29 11:22:30]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hs_llama1b_gptoss120b_guidance_ablation/base_activations eval=/workspace/cc_based_auto_improvement/results_hs_llama1b_gptoss120b_guidance_ablation/eval_activations
+[failsafe 2026-07-29 11:22:30] branch:        experiment7_cloud -> origin   (current branch; not switched)
+[failsafe 2026-07-29 11:22:30] committed: failsafe: startup snapshot @ 2026-07-29T11:22:30
+[failsafe 2026-07-29 11:22:32] pushed to origin/experiment7_cloud (590d0b1)
+[failsafe 2026-07-29 11:22:32] polling stage 1/2 (probes/hs_llama1b_gptoss120b_noguidance) every 30s (periodic snapshot every 900s)
+[failsafe 2026-07-29 11:33:02] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-29T11:33:02
+[failsafe 2026-07-29 11:33:04] pushed to origin/experiment7_cloud (41ece93)
+[failsafe 2026-07-29 11:48:04] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-29T11:48:04
+[failsafe 2026-07-29 11:48:06] pushed to origin/experiment7_cloud (d3c588a)
+[failsafe 2026-07-29 12:03:06] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-29T12:03:06
+[failsafe 2026-07-29 12:03:08] pushed to origin/experiment7_cloud (20c6430)
+[failsafe 2026-07-29 12:18:08] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-29T12:18:08
+[failsafe 2026-07-29 12:18:10] pushed to origin/experiment7_cloud (e2ec178)
+[failsafe 2026-07-29 12:33:10] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-29T12:33:10
+[failsafe 2026-07-29 12:33:12] pushed to origin/experiment7_cloud (a37291f)
+[failsafe 2026-07-29 12:48:12] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-29T12:48:12
+[failsafe 2026-07-29 12:48:14] pushed to origin/experiment7_cloud (5db8581)
+[failsafe 2026-07-29 12:50:44] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-29T12:50:44
+[failsafe 2026-07-29 12:50:46] pushed to origin/experiment7_cloud (e7c30ee)
+[failsafe 2026-07-29 13:05:46] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-29T13:05:46
+[failsafe 2026-07-29 13:05:48] pushed to origin/experiment7_cloud (4a41574)
+[failsafe 2026-07-29 13:12:18] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-29T13:12:18
+[failsafe 2026-07-29 13:12:20] pushed to origin/experiment7_cloud (361741b)
+[failsafe 2026-07-29 13:27:20] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-29T13:27:20
+[failsafe 2026-07-29 13:27:22] pushed to origin/experiment7_cloud (070e846)
+[failsafe 2026-07-29 13:42:23] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-29T13:42:23
+[failsafe 2026-07-29 13:42:25] pushed to origin/experiment7_cloud (5f658de)
+[failsafe 2026-07-29 13:57:25] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-29T13:57:25
+[failsafe 2026-07-29 13:57:27] pushed to origin/experiment7_cloud (982408e)
+[failsafe 2026-07-29 14:12:27] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-29T14:12:27
+[failsafe 2026-07-29 14:12:29] pushed to origin/experiment7_cloud (8b00946)
+[failsafe 2026-07-29 14:26:30] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-29T14:26:30
+[failsafe 2026-07-29 14:26:32] pushed to origin/experiment7_cloud (8f1d6ec)
+[failsafe 2026-07-29 14:30:32] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-29T14:30:32
+[failsafe 2026-07-29 14:30:34] pushed to origin/experiment7_cloud (df58e1d)
+[failsafe 2026-07-29 14:45:34] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-29T14:45:34
+[failsafe 2026-07-29 14:45:36] pushed to origin/experiment7_cloud (936f27c)
+[failsafe 2026-07-29 14:54:06] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-29T14:54:06
+[failsafe 2026-07-29 14:54:08] pushed to origin/experiment7_cloud (c3f50c0)
+[failsafe 2026-07-29 15:09:09] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-29T15:09:09
+[failsafe 2026-07-29 15:09:11] pushed to origin/experiment7_cloud (8441223)
+[failsafe 2026-07-29 15:24:12] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-29T15:24:12
+[failsafe 2026-07-29 15:24:14] pushed to origin/experiment7_cloud (25fa6d4)
+[failsafe 2026-07-29 15:39:14] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-29T15:39:14
+[failsafe 2026-07-29 15:39:17] pushed to origin/experiment7_cloud (1dd33fa)
+[failsafe 2026-07-29 15:43:47] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-29T15:43:47
+[failsafe 2026-07-29 15:43:49] pushed to origin/experiment7_cloud (49af098)
+[failsafe 2026-07-29 15:44:19] committed: failsafe: stage 1/2 finished (configs/gptoss120b_hs_llama1b_noguidance.md) @ 2026-07-29T15:44:19
+[failsafe 2026-07-29 15:44:21] pushed to origin/experiment7_cloud (50888d0)
+[failsafe 2026-07-29 15:44:21] handing over to stage 2/2: configs/gptoss120b_hs_llama1b_guidance.md (probes/hs_llama1b_gptoss120b_guidance)
+[failsafe 2026-07-29 15:54:51] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-29T15:54:51
+[failsafe 2026-07-29 15:54:53] pushed to origin/experiment7_cloud (8c1f920)
+[failsafe 2026-07-29 16:09:53] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-29T16:09:53
+[failsafe 2026-07-29 16:09:55] pushed to origin/experiment7_cloud (5cae9e0)
+[failsafe 2026-07-29 16:24:55] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-29T16:24:55
+[failsafe 2026-07-29 16:24:57] pushed to origin/experiment7_cloud (41dbeb7)
+[failsafe 2026-07-29 16:27:27] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-29T16:27:27
+[failsafe 2026-07-29 16:27:29] pushed to origin/experiment7_cloud (f31f7b0)
+[failsafe 2026-07-29 16:28:59] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-29T16:28:59
+[failsafe 2026-07-29 16:29:01] pushed to origin/experiment7_cloud (ac1d26b)
+[failsafe 2026-07-29 16:44:01] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-29T16:44:01
+[failsafe 2026-07-29 16:44:03] pushed to origin/experiment7_cloud (f5ce09d)
+[failsafe 2026-07-29 16:57:04] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-29T16:57:04
+[failsafe 2026-07-29 16:57:05] pushed to origin/experiment7_cloud (d6dfe5e)
+[failsafe 2026-07-29 17:12:06] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-29T17:12:06
+[failsafe 2026-07-29 17:12:08] pushed to origin/experiment7_cloud (18d0361)
+[failsafe 2026-07-29 17:27:08] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-29T17:27:08
+[failsafe 2026-07-29 17:27:10] pushed to origin/experiment7_cloud (afc2b40)
+[failsafe 2026-07-29 17:36:10] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-29T17:36:10
+[failsafe 2026-07-29 17:36:13] pushed to origin/experiment7_cloud (b60e519)
+[failsafe 2026-07-29 17:39:13] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-29T17:39:13
+[failsafe 2026-07-29 17:39:15] pushed to origin/experiment7_cloud (8678177)
+[failsafe 2026-07-29 17:54:15] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-29T17:54:15
+[failsafe 2026-07-29 17:54:17] pushed to origin/experiment7_cloud (5fe66ca)
+[failsafe 2026-07-29 18:09:17] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-29T18:09:17
+[failsafe 2026-07-29 18:09:19] pushed to origin/experiment7_cloud (58a7e87)
+[failsafe 2026-07-29 18:22:19] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-29T18:22:19
+[failsafe 2026-07-29 18:22:21] pushed to origin/experiment7_cloud (3aab617)
+[failsafe 2026-07-29 18:37:22] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-29T18:37:22
+[failsafe 2026-07-29 18:37:24] pushed to origin/experiment7_cloud (704919c)
+[failsafe 2026-07-29 18:52:24] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-29T18:52:24
+[failsafe 2026-07-29 18:52:26] pushed to origin/experiment7_cloud (9068477)
+[failsafe 2026-07-29 19:07:27] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-29T19:07:27
+[failsafe 2026-07-29 19:07:29] pushed to origin/experiment7_cloud (4c84c76)
+[failsafe 2026-07-29 19:10:00] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-29T19:10:00
+[failsafe 2026-07-29 19:10:02] pushed to origin/experiment7_cloud (9f827f2)
+[failsafe 2026-07-29 19:13:32] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-29T19:13:32
+[failsafe 2026-07-29 19:13:33] pushed to origin/experiment7_cloud (c4295ec)
+[failsafe 2026-07-29 19:13:33] committed: failsafe: stage 2/2 finished (configs/gptoss120b_hs_llama1b_guidance.md) @ 2026-07-29T19:13:33
+[failsafe 2026-07-29 19:13:35] pushed to origin/experiment7_cloud (5ec6af2)
+[failsafe 2026-07-29 19:13:35] last stage finished — exiting after final commit
+[failsafe 2026-07-29 19:13:35] finalizing: capturing latest state before exit

@@ -1,0 +1,85 @@
+nohup: ignoring input
+[failsafe 2026-07-28 16:40:56] stages:        2 (polled in order; hand-off when a stage's comparison CSV lands)
+[failsafe 2026-07-28 16:40:56]   [1] config=configs/deepseekv4pro_hs_llama1b_noguidance.md
+[failsafe 2026-07-28 16:40:56]       probe-out-dir=probes/hs_llama1b_deepseekv4pro_noguidance
+[failsafe 2026-07-28 16:40:56]       results=/workspace/cc_based_auto_improvement/results_hs_llama1b_deepseekv4pro_noguidance
+[failsafe 2026-07-28 16:40:56]       log=logs/run_hs_llama1b_deepseekv4pro_noguidance.log
+[failsafe 2026-07-28 16:40:56]       finish-signal=/workspace/cc_based_auto_improvement/results_hs_llama1b_deepseekv4pro_noguidance/deepseekv4pro_comparison.csv
+[failsafe 2026-07-28 16:40:56]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hs_llama1b_deepseekv4pro/base_activations eval=/workspace/cc_based_auto_improvement/results_hs_llama1b_deepseekv4pro/eval_activations
+[failsafe 2026-07-28 16:40:56]   [2] config=configs/deepseekv4pro_hs_llama1b_guidance.md
+[failsafe 2026-07-28 16:40:56]       probe-out-dir=probes/hs_llama1b_deepseekv4pro_guidance
+[failsafe 2026-07-28 16:40:57]       results=/workspace/cc_based_auto_improvement/results_hs_llama1b_deepseekv4pro_guidance
+[failsafe 2026-07-28 16:40:57]       log=logs/run_hs_llama1b_deepseekv4pro_guidance.log
+[failsafe 2026-07-28 16:40:57]       finish-signal=/workspace/cc_based_auto_improvement/results_hs_llama1b_deepseekv4pro_guidance/deepseekv4pro_comparison.csv
+[failsafe 2026-07-28 16:40:57]       NOT committed: activation caches (*.pt) — base=/workspace/cc_based_auto_improvement/results_hs_llama1b_deepseekv4pro/base_activations eval=/workspace/cc_based_auto_improvement/results_hs_llama1b_deepseekv4pro/eval_activations
+[failsafe 2026-07-28 16:40:57] branch:        experiment6_cloud -> origin   (current branch; not switched)
+[failsafe 2026-07-28 16:40:57] committed: failsafe: startup snapshot @ 2026-07-28T16:40:57
+[failsafe 2026-07-28 16:41:01] pushed to origin/experiment6_cloud (b696272)
+[failsafe 2026-07-28 16:41:01] polling stage 1/2 (probes/hs_llama1b_deepseekv4pro_noguidance) every 30s (periodic snapshot every 900s)
+[failsafe 2026-07-28 16:45:31] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-28T16:45:31
+[failsafe 2026-07-28 16:45:33] pushed to origin/experiment6_cloud (432b67c)
+[failsafe 2026-07-28 16:59:33] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-28T16:59:33
+[failsafe 2026-07-28 16:59:34] pushed to origin/experiment6_cloud (eb5e3c6)
+[failsafe 2026-07-28 17:14:35] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-28T17:14:35
+[failsafe 2026-07-28 17:14:36] pushed to origin/experiment6_cloud (5dc66f9)
+[failsafe 2026-07-28 17:28:07] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-28T17:28:07
+[failsafe 2026-07-28 17:28:08] pushed to origin/experiment6_cloud (392f4d8)
+[failsafe 2026-07-28 17:29:38] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-28T17:29:38
+[failsafe 2026-07-28 17:29:40] pushed to origin/experiment6_cloud (f4239bb)
+[failsafe 2026-07-28 17:44:40] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-28T17:44:40
+[failsafe 2026-07-28 17:44:42] pushed to origin/experiment6_cloud (b7ca3a6)
+[failsafe 2026-07-28 17:49:13] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-28T17:49:13
+[failsafe 2026-07-28 17:49:14] pushed to origin/experiment6_cloud (5b7624f)
+[failsafe 2026-07-28 18:03:14] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-28T18:03:14
+[failsafe 2026-07-28 18:03:16] pushed to origin/experiment6_cloud (8439c09)
+[failsafe 2026-07-28 18:05:46] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-28T18:05:46
+[failsafe 2026-07-28 18:05:48] pushed to origin/experiment6_cloud (802781a)
+[failsafe 2026-07-28 18:20:48] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-28T18:20:48
+[failsafe 2026-07-28 18:20:51] pushed to origin/experiment6_cloud (a87db7c)
+[failsafe 2026-07-28 18:35:51] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-28T18:35:51
+[failsafe 2026-07-28 18:35:53] pushed to origin/experiment6_cloud (4fd5961)
+[failsafe 2026-07-28 18:50:24] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-28T18:50:24
+[failsafe 2026-07-28 18:50:26] pushed to origin/experiment6_cloud (ac50f56)
+[failsafe 2026-07-28 19:05:26] committed: failsafe: periodic snapshot (stage 1) @ 2026-07-28T19:05:26
+[failsafe 2026-07-28 19:05:28] pushed to origin/experiment6_cloud (7a28150)
+[failsafe 2026-07-28 19:11:28] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-28T19:11:28
+[failsafe 2026-07-28 19:11:30] pushed to origin/experiment6_cloud (b2b7322)
+[failsafe 2026-07-28 19:16:31] committed: failsafe: checkpoint (new marker/probe, stage 1) @ 2026-07-28T19:16:31
+[failsafe 2026-07-28 19:16:33] pushed to origin/experiment6_cloud (8581900)
+[failsafe 2026-07-28 19:17:03] committed: failsafe: stage 1/2 finished (configs/deepseekv4pro_hs_llama1b_noguidance.md) @ 2026-07-28T19:17:03
+[failsafe 2026-07-28 19:17:04] pushed to origin/experiment6_cloud (4f325ac)
+[failsafe 2026-07-28 19:17:04] handing over to stage 2/2: configs/deepseekv4pro_hs_llama1b_guidance.md (probes/hs_llama1b_deepseekv4pro_guidance)
+[failsafe 2026-07-28 19:29:35] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-28T19:29:35
+[failsafe 2026-07-28 19:29:36] pushed to origin/experiment6_cloud (8b5aa7e)
+[failsafe 2026-07-28 19:44:36] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-28T19:44:36
+[failsafe 2026-07-28 19:44:38] pushed to origin/experiment6_cloud (017f0bb)
+[failsafe 2026-07-28 19:59:38] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-28T19:59:38
+[failsafe 2026-07-28 19:59:40] pushed to origin/experiment6_cloud (da5f659)
+[failsafe 2026-07-28 20:06:10] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-28T20:06:10
+[failsafe 2026-07-28 20:06:11] pushed to origin/experiment6_cloud (9b8c189)
+[failsafe 2026-07-28 20:07:41] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-28T20:07:41
+[failsafe 2026-07-28 20:08:08] pushed to origin/experiment6_cloud (4346e54)
+[failsafe 2026-07-28 20:23:08] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-28T20:23:08
+[failsafe 2026-07-28 20:23:09] pushed to origin/experiment6_cloud (4ced09a)
+[failsafe 2026-07-28 20:27:40] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-28T20:27:40
+[failsafe 2026-07-28 20:27:41] pushed to origin/experiment6_cloud (fe76129)
+[failsafe 2026-07-28 20:42:41] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-28T20:42:41
+[failsafe 2026-07-28 20:42:43] pushed to origin/experiment6_cloud (e02200e)
+[failsafe 2026-07-28 20:44:43] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-28T20:44:43
+[failsafe 2026-07-28 20:44:45] pushed to origin/experiment6_cloud (7f8709f)
+[failsafe 2026-07-28 20:47:15] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-28T20:47:15
+[failsafe 2026-07-28 20:47:17] pushed to origin/experiment6_cloud (911e67a)
+[failsafe 2026-07-28 21:02:17] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-28T21:02:17
+[failsafe 2026-07-28 21:02:19] pushed to origin/experiment6_cloud (c013123)
+[failsafe 2026-07-28 21:09:49] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-28T21:09:49
+[failsafe 2026-07-28 21:09:51] pushed to origin/experiment6_cloud (34b3f4b)
+[failsafe 2026-07-28 21:24:51] committed: failsafe: periodic snapshot (stage 2) @ 2026-07-28T21:24:51
+[failsafe 2026-07-28 21:24:53] pushed to origin/experiment6_cloud (d0acd20)
+[failsafe 2026-07-28 21:29:53] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-28T21:29:53
+[failsafe 2026-07-28 21:29:55] pushed to origin/experiment6_cloud (f03d719)
+[failsafe 2026-07-28 21:33:26] committed: failsafe: checkpoint (new marker/probe, stage 2) @ 2026-07-28T21:33:26
+[failsafe 2026-07-28 21:33:30] pushed to origin/experiment6_cloud (eeb6935)
+[failsafe 2026-07-28 21:34:00] committed: failsafe: stage 2/2 finished (configs/deepseekv4pro_hs_llama1b_guidance.md) @ 2026-07-28T21:34:00
+[failsafe 2026-07-28 21:34:02] pushed to origin/experiment6_cloud (971987f)
+[failsafe 2026-07-28 21:34:02] last stage finished — exiting after final commit
+[failsafe 2026-07-28 21:34:02] finalizing: capturing latest state before exit
