@@ -14,10 +14,10 @@ while true; do
     warm=$(pgrep -fc "[w]arm_set_activations.py"); warm=${warm:-0}
     fit=$(pgrep -fc "[s]ubsample_curve_concept.py"); fit=${fit:-0}
     gpu=$(nvidia-smi --query-gpu=memory.used --format=csv,noheader 2>/dev/null | tr -d '\n')
-    newest=$(ls -t logs/*tgt*.log logs/sizecurve_*.log logs/hs_tiny_*.log 2>/dev/null | head -1)
+    newest=$(ls -t logs/*tgt*.log logs/sizecurve_*.log logs/hs_tiny_*.log logs/nobase_*.log 2>/dev/null | head -1)
     age=$(( $(date +%s) - $(stat -c %Y "$newest" 2>/dev/null || date +%s) ))
     flag=ok
     [ "$gen" = 0 ] && [ "$warm" = 0 ] && [ "$fit" = 0 ] && flag=IDLE
     [ "$age" -gt 2400 ] && flag="STALLED(${age}s)"
-    echo "[$(date -Is)] $flag — sets ${sets}/20, fits ${fits}/644 | gen=$gen warm=$warm fit=$fit | GPU $gpu"
+    echo "[$(date -Is)] $flag — sets ${sets}/20, fits ${fits}/992 | gen=$gen warm=$warm fit=$fit | GPU $gpu"
 done
