@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# SIZE CURVE on the split-targeted NO-SHOT sets: 8 draws at 300/120/60/30 rows (50/20/10/5%
-# of 600) for all ten splits. 320 fits.
+# SIZE CURVE on the split-targeted NO-SHOT sets: 8 draws per size for all ten splits.
+# Default sizes 300/120/60/30 (50/20/10/5% of 600); override with SIZES=, as the 2.5%
+# point (n=15) was.
 #
 # No extraction: every row of these sets is already in the per-conversation activation cache
 # from the full-size arms, and the cache is keyed on the conversation, so a subset is a pure
@@ -15,7 +16,7 @@ export AGENTIC_REDTEAM_MAX_MEMORY="${AGENTIC_REDTEAM_MAX_MEMORY:-0=22GiB,cpu=45G
 export MAX_MEMORY="${MAX_MEMORY:-$AGENTIC_REDTEAM_MAX_MEMORY}"
 PY=.venv_claude/bin/python
 TAG=deepseekv4pro
-SIZES="300 120 60 30"
+SIZES="${SIZES:-300 120 60 30}"
 
 while pgrep -f "[r]un_tgt_fits.sh" >/dev/null; do sleep 120; done
 echo ">>> $(date -Is)  main fits finished; starting size curve"
