@@ -47,7 +47,7 @@ from agentic_redteam.openrouter_client import (  # noqa: E402
     make_sync_client,
 )
 from fit_base_plus_concept import CONCEPTS  # noqa: E402
-from split_specs import SPLIT_SPECS  # noqa: E402
+from split_specs import SPLIT_SPECS, minimal_spec  # noqa: E402
 
 PROBE_MODEL = "google/gemma-3-27b-it"
 AVOID_SAMPLE = 20
@@ -65,6 +65,51 @@ HEAD = {
         "refused, complied or was polite."
     ),
 }
+
+
+MINIMAL_DUMP_HEADER = """\
+SHAPE-FREE ("MINIMAL") SPLIT-TARGETED PROMPTS — THE ARM-3 ABLATION
+=============================================================================================
+
+Twenty prompts: one per (eval split x class label) for the six instruction splits and the four
+high-stakes splits. Every one carries the split's SITUATION and its LABEL BOUNDARY and nothing
+measured off the split file. Removed, relative to SPLIT_TARGETED_PROMPTS.txt:
+
+  * every character count, median, SHORT/LONG/MEDIUM and sentence count;
+  * every turn count and role sequence, and with them the whole SHAPE (exact) block;
+  * every pinned system turn -- which is not merely shape but a string copied verbatim out of
+    the eval rows;
+  * the pairing statement, and with it the paired MODE: a pairing instruction is shape read
+    off the split, so every split here generates ONE LABEL PER CALL and the two labels never
+    share an opening. That makes the removal structural rather than verbal;
+  * the topic list, which is subject matter read off the split;
+  * the dev-derived few-shot anchor (the tgtnone arm already dropped this one).
+
+WHY. The same ablation on hu_harm (generator_experiment_1, 5c59c568) found that stripping
+shape INVERTED which split a targeted set was good at -- the best score on the hardest split
+came from the wrong prompt entirely. That says the shape cues, not the situation, were
+carrying the targeted results. This is that ablation for instructions and high-stakes.
+
+THE IRREDUCIBLE RESIDUAL. The output schema still asks for {"messages": [{"role", ...}]} and
+the ask still says the row belongs to one class; that implies a conversation with roles ending
+on an assistant turn. It applies to the unsteered generic control too, so it does not
+differentiate the arms -- but it does mean mt_balanced, whose real rows carry NO assistant
+turn at all, cannot be reproduced by this arm even in principle.
+
+Shape is no longer ENFORCED either (`split_specs.minimal_spec` sets enforce_shape=False): the
+drop filter would otherwise discard nearly every row, since the prompt no longer says what
+shape to write. What survives is the tokenizability rule alone -- an optional leading system
+turn, then user/assistant alternation, ending on the assistant.
+
+Batch size is shown as 5 and the avoid-block as a placeholder; a real call carries up to 20
+sampled openings. Nothing else differs from what is sent. Guarded by
+`scripts/check_minimal_descs.py` (0 banned shape terms here against 205 in the full
+descriptions). Rendered by:
+
+    .venv_claude/bin/python scripts/generate_split_targeted.py --minimal \\
+        --dump-prompts SPLIT_TARGETED_PROMPTS_MINIMAL.txt
+
+"""
 
 
 def anchors(concept: str, split: str, spec: dict) -> list[dict]:
@@ -109,14 +154,21 @@ def build_prompt(concept: str, split: str, spec: dict, batch: int, avoid: list[s
                  label: str | None, shots: list[dict]) -> str:
     """The prompt for one call. `label` is None in paired mode (both labels come at once)."""
     c = CONCEPTS[concept]
-    shape = [f"- The row is {spec['turns']} messages"
-             + (" including the system turn" if spec["system"] else "")
-             + f", ending on the {spec['ends_on']} turn."]
-    if spec["system"] and spec.get("system_text"):
-        shape.append(f'- The system turn is exactly: "{spec["system_text"]}"')
-    elif spec["system"]:
-        shape.append("- Write the system turn yourself; it is part of the row.")
-    shape_block = "\n".join(shape)
+    # The shape-free arm carries no SHAPE block at all: turn count, system turn and
+    # ending turn are each measured off the eval split, which is exactly what it ablates.
+    shape_block = ""
+    if spec.get("enforce_shape", True):
+        shape = [f"- The row is {spec['turns']} messages"
+                 + (" including the system turn" if spec["system"] else "")
+                 + f", ending on the {spec['ends_on']} turn."]
+        if spec["system"] and spec.get("system_text"):
+            shape.append(f'- The system turn is exactly: "{spec["system_text"]}"')
+        elif spec["system"]:
+            shape.append("- Write the system turn yourself; it is part of the row.")
+        shape_block = "SHAPE (exact):\n" + "\n".join(shape) + "\n\n"
+    # A topic list is subject matter read off the split, so the shape-free arm has none.
+    topic_block = (f"Vary the subject matter widely across: {spec['topics']}.\n\n"
+                   if spec["topics"] else "Vary the subject matter widely.\n\n")
 
     # The no-shot variant drops the anchor block entirely and leans on the measured
     # description alone. It is the control for "how much of a targeted set's quality is the
@@ -154,8 +206,7 @@ def build_prompt(concept: str, split: str, spec: dict, batch: int, avoid: list[s
         )
 
     return (
-        f"{HEAD[concept]}\n\n{spec['desc']}\n\nSHAPE (exact):\n{shape_block}\n\n"
-        f"Vary the subject matter widely across: {spec['topics']}.\n\n"
+        f"{HEAD[concept]}\n\n{spec['desc']}\n\n{shape_block}{topic_block}"
         f"{shot_block}{ask}{avoid_block}\n\n"
         f"Respond with ONLY a JSON array of those objects. No prose, no markdown fences."
     )
@@ -198,17 +249,26 @@ def to_rows(item: dict, spec: dict, concept: str, label: str | None) -> list[dic
         # The shape IS the split, so a row that misses it is dropped, not repaired. Also the
         # gemma chat template raises on anything but user/assistant alternation after an
         # optional leading system turn, so this doubles as the extractability check.
-        if msgs is None or len(msgs) != spec["turns"]:
-            return False
-        if spec["system"] != (msgs[0]["role"] == "system"):
-            return False
-        body = msgs[1:] if spec["system"] else msgs
-        if not body or body[0]["role"] != "user":
+        if msgs is None or not msgs:
             return False
         if any(m["role"] == "system" for m in msgs[1:]):
             return False
+        has_system = msgs[0]["role"] == "system"
+        body = msgs[1:] if has_system else msgs
+        if not body or body[0]["role"] != "user":
+            return False
         expect = ["user", "assistant"] * len(body)
         if [m["role"] for m in body] != expect[:len(body)]:
+            return False
+        if not spec.get("enforce_shape", True):
+            # The shape-free arm never told the model what shape to write, so the only rule
+            # left is the one every row must satisfy to be tokenized at all (checked above)
+            # plus the concept's own requirement that the row end on the assistant turn.
+            # Enforcing turn counts here would discard nearly everything the arm generates.
+            return msgs[-1]["role"] == "assistant"
+        if len(msgs) != spec["turns"]:
+            return False
+        if spec["system"] != has_system:
             return False
         return msgs[-1]["role"] == spec["ends_on"]
 
@@ -344,18 +404,31 @@ def main() -> None:
     ap.add_argument("--no-shots", action="store_true",
                     help="omit the dev-derived few-shot anchor; the measured description is "
                          "then the only thing describing the split")
+    ap.add_argument("--minimal", action="store_true",
+                    help="the shape-free arm: the split's MINIMAL description (situation plus "
+                         "one sentence per label), no anchor, no topic list, no shape block, "
+                         "and one label per call. See split_specs.minimal_spec.")
     ap.add_argument("--dump-prompts", type=Path,
-                    help="render every split's prompt to this file and exit (no API calls)")
+                    help="render every split's prompt to this file and exit (no API calls); "
+                         "with --minimal, renders the shape-free arm instead")
     args = ap.parse_args()
 
     if args.dump_prompts:
         with args.dump_prompts.open("w", encoding="utf-8") as fh:
+            if args.minimal:
+                fh.write(MINIMAL_DUMP_HEADER + "\n")
             for concept, splits in SPLIT_SPECS.items():
                 c = CONCEPTS[concept]
-                for split, spec in splits.items():
-                    shots = anchors(concept, split, spec)
+                for split in splits:
+                    if args.minimal:
+                        spec = minimal_spec(concept, split)
+                        variants = [("MINIMAL: no shape, no anchor, no topics", [])]
+                    else:
+                        spec = splits[split]
+                        variants = [("WITH few-shot anchor", anchors(concept, split, spec)),
+                                    ("NO few-shot anchor", [])]
                     labs = [None] if spec["mode"] == "paired" else [c.pos_label, c.neg_label]
-                    for variant, sh in (("WITH few-shot anchor", shots), ("NO few-shot anchor", [])):
+                    for variant, sh in variants:
                         for lab in labs:
                             fh.write("=" * 100 + f"\n{concept} / {split}   [{variant}]"
                                      + (f"   [label: {lab}]" if lab else "   [paired]")
@@ -368,9 +441,10 @@ def main() -> None:
 
     if not (args.concept and args.split and args.out):
         ap.error("--concept, --split and --out are required unless --dump-prompts")
-    spec = SPLIT_SPECS[args.concept].get(args.split)
-    if spec is None:
+    if args.split not in SPLIT_SPECS[args.concept]:
         ap.error(f"no spec for {args.concept}/{args.split}")
+    spec = (minimal_spec(args.concept, args.split) if args.minimal
+            else SPLIT_SPECS[args.concept][args.split])
 
     budget = None
     if args.max_sample_tokens > 0:
@@ -382,7 +456,7 @@ def main() -> None:
     rows, dropped = generate(make_sync_client(), args.model, args.concept, args.split, spec,
                              args.n, args.batch_size, args.concurrency, args.temperature,
                              args.max_tokens, budget, args.seed, args.call_budget_factor,
-                             use_shots=not args.no_shots)
+                             use_shots=not (args.no_shots or args.minimal))
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with args.out.open("w", encoding="utf-8") as fh:
         for r in rows:
