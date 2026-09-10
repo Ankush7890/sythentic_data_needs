@@ -171,7 +171,7 @@ def rows_for(pair: dict, name: str) -> list[dict]:
 
 
 def draw_subset(rows: list[dict], frac: float, name: str, draw: int,
-                balanced: bool) -> list[dict]:
+                balanced: bool, size: int | None = None) -> list[dict]:
     """One reproducible subsample of ``rows``.
 
     ``balanced`` draws n/2 per class instead of sampling uniformly. The whole-set fits and
@@ -183,8 +183,11 @@ def draw_subset(rows: list[dict], frac: float, name: str, draw: int,
     carry `balanced: true`, so they can never be read as points on the same curve as the
     uniform f90 rows.
     """
-    rng = random.Random(f"{name}|{frac}|{draw}" + ("|balanced" if balanced else ""))
-    k = max(1, round(len(rows) * frac))
+    # `size` (absolute rows) keys the RNG on itself so the existing frac-keyed draws stay
+    # byte-reproducible; without it, 15/600 and 10/600 both round to the same f2b tag.
+    rng = random.Random(f"{name}|{size if size is not None else frac}|{draw}"
+                        + ("|balanced" if balanced else ""))
+    k = size if size is not None else max(1, round(len(rows) * frac))
     if not balanced:
         return rng.sample(rows, k)
     pos = [r for r in rows if r["labels"] == POS]
@@ -229,15 +232,20 @@ def probe_spec_with_accum(accum: int | None):
 
 
 def run(pair: dict, name: str, draw: int | None, frac: float, dev: Path,
-        balanced: bool = False, accum: int | None = None) -> dict:
+        balanced: bool = False, accum: int | None = None,
+        size: int | None = None) -> dict:
     suffix = "b" if balanced else ""
+    # Absolute sizes are tagged n{N}, not f{pct}: 15 and 10 rows out of 600 both round to
+    # the same percentage, so a frac tag would collide and the second fit would be skipped
+    # as already-done.
     tag = (f"{name}_full" if draw is None
+           else f"{name}_n{size}{suffix}_d{draw}" if size is not None
            else f"{name}_f{int(round(frac * 100))}{suffix}_d{draw}")
     res_path = pair["out"] / f"{tag}.json"
     if res_path.exists():
         return json.load(res_path.open())
     rows = rows_for(pair, name)
-    keep = rows if draw is None else draw_subset(rows, frac, name, draw, balanced)
+    keep = rows if draw is None else draw_subset(rows, frac, name, draw, balanced, size)
     probe_out = WORK / f"{tag}.pkl"
     probe_out.parent.mkdir(parents=True, exist_ok=True)
     t0 = time.time()
@@ -257,7 +265,9 @@ def run(pair: dict, name: str, draw: int | None, frac: float, dev: Path,
                         combine_consecutive_messages=True, convert_tool_to_assistant=True)
     p = df.set_index("dataset")["auroc"]
     npos = sum(1 for r in keep if r["labels"] == POS)
-    res = dict(condition=name, draw=draw, frac=(1.0 if draw is None else frac),
+    res = dict(condition=name, draw=draw,
+               frac=(1.0 if draw is None
+                     else round(size / len(rows), 6) if size is not None else frac),
                balanced=bool(draw is not None and balanced),
                grad_accum=(accum if accum is not None else 4),
                n=len(keep), n_all=len(rows), n_pos=npos, n_neg=len(keep) - npos,
@@ -287,6 +297,10 @@ def main():
                          "the optimizer never steps at all.")
     ap.add_argument("--skip-full", action="store_true",
                     help="do not fit the whole set (it is already recorded)")
+    ap.add_argument("--sizes", type=int, nargs="*", default=None,
+                    help="absolute training-set sizes instead of --fracs; tagged n{N} so "
+                         "sizes whose percentages round together cannot collide. Below 25 "
+                         "rows only --accum 1 takes an optimizer step at all (batch_size 16).")
     ap.add_argument("--conditions", nargs="*", default=None)
     args = ap.parse_args()
 
@@ -316,10 +330,16 @@ def main():
     for name in names:
         if not args.skip_full:
             results.append(run(pair, name, None, 1.0, dev))
-        for frac in args.fracs:
-            for d in range(args.draws):
-                results.append(run(pair, name, d, frac, dev, balanced=args.balanced,
-                                   accum=args.accum))
+        if args.sizes:
+            for size in args.sizes:
+                for d in range(args.draws):
+                    results.append(run(pair, name, d, size / 600.0, dev,
+                                       balanced=args.balanced, accum=args.accum, size=size))
+        else:
+            for frac in args.fracs:
+                for d in range(args.draws):
+                    results.append(run(pair, name, d, frac, dev, balanced=args.balanced,
+                                       accum=args.accum))
 
     import statistics as st
     a, b = (s.replace("eval_", "") for s in pair["splits"])
