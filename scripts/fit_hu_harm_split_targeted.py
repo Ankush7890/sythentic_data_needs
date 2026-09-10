@@ -142,23 +142,81 @@ def rows_for(pair: dict, name: str) -> list[dict]:
     return rows
 
 
-def run(pair: dict, name: str, draw: int | None, frac: float, dev: Path) -> dict:
-    tag = f"{name}_full" if draw is None else f"{name}_f{int(frac * 100)}_d{draw}"
+def draw_subset(rows: list[dict], frac: float, name: str, draw: int,
+                balanced: bool) -> list[dict]:
+    """One reproducible subsample of ``rows``.
+
+    ``balanced`` draws n/2 per class instead of sampling uniformly. The whole-set fits and
+    the earlier 90% draws are UNIFORM (that is what human_harm_last's script did, and those
+    rows are already recorded), but a size curve reaching 5% cannot be: 5% of 600 is 30
+    rows, and a uniform draw of 30 from a 300/300 set lands anywhere near 15/15 give or take
+    five, so the class ratio would vary alongside the size being measured — the same reason
+    subsample_curve_concept.py balances its draws. Balanced draws are tagged `f{pct}b` and
+    carry `balanced: true`, so they can never be read as points on the same curve as the
+    uniform f90 rows.
+    """
+    rng = random.Random(f"{name}|{frac}|{draw}" + ("|balanced" if balanced else ""))
+    k = max(1, round(len(rows) * frac))
+    if not balanced:
+        return rng.sample(rows, k)
+    pos = [r for r in rows if r["labels"] == POS]
+    neg = [r for r in rows if r["labels"] == NEG]
+    half, rest = k // 2, k - k // 2
+    if len(pos) < half or len(neg) < rest:
+        raise SystemExit(f"cannot draw {half}+{rest} from {len(pos)}/{len(neg)}")
+    # Each class under its own stream, so the positive half does not shift when the
+    # negative half's size changes.
+    out = rng.sample(pos, half) + rng.sample(neg, rest)
+    rng.shuffle(out)
+    return out
+
+
+def probe_spec_with_accum(accum: int | None):
+    """The template probe's own spec, with gradient_accumulation_steps overridden.
+
+    WHY THIS OVERRIDE EXISTS. tuberlens' trainer steps the optimizer only when
+    ``(batch_idx + 1) % gradient_accumulation_steps == 0`` and zeroes the gradient at the TOP
+    of each epoch, so a trailing partial accumulation window is discarded rather than
+    flushed. At the inherited batch_size=16 / accum=4 that needs >= 4 batches, i.e. >= 49
+    training rows, or `optimizer.step()` is NEVER CALLED and the fit returns its seeded
+    initialisation — silently, with no error and a perfectly normal-looking loss curve.
+    Verified directly: two 30-row fits on entirely different data produced BIT-IDENTICAL
+    weights (max|delta| = 0 over all 5376 dimensions) while their training losses differed.
+
+    5% of 600 is 30 rows -> 2 batches -> zero updates. Setting accum=2 there gives 2 batches
+    -> exactly ONE optimizer step per epoch, accumulated over all 30 rows: the same number of
+    steps per epoch that n=60 gets under accum=4, and an effective batch equal to the whole
+    training set. Everything else in the spec is the template probe's own.
+    """
+    if accum is None:
+        return None
+    import pickle
+    from agentic_redteam.retrain import _infer_probe_spec
+    with open(TEMPLATE_PROBE, "rb") as fh:
+        spec = _infer_probe_spec(pickle.load(fh))
+    hp = dict(spec.hyperparams)
+    hp["gradient_accumulation_steps"] = accum
+    # ProbeSpec is a pydantic model, not a dataclass.
+    return spec.model_copy(update={"hyperparams": hp})
+
+
+def run(pair: dict, name: str, draw: int | None, frac: float, dev: Path,
+        balanced: bool = False, accum: int | None = None) -> dict:
+    suffix = "b" if balanced else ""
+    tag = (f"{name}_full" if draw is None
+           else f"{name}_f{int(round(frac * 100))}{suffix}_d{draw}")
     res_path = pair["out"] / f"{tag}.json"
     if res_path.exists():
         return json.load(res_path.open())
     rows = rows_for(pair, name)
-    if draw is None:
-        keep = rows
-    else:
-        k = max(1, round(len(rows) * frac))
-        keep = random.Random(f"{name}|{frac}|{draw}").sample(rows, k)
+    keep = rows if draw is None else draw_subset(rows, frac, name, draw, balanced)
     probe_out = WORK / f"{tag}.pkl"
     probe_out.parent.mkdir(parents=True, exist_ok=True)
     t0 = time.time()
     print(f"\n===== {tag}: {len(keep)}/{len(rows)} generated rows, no base =====", flush=True)
     retrain_probe(samples=keep, base_probe_path=TEMPLATE_PROBE,
                   base_training_data_path=None, new_probe_path=probe_out,
+                  probe_spec=probe_spec_with_accum(accum),
                   dev_data_path=dev, seed=42,
                   base_activation_cache_dir=CACHE,
                   combine_consecutive_messages=True, convert_tool_to_assistant=True,
@@ -167,8 +225,11 @@ def run(pair: dict, name: str, draw: int | None, frac: float, dev: Path) -> dict
                         max_samples=None, seed=42,
                         combine_consecutive_messages=True, convert_tool_to_assistant=True)
     p = df.set_index("dataset")["auroc"]
+    npos = sum(1 for r in keep if r["labels"] == POS)
     res = dict(condition=name, draw=draw, frac=(1.0 if draw is None else frac),
-               n=len(keep), n_all=len(rows),
+               balanced=bool(draw is not None and balanced),
+               grad_accum=(accum if accum is not None else 4),
+               n=len(keep), n_all=len(rows), n_pos=npos, n_neg=len(keep) - npos,
                **{s.replace("eval_", ""): round(float(p[s]), 4) for s in pair["splits"]},
                mean=round(float(p[pair["splits"]].mean()), 4),
                minutes=round((time.time() - t0) / 60, 1))
@@ -184,8 +245,17 @@ def main():
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--pair", default="dilemmas", choices=sorted(PAIRS))
     ap.add_argument("--draws", type=int, default=4,
-                    help="90%% subsample refits per condition (0 = whole-set fit only)")
-    ap.add_argument("--frac", type=float, default=0.9)
+                    help="subsample refits per condition per fraction (0 = whole-set only)")
+    ap.add_argument("--fracs", type=float, nargs="+", default=[0.9],
+                    help="training-set fractions to draw (default: 0.9)")
+    ap.add_argument("--balanced", action="store_true",
+                    help="draw n/2 per class instead of sampling uniformly")
+    ap.add_argument("--accum", type=int, default=None,
+                    help="override gradient_accumulation_steps (see probe_spec_with_accum). "
+                         "Needed below 49 training rows, where the inherited value of 4 means "
+                         "the optimizer never steps at all.")
+    ap.add_argument("--skip-full", action="store_true",
+                    help="do not fit the whole set (it is already recorded)")
     ap.add_argument("--conditions", nargs="*", default=None)
     args = ap.parse_args()
 
@@ -213,24 +283,27 @@ def main():
 
     results = []
     for name in names:
-        results.append(run(pair, name, None, 1.0, dev))
-        for d in range(args.draws):
-            results.append(run(pair, name, d, args.frac, dev))
+        if not args.skip_full:
+            results.append(run(pair, name, None, 1.0, dev))
+        for frac in args.fracs:
+            for d in range(args.draws):
+                results.append(run(pair, name, d, frac, dev, balanced=args.balanced,
+                                   accum=args.accum))
 
+    import statistics as st
     a, b = (s.replace("eval_", "") for s in pair["splits"])
-    print(f"\n{'condition':22} {'n':>5} {a:>18} {b:>18}")
+    print(f"\n{'condition':30} {'frac':>6} {'n':>5} {a:>18} {b:>18}")
     for name in names:
-        rs = [r for r in results if r["condition"] == name and r["draw"] is not None]
-        full = next(r for r in results if r["condition"] == name and r["draw"] is None)
-        if rs:
-            import statistics as st
-            fa = f"{st.mean([r[a] for r in rs]):.4f}+-{st.stdev([r[a] for r in rs]):.4f}" \
-                 if len(rs) > 1 else f"{rs[0][a]:.4f}"
-            fb = f"{st.mean([r[b] for r in rs]):.4f}+-{st.stdev([r[b] for r in rs]):.4f}" \
-                 if len(rs) > 1 else f"{rs[0][b]:.4f}"
-        else:
-            fa, fb = f"{full[a]:.4f}", f"{full[b]:.4f}"
-        print(f"{name:22} {full['n_all']:5d} {fa:>18} {fb:>18}")
+        for frac in args.fracs:
+            rs = [r for r in results
+                  if r["condition"] == name and r["draw"] is not None and r["frac"] == frac]
+            if not rs:
+                continue
+            fa = (f"{st.mean([r[a] for r in rs]):.4f}+-{st.stdev([r[a] for r in rs]):.4f}"
+                  if len(rs) > 1 else f"{rs[0][a]:.4f}")
+            fb = (f"{st.mean([r[b] for r in rs]):.4f}+-{st.stdev([r[b] for r in rs]):.4f}"
+                  if len(rs) > 1 else f"{rs[0][b]:.4f}")
+            print(f"{name:30} {frac:6.2f} {rs[0]['n']:5d} {fa:>18} {fb:>18}")
 
 
 if __name__ == "__main__":
