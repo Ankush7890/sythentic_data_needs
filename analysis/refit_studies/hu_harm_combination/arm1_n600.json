@@ -1,0 +1,21 @@
+{
+ "arm": "arm1",
+ "mode": "n600",
+ "draw": null,
+ "sizes": {
+  "ai_dilemmas": 600,
+  "ant_hh": 600,
+  "balanced_refusal": 600,
+  "daily_dilemmas": 600
+ },
+ "grad_accum": 4,
+ "n": 2400,
+ "n_pos": 1200,
+ "n_neg": 1200,
+ "ai_dilemmas": 1.0,
+ "ant_hh": 0.6929,
+ "balanced_refusal": 0.924,
+ "daily_dilemmas": 0.9832,
+ "mean4": 0.9,
+ "minutes": 0.8
+}
