@@ -142,6 +142,19 @@ def main() -> None:
                          "already validates on. The dev activation blob is keyed on the dev "
                          "files' bytes, so a different dev set gets its own cache with no risk "
                          "of stale reuse.")
+    ap.add_argument("--grad-accum", type=int, default=0, metavar="K",
+                    help="override the probe's gradient_accumulation_steps. The inherited "
+                         "spec uses batch_size 16 x accumulation 4, so ONE optimizer step "
+                         "costs 64 samples and a training set under ~49 rows takes ZERO "
+                         "steps — the fit returns the UNTRAINED probe (measured: identical "
+                         "dev/eval across all 8 draws). K=1 steps every 16 samples, which "
+                         "makes n=30 and n=15 trainable. Rows are tagged base='<base>+ga<K>' "
+                         "so a re-fit under a different optimizer config can never be "
+                         "confused with the default one.")
+    ap.add_argument("--no-base", action="store_true",
+                    help="fit the drawn subset ALONE, with no base training data. Recorded in "
+                         "the CSV with base='none', which keeps the resume key distinct from "
+                         "the same draws fit on a base, so both live in one file.")
     ap.add_argument("--unbalanced", action="store_true",
                     help="uniform sample of the set instead of n/2 per class")
     ap.add_argument("--no-resume", action="store_true",
@@ -153,7 +166,29 @@ def main() -> None:
         import dataclasses
         concept = dataclasses.replace(concept, dev_data=args.dev_data.resolve())
     base_data = args.base_data or concept.base_data
+    # `base_data` still names the file whose stem tags the scratch probe and whose name is
+    # the resume key; --no-base only stops it being PASSED to the fit.
+    base_label = "none" if args.no_base else base_data.name
+    if args.grad_accum:
+        base_label += f"+ga{args.grad_accum}"
     out_csv = args.out or REPO / f"scripts/{concept.name}_size_curve.csv"
+
+    probe_spec = None
+    if args.grad_accum:
+        import pickle as _pk
+
+        from agentic_redteam.retrain import _infer_probe_spec
+        with concept.base_probe.open("rb") as _fh:
+            _spec = _infer_probe_spec(_pk.load(_fh))
+        _hp = dict(_spec.hyperparams)
+        _hp["gradient_accumulation_steps"] = args.grad_accum
+        if args.grad_accum == 1 and _hp.get("batch_size", 16) > 8:
+            # n=10 is under one batch of 16, so the epoch still ends with no step.
+            _hp["batch_size"] = 8
+        # ProbeSpec is a pydantic model, not a dataclass — dataclasses.replace raises on it.
+        probe_spec = _spec.model_copy(update={"hyperparams": _hp})
+        print(f"probe spec overridden: batch_size={_hp.get('batch_size')} "
+              f"grad_accum={_hp['gradient_accumulation_steps']}", flush=True)
 
     from agentic_redteam.cli import _free_gpu
     from agentic_redteam.evaluation import evaluate_probe
@@ -176,7 +211,7 @@ def main() -> None:
             missing = [f for f in existing if f not in fields]
             if missing:
                 raise SystemExit(f"{out_csv} has columns this run cannot fill: {missing}")
-            if base_data != concept.base_data:
+            if base_data != concept.base_data and not args.no_base:
                 raise SystemExit(
                     f"{out_csv} predates the `base` column, so its rows are all on "
                     f"{concept.base_data.name}; write this --base-data run to its own "
@@ -194,7 +229,7 @@ def main() -> None:
         for path in args.samples
         for n in args.sizes
         for d in range(args.draws)
-        if (base_data.name, path.name, n, d) not in seen
+        if (base_label, path.name, n, d) not in seen
     ]
     print(f"{len(jobs)} fits to run ({len(seen)} already in {out_csv})", flush=True)
 
@@ -204,14 +239,15 @@ def main() -> None:
         subset = draw_subset(rows, n, path.stem, d, not args.unbalanced, concept)
         npos = sum(1 for r in subset if r["labels"] == concept.pos_label)
         t0 = time.time()
-        out_pkl = scratch / f"{path.stem}_{base_data.stem}_n{n}_d{d}.pkl"
+        out_pkl = scratch / f"{path.stem}_{'nobase' if args.no_base else base_data.stem}_n{n}_d{d}.pkl"
         res = retrain_probe(
             samples=subset, base_probe_path=concept.base_probe,
-            base_training_data_path=base_data, new_probe_path=out_pkl,
+            base_training_data_path=None if args.no_base else base_data,
+            new_probe_path=out_pkl,
             dev_data_path=concept.dev_data, seed=SEED, base_data_fraction=1.0,
             base_activation_cache_dir=concept.base_cache,
             combine_consecutive_messages=COMBINE, convert_tool_to_assistant=CONVERT,
-            verbose=False,
+            verbose=False, **({"probe_spec": probe_spec} if probe_spec else {}),
         )
         df = evaluate_probe(
             out_pkl, concept.eval_dir, concept.eval_cache, max_samples=None, seed=SEED,
@@ -220,7 +256,7 @@ def main() -> None:
         )
         ev = {r["dataset"]: float(r["auroc"]) for _, r in df.iterrows()}
         row = {
-            "samples": path.name, "base": base_data.name, "n": n, "draw": d,
+            "samples": path.name, "base": base_label, "n": n, "draw": d,
             "n_pos": npos, "n_neg": len(subset) - npos,
             "n_training_rows": res.n_training_samples_total,
             "dev_mean": round(res.dev_auroc["mean"], 5),
