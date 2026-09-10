@@ -94,6 +94,12 @@ PAIRS = {
             "daily_dilemmas_clean_600": [REPO / f"data/hu_harm_{GEN}_dailyDilemmasClean_600.jsonl"],
             "ai_dilemmas_cleanPL_600": [REPO / f"data/hu_harm_{GEN}_aiDilemmasCleanPL_600.jsonl"],
             "daily_dilemmas_cleanPL_600": [REPO / f"data/hu_harm_{GEN}_dailyDilemmasCleanPL_600.jsonl"],
+            # MINIMAL-PROMPT ABLATION (arm 3). Content removed as in the clean arm, AND
+            # shape: no turn counts, no word-length ranges, no register, no voice, no
+            # pairing. Per-label for every split, because a pairing instruction is itself
+            # shape. See analysis/split_targeted_prompts_minimal.md.
+            "ai_dilemmas_minimal_600": [REPO / f"data/hu_harm_{GEN}_aiDilemmasMinimal_600.jsonl"],
+            "daily_dilemmas_minimal_600": [REPO / f"data/hu_harm_{GEN}_dailyDilemmasMinimal_600.jsonl"],
         },
     ),
     # The ORIGINAL pair, re-fit here under this branch's protocol. The sets themselves are
@@ -122,6 +128,13 @@ PAIRS = {
             "ant_hh_clean_600": [REPO / f"data/hu_harm_{GEN}_antHHclean_600.jsonl"],
             "refusal_clean_600": [REPO / f"data/hu_harm_{GEN}_refusalClean_600.jsonl"],
             "refusal_cleanPL_600": [REPO / f"data/hu_harm_{GEN}_refusalCleanPL_600.jsonl"],
+            # MINIMAL-PROMPT ABLATION (arm 3). Once shape is gone, ant_hh and
+            # balanced_refusal have the SAME description — everything that separated them
+            # was shape — so ONE prompt wrote both sets below. They differ only in the
+            # generator's sampling, which makes their gap a direct measure of generator
+            # variance and the yardstick for reading the two splits' scores against.
+            "request_minimal_600": [REPO / f"data/hu_harm_{GEN}_requestMinimal_600.jsonl"],
+            "request_minimal2_600": [REPO / f"data/hu_harm_{GEN}_requestMinimal2_600.jsonl"],
         },
     ),
 }
