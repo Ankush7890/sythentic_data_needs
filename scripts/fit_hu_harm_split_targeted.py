@@ -87,6 +87,13 @@ PAIRS = {
             "pooled_1200": [REPO / f"data/hu_harm_{GEN}_aiDilemmas_600.jsonl",
                             REPO / f"data/hu_harm_{GEN}_dailyDilemmas_600.jsonl"],
             "generic_600": [REPO / f"data/hu_harm_{GEN}_600.jsonl"],
+            # CLEAN-PROMPT ABLATION. Same script, model, size and mode as the targeted sets
+            # above; only the prompt differs (every confounder removed). `_pl` is the second
+            # arm: the same clean text generated one label at a time, which breaks pairing.
+            "ai_dilemmas_clean_600": [REPO / f"data/hu_harm_{GEN}_aiDilemmasClean_600.jsonl"],
+            "daily_dilemmas_clean_600": [REPO / f"data/hu_harm_{GEN}_dailyDilemmasClean_600.jsonl"],
+            "ai_dilemmas_cleanPL_600": [REPO / f"data/hu_harm_{GEN}_aiDilemmasCleanPL_600.jsonl"],
+            "daily_dilemmas_cleanPL_600": [REPO / f"data/hu_harm_{GEN}_dailyDilemmasCleanPL_600.jsonl"],
         },
     ),
     # The ORIGINAL pair, re-fit here under this branch's protocol. The sets themselves are
@@ -110,6 +117,11 @@ PAIRS = {
             "pooled_1200": [REPO / f"data/hu_harm_{GEN}_antHH_600.jsonl",
                             REPO / f"data/hu_harm_{GEN}_refusal_v2_600.jsonl"],
             "generic_600": [REPO / f"data/hu_harm_{GEN}_600.jsonl"],
+            # CLEAN-PROMPT ABLATION, this pair's half. ant_hh is already unpaired, so
+            # ant_hh_clean_600 is shared by BOTH arms and has no _pl twin.
+            "ant_hh_clean_600": [REPO / f"data/hu_harm_{GEN}_antHHclean_600.jsonl"],
+            "refusal_clean_600": [REPO / f"data/hu_harm_{GEN}_refusalClean_600.jsonl"],
+            "refusal_cleanPL_600": [REPO / f"data/hu_harm_{GEN}_refusalCleanPL_600.jsonl"],
         },
     ),
 }
