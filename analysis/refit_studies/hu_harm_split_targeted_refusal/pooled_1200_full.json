@@ -2,10 +2,16 @@
  "condition": "pooled_1200",
  "draw": null,
  "frac": 1.0,
+ "balanced": false,
+ "grad_accum": 4,
  "n": 1200,
  "n_all": 1200,
+ "n_pos": 600,
+ "n_neg": 600,
+ "ai_dilemmas": 0.8218,
  "ant_hh": 0.6035,
  "balanced_refusal": 0.9488,
+ "daily_dilemmas": 0.9824,
  "mean": 0.7762,
  "minutes": 0.4
 }

@@ -3,12 +3,15 @@
  "draw": 4,
  "frac": 0.1,
  "balanced": true,
+ "grad_accum": 4,
  "n": 60,
  "n_all": 600,
  "n_pos": 30,
  "n_neg": 30,
+ "ai_dilemmas": 0.5762,
  "ant_hh": 0.6162,
  "balanced_refusal": 0.9372,
+ "daily_dilemmas": 0.8794,
  "mean": 0.7767,
  "minutes": 0.1
 }

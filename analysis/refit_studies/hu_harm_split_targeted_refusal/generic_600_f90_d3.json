@@ -2,10 +2,16 @@
  "condition": "generic_600",
  "draw": 3,
  "frac": 0.9,
+ "balanced": false,
+ "grad_accum": 4,
  "n": 540,
  "n_all": 600,
+ "n_pos": 267,
+ "n_neg": 273,
+ "ai_dilemmas": 0.8932,
  "ant_hh": 0.7054,
  "balanced_refusal": 0.8954,
+ "daily_dilemmas": 0.9725,
  "mean": 0.8004,
  "minutes": 0.3
 }

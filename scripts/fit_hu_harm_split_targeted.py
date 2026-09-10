@@ -65,6 +65,9 @@ CACHE = REPO / "cache_gen_gemma27b_hu_harm/base_activations"
 ECACHE = REPO / "cache_gen_gemma27b_hu_harm/eval_activations"
 EVAL = REPO / "eval_sets/hu_ha"
 DEV_SRC = REPO / "dev_samples/hu_ha"
+# Every hu_ha eval split, in evaluate_probe's own discovery order. Each fit is scored on all
+# four so the non-targeted splits are visible too; `mean` stays over the pair's own two.
+ALL_SPLITS = ["eval_ai_dilemmas", "eval_ant_hh", "eval_balanced_refusal", "eval_daily_dilemmas"]
 GEN = "llama70b"
 
 # fit_base_plus_concept.CONCEPTS["hu_harm"] — reused only for its labels, so `load_rows`
@@ -221,7 +224,10 @@ def run(pair: dict, name: str, draw: int | None, frac: float, dev: Path,
                   base_activation_cache_dir=CACHE,
                   combine_consecutive_messages=True, convert_tool_to_assistant=True,
                   verbose=True)
-    df = evaluate_probe(str(probe_out), str(EVAL), str(ECACHE), splits=pair["splits"],
+    # Scored on ALL FOUR hu_ha splits, not just the pair's own two. The pair still governs
+    # what the probe was TRAINED and early-stopped on (its dev dir); the extra columns are a
+    # pure cross-evaluation, and every eval blob is already cached so they are nearly free.
+    df = evaluate_probe(str(probe_out), str(EVAL), str(ECACHE), splits=ALL_SPLITS,
                         max_samples=None, seed=42,
                         combine_consecutive_messages=True, convert_tool_to_assistant=True)
     p = df.set_index("dataset")["auroc"]
@@ -230,7 +236,7 @@ def run(pair: dict, name: str, draw: int | None, frac: float, dev: Path,
                balanced=bool(draw is not None and balanced),
                grad_accum=(accum if accum is not None else 4),
                n=len(keep), n_all=len(rows), n_pos=npos, n_neg=len(keep) - npos,
-               **{s.replace("eval_", ""): round(float(p[s]), 4) for s in pair["splits"]},
+               **{s.replace("eval_", ""): round(float(p[s]), 4) for s in ALL_SPLITS},
                mean=round(float(p[pair["splits"]].mean()), 4),
                minutes=round((time.time() - t0) / 60, 1))
     pair["out"].mkdir(parents=True, exist_ok=True)
