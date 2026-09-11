@@ -129,6 +129,55 @@ what makes it readable.
 split is still at or above 0.84 — it needs several hundred rows to teach what its
 document-flavoured twin learns from sixty.
 
+## The same curve WITHOUT the base — what the targeted set is worth on its own
+
+Every curve above fits `generic 50-row base + n targeted rows`, so at the small end the base
+is most of the training set and the number describes the MIXTURE rather than the set. These
+fits are the drawn rows ALONE (`--no-base`).
+
+**A floor appears the moment the base is removed.** The probe is `linear_then_softmax`,
+`batch_size 16`, `gradient_accumulation_steps 4`, and it steps the optimizer only on every
+4th batch of `ceil(rows/16)`. Without the base, n=30 gives 2 batches, n=15 and n=10 give 1 —
+**zero optimizer steps, ever**, so the fit returns the probe at INITIALISATION. The data shows
+this unmistakably: at those three sizes all eight draws return byte-identical AUROCs with
+sd = 0.0000, the same value at n=10 as at n=30. Those cells are not measurements. The three
+sizes were therefore re-run at `accum=1`, in a separate CSV that must not be pooled with the
+first.
+
+On-target AUROC, mean ±sd over 8 draws, no base:
+
+| Split | n=540 | n=300 | n=120 | n=60 | n=30* | n=15* | n=10* |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `anthropic_harmless_refusal` | 0.9928±0.0008 | 0.9948±0.0020 | 0.9945±0.0019 | 0.9937±0.0019 | 0.9919±0.0049 | 0.9781±0.0116 | 0.9801±0.0105 |
+| `hc_context_drift` | 0.9716±0.0148 | 0.9448±0.0532 | 0.8732±0.0921 | 0.6516±0.1846 | 0.5215±0.0542 | 0.4973±0.0025 | 0.4996±0.0104 |
+| `oig_context_drift` | 0.9436±0.0120 | 0.8695±0.0505 | 0.6839±0.0509 | 0.6459±0.0293 | 0.6345±0.0342 | 0.6113±0.0238 | 0.6154±0.0240 |
+| `hc_contradiction` | 0.9159±0.0228 | 0.8581±0.0718 | 0.8020±0.0596 | 0.8259±0.0890 | 0.7057±0.1404 | 0.4940±0.0023 | 0.5568±0.1221 |
+| `bbq_substitution` | 0.8117±0.0550 | 0.8253±0.0231 | 0.8347±0.0524 | 0.8392±0.0240 | 0.8201±0.0601 | 0.7306±0.0816 | 0.6441±0.1337 |
+| `mm_substitution` | 0.7395±0.0427 | 0.7183±0.0391 | 0.6885±0.0218 | 0.6499±0.0340 | 0.6277±0.0410 | 0.5770±0.0554 | 0.5774±0.0391 |
+| **mean of six** | **0.8959** | **0.8685** | **0.8128** | **0.7677** | **0.7169** | **0.6481** | **0.6456** |
+
+\* `accum=1`. At the default accumulation these three columns read 0.5067 flat with sd
+0.0000 — the untrained probe.
+
+**The base is worth about 0.03-0.06 throughout, not just at the bottom.** On-target mean of
+six, with base against without: 0.9289 / 0.8959 at n=540, 0.9240 / 0.8685 at n=300, 0.8661 /
+0.8128 at n=120, 0.8227 / 0.7677 at n=60. The generic 50 rows contribute at every size.
+
+**Three splits behave in three different ways, which the with-base curve could not show:**
+
+- `anthropic_harmless_refusal` is FLAT: 0.9937 at n=60, 0.9928 at n=540, and **0.9801 on ten
+  rows with no base at all**. Thirty times the data buys 0.015. Ten examples of "answers it"
+  against "declines it" essentially solve the split.
+- `bbq_substitution` is NON-MONOTONIC, peaking at n=60 (0.8392) and falling to 0.8117 at
+  n=540. More of its own data makes it slightly worse.
+- `oig_context_drift` is the volume-hungry one: 0.6459 at n=60 climbing 0.30 to 0.9436 at
+  n=540. Its document-flavoured twin `hc_context_drift` makes the same journey but starts
+  moving earlier.
+
+So there is no single "how many rows do you need" for this concept: the honest answer ranges
+from ten to several hundred depending on what the split tests, and the generic base was
+masking exactly that spread.
+
 ## What this does NOT settle
 
 - **Family B is missing for eight of ten splits.** The earlier run died at 4/20 sets, so eight
@@ -138,8 +187,12 @@ document-flavoured twin learns from sixty.
 - **One generator, one draw per split.** hu_harm arm 3 needed a second draw to read its own
   result; generator variance here is unmeasured, and the two losses are the cells where that
   matters most.
-- **The size curve is `tgtmin` only.** Whether the arm's small-n behaviour differs from the
+- **The size curves are `tgtmin` only.** Whether the arm's small-n behaviour differs from the
   measured-description or `--kind` arms is unmeasured; the cliff on `hc_context_drift` in
   particular may or may not be a property of shape-free data specifically.
+- **`accum=1` is a different optimizer schedule**, not just a smaller step interval: the
+  effective batch drops from 64 to 16 and the step count rises. The three small sizes are
+  internally comparable to each other and NOT strictly comparable to n>=60 at the default.
+  Reading the no-base curve as one continuous line across the accum boundary would be wrong.
 - **`anthropic_hh_balanced` rewards no targeting at all** — unsteered generic scores 0.9699,
   above every targeted arm. It is a poor test of shape in either direction.
