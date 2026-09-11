@@ -144,6 +144,15 @@ def main() -> None:
                          "of stale reuse.")
     ap.add_argument("--unbalanced", action="store_true",
                     help="uniform sample of the set instead of n/2 per class")
+    ap.add_argument("--no-base", action="store_true",
+                    help="fit the drawn rows ALONE, with no base training data. A targeted "
+                         "set mixed with a generic 50-row base is measuring the mixture, not "
+                         "the set; this measures the set.")
+    ap.add_argument("--accum", type=int, default=None,
+                    help="override gradient_accumulation_steps. The probe steps the optimizer "
+                         "only every Nth batch and batches are ceil(rows/16), so with the "
+                         "default N=4 a fit on fewer than 49 rows NEVER STEPS and returns the "
+                         "probe at initialisation. Pass 1 to make small-n fits train.")
     ap.add_argument("--no-resume", action="store_true",
                     help="recompute rows already present in the output CSV")
     args = ap.parse_args()
@@ -152,7 +161,26 @@ def main() -> None:
     if args.dev_data:
         import dataclasses
         concept = dataclasses.replace(concept, dev_data=args.dev_data.resolve())
-    base_data = args.base_data or concept.base_data
+    base_data = None if args.no_base else (args.base_data or concept.base_data)
+    base_name = "none" if base_data is None else base_data.name
+    base_stem = "nobase" if base_data is None else base_data.stem
+
+    # The probe steps the optimizer on every `accum`-th batch of ceil(rows/16), so the
+    # default accum=4 silently returns an UNTRAINED probe below 49 rows. Overriding it is
+    # what makes the small end of a no-base curve mean anything.
+    probe_spec = None
+    if args.accum is not None:
+        from agentic_redteam.retrain import _infer_probe_spec, load_probe
+        from tuberlens.interfaces.probes import ProbeSpec
+        # _infer_probe_spec takes a LOADED probe, not a path. Inherit the architecture and
+        # every other hyperparameter from the base probe, and change accumulation alone, so
+        # this differs from the default protocol by exactly the one knob.
+        inferred = _infer_probe_spec(load_probe(concept.base_probe))
+        hyper = dict(inferred.hyperparams or {})
+        hyper["gradient_accumulation_steps"] = args.accum
+        probe_spec = ProbeSpec(name=inferred.name, hyperparams=hyper)
+        print(f"probe spec: {inferred.name} with gradient_accumulation_steps={args.accum} "
+              f"(batch_size={hyper.get('batch_size')})", flush=True)
     out_csv = args.out or REPO / f"scripts/{concept.name}_size_curve.csv"
 
     from agentic_redteam.cli import _free_gpu
@@ -162,7 +190,7 @@ def main() -> None:
     scratch = concept.cache_dir / SCRATCH_SUBDIR
     scratch.mkdir(parents=True, exist_ok=True)
     out_csv.parent.mkdir(parents=True, exist_ok=True)
-    seen = set() if args.no_resume else done_keys(out_csv, concept.base_data.name)
+    seen = set() if args.no_resume else done_keys(out_csv, base_name)
 
     fields = fields_for(concept)
     fresh = not out_csv.exists() or out_csv.stat().st_size == 0
@@ -176,7 +204,7 @@ def main() -> None:
             missing = [f for f in existing if f not in fields]
             if missing:
                 raise SystemExit(f"{out_csv} has columns this run cannot fill: {missing}")
-            if base_data != concept.base_data:
+            if base_data is None or base_data != concept.base_data:
                 raise SystemExit(
                     f"{out_csv} predates the `base` column, so its rows are all on "
                     f"{concept.base_data.name}; write this --base-data run to its own "
@@ -194,7 +222,7 @@ def main() -> None:
         for path in args.samples
         for n in args.sizes
         for d in range(args.draws)
-        if (base_data.name, path.name, n, d) not in seen
+        if (base_name, path.name, n, d) not in seen
     ]
     print(f"{len(jobs)} fits to run ({len(seen)} already in {out_csv})", flush=True)
 
@@ -204,10 +232,11 @@ def main() -> None:
         subset = draw_subset(rows, n, path.stem, d, not args.unbalanced, concept)
         npos = sum(1 for r in subset if r["labels"] == concept.pos_label)
         t0 = time.time()
-        out_pkl = scratch / f"{path.stem}_{base_data.stem}_n{n}_d{d}.pkl"
+        out_pkl = scratch / f"{path.stem}_{base_stem}_a{args.accum or 'd'}_n{n}_d{d}.pkl"
         res = retrain_probe(
             samples=subset, base_probe_path=concept.base_probe,
             base_training_data_path=base_data, new_probe_path=out_pkl,
+            probe_spec=probe_spec,
             dev_data_path=concept.dev_data, seed=SEED, base_data_fraction=1.0,
             base_activation_cache_dir=concept.base_cache,
             combine_consecutive_messages=COMBINE, convert_tool_to_assistant=CONVERT,
@@ -220,7 +249,7 @@ def main() -> None:
         )
         ev = {r["dataset"]: float(r["auroc"]) for _, r in df.iterrows()}
         row = {
-            "samples": path.name, "base": base_data.name, "n": n, "draw": d,
+            "samples": path.name, "base": base_name, "n": n, "draw": d,
             "n_pos": npos, "n_neg": len(subset) - npos,
             "n_training_rows": res.n_training_samples_total,
             "dev_mean": round(res.dev_auroc["mean"], 5),

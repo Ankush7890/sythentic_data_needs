@@ -7,6 +7,9 @@ SPLIT_TARGETED_PROMPTS_MINIMAL.txt analysis/split_targeted_prompts_minimal.md
 run_tgt_minimal_gen.sh run_tgtmin_fits.sh watch_tgtmin.sh hourly_push_tgtmin.sh
 scripts/instructions_gen90.csv scripts/highstakes_gen90_dev500.csv
 scripts/instructions_tgtmin_size_curve.csv scripts/highstakes_tgtmin_size_curve.csv
+scripts/instructions_tgtmin_size_curve_nobase.csv scripts/instructions_tgtmin_size_curve_nobase_accum1.csv
+scripts/highstakes_tgtmin_size_curve_nobase.csv scripts/highstakes_tgtmin_size_curve_nobase_accum1.csv
+run_tgtmin_sizecurve_nobase.sh scripts/subsample_curve_concept.py
 run_tgtmin_sizecurve.sh run_tgtnone_backfill.sh
 scripts/compare_tgtmin_arms.py analysis/split_targeted_minimal_results.md"
 status () {
@@ -18,7 +21,14 @@ status () {
     # variable EMPTY and the status line reads "/288". Default it instead.
     c=$(grep -cE '_tgtmin_[a-z_]+_600' scripts/instructions_tgtmin_size_curve.csv 2>/dev/null); c=${c:-0}
     h=$(grep -cE '_tgtmin_[a-z_]+_600' scripts/highstakes_tgtmin_size_curve.csv 2>/dev/null); h=${h:-0}
-    echo "${s}/10 shape-free sets, ${f}/90 fits, curve ${c}/288 instr + ${h}/192 hs"
+    nb=0
+    for x in scripts/instructions_tgtmin_size_curve_nobase.csv \
+             scripts/instructions_tgtmin_size_curve_nobase_accum1.csv \
+             scripts/highstakes_tgtmin_size_curve_nobase.csv \
+             scripts/highstakes_tgtmin_size_curve_nobase_accum1.csv; do
+        n=$(grep -cE '_tgtmin_[a-z_]+_600' "$x" 2>/dev/null); nb=$((nb + ${n:-0}))
+    done
+    echo "${s}/10 sets, ${f}/90 fits, curve ${c}/288 instr + ${h}/192 hs, no-base ${nb}/720"
 }
 while true; do
     ts="$(date -Is)"; HAVE=""
