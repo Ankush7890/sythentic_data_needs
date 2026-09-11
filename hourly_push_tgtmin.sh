@@ -13,7 +13,9 @@ status () {
     s=$(ls data/*_tgtmin_*_600.jsonl 2>/dev/null | wc -l)
     f=$(cat scripts/instructions_gen90.csv scripts/highstakes_gen90_dev500.csv 2>/dev/null \
         | grep -cE '_tgtmin_[a-z_]+_600' || true)
-    c=$(grep -cE '_tgtmin_[a-z_]+_600' scripts/instructions_tgtmin_size_curve.csv 2>/dev/null || true)
+    # `grep -c` on a missing file prints nothing and exits 2, so `|| true` leaves the
+    # variable EMPTY and the status line reads "/288". Default it instead.
+    c=$(grep -cE '_tgtmin_[a-z_]+_600' scripts/instructions_tgtmin_size_curve.csv 2>/dev/null); c=${c:-0}
     echo "${s}/10 shape-free sets, ${f}/90 fits, ${c}/288 size-curve fits"
 }
 while true; do
