@@ -40,11 +40,18 @@ Against the family-B arms, which exist only for the first two instruction splits
 | Split | `tgtmin` | `tgtnone` (measured, no anchor) | `tgtshot` (measured + dev anchor) |
 | --- | --- | --- | --- |
 | `anthropic_harmless_refusal` | 0.9871 ±0.0048 | 0.9856 ±0.0069 | 0.9897 ±0.0048 |
-| `bbq_substitution` | 0.8226 ±0.0592 | *(backfilled separately)* | 0.9079 ±0.0230 |
+| `bbq_substitution` | 0.8226 ±0.0592 | **0.9367 ±0.0133** | 0.9079 ±0.0230 |
 
 On `anthropic_harmless_refusal` the three arms are inside ±0.005 of each other — the measured
 description, the dev few-shot anchor and the shape bought **nothing** over one sentence of
 situation and one sentence per label.
+
+`bbq_substitution` is the opposite, and the control is what shows it. `tgtnone` — the measured
+description with the anchor dropped — is the best arm on that split at 0.9367, above `tgtshot`
+(so the anchor HURT by 0.029) and 0.114 above `tgtmin`. The whole deficit is the SHAPE, none
+of it the anchor. So `bbq_substitution` is a second genuinely shape-dependent split alongside
+`toolace_balanced`, not the marginal −0.011 the `--kind` comparison alone suggested: measured
+against the arm it actually ablates, the loss is ten times larger.
 
 ## Why: shape that FOLLOWS from the situation is not information
 
@@ -90,6 +97,38 @@ call ARE what the row is; removing them removed the split. The arm's own rule �
 form out — misclassified the split's defining content as form. Every other split's form was
 genuinely incidental.
 
+## Size curve: half the data is free, and there is no plateau
+
+Six sizes x 8 class-balanced draws on each of the six shape-free instruction sets, 288 fits
+(`scripts/instructions_tgtmin_size_curve.csv`). Every fit is `own 50-row base + n drawn rows`,
+so n=10 trains on 60 and clears tuberlens' ~49-row optimizer-step threshold. On-target AUROC,
+mean ±sd:
+
+| Split | n=300 | n=120 | n=60 | n=30 | n=15 | n=10 | n=540 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `anthropic_harmless_refusal` | 0.9787±0.0064 | 0.9552±0.0117 | 0.9025±0.0185 | 0.8014±0.0611 | 0.7140±0.0329 | 0.7332±0.0495 | 0.9871±0.0048 |
+| `bbq_substitution` | 0.8468±0.0446 | 0.8456±0.0563 | 0.7938±0.0509 | 0.7719±0.0820 | 0.6278±0.0727 | 0.5932±0.0783 | 0.8226±0.0592 |
+| `hc_context_drift` | 0.9934±0.0048 | 0.9744±0.0259 | 0.9303±0.1334 | 0.5404±0.0574 | 0.5104±0.0119 | 0.5049±0.0063 | 0.9898±0.0024 |
+| `hc_contradiction` | 0.9172±0.0157 | 0.8867±0.0365 | 0.8509±0.0195 | 0.8191±0.1021 | 0.6740±0.0811 | 0.5716±0.0886 | 0.9032±0.0245 |
+| `mm_substitution` | 0.9514±0.0121 | 0.8896±0.0482 | 0.8558±0.0411 | 0.7903±0.0339 | 0.7863±0.0505 | 0.7144±0.0343 | 0.9456±0.0279 |
+| `oig_context_drift` | 0.8564±0.0468 | 0.6452±0.0359 | 0.6029±0.0279 | 0.5898±0.0200 | 0.5696±0.0132 | 0.5695±0.0149 | 0.9252±0.0125 |
+| **mean of six** | **0.9240** | **0.8661** | **0.8227** | **0.7188** | **0.6470** | **0.6144** | 0.9289 |
+
+**NO 30-ROW PLATEAU** — the direct opposite of the hu_harm curve, where 30 rows matched 600.
+Here the mean falls monotonically and has already lost 0.21 by n=30.
+
+**Half of every set is free.** n=300 (0.9240) matches n=540 (0.9289) within noise on five of
+six splits. Whatever the back 300 rows add, the probe does not use it.
+
+**`hc_context_drift` falls off a CLIFF, not a slope**: 0.9303 at n=60 to 0.5404 — chance — at
+n=30. Its n=60 sd is ±0.1334, ten times its n=300 sd, so the edge is bimodal: some 60-row
+draws carry the drift pattern and some do not. A mean alone would have hidden that; the sd is
+what makes it readable.
+
+**`oig_context_drift` is the hungriest split**, down to 0.6452 by n=120 where every other
+split is still at or above 0.84 — it needs several hundred rows to teach what its
+document-flavoured twin learns from sixty.
+
 ## What this does NOT settle
 
 - **Family B is missing for eight of ten splits.** The earlier run died at 4/20 sets, so eight
@@ -99,7 +138,8 @@ genuinely incidental.
 - **One generator, one draw per split.** hu_harm arm 3 needed a second draw to read its own
   result; generator variance here is unmeasured, and the two losses are the cells where that
   matters most.
-- **`bbq_substitution`'s −0.085 against `tgtshot`** conflates the dropped anchor with the
-  dropped shape until its `tgtnone` backfill lands.
+- **The size curve is `tgtmin` only.** Whether the arm's small-n behaviour differs from the
+  measured-description or `--kind` arms is unmeasured; the cliff on `hc_context_drift` in
+  particular may or may not be a property of shape-free data specifically.
 - **`anthropic_hh_balanced` rewards no targeting at all** — unsteered generic scores 0.9699,
   above every targeted arm. It is a poor test of shape in either direction.
