@@ -7,8 +7,13 @@
 # family-B run died with 4 sets generated and 3 fitted. This fits whatever tgtshot/tgtnone
 # sets are on disk and short of their 9 rows.
 #
-# WAITS for run_tgtmin_fits.sh to exit first. One 24 GB card, one gemma-3-27b at a time: a
+# WAITS for the tgtmin fit driver to exit first. One 24 GB card, one gemma-3-27b at a time: a
 # concurrent extraction would OOM rather than overlap.
+#
+# The wait pattern is anchored on the INVOCATION (`bash ./<script>`), not on the bare script
+# name. An unanchored `pgrep -f` also matches any shell whose command line merely QUOTES the
+# name — the heredoc that wrote this file did exactly that, and the first version of this
+# script waited 100 minutes on an echo of its own source before anyone noticed.
 set -u
 cd "$(dirname "${BASH_SOURCE[0]}")"
 if [ -f .env ]; then set -a; . ./.env; set +a; fi
@@ -17,7 +22,7 @@ export MAX_MEMORY="${MAX_MEMORY:-$AGENTIC_REDTEAM_MAX_MEMORY}"
 PY=.venv_claude/bin/python
 TAG="${TAG:-deepseekv4pro}"
 
-while pgrep -f "[r]un_tgtmin_fits.sh" > /dev/null; do
+while pgrep -f "bash \./run_tgtmin_fits\.sh" > /dev/null; do
     sleep 120
 done
 echo ">>> $(date -Is)  tgtmin fits finished; backfilling family-B sets"
