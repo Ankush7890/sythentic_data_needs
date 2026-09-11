@@ -4,11 +4,14 @@ INTERVAL="${INTERVAL:-3600}"
 BRANCH=per_split_studies
 FILES="scripts/split_specs.py scripts/generate_split_targeted.py scripts/inspect_generated_set.py
 SPLIT_TARGETED_PROMPTS.txt run_tgt_gen.sh run_tgt_fits.sh watch_tgt.sh hourly_push_tgt.sh
-scripts/instructions_gen90.csv scripts/highstakes_gen90_dev500.csv"
+run_generalist_sizecurve.sh run_hu_harm_generalist_curve.sh
+data/hu_harm_llama70b_evaldescshape_600.jsonl data/hu_harm_gptoss_evaldescshape_600.jsonl
+data/hu_harm_deepseekv4pro_evaldescshape_600.jsonl data/hu_harm_nemotron_evaldescshape_600.jsonl
+scripts/instructions_gen90.csv scripts/highstakes_gen90_dev500.csv scripts/hu_harm_gen90.csv"
 status () {
     local s f
     s=$(ls data/*_tgt*_600.jsonl 2>/dev/null | wc -l)
-    f=$(cat scripts/instructions_gen90.csv scripts/highstakes_gen90_dev500.csv 2>/dev/null \
+    f=$(cat scripts/instructions_gen90.csv scripts/highstakes_gen90_dev500.csv scripts/hu_harm_gen90.csv 2>/dev/null \
         | grep -cE '_(tgtshot|tgtnone)_[a-z_]+_600' || true)
     echo "${s}/20 split-targeted sets, ${f} fits"
 }

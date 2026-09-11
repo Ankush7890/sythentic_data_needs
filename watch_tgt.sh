@@ -8,13 +8,13 @@ PAT='_(tgtshot|tgtnone)_[a-z_]+_600'
 while true; do
     sleep 3600
     sets=$(ls data/*_tgt*_600.jsonl 2>/dev/null | wc -l)
-    fits=$(cat scripts/instructions_gen90.csv scripts/highstakes_gen90_dev500.csv 2>/dev/null \
+    fits=$(cat scripts/instructions_gen90.csv scripts/highstakes_gen90_dev500.csv scripts/hu_harm_gen90.csv 2>/dev/null \
            | grep -cE "$PAT"); fits=${fits:-0}
     gen=$(pgrep -fc "[g]enerate_split_targeted.py"); gen=${gen:-0}   # two drivers now
     warm=$(pgrep -fc "[w]arm_set_activations.py"); warm=${warm:-0}
     fit=$(pgrep -fc "[s]ubsample_curve_concept.py"); fit=${fit:-0}
     gpu=$(nvidia-smi --query-gpu=memory.used --format=csv,noheader 2>/dev/null | tr -d '\n')
-    newest=$(ls -t logs/*tgt*.log logs/sizecurve_*.log logs/hs_tiny_*.log logs/nobase_*.log logs/hs_nobase*.log logs/generalist_curve*.log 2>/dev/null | head -1)
+    newest=$(ls -t logs/*tgt*.log logs/sizecurve_*.log logs/hs_tiny_*.log logs/nobase_*.log logs/hs_nobase*.log logs/generalist_curve*.log logs/hu_harm_*.log 2>/dev/null | head -1)
     age=$(( $(date +%s) - $(stat -c %Y "$newest" 2>/dev/null || date +%s) ))
     flag=ok
     [ "$gen" = 0 ] && [ "$warm" = 0 ] && [ "$fit" = 0 ] && flag=IDLE
