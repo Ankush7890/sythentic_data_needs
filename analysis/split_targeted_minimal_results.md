@@ -178,6 +178,42 @@ So there is no single "how many rows do you need" for this concept: the honest a
 from ten to several hundred depending on what the split tests, and the generic base was
 masking exactly that spread.
 
+### High-stakes, same curve
+
+| Split | n=540 | n=300 | n=120 | n=60 | n=30* | n=15* | n=10* |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `mt_balanced` | 0.9819±0.0031 | 0.9761±0.0104 | 0.9745±0.0021 | 0.9616±0.0103 | 0.9575±0.0125 | 0.9503±0.0239 | 0.9339±0.0380 |
+| `mts_balanced` | 0.9724±0.0142 | 0.9774±0.0044 | 0.9801±0.0068 | 0.9767±0.0072 | 0.9379±0.0130 | 0.8808±0.0478 | 0.8499±0.0886 |
+| `anthropic_hh_balanced` | 0.9523±0.0066 | 0.9468±0.0070 | 0.9369±0.0103 | 0.9180±0.0184 | 0.8927±0.0226 | 0.8654±0.0231 | 0.8337±0.0533 |
+| `toolace_balanced` | 0.6898±0.0192 | 0.6711±0.0099 | 0.6769±0.0194 | 0.6847±0.0259 | 0.6973±0.0069 | 0.6729±0.0300 | 0.6802±0.0200 |
+| **mean of four** | **0.8991** | **0.8929** | **0.8921** | **0.8852** | **0.8713** | **0.8423** | **0.8244** |
+
+\* `accum=1`. Four draws per cell except `anthropic_hh_balanced` at n>=60, which kept the
+eight it had been given before the draw count was lowered.
+
+**High-stakes barely responds to data volume.** Its four-split mean moves 0.075 across a 54x
+range; instructions moves 0.250 over the same span. Dropping the base costs it almost nothing
+either — −0.004 to −0.017 at n=540, against −0.033 for instructions — so the generic base was
+contributing little even when it was there.
+
+**`toolace_balanced` is FLAT: 0.6802 at ten rows, 0.6898 at five hundred and forty**, every
+intermediate size inside ±0.02. Fifty-four times the data changes nothing. Its ceiling is not
+a data-volume problem and no amount of further generation moves it: the generated set contains
+no function list and no emitted call (`{2: 593, 4: 7}` turns, 0/600 system turns, against a
+real split that is `{3: 695, ...}` with a function list in a system prompt on 734/734 rows), and
+a probe cannot learn from rows that do not contain the thing being tested. This is the same
+split that lost 0.105 on-target in the main comparison, and the curve says why.
+
+**`mt_balanced` is the mirror image.** Equally wrong in shape — no system turn, ends on the
+assistant where all 604 real rows end on the user, documents ~7x too short — and yet 0.9339 on
+TEN rows, 0.9819 on 540. Its signal, clinical risk, survived the mangling intact. Together the
+two make the boundary concrete: getting the FORM wrong is survivable, omitting the thing the
+split actually tests is not.
+
+**Two splits are essentially solved by a handful of rows**, one per concept:
+`anthropic_harmless_refusal` at 0.9801 on ten (against 0.9928 on 540) and `mt_balanced` at
+0.9339 on ten (against 0.9819). Neither is the split its concept's curve is limited by.
+
 ## What this does NOT settle
 
 - **Family B is missing for eight of ten splits.** The earlier run died at 4/20 sets, so eight
