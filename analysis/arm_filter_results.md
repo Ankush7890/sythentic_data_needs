@@ -14,6 +14,18 @@ Filters live in [`scripts/shape_diversity.py`](../scripts/shape_diversity.py); t
 [`scripts/highstakes_armfilter.csv`](../scripts/highstakes_armfilter.csv), rendered by
 [`scripts/report_armfilter.py`](../scripts/report_armfilter.py).
 
+> **This file covers HIGH-STAKES only, and the other two concepts do not agree with it.**
+> The same protocol has since been run on `instructions` (16 arms, complete —
+> `scripts/instructions_armfilter.csv`) and `hu_harm` (13 arms, in progress —
+> `scripts/hu_harm_armfilter.csv`), from `origin/experiment_instruction_last` and
+> `origin/human_harm_last`. On **instructions the shape-mix filter is positive across arms**
+> — **+0.0119 ±0.0045, t = +2.63, 12/16 arms positive** — against this file's −0.0040 ±0.0044
+> for high-stakes. That result is itself fragile: dropping llama70b's four arms (mean
+> +0.033) leaves the other twelve at +0.005, t ≈ 1.6. Read the null below as a statement
+> about high-stakes, not about the filters in general; a three-concept write-up follows when
+> hu_harm finishes. Render either with
+> `report_armfilter.py --csv scripts/<concept>_armfilter.csv`.
+
 ## The arms
 
 Four attackers — `meta-llama/llama-3.3-70b-instruct`, `deepseek/deepseek-v4-pro`,

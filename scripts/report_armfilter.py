@@ -32,7 +32,8 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 ARMS = ["general", "desc", "attacker", "gen"]
 ARM_LABEL = {"general": "general", "desc": "+desc", "attacker": "+attacker", "gen": "gen"}
-SPLITS = ["anthropic_hh_balanced", "mt_balanced", "mts_balanced", "toolace_balanced"]
+# Eval split columns are read off the CSV header: highstakes, hu_harm and instructions
+# have different splits, and hu_ha names its files `eval_*` so the prefix is not doubled.
 POOLS = [("original", "_orig.jsonl"), ("lexical", "_orig_lex.jsonl"),
          ("shape-mix", "_orig_shape.jsonl")]
 
@@ -65,15 +66,21 @@ def corr(x: list[float], y: list[float]) -> float:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--csv", type=Path, default=REPO / "scripts/highstakes_armfilter.csv")
-    ap.add_argument("--sets", type=Path, default=REPO / "scripts/highstakes_armfilter_sets.json")
+    ap.add_argument("--csv", type=Path, default=REPO / "scripts/highstakes_armfilter.csv",
+                    help="scripts/<concept>_armfilter.csv")
+    ap.add_argument("--sets", type=Path, default=None,
+                    help="default: the CSV's path with _armfilter -> _armfilter_sets, .json")
     ap.add_argument("--column", default="eval_mean", help="eval_mean | dev_mean")
     ap.add_argument("--splits", default=None,
                     help="also print the per-eval-split table for one arm, e.g. llama70b/gen")
     args = ap.parse_args()
 
+    sets_path = args.sets or args.csv.with_name(
+        args.csv.stem.replace("_armfilter", "_armfilter_sets") + ".json")
     rows = list(csv.DictReader(args.csv.open(newline="", encoding="utf-8")))
-    meta = json.loads(args.sets.read_text(encoding="utf-8"))["sets"]
+    splits = [c[len("eval_"):] for c in (rows[0] if rows else {})
+              if c.startswith("eval_") and c != "eval_mean"]
+    meta = json.loads(sets_path.read_text(encoding="utf-8"))["sets"]
 
     def vals(stem: str, col: str) -> list[float]:
         return [float(r[col]) for r in rows if r["samples"] == stem and r.get(col)]
@@ -133,12 +140,12 @@ def main() -> None:
         stem = next(k for k, m in meta.items()
                     if m["attacker"] == attacker and m["arm"] == arm)
         print(f"\n## {attacker} / {ARM_LABEL[arm]} — per eval split\n")
-        print("| pool | " + " | ".join(SPLITS) + " | mean |")
-        print("| --- | " + " | ".join("---" for _ in SPLITS) + " | --- |")
+        print("| pool | " + " | ".join(splits) + " | mean |")
+        print("| --- | " + " | ".join("---" for _ in splits) + " | --- |")
         for pname, suffix in POOLS:
-            s = stem.replace("_orig.jsonl", suffix)
-            print(f"| {pname} | " + " | ".join(cell(vals(s, f"eval_{x}")) for x in SPLITS)
-                  + " | " + cell(vals(s, "eval_mean")) + " |")
+            st_ = stem.replace("_orig.jsonl", suffix)
+            print(f"| {pname} | " + " | ".join(cell(vals(st_, f"eval_{x}")) for x in splits)
+                  + " | " + cell(vals(st_, "eval_mean")) + " |")
 
 
 if __name__ == "__main__":
