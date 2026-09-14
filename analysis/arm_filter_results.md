@@ -1,58 +1,58 @@
-# Two set-level filters on sixteen high-stakes arms
+# Two set-level filters, three concepts, 43 arms
 
 Does removing *redundant* rows from a red-team or generated training set make the probe
-better at equal training-set size? Two filters, **four attackers x four arms**, 384 fits,
-one protocol.
+better at equal training-set size? Two filters — one that drops the most lexically
+predictable rows, one that maximizes the mix of conversation shapes — measured on every
+red-team and generated arm of three concepts, **1,080 fits**.
 
-**Answer: no, and nothing measured here predicts when it would.** Across the sixteen arms
-both filters average slightly below zero and neither is distinguishable from no filtering.
-Individual arms move by up to 0.045 AUROC in both directions, but every candidate rule for
-which arm moves which way — including one this document previously asserted — is refuted by
-the full set.
+**Answer: no. Pooled over 43 arms neither filter differs from not filtering**, and no
+property of a set that was measured predicts which arms will gain or lose.
 
-Filters live in [`scripts/shape_diversity.py`](../scripts/shape_diversity.py); the fits are
-[`scripts/highstakes_armfilter.csv`](../scripts/highstakes_armfilter.csv), rendered by
-[`scripts/report_armfilter.py`](../scripts/report_armfilter.py).
+| | arms | Δ lexical | Δ shape-mix |
+| --- | --- | --- | --- |
+| high-stakes | 16 | −0.0022 ±0.0027 (t=−0.80) | −0.0040 ±0.0044 (t=−0.90) |
+| **instructions** | 16 | +0.0034 ±0.0053 (t=+0.64) | **+0.0119 ±0.0045 (t=+2.63)** |
+| hu_harm | 11 | −0.0020 ±0.0041 (t=−0.49) | −0.0035 ±0.0048 (t=−0.72) |
+| **pooled** | **43** | **−0.0001 ±0.0024 (t=−0.03)** | **+0.0021 ±0.0028 (t=+0.73)** |
 
-> **This file covers HIGH-STAKES only, and the other two concepts do not agree with it.**
-> The same protocol has since been run on `instructions` (16 arms, complete —
-> `scripts/instructions_armfilter.csv`) and `hu_harm` (13 arms, in progress —
-> `scripts/hu_harm_armfilter.csv`), from `origin/experiment_instruction_last` and
-> `origin/human_harm_last`. On **instructions the shape-mix filter is positive across arms**
-> — **+0.0119 ±0.0045, t = +2.63, 12/16 arms positive** — against this file's −0.0040 ±0.0044
-> for high-stakes. That result is itself fragile: dropping llama70b's four arms (mean
-> +0.033) leaves the other twelve at +0.005, t ≈ 1.6. Read the null below as a statement
-> about high-stakes, not about the filters in general; a three-concept write-up follows when
-> hu_harm finishes. Render either with
-> `report_armfilter.py --csv scripts/<concept>_armfilter.csv`.
+The one exception is instructions' shape-mix column, and it does not survive a
+leave-one-attacker-out check: drop llama70b's four arms (mean +0.033) and the other twelve
+give **+0.005, t ≈ 1.6**. Treat it as the one place worth a follow-up, not as a result.
+
+Filters: [`scripts/shape_diversity.py`](../scripts/shape_diversity.py). Fits:
+`scripts/{highstakes,instructions,hu_harm}_armfilter.csv`, rendered by
+[`scripts/report_armfilter.py`](../scripts/report_armfilter.py) with per-set diagnostics in
+`scripts/<concept>_armfilter_sets.json` (built by
+[`scripts/build_armfilter_sets.py`](../scripts/build_armfilter_sets.py)).
 
 ## The arms
 
-Four attackers — `meta-llama/llama-3.3-70b-instruct`, `deepseek/deepseek-v4-pro`,
-`openai/gpt-oss-120b`, `nemotron` — each contribute four arms on the **same concept**
-(high-stakes) and the **same probe** (`google/gemma-3-27b-it`, layer 32,
-`linear_then_softmax`, single). Each attacker's arms are fitted on **its own** 50-row base,
-as its red-team run was, so an arm is single-source. The three red-team arms come from
-`origin/experiment_hs_last`; their configs differ by one knob each, which is what the arm
-names mean:
+Each concept contributes the red-team arms of its `*_last` branch plus the generator
+scaffold's one-shot 600-row set, per attacker. Every arm is fitted on **its own attacker's**
+50-row base, as its red-team run was, so an arm is single-source. The three red-team arms
+differ by one config knob each, which is what their names mean:
 
-| arm | source | what it is |
-| --- | --- | --- |
-| `general` | `probes/hs_gemma27b_<attacker>_<base>_itermemo150/redteam_postprocessed_iter10.jsonl` | red-team loop, **no** `eval.data_description` anywhere |
-| `+desc` | `…_evaldesc/…iter10.jsonl` | adds `eval.data_description` (judge / eval-scope side) |
-| `+attacker` | `…_evaldesc_attacker/…iter10.jsonl` | adds `show_eval_data_description: true` — the description also enters the **attacker's** prompt |
-| `gen` | `data/highstakes_<tag>_600.jsonl` | the generator scaffold's one-shot 600-row set |
+| arm | what it is |
+| --- | --- |
+| `general` | red-team loop, **no** `eval.data_description` anywhere (`itermemo150`) |
+| `+desc` | adds `eval.data_description` on the judge / eval-scope side |
+| `+attacker` | adds `show_eval_data_description: true` — the description also enters the **attacker's** prompt |
+| `gen` | the generator scaffold's one-shot 600-row set, `data/<concept>_<tag>_600.jsonl` |
 
-Row counts, `general / +desc / +attacker / gen`: llama70b 262 / 40 / 62 / 600, deepseek
-394 / 390 / 440 / 600, gpt-oss 442 / 312 / 310 / 600, nemotron 558 / 380 / 368 / 600.
-Every set is exactly class-balanced. Per-set shape and lexical diagnostics are in
-`scripts/highstakes_armfilter_sets.json`; the exact source path and base file for each is a
-field there. The red-team rows are
-`{id, inputs, label}` with `label` ∈ `positive`/`negative`; they were mapped to
-`high-stakes`/`low-stakes` and re-serialized into the standard `{inputs, labels}` schema.
-A red-team set contains both the attacker's own submissions and the LLM-written
-opposite-class partners for them — the filters were applied to the set as it stands, which
-is the set that was actually trained on.
+| concept | branch | arms | note |
+| --- | --- | --- | --- |
+| high-stakes | `origin/experiment_hs_last` | 16 (4 attackers × 4) | complete |
+| instructions | `origin/experiment_instruction_last` | 16 (4 × 4) | complete |
+| hu_harm | `origin/human_harm_last` | 11 | see below |
+
+**hu_harm is 11, not 16, and the reason is the branch, not the protocol.** `+desc` there is
+`evaldesc_new` — its config is documented as "ARM 5's config with
+`show_eval_data_description` flipped to FALSE", i.e. the exact one-knob control for
+`evaldesc_attacker`, the same pairing the other concepts have; the older `evaldesc` is not
+that control and exists for only two attackers. `itermemo150` exists for only two attackers.
+And llama70b's three hu_harm red-team arms hold 16 / 50 / 78 rows: at n = 0.6·N those are
+9–46 added rows and a 0.8 keep removes 3–15 of them, so they are excluded as unmeasurable
+rather than reported as noise.
 
 ## The two filters
 
@@ -91,71 +91,15 @@ Both filters run `per_label=True` and return `floor(keep·N)/2` rows per class, 
 filtered pools are the same size, exactly class-balanced, and a balanced draw from either is
 comparable to one from the unfiltered set.
 
-## What the filters removed (`--keep 0.8`)
-
-Full per-set numbers are in `scripts/highstakes_armfilter_sets.json`; the shape statistics
-that matter for reading the results are the `H_norm` and `top shape %` columns of the results
-table below. Three properties hold across all sixteen sets:
-
-- **All four `gen` sets have exactly one shape** — 600/600 rows `ua`, user turn then
-  assistant turn, for every attacker. The role-sequence quota has nothing to allocate there,
-  so their shape column measures the length-spread stage **alone**.
-- **Bag-of-words separates every set essentially perfectly in-sample** (0.975–1.000 train
-  accuracy; the `gen` sets at 0.963–0.978 mean confidence). Lexical shortcuts are available
-  in all sixteen.
-- **MI(shape; label) is at or near zero everywhere** (max 0.009 bits, on `nemotron/general`),
-  so flattening the shape distribution is never deleting label signal — the guard that makes
-  the shape filter safe to apply, in the sense of not destroying information. Safe is not the
-  same as useful, as the results show.
-
-The two filters keep genuinely different rows — Jaccard 0.60–0.68 across the arms — so
-neither is a proxy for the other. And a **global** percentile cut (what `filter_dataset`
-does) would have taken 70 high-stakes against 50 low-stakes rows out of llama70b's `gen`
-alone, shifting the class ratio while size is what is nominally being measured; that is why
-the cut here is taken within each class.
-
-The shape distributions differ enormously between attackers, which is what makes the null
-result below informative rather than a narrow test: `gpt-oss/+desc` is 89.7% one shape
-(H_norm 0.253) while `nemotron/+desc` spreads over 22 sequences with no shape above 20.5%
-(H_norm 0.820), out to `uauauauauauauauauauauau`.
-
-## Protocol for the AUROC numbers
-
-Per arm: three pools (unfiltered, lexical, shape-mix), each drawn from **8 times** at the
-**same n** = 0.6·N, class-balanced n/2 per class, through
-`scripts/subsample_curve_concept.py`. Pools are 0.8·N, so every pool can serve every draw
-and no pool is exhausted (which would collapse its sd to zero). The three columns of an arm
-therefore differ in *which rows were available to draw from* and in nothing else.
-
-    dev            dev_samples/highstakes_500 — the 500-row cut, early stopping + reporting
-    eval           eval_sets/highstakes, FULL splits, no subsampling
-    probe          gemma-3-27b L32, linear_then_softmax, single, seed 42
-    transforms     combine_consecutive_messages = convert_tool_to_assistant = True
-    base           each attacker's OWN 50-row set, always in full
-    n              0.6 x N per arm, 24-360 rows
-
-Draws are seeded on `(pool filename, n, draw)`, so the three pools of an arm get
-**independent** draws rather than paired ones; Δ carries the standard error of the
-difference, `sqrt(sd_a²/8 + sd_b²/8)`.
-
-**Read llama70b's two small arms with care.** The probe steps the optimizer every 4th batch
-of `ceil(rows/16)`, so llama70b's `+desc` (50 + 24 = 74 rows → 5 batches) and `+attacker`
-(86 rows → 6 batches) take **one optimizer step per epoch**: they train (200 epochs,
-patience 50), but with an effective batch covering the whole training set. Every other arm
-in the sweep is 186–360 drawn rows and gets 3–6 steps per epoch. All sixteen run at the
-repo-default `gradient_accumulation_steps=4`, so no accum-boundary caveat applies, but
-llama70b's two small arms are coarser fits than the rest — which matters, because the single
-largest effect in the experiment is one of them.
-
 ## Results
 
-384 fits: 16 arms x 3 pools x 8 draws. Every cell is 8 class-balanced draws; `Δ` is against
-that arm's unfiltered column with the standard error of the difference. Regenerate with
-`scripts/report_armfilter.py`.
+Every cell: 8 class-balanced draws per pool, `Δ` against that arm's unfiltered column with
+the standard error of the difference. `H_norm` is the normalized entropy of the set's role
+sequences, `top %` the share of its most common one — both measured before filtering.
 
-### eval mean — the four high-stakes splits, full
+### high-stakes — 16 arms
 
-| attacker | arm | N | n | H_norm | top shape % | original | Δ lex | Δ shape |
+| attacker | arm | N | n | H_norm | top % | original | Δ lex | Δ shape |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | llama70b | general | 262 | 156 | 0.792 | 47.3 | 0.9110 ±0.0143 | +0.0031 ±0.0056 | +0.0063 ±0.0067 |
 | llama70b | +desc | 40 | 24 | 0.878 | 37.5 | 0.9110 ±0.0236 | −0.0054 ±0.0119 | −0.0099 ±0.0098 |
@@ -174,120 +118,178 @@ that arm's unfiltered column with the standard error of the difference. Regenera
 | nemotron | +attacker | 368 | 220 | 0.682 | 35.3 | 0.8560 ±0.0211 | −0.0002 ±0.0094 | −0.0043 ±0.0086 |
 | nemotron | gen | 600 | 360 | 1.000 | 100.0 | 0.8777 ±0.0118 | +0.0088 ±0.0046 | +0.0027 ±0.0051 |
 
-### Across the sixteen arms, treating an arm as the unit
+### instructions — 16 arms
 
-| filter | mean Δ | median | negative | range | t |
-| --- | --- | --- | --- | --- | --- |
-| lexical | −0.0022 ±0.0027 | −0.0012 | 9/16 | −0.0250 … +0.0166 | −0.80 |
-| shape-mix | −0.0040 ±0.0044 | −0.0036 | 9/16 | −0.0446 … +0.0273 | −0.90 |
+| attacker | arm | N | n | H_norm | top % | original | Δ lex | Δ shape |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| llama70b | general | 310 | 186 | 0.275 | 89.0 | 0.7933 ±0.0365 | +0.0047 ±0.0165 | +0.0193 ±0.0158 |
+| llama70b | +desc | 188 | 112 | 0.578 | 72.3 | 0.7808 ±0.0482 | +0.0002 ±0.0234 | **+0.0541 ±0.0252** |
+| llama70b | +attacker | 228 | 136 | 0.668 | 53.5 | 0.7856 ±0.0406 | **+0.0435 ±0.0163** | **+0.0472 ±0.0159** |
+| llama70b | gen | 600 | 360 | 1.000 | 100.0 | 0.7367 ±0.0309 | +0.0225 ±0.0150 | +0.0108 ±0.0175 |
+| deepseek | general | 616 | 368 | 0.316 | 85.2 | 0.7198 ±0.0341 | +0.0252 ±0.0174 | +0.0193 ±0.0178 |
+| deepseek | +desc | 456 | 272 | 0.328 | 81.6 | 0.7609 ±0.0332 | −0.0226 ±0.0133 | −0.0029 ±0.0162 |
+| deepseek | +attacker | 516 | 308 | 0.521 | 72.9 | 0.8142 ±0.0315 | +0.0054 ±0.0124 | +0.0066 ±0.0122 |
+| deepseek | gen | 600 | 360 | 1.000 | 100.0 | 0.7476 ±0.0475 | −0.0147 ±0.0213 | −0.0068 ±0.0222 |
+| gpt-oss | general | 410 | 246 | 0.243 | 93.2 | 0.7422 ±0.0400 | −0.0026 ±0.0202 | +0.0136 ±0.0176 |
+| gpt-oss | +desc | 410 | 246 | 0.256 | 91.2 | 0.7780 ±0.0336 | −0.0220 ±0.0205 | +0.0001 ±0.0156 |
+| gpt-oss | +attacker | 376 | 224 | 0.346 | 83.8 | 0.7643 ±0.0431 | +0.0095 ±0.0185 | +0.0208 ±0.0174 |
+| gpt-oss | gen | 600 | 360 | 1.000 | 100.0 | 0.6508 ±0.0366 | −0.0305 ±0.0247 | +0.0047 ±0.0258 |
+| nemotron | general | 482 | 288 | 0.267 | 87.8 | 0.6992 ±0.0311 | +0.0092 ±0.0185 | −0.0011 ±0.0185 |
+| nemotron | +desc | 394 | 236 | 0.384 | 78.4 | 0.8296 ±0.0211 | −0.0092 ±0.0089 | −0.0158 ±0.0126 |
+| nemotron | +attacker | 326 | 194 | 0.375 | 76.7 | 0.7717 ±0.0316 | **+0.0364 ±0.0129** | +0.0121 ±0.0158 |
+| nemotron | gen | 600 | 360 | 1.000 | 100.0 | 0.6782 ±0.0392 | −0.0015 ±0.0158 | +0.0090 ±0.0180 |
 
-Dev agrees: lexical −0.0029 ±0.0034, shape-mix −0.0051 ±0.0053 (10/16 negative), and the
-per-arm signs match eval on 13/16 arms for shape-mix.
+### hu_harm — 11 arms
 
-**Neither filter beats not filtering.** Both point slightly negative, neither reaches one
-standard error, and the median arm loses a little under both. At `keep=0.8` on these sets,
-the best thing to do with the most lexically-predictable fifth of a set, or with the rows
-that make its shape distribution lumpy, is to leave them in.
+| attacker | arm | N | n | H_norm | top % | original | Δ lex | Δ shape |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| llama70b | gen | 600 | 360 | 1.000 | 100.0 | 0.8764 ±0.0335 | +0.0147 ±0.0130 | −0.0054 ±0.0143 |
+| deepseek | +desc | 382 | 228 | 0.328 | 94.0 | 0.8825 ±0.0202 | +0.0110 ±0.0088 | +0.0055 ±0.0094 |
+| deepseek | +attacker | 336 | 200 | 0.053 | 99.4 | 0.8470 ±0.0402 | −0.0254 ±0.0247 | **−0.0416 ±0.0198** |
+| deepseek | gen | 600 | 360 | 1.000 | 100.0 | 0.8933 ±0.0062 | −0.0033 ±0.0032 | +0.0030 ±0.0031 |
+| gpt-oss | +desc | 302 | 180 | 0.376 | 92.7 | 0.8495 ±0.0177 | +0.0047 ±0.0079 | −0.0044 ±0.0114 |
+| gpt-oss | +attacker | 290 | 174 | 0.490 | 89.3 | 0.8056 ±0.0461 | +0.0101 ±0.0221 | +0.0211 ±0.0229 |
+| gpt-oss | gen | 600 | 360 | 1.000 | 100.0 | 0.8860 ±0.0075 | −0.0061 ±0.0069 | −0.0004 ±0.0035 |
+| nemotron | general | 436 | 260 | 0.438 | 73.2 | 0.8859 ±0.0219 | +0.0014 ±0.0082 | −0.0066 ±0.0092 |
+| nemotron | +desc | 364 | 218 | 0.321 | 82.7 | 0.8899 ±0.0068 | +0.0049 ±0.0052 | **+0.0097 ±0.0035** |
+| nemotron | +attacker | 400 | 240 | 0.439 | 81.8 | 0.8736 ±0.0304 | **−0.0262 ±0.0130** | −0.0164 ±0.0140 |
+| nemotron | gen | 600 | 360 | 1.000 | 100.0 | 0.8913 ±0.0060 | −0.0078 ±0.0033 | −0.0025 ±0.0041 |
 
-## No predictor survives
+## Nothing predicts which arms gain
 
-The per-arm effects are not noise — five cells sit past 2 se and they run in both directions
-(+0.027, +0.017 against −0.045, −0.021, −0.015). Something real differs between arms. But
-every rule proposed during the run failed on later arms:
+Correlation of Δ shape-mix with every set property measured, pooled and per concept:
 
-| candidate predictor of Δ shape-mix | correlation over 16 arms |
-| --- | --- |
-| shape entropy of the set (H_norm) | −0.140 |
-| dominant-shape share | +0.025 |
-| distinct shapes in the set | −0.060 |
-| rows in the set | −0.375 |
-| unfiltered AUROC of the arm | +0.241 |
-| bag-of-words train accuracy | +0.158 |
+| candidate predictor | pooled (43) | high-stakes | instructions | hu_harm |
+| --- | --- | --- | --- | --- |
+| shape entropy `H_norm` | −0.044 | −0.140 | +0.012 | +0.331 |
+| dominant-shape share | −0.019 | +0.025 | −0.538 | −0.130 |
+| distinct shapes in the set | −0.132 | −0.060 | −0.165 | +0.073 |
+| rows in the set | −0.298 | −0.375 | −0.603 | +0.039 |
+| unfiltered AUROC of the arm | −0.303 | +0.241 | +0.105 | −0.046 |
+| MI(shape; label) | −0.040 | −0.158 | −0.299 | +0.307 |
+| bag-of-words train accuracy | −0.170 | +0.158 | +0.273 | −0.045 |
+| **draw sd of the arm** | **+0.379** | +0.283 | +0.577 | −0.264 |
 
-**A retraction.** An earlier version of this document reported, from the four llama70b arms
-alone, that Δ shape-mix was monotone in `H_norm` with `r = −0.995` and a crossover at
-`H_norm ≈ 0.84`, and proposed it as a rule for when to apply the filter. **That was an
-artifact of four points.** Over sixteen arms the correlation is −0.14, and the rule's
-sharpest prediction — `gpt-oss/general` at `H_norm` 0.349 should gain +0.092 — came back
-−0.007. Two pairs of sibling arms settle it directly: deepseek's `general` and `+desc` have
-near-identical shape statistics (H_norm 0.585 vs 0.531, dominant shape 65% vs 68%, same
-attacker, same base) and give −0.045 against +0.007; gpt-oss's `general` and `+desc`
-(0.349 vs 0.253) give −0.007 against +0.017.
+Every one either sits near zero pooled or changes sign between concepts. **Four hypotheses
+formed during the run and were each refuted by later arms:**
 
-Two other ideas died the same way:
+1. **Δ is monotone in shape entropy** (r = −0.995 on the first four high-stakes arms, with a
+   crossover at `H_norm ≈ 0.84`). Pooled r = −0.044. Its sharpest prediction — `gpt-oss`
+   high-stakes `general` at `H_norm` 0.349 should gain +0.092 — came back −0.007.
+2. **Arm type carries.** `+attacker` gives +0.027 / −0.008 / −0.003 / −0.004 on high-stakes
+   and +0.047 / +0.007 / +0.021 / +0.012 on instructions: the effect tracks concept and
+   attacker, not arm.
+3. **Single-shape sets are harmed** (the six 600/600 `ua` `gen` sets, where the role-sequence
+   quota provably cannot act and only the length stage runs). They give −0.029 / −0.011 /
+   +0.009 / +0.003 / +0.011 / −0.005 / +0.003 / −0.000 / −0.003. The *mechanism* is real —
+   greedy k-center is outlier-seeking, so on a homogeneous set it buys length extremes — but
+   it does not fix the sign.
+4. **Filtering helps weak sets.** Pooled r = −0.303 looks supportive, but it is +0.241 on
+   high-stakes; the pooled value is driven by instructions being both the weakest concept and
+   the only positive one, i.e. it is the concept effect wearing a disguise.
 
-- **Arm type does not carry.** `+attacker` gives +0.0273 / −0.0076 / −0.0030 / −0.0043 across
-  llama70b / deepseek / gpt-oss / nemotron. The one large positive is llama70b's 62-row arm,
-  the smallest and coarsest fit in the sweep, and it did not reproduce on any other attacker.
-- **The single-shape case does not carry either**, and this is the one that had a mechanism
-  behind it. With 600/600 rows in one role sequence the quota stage provably cannot act, so
-  the filter reduces to greedy k-center on lengths — an outlier-seeking objective. That
-  reasoning is still correct about what the filter *does*; it does not fix the *sign* of the
-  result. The four `gen` arms give −0.0292 / −0.0114 / +0.0088 / +0.0027: two clear losses,
-  two small gains.
+The one correlate that is neither near zero nor sign-flipping between two of three concepts
+is the arm's own **draw-to-draw sd** (+0.379 pooled, +0.577 on instructions). That is the
+least comforting possible predictor: it says the filters look best exactly where the
+measurement is noisiest.
 
-The largest correlation left is with **set size** (−0.375), i.e. the filter doing better on
-smaller sets — but smaller sets are also the coarser, noisier fits, `|r| = 0.375` over 16
-points is well inside what chance produces, and it is the sort of relation this document has
-already been burned by once. It is recorded, not believed.
+**Sibling arms settle it.** Four pairs share an attacker, a base, a concept and near-identical
+shape statistics, and split in opposite directions: high-stakes deepseek `general` (−0.045)
+vs `+desc` (+0.007) at `H_norm` 0.585/0.531; high-stakes gpt-oss `general` (−0.007) vs
+`+desc` (+0.017); instructions deepseek `general` (+0.019 lex +0.025) vs `+desc` (−0.003 lex
+−0.023); hu_harm nemotron `+desc` (+0.010) vs `+attacker` (−0.016). Whatever moves these
+numbers is a property of *which particular rows* a filter removes, not of any summary
+statistic of the set.
+
+### The one hypothesis still standing, weakly
+
+Near-degenerate shape distributions — one role sequence holding ≥99% of the rows, where the
+quota stage cannot act at all:
+
+| | arms | Δ shape-mix |
+| --- | --- | --- |
+| ≥99% one shape | 13 | −0.0045 ±0.0043 (t=−1.05) |
+| everything else | 30 | +0.0049 ±0.0036 (t=+1.39) |
+
+The gap is ~0.009 with each side about one standard error from zero — suggestive, not
+established, and it is the fourth incarnation of a hypothesis whose first three versions
+died. It contains the study's two worst cells (high-stakes deepseek `general` at 65% one
+shape is *not* in this group, but hu_harm deepseek `+attacker` at 99.4% and llama70b
+high-stakes `gen` at 100% are). If the shape filter is used again, gating stage B when one
+shape dominates — or replacing max-min with a quantile-stratified length pick — is the
+change to make.
 
 ## Variance is not systematically improved either
 
-An early reading of the llama70b arms was that the lexical filter buys stability even when it
-does not buy accuracy. Over sixteen arms that does not hold as a rule:
-
 | filter | median sd ratio (filtered / original) | range | inflated |
 | --- | --- | --- | --- |
-| lexical | 0.89 | 0.43 – 5.28 | 8/16 arms |
-| shape-mix | 0.76 | 0.33 – 4.99 | 5/16 arms |
+| lexical | 0.79 | 0.34 – 5.28 | 18/43 arms |
+| shape-mix | 0.86 | 0.33 – 4.99 | 15/43 arms |
 
-The central tendency is a mild tightening, but the tails are violent in both directions and
-land on different arms for the two filters. The extremes: shape-mix on `deepseek/general`
-(±0.0089 → ±0.0443) and lexical on `nemotron/general` (±0.0136 → ±0.0715, with draws running
-0.645 to 0.857 where the unfiltered pool never leaves 0.79–0.83). Removing a fifth of a set
-by either criterion can make which rows you happen to draw matter far more than it did.
+A mild median tightening with violent tails in both directions, landing on different arms for
+the two filters. The extremes: lexical on high-stakes `nemotron/general` (±0.0136 → ±0.0715,
+draws running 0.645–0.857 where the unfiltered pool never leaves 0.79–0.83) and shape-mix on
+high-stakes `deepseek/general` (±0.0089 → ±0.0443). An earlier reading of the first four arms
+— "the lexical filter buys stability" — does not hold at 43.
 
-## Where the two big effects come from
+## What to do with this
 
-The two arms that moved most, per eval split — the same filter helping one split and hurting
-another is the shape of every large effect here:
+**Don't filter.** At `keep=0.8`, on 43 arms across three concepts, neither criterion beats
+leaving the set alone, and both can cost up to 0.045 AUROC on an individual set with no way
+to tell in advance which. The bag-of-words confound is real and available in every set
+(train accuracy 0.81–1.000, the generated sets at 0.96–0.98 mean confidence) — but removing
+it changes nothing, which is the useful negative: **lexical separability is not what limits
+these probes.**
 
-`llama70b / +attacker`, the largest gain:
-
-| pool | anthropic_hh | mt_balanced | mts_balanced | toolace | mean |
-| --- | --- | --- | --- | --- | --- |
-| original | 0.9526 ±0.0183 | 0.8134 ±0.0534 | 0.9247 ±0.0506 | 0.8490 ±0.0183 | 0.8849 ±0.0197 |
-| lexical | 0.9639 ±0.0111 | 0.8260 ±0.0601 | **0.9639 ±0.0183** | 0.8523 ±0.0151 | 0.9015 ±0.0218 |
-| shape-mix | 0.9559 ±0.0076 | **0.9200 ±0.0460** | 0.9383 ±0.0239 | 0.8345 ±0.0129 | 0.9122 ±0.0147 |
-
-`deepseek / general`, the largest loss:
-
-| pool | anthropic_hh | mt_balanced | mts_balanced | toolace | mean |
-| --- | --- | --- | --- | --- | --- |
-| original | 0.9159 ±0.0158 | 0.8370 ±0.0292 | 0.9280 ±0.0213 | 0.7818 ±0.0238 | 0.8657 ±0.0089 |
-| lexical | 0.9310 ±0.0154 | 0.7906 ±0.0795 | 0.9260 ±0.0333 | 0.7562 ±0.0296 | 0.8509 ±0.0272 |
-| shape-mix | 0.9052 ±0.0415 | **0.7406 ±0.1007** | 0.8740 ±0.1010 | 0.7644 ±0.0389 | 0.8210 ±0.0443 |
-
-`mt_balanced` — one very long clinical document per row, no assistant turn — is the split
-that moves in both: +0.107 on llama70b's `+attacker`, −0.096 on deepseek's `general`, and it
-is also the highest-variance split in the sweep. Since the shape filter's length stage is
-precisely what decides how many long single-exchange rows survive, `mt_balanced` is the split
-it reaches; which direction it moves is not something the filter controls.
+The single follow-up worth the compute is instructions' shape-mix column: +0.0119 ±0.0045
+over 16 arms, carried by one attacker. A keep-curve (0.5 / 0.65 / 0.9) on instructions'
+non-llama70b arms would settle whether there is anything there, and the pools already exist,
+so it is fits only.
 
 ## What this does not settle
 
-- **One concept, one probe, one keep fraction.** Everything is high-stakes / gemma-3-27b L32
-  / `keep=0.8`. A keep-curve (0.5, 0.65, 0.8, 0.9) on a handful of arms is the obvious next
-  experiment and the cheapest, since the pools are already built.
+- **One keep fraction.** Everything is `keep=0.8`. A filter that removes 20% may be removing
+  too little to matter and too much to be free.
 - **Draws are unpaired.** The harness seeds each draw on the pool's filename, so an arm's
-  three columns do not share subsets. Paired draws would cut the standard error on every Δ
-  by roughly the correlation between pools and would sharpen the five significant cells.
-- **The red-team sets were filtered whole**, attacker submissions and their LLM-written
-  opposite-class partners together. The partners are frequently minimal word swaps of their
-  originals ($100 → $100,000) — the single most confounded thing in these sets — and a run
-  that filters only the originals would measure something different.
-- **The filters are one implementation each.** The shape filter's stage B (max-min k-center)
-  is outlier-seeking by construction; a quantile-stratified length pick, or gating stage B
-  when one shape dominates, is a different filter that this experiment says nothing about.
-- **16 arms, 8 draws each is enough to reject a large effect, not a small one.** A true
-  +0.005 from either filter would be invisible at this resolution.
+  three columns do not share subsets. Pairing them would cut the standard error on every Δ
+  and is the cheapest available improvement.
+- **The red-team sets were filtered whole**, attacker submissions together with the
+  LLM-written opposite-class partners generated from them. The partners are frequently
+  minimal word swaps of their originals ($100 → $100,000) — the most confounded thing in
+  these sets — and filtering only the originals would measure something different.
+- **One implementation each.** The shape filter's stage B is outlier-seeking by construction;
+  the lexical filter inherits `filter_dataset`'s quirk of scoring confidence in the
+  *predicted* class, so a confidently-wrong row is dropped along with the confidently-right
+  ones. Different choices are different filters.
+- **43 arms × 8 draws rejects a large effect, not a small one.** A true +0.005 from either
+  filter would be invisible here.
+- **hu_harm's llama70b red-team arms (16/50/78 rows) were never measured**, so that concept
+  is 11 arms and three of its four attackers contribute no `general` arm.
+
+## Protocol for the AUROC numbers
+
+Per arm: three pools (unfiltered, lexical, shape-mix), each drawn from **8 times** at the
+**same n** = 0.6·N, class-balanced n/2 per class, through
+`scripts/subsample_curve_concept.py`. Pools are 0.8·N, so every pool can serve every draw
+and no pool is exhausted (which would collapse its sd to zero). The three columns of an arm
+therefore differ in *which rows were available to draw from* and in nothing else.
+
+    dev            the concept's dev_samples/ dir (highstakes: the 500-row cut)
+    eval           the concept's eval_sets/ dir, FULL splits, no subsampling
+    probe          gemma-3-27b L32, linear_then_softmax, single, seed 42
+    transforms     combine_consecutive_messages = convert_tool_to_assistant = True
+    base           each attacker's OWN 50-row set, always in full
+    n              0.6 x N per arm, 24-360 rows
+
+Draws are seeded on `(pool filename, n, draw)`, so the three pools of an arm get
+**independent** draws rather than paired ones; Δ carries the standard error of the
+difference, `sqrt(sd_a²/8 + sd_b²/8)`.
+
+**Read llama70b's two small high-stakes arms with care.** The probe steps the optimizer every 4th batch
+of `ceil(rows/16)`, so llama70b's `+desc` (50 + 24 = 74 rows → 5 batches) and `+attacker`
+(86 rows → 6 batches) take **one optimizer step per epoch**: they train (200 epochs,
+patience 50), but with an effective batch covering the whole training set. Every other arm
+in the sweep is 186–360 drawn rows and gets 3–6 steps per epoch. All sixteen run at the
+repo-default `gradient_accumulation_steps=4`, so no accum-boundary caveat applies, but
+llama70b's two small arms are coarser fits than the rest — which matters, because the single
+largest effect in the experiment is one of them.
