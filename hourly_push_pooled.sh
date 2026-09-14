@@ -18,12 +18,15 @@ scripts/hu_harm_pooled_size_curve.csv scripts/instructions_pooled_size_curve.csv
 scripts/highstakes_pooled_size_curve.csv
 run_pooled_sizecurve.sh run_pooled_sizecurve2.sh run_pooled_all.sh hourly_push_pooled.sh"
 
+# Data rows = lines minus the header. The redirect is guarded by -f rather than by 2>/dev/null
+# on wc: a `< missing` redirect fails in the SHELL before wc runs, so the message comes from
+# the shell and wc's own stderr redirect never sees it.
+rows () { [ -f "$1" ] && echo $(( $(wc -l < "$1") - 1 )) || echo 0; }
+
 status () {
-    local h i s
-    h=$(( $(wc -l < scripts/hu_harm_pooled_size_curve.csv 2>/dev/null || echo 1) - 1 ))
-    i=$(( $(wc -l < scripts/instructions_pooled_size_curve.csv 2>/dev/null || echo 1) - 1 ))
-    s=$(( $(wc -l < scripts/highstakes_pooled_size_curve.csv 2>/dev/null || echo 1) - 1 ))
-    echo "${h} hu_harm + ${i} instructions + ${s} highstakes pooled fits"
+    echo "$(rows scripts/hu_harm_pooled_size_curve.csv) hu_harm + \
+$(rows scripts/instructions_pooled_size_curve.csv) instructions + \
+$(rows scripts/highstakes_pooled_size_curve.csv) highstakes pooled fits"
 }
 
 while true; do
