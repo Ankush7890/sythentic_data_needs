@@ -151,6 +151,15 @@ def main() -> None:
                          "makes n=30 and n=15 trainable. Rows are tagged base='<base>+ga<K>' "
                          "so a re-fit under a different optimizer config can never be "
                          "confused with the default one.")
+    ap.add_argument("--batch-size", type=int, default=0, metavar="B",
+                    help="override the probe's batch_size. Needed to hold the update regime "
+                         "constant across a curve: tuberlens builds its train DataLoader "
+                         "WITHOUT drop_last, so a short final batch is still yielded and "
+                         "n=10 at batch_size 16 is ONE batch that --grad-accum 1 does step. "
+                         "The ga1 default below shrinks the batch to 8 (two steps at n=10); "
+                         "pass --batch-size 16 to keep one step per epoch, matching "
+                         "accumulation = ceil(n/16) at the larger sizes. Rows are tagged "
+                         "base='<base>+ga<K>bs<B>' so the two can never be pooled.")
     ap.add_argument("--no-base", action="store_true",
                     help="fit the drawn subset ALONE, with no base training data. Recorded in "
                          "the CSV with base='none', which keeps the resume key distinct from "
@@ -171,19 +180,28 @@ def main() -> None:
     base_label = "none" if args.no_base else base_data.name
     if args.grad_accum:
         base_label += f"+ga{args.grad_accum}"
+    if args.batch_size:
+        base_label += f"bs{args.batch_size}"
     out_csv = args.out or REPO / f"scripts/{concept.name}_size_curve.csv"
 
     probe_spec = None
-    if args.grad_accum:
+    if args.grad_accum or args.batch_size:
         import pickle as _pk
 
         from agentic_redteam.retrain import _infer_probe_spec
         with concept.base_probe.open("rb") as _fh:
             _spec = _infer_probe_spec(_pk.load(_fh))
         _hp = dict(_spec.hyperparams)
-        _hp["gradient_accumulation_steps"] = args.grad_accum
-        if args.grad_accum == 1 and _hp.get("batch_size", 16) > 8:
-            # n=10 is under one batch of 16, so the epoch still ends with no step.
+        if args.grad_accum:
+            _hp["gradient_accumulation_steps"] = args.grad_accum
+        if args.batch_size:
+            # Explicit wins over the ga1 default below — that default assumes you want two
+            # steps at n=10, which is the wrong regime for a constant-steps-per-epoch curve.
+            _hp["batch_size"] = args.batch_size
+        elif args.grad_accum == 1 and _hp.get("batch_size", 16) > 8:
+            # Halve the batch so a 10-row set is two batches rather than one. (The train
+            # DataLoader is built without drop_last, so the single short batch at
+            # batch_size 16 IS yielded and would step once; this asks for two.)
             _hp["batch_size"] = 8
         # ProbeSpec is a pydantic model, not a dataclass — dataclasses.replace raises on it.
         probe_spec = _spec.model_copy(update={"hyperparams": _hp})
