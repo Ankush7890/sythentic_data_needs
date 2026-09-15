@@ -100,3 +100,27 @@ toolace −0.005 ±0.008, lookup part **+0.027 ±0.010**, finance part +0.021 ±
   back the other splits, at 600 it does not.
 - **Draw-to-draw spread is the widest of any arm** (toolace sd 0.019, range 0.821–0.877), as expected
   when each set's share varies by chance; `mt` swings 0.790–0.942.
+
+## Size curve on the pool — PARTIAL (run stopped at 1800, 2 of 8 draws)
+
+Same merged 3600-row pool, random class-balanced draws, no base; `scripts/highstakes_toolace_union600.csv`.
+Sizes are independent draws (seeded on stem, n, draw), not nested. **The 1800-row column is 2 draws, not 8**
+— the run was stopped by request — so its sd is not an estimate of anything; 3600 is the single fit above.
+
+| scored on | 600 (8 draws) | 1200 (8 draws) | 1800 (**2 draws**) | 3600 (1 fit) |
+| --- | --- | --- | --- | --- |
+| **toolace** | 0.855 ±0.019 | 0.864 ±0.009 | 0.870 | **0.876** |
+| part ops | 0.901 | 0.912 | **0.915** | **0.915** |
+| part lookup | 0.799 | 0.808 | 0.828 | **0.838** |
+| part finance | **0.780** | 0.774 | 0.765 | 0.773 |
+| part roledef | 0.877 | 0.888 | 0.897 | **0.912** |
+| mean of 4 eval splits | 0.881 ±0.017 | **0.890** ±0.011 | 0.887 | 0.858 |
+| anthropic_hh | **0.859** | **0.859** | 0.847 | 0.802 |
+| mt | 0.884 | **0.893** | **0.893** | 0.843 |
+| mts | 0.926 | **0.944** | 0.938 | 0.911 |
+
+**Reading, provisionally.** toolace rises monotonically with size (0.855 → 0.864 → 0.870 → 0.876), about
++0.007 per doubling, and the 1200-row draws halve the 600-row spread. The four-split mean peaks at 1200
+(0.890, the best of the experiment) and holds at 1800, then drops 0.03 at 3600 — so the other splits hold
+up to somewhere between 1800 and 3600 rows and give way beyond it, while toolace keeps climbing. The finance
+part is flat-to-down across sizes (0.780 → 0.773). Completing the 1800 draws is what would firm this up.
