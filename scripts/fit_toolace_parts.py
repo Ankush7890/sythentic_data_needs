@@ -54,15 +54,17 @@ from fit_base_plus_concept import COMBINE, CONCEPTS, CONVERT, SEED, eval_source,
 
 CONCEPT = CONCEPTS["highstakes"]
 DEV = REPO / "dev_samples/highstakes_500"
-PARTS_FILE = REPO / "data/toolace_parts/toolace_balanced_parts.jsonl"
+PARTS_FILE = REPO / "data/toolace_parts/toolace_balanced_subparts.jsonl"
 # get_performances' default; it only feeds tpr_at_fpr, never the AUROC read here.
 FPR = 0.01
 PART_NAMES = ["toolace_ops", "toolace_lookup", "toolace_finance", "toolace_roledef"]
+# lookup and finance cut in two (scripts/make_toolace_subparts.py); scored as sub_<name>.
+SUBPART_NAMES = ["lookup_media", "lookup_utility", "finance_markets", "finance_money"]
 SPLITS = sorted(p.stem for p in CONCEPT.eval_dir.glob("*.jsonl"))
 DEV_SPLITS = sorted(p.stem for p in DEV.glob("*.jsonl"))
 FIELDS = (["samples", "arm", "n", "draw", "n_pos", "n_neg", "dev_mean"]
           + [f"dev_{s}" for s in DEV_SPLITS] + ["eval_mean"] + [f"eval_{s}" for s in SPLITS]
-          + [f"part_{p}" for p in PART_NAMES] + ["seconds"])
+          + [f"part_{p}" for p in PART_NAMES] + [f"sub_{p}" for p in SUBPART_NAMES] + ["seconds"])
 
 
 def balanced(rows: list[dict], n: int, key: str) -> list[dict]:
@@ -100,14 +102,16 @@ def load_eval():
     missing = [s for s, d in datasets.items() if "activations" not in d.other_fields]
     if missing:
         raise SystemExit(f"eval activations missing for {missing}")
-    parts = [json.loads(l)["part"] for l in PARTS_FILE.open(encoding="utf-8") if l.strip()]
-    if len(parts) != len(datasets["toolace_balanced"]):
-        raise SystemExit(f"{PARTS_FILE}: {len(parts)} rows, toolace has "
+    rows = [json.loads(l) for l in PARTS_FILE.open(encoding="utf-8") if l.strip()]
+    if len(rows) != len(datasets["toolace_balanced"]):
+        raise SystemExit(f"{PARTS_FILE}: {len(rows)} rows, toolace has "
                          f"{len(datasets['toolace_balanced'])}")
-    return datasets, np.array(parts)
+    return datasets, (np.array([r["part"] for r in rows]), np.array([r["subpart"] for r in rows]))
 
 
 def score(probe, datasets, parts) -> dict[str, float]:
+    """`parts` is (part per toolace row, subpart per toolace row)."""
+    part, sub = parts
     from tuberlens.evaluation import calculate_metrics
 
     out = {}
@@ -116,9 +120,10 @@ def score(probe, datasets, parts) -> dict[str, float]:
         p = np.asarray(probe.predict_proba(ds))
         out[f"eval_{s}"] = float(calculate_metrics(y, p, fpr=FPR)["auroc"])
         if s == "toolace_balanced":
-            for name in PART_NAMES:
-                m = parts == name
-                out[f"part_{name}"] = float(calculate_metrics(y[m], p[m], fpr=FPR)["auroc"])
+            for prefix, names, labels in (("part", PART_NAMES, part), ("sub", SUBPART_NAMES, sub)):
+                for name in names:
+                    m = labels == name
+                    out[f"{prefix}_{name}"] = float(calculate_metrics(y[m], p[m], fpr=FPR)["auroc"])
     out["eval_mean"] = float(np.mean([out[f"eval_{s}"] for s in SPLITS]))
     return out
 
@@ -173,6 +178,11 @@ def main() -> None:
 
     datasets, parts = load_eval()
     fresh = not args.out.exists() or args.out.stat().st_size == 0
+    if not fresh:
+        with args.out.open(newline="", encoding="utf-8") as _fh:
+            header = next(csv.reader(_fh), None)
+        if header != FIELDS:
+            raise SystemExit(f"{args.out} was written with different columns; use a new --out")
     args.out.parent.mkdir(parents=True, exist_ok=True)
     fh = args.out.open("a", newline="", encoding="utf-8")
     writer = csv.DictWriter(fh, fieldnames=FIELDS)
