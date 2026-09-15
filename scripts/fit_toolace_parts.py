@@ -55,6 +55,8 @@ from fit_base_plus_concept import COMBINE, CONCEPTS, CONVERT, SEED, eval_source,
 CONCEPT = CONCEPTS["highstakes"]
 DEV = REPO / "dev_samples/highstakes_500"
 PARTS_FILE = REPO / "data/toolace_parts/toolace_balanced_parts.jsonl"
+# get_performances' default; it only feeds tpr_at_fpr, never the AUROC read here.
+FPR = 0.01
 PART_NAMES = ["toolace_ops", "toolace_lookup", "toolace_finance", "toolace_roledef"]
 SPLITS = sorted(p.stem for p in CONCEPT.eval_dir.glob("*.jsonl"))
 DEV_SPLITS = sorted(p.stem for p in DEV.glob("*.jsonl"))
@@ -112,11 +114,11 @@ def score(probe, datasets, parts) -> dict[str, float]:
     for s, ds in datasets.items():
         y = np.array([label.to_int() for label in ds.labels])
         p = np.asarray(probe.predict_proba(ds))
-        out[f"eval_{s}"] = float(calculate_metrics(y, p)["auroc"])
+        out[f"eval_{s}"] = float(calculate_metrics(y, p, fpr=FPR)["auroc"])
         if s == "toolace_balanced":
             for name in PART_NAMES:
                 m = parts == name
-                out[f"part_{name}"] = float(calculate_metrics(y[m], p[m])["auroc"])
+                out[f"part_{name}"] = float(calculate_metrics(y[m], p[m], fpr=FPR)["auroc"])
     out["eval_mean"] = float(np.mean([out[f"eval_{s}"] for s in SPLITS]))
     return out
 
