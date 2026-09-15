@@ -93,6 +93,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -100,8 +101,19 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "src"))
 
-MODEL_NAME = "google/gemma-3-27b-it"
-LAYER = 32
+# PROBE_PROFILE picks the probed model and, with it, every per-concept path that depends on
+# it (base probe, activation caches). The default is the gemma-3-27b setup every committed
+# CSV before the qwen8b branch was measured on. `qwen8b` probes Qwen/Qwen3-8B at its middle
+# layer (18 of 36); its base probes are written by scripts/train_qwen8b_base_probes.py, and
+# it has no Kaggle activations, so dev and eval are extracted locally into cache_qwen8b_*/.
+PROFILES = {
+    "gemma27b": ("google/gemma-3-27b-it", 32, "gen_gemma27b"),
+    "qwen8b": ("Qwen/Qwen3-8B", 18, "qwen8b"),
+}
+PROFILE = os.environ.get("PROBE_PROFILE", "gemma27b")
+if PROFILE not in PROFILES:
+    raise SystemExit(f"PROBE_PROFILE={PROFILE!r}: expected one of {sorted(PROFILES)}")
+MODEL_NAME, LAYER, _TAG = PROFILES[PROFILE]
 SEED, COMBINE, CONVERT = 42, True, True
 
 # The kaggle: block every gemma-3-27b config in this repo carries, verbatim. {slug} in a
@@ -143,31 +155,31 @@ CONCEPTS = {
     for c in [
         Concept(
             name="hu_harm",
-            probe_dir=REPO / "probes/gen_gemma27b_hu_harm",
+            probe_dir=REPO / f"probes/{_TAG}_hu_harm",
             base_data=REPO / "data/hu_harm_llama70b_50.jsonl",
             dev_data=REPO / "dev_samples/hu_ha",
             eval_dir=REPO / "eval_sets/hu_ha",
-            cache_dir=REPO / "cache_gen_gemma27b_hu_harm",
+            cache_dir=REPO / f"cache_{_TAG}_hu_harm",
             pos_label="harmful_to_human",
             neg_label="not_harmful_to_human",
         ),
         Concept(
             name="highstakes",
-            probe_dir=REPO / "probes/gen_gemma27b_highstakes",
+            probe_dir=REPO / f"probes/{_TAG}_highstakes",
             base_data=REPO / "data/highstakes_llama70b_50.jsonl",
             dev_data=REPO / "dev_samples/highstakes",
             eval_dir=REPO / "eval_sets/highstakes",
-            cache_dir=REPO / "cache_gen_gemma27b_highstakes",
+            cache_dir=REPO / f"cache_{_TAG}_highstakes",
             pos_label="high-stakes",
             neg_label="low-stakes",
         ),
         Concept(
             name="instructions",
-            probe_dir=REPO / "probes/gen_gemma27b_instructions",
+            probe_dir=REPO / f"probes/{_TAG}_instructions",
             base_data=REPO / "data/instructions_llama70b_50.jsonl",
             dev_data=REPO / "dev_samples/instructions",
             eval_dir=REPO / "eval_sets/instructions",
-            cache_dir=REPO / "cache_gen_gemma27b_instructions",
+            cache_dir=REPO / f"cache_{_TAG}_instructions",
             pos_label="assistant_follows_the_instruction",
             neg_label="assistant_does_not_follow_the_instruction",
         ),
@@ -176,6 +188,9 @@ CONCEPTS = {
 
 
 def eval_source():
+    """Kaggle eval activations exist for gemma only; any other profile extracts locally."""
+    if PROFILE != "gemma27b":
+        return None
     from agentic_redteam.kaggle_activations import KaggleActivationSource
 
     return KaggleActivationSource(KAGGLE_OWNER, EVAL_SLUG, EVAL_FILE)
@@ -189,6 +204,8 @@ def prefetch_dev(concept: Concept) -> None:
     )
     from agentic_redteam.retrain import _dev_activation_cache_path
 
+    if PROFILE != "gemma27b":
+        return  # no Kaggle dev blob: the first fit extracts it into the same cache path
     dev_files = sorted(concept.dev_data.glob("*.jsonl"))
     if not dev_files:
         raise SystemExit(f"{concept.dev_data} holds no *.jsonl splits")

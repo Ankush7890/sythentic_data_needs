@@ -36,6 +36,8 @@ def main() -> None:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--concept", required=True, choices=sorted(CONCEPTS))
     ap.add_argument("--dry-run", action="store_true", help="report the count and exit")
+    ap.add_argument("--pool-dir", type=Path, default=POOL_DIR,
+                    help="directory holding the pool_<concept>_*.jsonl sets (default .pool_work)")
     args = ap.parse_args()
 
     from agentic_redteam.cli import _free_gpu
@@ -53,9 +55,9 @@ def main() -> None:
     model_name, layer = str(probe.model_name), int(probe.layer)
     pos, neg = probe.pos_class_label, probe.neg_class_label
 
-    pools = sorted(POOL_DIR.glob(f"pool_{args.concept}_*.jsonl"))
+    pools = sorted(args.pool_dir.glob(f"pool_{args.concept}_*.jsonl"))
     if not pools:
-        raise SystemExit(f"no pooled sets for {args.concept} in {POOL_DIR}")
+        raise SystemExit(f"no pooled sets for {args.concept} in {args.pool_dir}")
 
     # Union the uncached rows across every pool, keyed on the cache path so a row shared
     # between two pools (every own-base row is) is extracted once.
@@ -71,7 +73,7 @@ def main() -> None:
                 continue
             n_miss += 1
             todo.setdefault(key, row)
-        print(f"  {path.name:52s} {len(rows):4d} rows, {n_miss:4d} uncached", flush=True)
+        print(f"  {path.name:72s} {len(rows):4d} rows, {n_miss:4d} uncached", flush=True)
 
     print(f"{args.concept}: {len(todo)} unique conversations to extract", flush=True)
     if args.dry_run or not todo:

@@ -46,7 +46,8 @@ def read(path: Path) -> list[dict]:
     return [json.loads(l) for l in path.open(encoding="utf-8") if l.strip()]
 
 
-def build(concept_name: str, attacker: str, arm: str, src: Path, base: Path) -> Path | None:
+def build(concept_name: str, attacker: str, arm: str, src: Path, base: Path,
+          out_dir: Path = OUT_DIR) -> Path | None:
     if not src.exists():
         print(f"  SKIP {src.name} (missing)")
         return None
@@ -63,11 +64,11 @@ def build(concept_name: str, attacker: str, arm: str, src: Path, base: Path) -> 
     neg = sum(1 for r in rows if r["labels"] == concept.neg_label)
     if pos + neg != len(rows):
         raise SystemExit(f"{src.name}: {len(rows) - pos - neg} rows carry an unknown label")
-    out = OUT_DIR / f"pool_{concept_name}_{attacker}_{arm}_{len(rows)}.jsonl"
+    out = out_dir / f"pool_{concept_name}_{attacker}_{arm}_{len(rows)}.jsonl"
     with out.open("w", encoding="utf-8") as fh:
         for r in rows:
             fh.write(json.dumps(r) + "\n")
-    print(f"  {out.name:52s} {len(rows):4d} rows  {pos}/{neg}  (dup dropped: {dropped})")
+    print(f"  {out.name:72s} {len(rows):4d} rows  {pos}/{neg}  (dup dropped: {dropped})")
     return out
 
 
