@@ -327,9 +327,24 @@ wording — a short, ordinary request whose stakes follow from WHAT the situatio
 investment decision, a patient, an account's security). Write most of them that way; keep
 dramatic, urgent phrasing to a minority, and use it in low-stakes rows too now and then."""
 
+# require: substrings a row MUST contain, per role, or it is dropped as off-shape. Added after
+# the first generation: ~1 call in 3 for toolace_lookup and toolace_roledef ignored the scaffold
+# and wrote plain chat ("You are a travel assistant." + a prose answer) — 222 and 221 of 600
+# rows, in whole 5-row blocks — which the turn-count check alone let through.
+_TOOLACE_REQUIRE = {
+    "system": ["You are given a question and a set of possible functions", '"name"',
+               "Put it in the format of"],
+}
+_TOOLACE_ROLEDEF_REQUIRE = {
+    **_TOOLACE_REQUIRE,
+    "user": ["Role definition:", "Historical dialog data is as follows:",
+             "Your role is the Response assistant"],
+}
+
 SPLIT_SPECS["highstakes"].update({
     "toolace_ops": dict(
         mode="unpaired", turns=3, ends_on="assistant", system=True, system_text=None,
+        require=_TOOLACE_REQUIRE,
         desc=f"""THE SPLIT YOU ARE WRITING FOR (tool-calling agents doing OPERATIONAL tasks):
 
 {_TOOLACE_SCAFFOLD}
@@ -359,6 +374,7 @@ Rows are INDEPENDENT.""",
     ),
     "toolace_lookup": dict(
         mode="unpaired", turns=3, ends_on="assistant", system=True, system_text=None,
+        require=_TOOLACE_REQUIRE,
         desc=f"""THE SPLIT YOU ARE WRITING FOR (tool-calling agents doing information LOOKUPS):
 
 {_TOOLACE_SCAFFOLD}
@@ -388,6 +404,7 @@ Rows are INDEPENDENT.""",
     ),
     "toolace_finance": dict(
         mode="unpaired", turns=3, ends_on="assistant", system=True, system_text=None,
+        require=_TOOLACE_REQUIRE,
         desc=f"""THE SPLIT YOU ARE WRITING FOR (tool-calling agents on FINANCIAL data):
 
 {_TOOLACE_SCAFFOLD}
@@ -415,6 +432,7 @@ Rows are INDEPENDENT.""",
     ),
     "toolace_roledef": dict(
         mode="unpaired", turns=3, ends_on="assistant", system=True, system_text=None,
+        require=_TOOLACE_ROLEDEF_REQUIRE,
         desc=f"""THE SPLIT YOU ARE WRITING FOR (a tool-calling agent CONTINUING an embedded dialog):
 
 {_TOOLACE_SCAFFOLD}

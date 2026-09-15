@@ -15,7 +15,25 @@ done
 until grep -aq "^{'anthropic_hh_balanced'\|'mean'" logs/hardsplit_prep.log 2>/dev/null \
       && ! pgrep -f prep_hardsplit_eval.py >/dev/null; do sleep 60; done
 for s in $SETS; do until [ -s "$s" ]; do sleep 60; done; done
+until grep -aq "top-up finished" logs/hardsplit_topup.log 2>/dev/null; do sleep 60; done
 echo ">>> $(date -Is) prep and sets ready"
+# Gate: every row must carry its part's scaffold and every set must be exactly 300/300. The
+# first generation passed inspect_generated_set.py with ~220 plain-chat rows in two sets.
+$PY - $SETS <<'PY' || { echo ">>> $(date -Is) SCAFFOLD GATE FAILED — not fitting"; exit 1; }
+import collections, json, sys
+sys.path[:0] = ["scripts", "src"]
+from generate_split_targeted import has_required
+from split_specs import SPLIT_SPECS
+bad = 0
+for path in sys.argv[1:]:
+    part = path.split("tgtnone_")[1].rsplit("_600", 1)[0]
+    rows = [json.loads(l) for l in open(path, encoding="utf-8") if l.strip()]
+    miss = sum(not has_required(json.loads(r["inputs"]), SPLIT_SPECS["highstakes"][part]) for r in rows)
+    lab = collections.Counter(r["labels"] for r in rows)
+    print(f">>>   gate {part}: {len(rows)} rows {dict(lab)}, {miss} without scaffold")
+    bad += miss + (lab != collections.Counter({"high-stakes": 300, "low-stakes": 300}))
+sys.exit(1 if bad else 0)
+PY
 for s in $SETS; do
     echo ">>> $(date -Is) inspect $s"
     $PY scripts/inspect_generated_set.py --concept highstakes "$s" 2>&1 | sed 's/^/>>>   /'

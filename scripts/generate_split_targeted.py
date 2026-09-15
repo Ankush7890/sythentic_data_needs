@@ -180,6 +180,15 @@ def _accept(value):
     return None
 
 
+def has_required(msgs: list[dict], spec: dict) -> bool:
+    """Every `spec["require"][role]` substring appears in that role's first message."""
+    for role, needles in spec.get("require", {}).items():
+        text = next((m["content"] for m in msgs if m["role"] == role), "")
+        if any(n not in text for n in needles):
+            return False
+    return True
+
+
 def to_rows(item: dict, spec: dict, concept: str, label: str | None) -> list[dict]:
     """One generated item -> the row(s) it yields, or [] if it does not match the shape."""
     c = CONCEPTS[concept]
@@ -213,7 +222,9 @@ def to_rows(item: dict, spec: dict, concept: str, label: str | None) -> list[dic
         expect = ["user", "assistant"] * len(body)
         if [m["role"] for m in body] != expect[:len(body)]:
             return False
-        return msgs[-1]["role"] == spec["ends_on"]
+        if msgs[-1]["role"] != spec["ends_on"]:
+            return False
+        return has_required(msgs, spec)
 
     if spec["mode"] == "paired":
         prefix = clean(item.get("prefix") or [])
@@ -280,12 +291,21 @@ def _call(client, model, prompt, temperature, max_tokens, tag, tries=4):
 
 
 def generate(client, model, concept, split, spec, n, batch, concurrency, temperature,
-             max_tokens, budget, seed, budget_factor, use_shots=True):
+             max_tokens, budget, seed, budget_factor, use_shots=True, keep=None):
     c = CONCEPTS[concept]
     shots = anchors(concept, split, spec) if use_shots else []
     rows: list[dict] = []
     seen: set[str] = set()
     counts = {c.pos_label: 0, c.neg_label: 0}
+    # --resume-from: start from the rows of an earlier run that still pass the shape check,
+    # so a set is topped up rather than regenerated. Their openings seed the dedup set.
+    for r in keep or []:
+        per = n if spec["mode"] == "paired" else n // 2
+        key = opening(r)
+        if key and key not in seen and counts[r["labels"]] < per:
+            seen.add(key)
+            counts[r["labels"]] += 1
+            rows.append(r)
     lock = threading.Lock()
     rng = random.Random(seed)
     dropped = {"shape": 0, "long": 0, "dup": 0}
@@ -356,6 +376,10 @@ def main() -> None:
     ap.add_argument("--no-shots", action="store_true",
                     help="omit the dev-derived few-shot anchor; the measured description is "
                          "then the only thing describing the split")
+    ap.add_argument("--resume-from", type=Path,
+                    help="keep the rows of this earlier output that pass the shape check "
+                         "(including the spec's `require` substrings) and generate only the "
+                         "rest; --out may be the same file")
     ap.add_argument("--dump-prompts", type=Path,
                     help="render every split's prompt to this file and exit (no API calls)")
     args = ap.parse_args()
@@ -396,10 +420,17 @@ def main() -> None:
                              combine_consecutive_messages=True, convert_tool_to_assistant=True)
         budget.warmup()
 
+    keep = None
+    if args.resume_from:
+        old = [json.loads(l) for l in args.resume_from.open(encoding="utf-8") if l.strip()]
+        keep = [r for r in old if has_required(json.loads(r["inputs"]), spec)]
+        print(f"resume: keeping {len(keep)} of {len(old)} rows from {args.resume_from}",
+              file=sys.stderr)
+
     rows, dropped = generate(make_sync_client(), args.model, args.concept, args.split, spec,
                              args.n, args.batch_size, args.concurrency, args.temperature,
                              args.max_tokens, budget, args.seed, args.call_budget_factor,
-                             use_shots=not args.no_shots)
+                             use_shots=not args.no_shots, keep=keep)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with args.out.open("w", encoding="utf-8") as fh:
         for r in rows:
