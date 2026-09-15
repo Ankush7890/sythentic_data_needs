@@ -1,0 +1,11 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_hh_balanced,dev_mt_balanced,dev_mts_balanced,dev_toolace_balanced,eval_anthropic_hh_balanced,eval_mt_balanced,eval_mts_balanced,eval_toolace_balanced,seconds
+pool_highstakes_deepseekv4pro_evaldesc_650.jsonl,none+ga4,590,0,295,295,590,0.90303,0.9078,0.96761,0.97939,0.93024,0.7349,0.95457,0.98052,0.94294,0.75316,464.1
+pool_highstakes_deepseekv4pro_evaldesc_650.jsonl,none+ga4,590,1,295,295,590,0.90163,0.90451,0.96121,0.97875,0.93011,0.73643,0.94913,0.98239,0.94456,0.74197,46.5
+pool_highstakes_deepseekv4pro_evaldesc_650.jsonl,none+ga4,590,2,295,295,590,0.90675,0.90848,0.9639,0.98105,0.94009,0.74194,0.95081,0.98348,0.95457,0.74506,43.7
+pool_highstakes_deepseekv4pro_evaldesc_650.jsonl,none+ga4,590,3,295,295,590,0.90201,0.90929,0.95917,0.98169,0.93139,0.73579,0.94725,0.98355,0.95592,0.75044,52.6
+pool_highstakes_deepseekv4pro_evaldesc_650.jsonl,none+ga4,590,4,295,295,590,0.90531,0.90755,0.96377,0.98131,0.9264,0.74974,0.95007,0.98282,0.94429,0.75303,42.8
+pool_highstakes_deepseekv4pro_evaldesc_650.jsonl,none+ga4,590,5,295,295,590,0.90841,0.91029,0.96352,0.98054,0.93254,0.75704,0.95027,0.98338,0.95051,0.75699,45.0
+pool_highstakes_deepseekv4pro_evaldesc_650.jsonl,none+ga4,590,6,295,295,590,0.91129,0.91496,0.96211,0.97901,0.93561,0.76843,0.9502,0.98319,0.95322,0.77322,44.2
+pool_highstakes_deepseekv4pro_evaldesc_650.jsonl,none+ga4,590,7,295,295,590,0.9063,0.907,0.96352,0.98195,0.93024,0.74949,0.94957,0.98279,0.94754,0.74812,43.5
+pool_highstakes_deepseekv4pro_general_650.jsonl,none+ga4,590,0,295,295,590,0.85929,0.85769,0.91948,0.93356,0.87417,0.70993,0.91767,0.91559,0.90373,0.69376,42.3
+pool_highstakes_deepseekv4pro_general_650.jsonl,none+ga4,590,1,295,295,590,0.85036,0.8563,0.91475,0.93932,0.87532,0.67204,0.91498,0.92737,0.90995,0.67289,56.4
