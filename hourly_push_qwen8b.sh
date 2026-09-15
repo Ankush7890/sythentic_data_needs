@@ -22,7 +22,7 @@ rows () { [ -f "$1" ] && echo $(( $(wc -l < "$1") - 1 )) || echo 0; }
 status () {
     echo "$(rows scripts/qwen8b_hu_harm_pooled_size_curve.csv) hu_harm + \
 $(rows scripts/qwen8b_instructions_pooled_size_curve.csv) instructions + \
-$(rows scripts/qwen8b_highstakes_pooled_size_curve.csv) highstakes fits of 2912"
+$(rows scripts/qwen8b_highstakes_pooled_size_curve.csv) highstakes fits (targets 896 / 1120 / 448)"
 }
 
 while true; do
@@ -41,7 +41,7 @@ while true; do
         for try in 1 2 3; do
             if git commit -q -o $HAVE -m "data(qwen8b): pooled size curve on Qwen3-8B L18 — $(status)
 
-52 pools (each 600-row set ∪ its generator's own 50), n = 590 350 170 110 80 30 10, 8 draws,
+52 pools (each 600-row set ∪ its generator's own 50), n = 590 350 170 110 80 30 10, 8 draws (highstakes 4),
 --no-base so every training row is resampled. Automated hourly checkpoint.
 
 Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>
