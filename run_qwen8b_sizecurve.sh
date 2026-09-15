@@ -3,9 +3,10 @@
 #
 # Probed model: Qwen/Qwen3-8B, layer 18 (the middle of 36), same probe spec as the gemma
 # probes (linear_then_softmax, batch 16, lr 5e-3, 200 epochs, patience 50). PROBE_PROFILE
-# switches fit_base_plus_concept.CONCEPTS to probes/qwen8b_<concept>/ and cache_qwen8b_<concept>/;
-# there are no Kaggle activations for this model, so dev and eval are extracted locally the
-# first time and cached.
+# switches fit_base_plus_concept.CONCEPTS to probes/qwen8b_<concept>/ and cache_qwen8b_<concept>/.
+# No probe is trained on a base set: fits inherit model/layer/labels/spec from a metadata-only
+# template. There are no Kaggle activations for this model, so dev and eval are extracted
+# locally by the first fit of each concept and cached.
 #
 # POOLS (scripts/build_qwen8b_pools.py -> .pool_work_qwen8b/): each 600-row generated set ∪ the
 # same generator's 50-row base, drawn with --no-base, so NOTHING is held fixed across draws.
@@ -43,18 +44,14 @@ POOL_DIR=.pool_work_qwen8b
 mkdir -p logs
 
 ls "$POOL_DIR"/pool_*.jsonl >/dev/null 2>&1 || $PY scripts/build_qwen8b_pools.py
+# Metadata-only probe templates (no base set, no training); see the script's docstring.
+$PY scripts/make_qwen8b_probe_templates.py || exit 1
 
 for concept in $CONCEPTS; do
     out="scripts/qwen8b_${concept}_pooled_size_curve.csv"
     log="logs/qwen8b_sizecurve_${concept}.log"
     devflag=""
     [ "$concept" = highstakes ] && devflag="--dev-data dev_samples/highstakes_500"
-
-    echo ">>> $(date -Is)  ${concept}: base probe (+ dev/eval extraction)"
-    $PY scripts/train_qwen8b_base_probes.py --concept "$concept" $devflag \
-        >> "logs/qwen8b_base_${concept}.log" 2>&1 \
-        || { echo ">>> $(date -Is)  FAILED base probe for ${concept}"; continue; }
-    tail -n 12 "logs/qwen8b_base_${concept}.log"
 
     echo ">>> $(date -Is)  ${concept}: warming the per-sample cache for every pool"
     $PY scripts/warm_pooled_sets.py --concept "$concept" --pool-dir "$POOL_DIR" \

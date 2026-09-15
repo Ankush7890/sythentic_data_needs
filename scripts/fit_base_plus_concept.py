@@ -104,7 +104,7 @@ sys.path.insert(0, str(REPO / "src"))
 # PROBE_PROFILE picks the probed model and, with it, every per-concept path that depends on
 # it (base probe, activation caches). The default is the gemma-3-27b setup every committed
 # CSV before the qwen8b branch was measured on. `qwen8b` probes Qwen/Qwen3-8B at its middle
-# layer (18 of 36); its base probes are written by scripts/train_qwen8b_base_probes.py, and
+# layer (18 of 36); its probe template is written by scripts/make_qwen8b_probe_templates.py, and
 # it has no Kaggle activations, so dev and eval are extracted locally into cache_qwen8b_*/.
 PROFILES = {
     "gemma27b": ("google/gemma-3-27b-it", 32, "gen_gemma27b"),
@@ -139,7 +139,9 @@ class Concept:
 
     @property
     def base_probe(self) -> Path:
-        return self.probe_dir / "probe_iter0.pkl"
+        # qwen8b has no trained base probe: fits inherit metadata + spec from a template
+        # (scripts/make_qwen8b_probe_templates.py), and its curves never fit on a base set.
+        return self.probe_dir / ("probe_iter0.pkl" if PROFILE == "gemma27b" else "probe_template.pkl")
 
     @property
     def base_cache(self) -> Path:
