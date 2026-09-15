@@ -21,6 +21,9 @@ What this adds over `subsample_curve_concept.py`:
   rows alone, so the four part columns and `eval_toolace_balanced` come from the same scores.
 - **Eval activations are loaded ONCE per process**, not once per fit — 46 GB of blobs, which
   is most of what a fit here would otherwise spend.
+- **`--union`**: ONE arm over sets of any size; `--sizes` are then PERCENTAGES and a draw takes
+  that share of EACH set (class-balanced), so `--union --sizes 100 90 --draws 1 8` is the full
+  union plus eight 90% resamples. The `n` column records the total rows actually trained on.
 - **`--pool`**: one draw takes n/len(sets) rows from EACH set (each class-balanced), so the
   four specialists can be fit together at the same total size as one of them.
 
@@ -144,6 +147,9 @@ def main() -> None:
                     help="draws per size, aligned with --sizes")
     ap.add_argument("--pool", action="store_true",
                     help="ONE arm: each draw takes n/len(sets) class-balanced rows from every set")
+    ap.add_argument("--union", action="store_true",
+                    help="ONE arm: --sizes are percentages; each draw takes that share of every "
+                         "set, class-balanced")
     ap.add_argument("--arm", default=None, help="label for the arm column")
     ap.add_argument("--out", type=Path, default=REPO / "scripts/highstakes_toolace_parts.csv")
     ap.add_argument("--check", action="store_true",
@@ -151,19 +157,32 @@ def main() -> None:
     args = ap.parse_args()
     if len(args.draws) != len(args.sizes):
         ap.error("--draws must align with --sizes")
+    if args.union and args.pool:
+        ap.error("--union and --pool are exclusive")
+    if args.union and not all(0 < s <= 100 for s in args.sizes):
+        ap.error("--union takes --sizes as percentages in (0, 100]")
 
     from agentic_redteam.cli import _free_gpu
     from agentic_redteam.evaluation import evaluate_probe
     from agentic_redteam.retrain import retrain_probe, warm_sample_activation_cache
 
     sources = {p: load_rows(p, CONCEPT) for p in args.sets}
-    arms = ([("pool:" + "+".join(p.stem for p in args.sets), list(args.sets))] if args.pool
-            else [(p.name, [p]) for p in args.sets])
+    if args.union:
+        arms = [(f"union:{len(args.sets)}sets", list(args.sets))]
+    elif args.pool:
+        arms = [("pool:" + "+".join(p.stem for p in args.sets), list(args.sets))]
+    else:
+        arms = [(p.name, [p]) for p in args.sets]
 
     seen = done_keys(args.out)
+    def recorded_n(paths, n):   # the `n` a finished row carries: total rows under --union
+        if not args.union:
+            return n
+        return sum(2 * round(len(sources[p]) * n / 200) for p in paths)
+
     jobs = [(name, paths, n, d) for name, paths in arms
             for n, k in zip(args.sizes, args.draws) for d in range(k)
-            if (name, n, d) not in seen]
+            if (name, recorded_n(paths, n), d) not in seen]
     print(f"{len(jobs)} fits to run ({len(seen)} rows already in {args.out})", flush=True)
     if not jobs:
         return
@@ -192,8 +211,13 @@ def main() -> None:
     scratch.mkdir(parents=True, exist_ok=True)
 
     for i, (name, paths, n, d) in enumerate(jobs, 1):
-        per = n // len(paths)
-        subset = [r for p in paths for r in balanced(sources[p], per, f"{p.stem}:{n}:{d}")]
+        if args.union:   # n is a percentage of each set; keep each share even for balance
+            subset = [r for p in paths
+                      for r in balanced(sources[p], 2 * round(len(sources[p]) * n / 200),
+                                        f"{p.stem}:pct{n}:{d}")]
+        else:
+            per = n // len(paths)
+            subset = [r for p in paths for r in balanced(sources[p], per, f"{p.stem}:{n}:{d}")]
         random.Random(f"{name}:{n}:{d}").shuffle(subset)
         npos = sum(r["labels"] == CONCEPT.pos_label for r in subset)
         t0 = time.time()
@@ -218,8 +242,8 @@ def main() -> None:
                     if abs(ours - float(r["auroc"])) > 1e-6:
                         raise SystemExit(f"--check: {r['dataset']} {ours} vs {r['auroc']}")
             print("--check: once-per-process scoring matches evaluate_probe", flush=True)
-        row = {"samples": name, "arm": args.arm or ("pool" if args.pool else "specialist"),
-               "n": n, "draw": d, "n_pos": npos, "n_neg": len(subset) - npos,
+        arm = args.arm or ("union" if args.union else "pool" if args.pool else "specialist")
+        row = {"samples": name, "arm": arm, "n": len(subset) if args.union else n, "draw": d, "n_pos": npos, "n_neg": len(subset) - npos,
                "dev_mean": round(res.dev_auroc["mean"], 5),
                "seconds": round(time.time() - t0, 1)}
         for s, v in res.dev_auroc.items():
