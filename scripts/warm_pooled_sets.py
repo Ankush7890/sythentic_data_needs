@@ -38,6 +38,8 @@ def main() -> None:
     ap.add_argument("--dry-run", action="store_true", help="report the count and exit")
     ap.add_argument("--pool-dir", type=Path, default=POOL_DIR,
                     help="directory holding the pool_<concept>_*.jsonl sets (default .pool_work)")
+    ap.add_argument("--chunk", type=int, default=1000,
+                    help="rows extracted per model load; bounds host RAM (default 1000)")
     args = ap.parse_args()
 
     from agentic_redteam.cli import _free_gpu
@@ -80,14 +82,24 @@ def main() -> None:
         return
 
     t0 = time.time()
-    warm_sample_activation_cache(
-        list(todo.values()),
-        base_probe_path=concept.base_probe,
-        base_activation_cache_dir=concept.base_cache,
-        combine_consecutive_messages=COMBINE,
-        convert_tool_to_assistant=CONVERT,
-        verbose=True,
-    )
+    # warm_sample_activation_cache holds every row it extracts in host RAM until it returns,
+    # so one call over a whole concept peaked at 61 GiB on the instructions pools (Qwen3-8B,
+    # 12197 rows) and would not survive the longer high-stakes rows. Chunking bounds that at
+    # --chunk rows per call, at the price of one model reload per chunk.
+    rows = list(todo.values())
+    for start in range(0, len(rows), args.chunk):
+        print(f"{args.concept}: chunk {start // args.chunk + 1}/"
+              f"{-(-len(rows) // args.chunk)} ({start}..{min(start + args.chunk, len(rows))})",
+              flush=True)
+        warm_sample_activation_cache(
+            rows[start:start + args.chunk],
+            base_probe_path=concept.base_probe,
+            base_activation_cache_dir=concept.base_cache,
+            combine_consecutive_messages=COMBINE,
+            convert_tool_to_assistant=CONVERT,
+            verbose=True,
+        )
+        _free_gpu()
     print(f"{args.concept}: warm in {time.time() - t0:.0f}s", flush=True)
     _free_gpu()
 
