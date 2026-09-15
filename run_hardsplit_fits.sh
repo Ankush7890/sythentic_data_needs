@@ -16,6 +16,8 @@ until grep -aq "^{'anthropic_hh_balanced'\|'mean'" logs/hardsplit_prep.log 2>/de
       && ! pgrep -f prep_hardsplit_eval.py >/dev/null; do sleep 60; done
 for s in $SETS; do until [ -s "$s" ]; do sleep 60; done; done
 until grep -aq "top-up finished" logs/hardsplit_topup.log 2>/dev/null; do sleep 60; done
+# An early warm_set_activations run may hold gemma on the GPU; a second load would not fit.
+while ps -eo args | grep -q "[w]arm_set_activations"; do sleep 60; done
 echo ">>> $(date -Is) prep and sets ready"
 # Gate: every row must carry its part's scaffold and every set must be exactly 300/300. The
 # first generation passed inspect_generated_set.py with ~220 plain-chat rows in two sets.
