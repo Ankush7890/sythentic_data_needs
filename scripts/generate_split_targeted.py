@@ -236,9 +236,18 @@ def to_rows(item: dict, spec: dict, concept: str, label: str | None) -> list[dic
     return [{"inputs": json.dumps(msgs, ensure_ascii=False), "labels": label}]
 
 
+_DIALOG_WRAPPER = "historical dialog data is as follows:"
+
+
 def opening(row: dict) -> str:
     msgs = json.loads(row["inputs"])
-    return next((m["content"] for m in msgs if m["role"] == "user"), "")[:200].lower()
+    text = next((m["content"] for m in msgs if m["role"] == "user"), "").lower()
+    # toolace_roledef rows all open on the same "Role definition: ..." template, so the first
+    # 200 characters would make every row after the first a duplicate. Key on the embedded
+    # dialog instead.
+    if text.startswith("role definition") and _DIALOG_WRAPPER in text:
+        text = text.split(_DIALOG_WRAPPER, 1)[1].strip()
+    return text[:200]
 
 
 def _call(client, model, prompt, temperature, max_tokens, tag, tries=4):
@@ -356,7 +365,12 @@ def main() -> None:
             for concept, splits in SPLIT_SPECS.items():
                 c = CONCEPTS[concept]
                 for split, spec in splits.items():
-                    shots = anchors(concept, split, spec)
+                    # A part of a split (the toolace_* parts) has no dev counterpart file,
+                    # so it only ever runs --no-shots; render that variant alone.
+                    try:
+                        shots = anchors(concept, split, spec)
+                    except SystemExit:
+                        shots = []
                     labs = [None] if spec["mode"] == "paired" else [c.pos_label, c.neg_label]
                     for variant, sh in (("WITH few-shot anchor", shots), ("NO few-shot anchor", [])):
                         for lab in labs:

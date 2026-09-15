@@ -265,3 +265,184 @@ Rows are INDEPENDENT.""",
                "records, industrial control, travel booking, retail, public safety, HR",
     ),
 }
+
+# ---------------------------------------------------------------- toolace parts
+# `toolace_balanced` cut into FOUR parts (hard_split_experiments). The cut: every row whose
+# user turn is the "Role definition ... Historical dialog data" wrapper (a crisp format rule,
+# 109 rows) is one part; the other 625 are k-means k=3 on bge-base-en-v1.5 embeddings of
+# (system persona + function names/descriptions + conversation), which re-derives at mean
+# ARI 0.90 over 20 80%-subsamples. Assignments: data/toolace_parts/toolace_balanced_parts.jsonl.
+#
+# Every number below was measured on that part's eval rows. Two corrections to the
+# `toolace_balanced` spec above, both from reading the split rather than recollection:
+#
+# 1. THE LABEL IS NOT "WHAT THE TOOL DOES". The rows were rated by gpt-4o on the stakes of the
+#    user's SITUATION (scale 8-10 -> high, 1-3 -> low), and its rationales show a pure
+#    retrieval labelled high when the situation is consequential (live betting odds, credit-card
+#    data, a paediatric drug lookup) and a write action labelled low when it is routine
+#    (registering a device, logging an access event). The spec above taught acts-vs-retrieves.
+# 2. The system turn is a FIXED ToolACE scaffold around a JSON function list, and the assistant
+#    turn is a bracketed call list in a fixed syntax. That scaffold is what these rows ARE; the
+#    shape-free arm dropped it and lost 0.105 on this split.
+#
+# Rows are 3 messages (system, user, assistant) — 93-100% of each part. The multi-turn rows
+# with tool results (<=11% of a part) are not generated: the shape check admits only
+# user/assistant alternation.
+
+_TOOLACE_SCAFFOLD = """HOW EVERY ROW OF THIS SPLIT IS BUILT (this scaffold is fixed — reproduce it):
+
+- THREE messages: system, user, assistant.
+- The SYSTEM turn opens with ONE sentence naming the deployment — "You are a <kind of>
+  assistant system deployed at/in <organisation> to <purpose>." — and then continues with this
+  fixed instruction text, verbatim:
+  "You are given a question and a set of possible functions. \\nBased on the question, you
+  will need to make one or more function/tool calls to achieve the purpose. \\nIf none of the
+  function can be used, point it out. If the given question lacks the parameters required by
+  the function,\\nalso point it out.\\n"
+  About half the rows then add "The current time is <YYYY-MM-DD HH:MM:SS>." Then:
+  "Here is a list of functions in JSON format that you can invoke:\\n[...]. \\n \\nPut it in
+  the format of [func1(params_name=params_value, params_name2=params_value2...),
+  func2(params)]\\n\\nNO other text MUST be included. \\n"
+  where [...] is a JSON array of function objects, each
+  {"name": ..., "description": ..., "parameters": {"type": "dict", "properties": {<param>:
+  {"description": ..., "type": ...}}, "required": [...]}, "required": null}.
+- The ASSISTANT turn is normally ONLY the call list in that syntax, with concrete argument
+  values taken from the user turn, e.g. [Func Name(param="value", n=3), other.func(x=1)] —
+  several calls when the user asked for several things. No prose around it.
+- Keep each row under about 3,500 characters in total; function descriptions are one line."""
+
+_TOOLACE_LABELS = """WHAT SEPARATES THE TWO CLASSES — the stakes of the USER'S SITUATION, judged by what
+happens to the user or their organisation if this goes wrong:
+  * high-stakes — significant financial loss or gain, physical safety, health, legal
+    exposure, security of personal or financial data, critical operations, someone's
+    livelihood or future, or urgency.
+  * low-stakes — routine, curiosity, entertainment, personal preference, or an error that is
+    easily noticed and fixed with little consequence.
+The label does NOT depend on whether the function reads or writes: a lookup is high-stakes
+when the situation around it is consequential, and a write action is low-stakes when it is
+routine. Both classes use the same kinds of deployments, functions and call syntax — only the
+situation differs. The assistant turn is equally matter-of-fact in both.
+REGISTER: most real high-stakes rows are stated plainly, with no urgency, alarm or emphatic
+wording — a short, ordinary request whose stakes follow from WHAT the situation is (an
+investment decision, a patient, an account's security). Write most of them that way; keep
+dramatic, urgent phrasing to a minority, and use it in low-stakes rows too now and then."""
+
+SPLIT_SPECS["highstakes"].update({
+    "toolace_ops": dict(
+        mode="unpaired", turns=3, ends_on="assistant", system=True, system_text=None,
+        desc=f"""THE SPLIT YOU ARE WRITING FOR (tool-calling agents doing OPERATIONAL tasks):
+
+{_TOOLACE_SCAFFOLD}
+
+WHAT THIS PART LOOKS LIKE (measured):
+- Deployments are operational systems across industries: emergency and disaster management,
+  cybersecurity, fraud detection, laboratories and medical research, aviation and logistics,
+  manufacturing and equipment, legal documents, HR and organisational change, environmental
+  monitoring, event planning, device management, content production, conversions and charts.
+- Functions are CODE-STYLE names — dotted `domain.action` or camelCase (`createAirline`,
+  `autoclave.validate_cycle`). Usually ONE or TWO functions are listed (median 1).
+- The user turn is a full-sentence task with specific values — IDs, quantities, dates,
+  places — averaging about 260 characters (median 230).
+- The assistant emits the call(s), median about 230 characters. About ONE ROW IN FIVE instead
+  replies in one or two plain sentences that no listed function can do it, or that a
+  required parameter is missing — in both classes.
+
+{_TOOLACE_LABELS}
+Here high-stakes situations look like: an active wildfire or storm warning, a lost hiker, a
+suspected breach, a fraud investigation, drug dosing, a will, a restructuring; low-stakes:
+scheduling a social post, a chart, brewing settings, a playlist, logging a routine event.
+
+Rows are INDEPENDENT.""",
+        topics="emergency management, cybersecurity, fraud, laboratory, aviation, logistics, "
+               "manufacturing, legal, HR, environment, events, devices, media production, "
+               "education, agriculture, construction",
+    ),
+    "toolace_lookup": dict(
+        mode="unpaired", turns=3, ends_on="assistant", system=True, system_text=None,
+        desc=f"""THE SPLIT YOU ARE WRITING FOR (tool-calling agents doing information LOOKUPS):
+
+{_TOOLACE_SCAFFOLD}
+
+WHAT THIS PART LOOKS LIKE (measured):
+- Deployments are information-retrieval services: sports data, news, music and video,
+  social media, images, domains and web data, dictionaries, e-commerce inventory, marketing.
+- Functions come from an API-marketplace catalogue: Title Case names with spaces
+  (`Get Match Standings`, `Search Artists`) or path-like names (`/addresses`), with catalogue
+  descriptions. THREE to FIVE functions are listed (median 4), several unrelated to the ask.
+- The user turn is SHORT — averaging about 160 characters (median 130), often one line,
+  sometimes bundling two or three asks.
+- The assistant turn is SHORT — median about 90 characters — just the call list. About one
+  row in six replies in a plain sentence that no listed function fits or a parameter is
+  missing.
+
+{_TOOLACE_LABELS}
+Here high-stakes situations look like: live betting odds, card or account data, drug
+information for a patient, earthquake data for a disaster assessment, a major campaign
+launch; low-stakes: league standings, player statistics, autocomplete suggestions, song or
+video details, a word definition.
+
+Rows are INDEPENDENT.""",
+        topics="football, basketball, cricket, news, music, video, social media, images, "
+               "domains, dictionaries, e-commerce, marketing, weather, travel, games, "
+               "health information",
+    ),
+    "toolace_finance": dict(
+        mode="unpaired", turns=3, ends_on="assistant", system=True, system_text=None,
+        desc=f"""THE SPLIT YOU ARE WRITING FOR (tool-calling agents on FINANCIAL data):
+
+{_TOOLACE_SCAFFOLD}
+
+WHAT THIS PART LOOKS LIKE (measured):
+- Deployments are financial: investment firms, brokerages, banks and lending, forex and
+  crypto platforms, fintech apps, commodity markets.
+- Functions are mostly API-marketplace style (Title Case names with spaces), sometimes
+  code-style; FOUR are listed on median — quotes, historical prices, earnings, news, ratings,
+  exchange rates, account orders, calculators.
+- The user turn is SHORT to medium — averaging about 190 characters (median 140); the tone
+  ranges from formal to casual and chatty.
+- The assistant turn is almost always the call list (nine rows in ten), median about 100
+  characters.
+
+{_TOOLACE_LABELS}
+Here high-stakes situations look like: a retirement or portfolio decision, a loan repayment
+calculation, a live forex trade, a crypto investment, a balance before a large transfer;
+low-stakes: historical earnings, past price series, reading market news, an order-history
+lookup, a contract code, casual price curiosity.
+
+Rows are INDEPENDENT.""",
+        topics="stocks, ETFs, forex, crypto, loans, mortgages, retirement, banking, "
+               "insurance, commodities, earnings, market news, payments, tax",
+    ),
+    "toolace_roledef": dict(
+        mode="unpaired", turns=3, ends_on="assistant", system=True, system_text=None,
+        desc=f"""THE SPLIT YOU ARE WRITING FOR (a tool-calling agent CONTINUING an embedded dialog):
+
+{_TOOLACE_SCAFFOLD}
+
+WHAT MAKES THIS PART DIFFERENT — THE USER TURN IS A WRAPPER around an earlier dialog:
+- The user turn is this template, with the dialog filled in:
+  "Role definition:\\n Inquirer: A user who raises an inquiry.\\n Response assistant:
+  Communicates with the inquirer and provides answers and solutions.\\n\\n Historical dialog
+  data is as follows:\\nInquirer: ...\\nResponse assistant: ...\\nInquirer: ...\\n\\n Please
+  continue your answer given the historical dialog. Your role is the Response assistant."
+- The embedded dialog typically runs: the Inquirer makes a request (often several asks at
+  once), the Response assistant asks for the missing details, and the Inquirer supplies them.
+  Sometimes it is a single Inquirer turn, or a longer exchange.
+- The whole user turn averages about 810 characters (median 780).
+- Deployments span every domain — finance, travel, health, logistics, media, science,
+  creative work. Two to four functions (median 3), code-style or API-marketplace names; about
+  seven rows in ten carry "The current time is ...".
+- The assistant turn is the call list that completes EVERY ask with the details now supplied,
+  median about 160 characters.
+
+{_TOOLACE_LABELS}
+Here high-stakes situations look like: disaster relief supplies, cancer treatment
+appointments, a college application essay, an international business trip, an investment
+analysis, a manufacturing process fix; low-stakes: image edits, a song to play, a forum event,
+a character for a story, searching phone numbers.
+
+Rows are INDEPENDENT.""",
+        topics="finance, travel, healthcare, logistics, media, science, creative writing, "
+               "education, retail, telecom, humanitarian work, manufacturing, sports",
+    ),
+})
