@@ -58,3 +58,43 @@ the money specialist (0.694 single fit, 0.690 draws), not shown.
   `PROBE_RESTORE_BEST_CHECKPOINT=1` — true of every fit in all three rounds, so the comparison is like for
   like, but at 3600 rows the probe is far past its best-dev epoch.
 - Test-set information in the prompts and label noise in toolace, as in rounds 1 and 2.
+
+## Eight random 600-row draws from the pool
+
+The 3600 rows merged into one file (`data/toolace_parts/highstakes_deepseekv4pro_tgtnone_union8_3600.jsonl`),
+then eight random class-balanced draws of 600 from it — over the merged pool, not per set, so a draw
+holds on average ~100 rows of each round-1 set and ~50 of each round-2 set. Same protocol, no base.
+`scripts/highstakes_toolace_union600.csv`.
+
+| scored on | **pool draws, 600** (mean ±sd, min–max) | union 3600 (1 fit) | round-1 pool, 540 draws | round-1 ops, 540 draws | round-2 utility, 270 draws |
+| --- | --- | --- | --- | --- | --- |
+| **toolace** | 0.855 ±0.019 (0.821–0.877) | **0.876** | 0.860 | 0.845 | 0.859 |
+| part ops | 0.901 ±0.017 | **0.915** | 0.902 | 0.882 | 0.868 |
+| part lookup | 0.799 ±0.025 | **0.838** | 0.771 | 0.746 | 0.807 |
+| part finance | **0.780** ±0.018 | 0.773 | 0.760 | 0.622 | 0.681 |
+| part roledef | 0.877 ±0.020 | 0.912 | 0.888 | **0.914** | 0.893 |
+| sub lookup_media | 0.747 ±0.028 | **0.787** | — | — | 0.761 |
+| sub lookup_utility | 0.803 ±0.024 | **0.842** | — | — | 0.815 |
+| sub finance_markets | 0.809 ±0.030 | **0.824** | — | — | 0.793 |
+| sub finance_money | **0.708** ±0.048 | 0.656 | — | — | 0.616 |
+| mean of 4 eval splits | **0.881** ±0.017 | 0.858 | 0.875 | 0.866 | 0.760 |
+| anthropic_hh | **0.859** ±0.021 | 0.802 | 0.831 | 0.809 | 0.644 |
+| mt | 0.884 ±0.050 | 0.843 | **0.892** | 0.866 | 0.727 |
+| mts | **0.926** ±0.023 | 0.911 | 0.916 | 0.942 | 0.810 |
+
+Against the round-1 pool at matched size (difference of draw means ± standard error):
+toolace −0.005 ±0.008, lookup part **+0.027 ±0.010**, finance part +0.021 ±0.011, mean of 4 +0.006 ±0.008.
+
+**Reading.**
+
+- **At 600 rows the full pool is no better on toolace than round 1's four-set pool** (0.855 vs 0.860,
+  within noise), and no specialist-free draw reaches the 3600-row fit's 0.876 — only the best of eight
+  gets close (0.877). The union's toolace lead is therefore mostly VOLUME, not the composition.
+- **The composition does buy the parts round 2 targeted**: lookup +0.027 and finance +0.021 over the
+  round-1 pool at the same size, paid for on ops (−0.001) and roledef (−0.011) as those shares shrink
+  from 150 to ~100 rows.
+- **It is the best arm off toolace.** Four-split mean 0.881 and `anthropic_hh` 0.859 are the highest of the
+  experiment. The 3600-row fit lost 0.023 on that mean against these draws: at 3600 rows the probe gives
+  back the other splits, at 600 it does not.
+- **Draw-to-draw spread is the widest of any arm** (toolace sd 0.019, range 0.821–0.877), as expected
+  when each set's share varies by chance; `mt` swings 0.790–0.942.
