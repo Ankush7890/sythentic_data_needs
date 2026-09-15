@@ -28,7 +28,8 @@
 # High-stakes validates on dev_samples/highstakes_500, as every high-stakes curve in this repo
 # does (the full 1908-row dev set is resident for every epoch of every fit).
 #
-# 52 pools x 7 sizes x 8 draws = 2912 fits. Resumable: re-running skips (base, samples, n, draw)
+# hu_harm 16x7x8 = 896, instructions 20x7x8 = 1120, highstakes 16x7x4 = 448 fits (+24 early
+# 8-draw fits at n=590). Resumable: re-running skips (base, samples, n, draw)
 # rows already in scripts/qwen8b_<concept>_pooled_size_curve.csv.
 set -u
 cd "$(dirname "${BASH_SOURCE[0]}")"
@@ -38,6 +39,10 @@ export AGENTIC_REDTEAM_MAX_MEMORY="${AGENTIC_REDTEAM_MAX_MEMORY:-0=22GiB,cpu=45G
 export MAX_MEMORY="${MAX_MEMORY:-$AGENTIC_REDTEAM_MAX_MEMORY}"
 PY=.venv_claude/bin/python
 DRAWS="${DRAWS:-8}"
+# High-stakes runs 4 draws per cell. Its fits cost ~44 s (every one re-scores the 37 GB eval set)
+# against 7 s for the other two concepts. The first 6 pools at n=590 were fit at 8 draws before
+# this changed and keep all eight; read the curve on draws 0-3 for a like-for-like cell.
+HS_DRAWS="${HS_DRAWS:-4}"
 CONCEPTS="${CONCEPTS:-hu_harm instructions highstakes}"
 SIZES="${SIZES:-590 350 170 110 80 30 10}"
 POOL_DIR=.pool_work_qwen8b
@@ -50,8 +55,8 @@ $PY scripts/make_qwen8b_probe_templates.py || exit 1
 for concept in $CONCEPTS; do
     out="scripts/qwen8b_${concept}_pooled_size_curve.csv"
     log="logs/qwen8b_sizecurve_${concept}.log"
-    devflag=""
-    [ "$concept" = highstakes ] && devflag="--dev-data dev_samples/highstakes_500"
+    devflag="" draws="$DRAWS"
+    [ "$concept" = highstakes ] && devflag="--dev-data dev_samples/highstakes_500" && draws="$HS_DRAWS"
 
     echo ">>> $(date -Is)  ${concept}: warming the per-sample cache for every pool"
     $PY scripts/warm_pooled_sets.py --concept "$concept" --pool-dir "$POOL_DIR" \
@@ -68,7 +73,7 @@ for concept in $CONCEPTS; do
         esac
         echo ">>> $(date -Is)  ${concept} n=$n ($extra) over $(echo "$pools" | wc -l) pools"
         $PY scripts/subsample_curve_concept.py --concept "$concept" $pools \
-            --no-base $devflag $extra --sizes "$n" --draws "$DRAWS" --out "$out" \
+            --no-base $devflag $extra --sizes "$n" --draws "$draws" --out "$out" \
             >> "$log" 2>&1 \
             || echo ">>> $(date -Is)  FAILED ${concept} n=$n"
     done
