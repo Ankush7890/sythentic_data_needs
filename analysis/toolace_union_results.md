@@ -82,14 +82,16 @@ holds on average ~100 rows of each round-1 set and ~50 of each round-2 set. Same
 | mt | 0.884 ±0.050 | 0.843 | **0.892** | 0.866 | 0.727 |
 | mts | **0.926** ±0.023 | 0.911 | 0.916 | 0.942 | 0.810 |
 
-Against the round-1 pool at matched size (difference of draw means ± standard error):
+Against the round-1 pool at near-matched size — its draws are 540 rows, these 600 (difference of draw
+means ± standard error):
 toolace −0.005 ±0.008, lookup part **+0.027 ±0.010**, finance part +0.021 ±0.011, mean of 4 +0.006 ±0.008.
 
 **Reading.**
 
 - **At 600 rows the full pool is no better on toolace than round 1's four-set pool** (0.855 vs 0.860,
-  within noise), and no specialist-free draw reaches the 3600-row fit's 0.876 — only the best of eight
-  gets close (0.877). The union's toolace lead is therefore mostly VOLUME, not the composition.
+  within noise), and only the best of the eight draws (0.877) reaches the 3600-row fit's 0.876; the
+  draw mean sits 0.021 below it. The union's toolace lead is therefore mostly VOLUME, not the
+  composition — with the caveat that 0.876 is a single fit.
 - **The composition does buy the parts round 2 targeted**: lookup +0.027 and finance +0.021 over the
   round-1 pool at the same size, paid for on ops (−0.001) and roledef (−0.011) as those shares shrink
   from 150 to ~100 rows.
