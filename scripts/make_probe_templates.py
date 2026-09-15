@@ -1,19 +1,20 @@
 #!/usr/bin/env python
-"""Write `probes/qwen8b_<concept>/probe_template.pkl`: the metadata the qwen8b curve fits inherit.
+"""Write `probes/<tag>_<concept>/probe_template.pkl`: the metadata the pooled-curve fits inherit.
 
 Every fit in `subsample_curve_concept.py` runs `retrain_probe(base_probe_path=...)`, which reads
 exactly five things off that pickle — model_name, layer, the two class labels, and the
 architecture + hyperparameters (`_infer_probe_spec`) — and never its weights. The curve runs
-with --no-base, so no base training set is needed either. So instead of training a Qwen probe
-on some 50-row base, this copies the gemma probe_iter0 (linear_then_softmax, batch 16, accum 4,
-lr 5e-3, 200 epochs, patience 50) and relabels it Qwen/Qwen3-8B, layer 18. No model load, no
+with --no-base, so no base training set is needed either. So instead of training a probe on
+some 50-row base, this copies the gemma probe_iter0 (linear_then_softmax, batch 16, accum 4,
+lr 5e-3, 200 epochs, patience 50) and relabels it with the PROBE_PROFILE's model and layer
+(qwen8b: Qwen/Qwen3-8B L18; llama1b: meta-llama/Llama-3.2-1B-Instruct L8). No model load, no
 extraction, no training data.
 
 The template still carries the gemma classifier's weights (hidden size 5376). It is NOT a usable
-probe: scoring it on Qwen activations (hidden size 4096) fails on the shape mismatch rather than
+probe: scoring it on the profile's activations fails on the shape mismatch rather than
 producing a number.
 
-    PROBE_PROFILE=qwen8b ${REPO_ROOT}/.venv_claude/bin/python scripts/make_qwen8b_probe_templates.py
+    PROBE_PROFILE=llama1b ${REPO_ROOT}/.venv_claude/bin/python scripts/make_probe_templates.py
 """
 
 from __future__ import annotations
@@ -32,8 +33,8 @@ GEMMA_MODEL = "google/gemma-3-27b-it"
 
 
 def main() -> None:
-    if PROFILE != "qwen8b":
-        raise SystemExit("run with PROBE_PROFILE=qwen8b")
+    if PROFILE == "gemma27b":
+        raise SystemExit("gemma27b has trained base probes; run with PROBE_PROFILE=qwen8b or llama1b")
     from agentic_redteam.retrain import _cpu_unpickle, _infer_probe_spec, read_probe_metadata
 
     for concept in CONCEPTS.values():

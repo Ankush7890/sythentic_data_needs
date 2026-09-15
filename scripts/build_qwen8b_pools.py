@@ -73,14 +73,22 @@ def manifest() -> list[tuple[str, str, str, Path]]:
 
 
 def main() -> None:
-    OUT_DIR.mkdir(exist_ok=True)
+    import argparse
+
+    ap = argparse.ArgumentParser(description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--out-dir", type=Path, default=OUT_DIR,
+                    help="where the pools go (default .pool_work_qwen8b; the llama1b curve "
+                         "uses .pool_work_llama1b — same pools, the model plays no part)")
+    out_dir = ap.parse_args().out_dir
+    out_dir.mkdir(exist_ok=True)
     entries = manifest()
     missing = [src for *_, src in entries if not src.exists()]
     if missing:
         raise SystemExit("missing source sets:\n  " + "\n  ".join(map(str, missing)))
     for concept, gen, arm, src in entries:
-        build(concept, gen, arm, src, REPO / f"data/{concept}_{gen}_50.jsonl", out_dir=OUT_DIR)
-    print(f"{len(entries)} pools in {OUT_DIR}")
+        build(concept, gen, arm, src, REPO / f"data/{concept}_{gen}_50.jsonl", out_dir=out_dir)
+    print(f"{len(entries)} pools in {out_dir}")
 
 
 if __name__ == "__main__":

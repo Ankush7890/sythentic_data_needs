@@ -104,16 +104,44 @@ sys.path.insert(0, str(REPO / "src"))
 # PROBE_PROFILE picks the probed model and, with it, every per-concept path that depends on
 # it (base probe, activation caches). The default is the gemma-3-27b setup every committed
 # CSV before the qwen8b branch was measured on. `qwen8b` probes Qwen/Qwen3-8B at its middle
-# layer (18 of 36); its probe template is written by scripts/make_qwen8b_probe_templates.py, and
-# it has no Kaggle activations, so dev and eval are extracted locally into cache_qwen8b_*/.
+# layer (18 of 36) and `llama1b` probes meta-llama/Llama-3.2-1B-Instruct at its middle layer
+# (8 of 16). Neither has a trained base probe (templates from scripts/make_probe_templates.py)
+# or Kaggle activations, so dev and eval are extracted locally into cache_<tag>_*/.
 PROFILES = {
     "gemma27b": ("google/gemma-3-27b-it", 32, "gen_gemma27b"),
     "qwen8b": ("Qwen/Qwen3-8B", 18, "qwen8b"),
+    "llama1b": ("meta-llama/Llama-3.2-1B-Instruct", 8, "llama1b"),
 }
 PROFILE = os.environ.get("PROBE_PROFILE", "gemma27b")
 if PROFILE not in PROFILES:
     raise SystemExit(f"PROBE_PROFILE={PROFILE!r}: expected one of {sorted(PROFILES)}")
 MODEL_NAME, LAYER, _TAG = PROFILES[PROFILE]
+
+# Llama-3.x chat templates write TODAY's date into the system header (`strftime_now` when
+# `date_string` is unset), and no activation cache key sees the rendered string — so an
+# extraction crossing midnight would silently mix two tokenizations under one cache. Pin it
+# to the template's own no-clock fallback. Templates that never read `date_string` (gemma,
+# Qwen3) ignore the extra render variable, so this is a no-op for them.
+PINNED_DATE_STRING = "26 Jul 2024"
+
+
+def _pin_chat_template_date() -> None:
+    from transformers import PreTrainedTokenizerBase
+
+    original = PreTrainedTokenizerBase.apply_chat_template
+    if getattr(original, "_date_pinned", False):
+        return
+
+    def apply_chat_template(self, *args, **kwargs):
+        kwargs.setdefault("date_string", PINNED_DATE_STRING)
+        return original(self, *args, **kwargs)
+
+    apply_chat_template._date_pinned = True
+    PreTrainedTokenizerBase.apply_chat_template = apply_chat_template
+
+
+if PROFILE == "llama1b":
+    _pin_chat_template_date()
 SEED, COMBINE, CONVERT = 42, True, True
 
 # The kaggle: block every gemma-3-27b config in this repo carries, verbatim. {slug} in a
@@ -139,8 +167,8 @@ class Concept:
 
     @property
     def base_probe(self) -> Path:
-        # qwen8b has no trained base probe: fits inherit metadata + spec from a template
-        # (scripts/make_qwen8b_probe_templates.py), and its curves never fit on a base set.
+        # qwen8b / llama1b have no trained base probe: fits inherit metadata + spec from a
+        # template (scripts/make_probe_templates.py), and their curves never fit on a base set.
         return self.probe_dir / ("probe_iter0.pkl" if PROFILE == "gemma27b" else "probe_template.pkl")
 
     @property
