@@ -61,6 +61,49 @@ _TRUNCATE_ENV = "AGENTIC_REDTEAM_TRUNCATE_LAYERS"
 _MAX_MEMORY_ENV = "AGENTIC_REDTEAM_MAX_MEMORY"
 
 
+def _register_legacy_gemma3_arch() -> None:
+    """Teach tuberlens the transformers < 4.52 gemma-3 module layout.
+
+    tuberlens' ``Gemma3Arch`` reads ``model.language_model.layers`` (tuberlens e8b5833,
+    "fixing gemma3 activations"). That is the layout of transformers >= 4.52, where
+    ``Gemma3ForConditionalGeneration.language_model`` is a ``Gemma3TextModel``. On the
+    transformers pinned here (4.51.3) it is a ``Gemma3ForCausalLM``, one level deeper —
+    the layers are at ``language_model.model.layers`` — so ``get_architecture`` finds no
+    handler and every gemma-3 extraction dies with::
+
+        ValueError: Unsupported model architecture:
+            <class '...gemma3.modeling_gemma3.Gemma3ForConditionalGeneration'>
+
+    The fix is a handler for the older layout appended to the registry. ``get_architecture``
+    returns the FIRST handler whose ``get_layer_norm(model, 0)`` does not raise, and the
+    registry is tried in insertion order, so on a newer transformers tuberlens' own
+    ``Gemma3Arch`` still wins and this one is never reached. Both read the same
+    ``input_layernorm`` of the same decoder layer, so which one fires cannot move an
+    activation — hence nothing about it belongs in a cache key.
+
+    Idempotent, and silent if tuberlens' registry ever stops looking like this.
+    """
+    try:
+        from tuberlens.model import ArchitectureRegistry, Gemma3Arch
+    except Exception:  # pragma: no cover - a tuberlens without the registry
+        return
+    registry = getattr(ArchitectureRegistry, "_architectures", None)
+    if not isinstance(registry, dict) or "gemma3_legacy" in registry:
+        return
+
+    class Gemma3LegacyArch(Gemma3Arch):
+        def get_layer_norm(self, model, layer_idx):
+            return model.language_model.model.layers[layer_idx].input_layernorm
+
+        def get_layers(self, model):
+            return model.language_model.model.layers
+
+        def set_layers(self, model, layers):
+            model.language_model.model.layers = layers
+
+    registry["gemma3_legacy"] = Gemma3LegacyArch
+
+
 def _truncation_enabled() -> bool:
     return os.environ.get(_TRUNCATE_ENV, "1").strip().lower() not in {
         "0",
@@ -192,6 +235,8 @@ def load_extraction_model(model_name: str, layer: int, *, verbose: bool = False)
     """
     from tuberlens.config import global_settings
     from tuberlens.model import LLMModel
+
+    _register_legacy_gemma3_arch()
 
     model_kwargs: dict[str, Any] = {
         "offload_buffers": getattr(global_settings, "OFFLOAD_BUFFERS", True)

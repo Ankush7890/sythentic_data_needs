@@ -1,0 +1,405 @@
+{
+  "hc_context_drift": {
+    "split": "hc_context_drift",
+    "n_rows": 194,
+    "n_pairs": 97,
+    "equal_size": true,
+    "silhouette": 0.081,
+    "stability_ari": 0.3727,
+    "parts": [
+      {
+        "part": "hc_context_drift_p0",
+        "n_rows": 48,
+        "n_pairs": 24,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 24,
+          "assistant_follows_the_instruction": 24
+        },
+        "top_terms": [
+          "men",
+          "beta",
+          "safety",
+          "africa",
+          "protective",
+          "type",
+          "circumcision",
+          "offering",
+          "chances",
+          "heterosexual",
+          "organizations",
+          "male"
+        ],
+        "example": "user: Is male circumcision helpful in reducing heterosexual men's chances of getting HIV? Please use the following context to inform your answer:\n\nEighty-five percent of participating mothers correctly stated that male circumcision reduces HIV risk in adult men, reflecting awareness of its protective effect against heterosexual HIV acquisition. The research assessed neonatal circumcision uptake an"
+      },
+      {
+        "part": "hc_context_drift_p1",
+        "n_rows": 50,
+        "n_pairs": 25,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 25,
+          "assistant_follows_the_instruction": 25
+        },
+        "top_terms": [
+          "improved",
+          "heart",
+          "asthma",
+          "immunity",
+          "doses",
+          "back",
+          "improves",
+          "mineral",
+          "honey",
+          "strengthen",
+          "reviews",
+          "anxiety"
+        ],
+        "example": "user: Is lumbar traction an effective treatment for lower back pain? Here's some background. Please answer using only this:\n\nMedical studies report that inversion therapy, a form of gravity\u2011assisted lumbar traction, can reduce disc compression, relieve lower\u2011back pain, and decrease muscle tension. Multiple studies (Sheffield, Nosse, Gianakopoulos, Kane) found intravertebral separation, reduced EMG"
+      },
+      {
+        "part": "hc_context_drift_p2",
+        "n_rows": 48,
+        "n_pairs": 24,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 24,
+          "assistant_follows_the_instruction": 24
+        },
+        "top_terms": [
+          "minutes",
+          "keep",
+          "child",
+          "cough",
+          "hours",
+          "fluids",
+          "paracetamol",
+          "steam",
+          "cool",
+          "viral",
+          "hot",
+          "burns"
+        ],
+        "example": "user: Is a tepid sponge bath a good way to reduce fever in children? Base your response on this context:\n\nFever is a higher\u2011than\u2011normal body temperature and can be a symptom of illness. An oral temperature around 101\u00b0F is considered a fever. Children should not be given aspirin due to the risk of Reye's syndrome. Sponging or bathing in lukewarm (tepid) water can cool the skin and help reduce body "
+      },
+      {
+        "part": "hc_context_drift_p3",
+        "n_rows": 48,
+        "n_pairs": 24,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 24,
+          "assistant_follows_the_instruction": 24
+        },
+        "top_terms": [
+          "magnetic",
+          "joint",
+          "well",
+          "wearing",
+          "bracelets",
+          "copper",
+          "peels",
+          "ones",
+          "headaches",
+          "inflammation",
+          "existing",
+          "cream"
+        ],
+        "example": "user: Does duct tape work for wart removal? The following source should guide your answer:\n\nMany people ask if duct tape works for wart removal. Studies show that wrapping common warts in duct tape can irritate the skin and trigger the immune system to attack the wart, with a success rate of about 40\u201350%. It is least effective on plantar warts and not effective on genital warts. Duct tape does not"
+      }
+    ]
+  },
+  "hc_contradiction": {
+    "split": "hc_contradiction",
+    "n_rows": 200,
+    "n_pairs": 100,
+    "equal_size": true,
+    "silhouette": 0.1154,
+    "stability_ari": 0.6712,
+    "parts": [
+      {
+        "part": "hc_contradiction_p0",
+        "n_rows": 50,
+        "n_pairs": 25,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 25,
+          "assistant_follows_the_instruction": 25
+        },
+        "top_terms": [
+          "cold",
+          "steam",
+          "cough",
+          "breathing",
+          "cool",
+          "seek",
+          "shower",
+          "croup",
+          "burns",
+          "child",
+          "barking",
+          "apply"
+        ],
+        "example": "user: Should I apply ice to a burn?\n\nRely on the following text for your answer:\nBurns are classified as first-, second-, or third-degree. Some small first- and second-degree burns can be treated as minor burns. For minor burns, cool the area under cool (not icy) running water for 10\u201315 minutes, then cover with sterile gauze and consider pain relievers. Do not use ice, as it can further damage the"
+      },
+      {
+        "part": "hc_contradiction_p1",
+        "n_rows": 50,
+        "n_pairs": 25,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 25,
+          "assistant_follows_the_instruction": 25
+        },
+        "top_terms": [
+          "joint",
+          "osteoarthritis",
+          "tylenol",
+          "gum",
+          "lack",
+          "nutrient",
+          "bracelets",
+          "copper",
+          "arthritis",
+          "chewing",
+          "lose",
+          "less"
+        ],
+        "example": "user: Can chewing gum help lose weight?\n\nBased on the information in the following document:\nChewing gum won\u2019t help you lose weight. A study showed it doesn\u2019t reduce calorie intake, and mint gum can make fruits taste bitter, leading to more junk food consumption. Green tea before meals is a better appetite\u2011reducing option. Gum can also cause jaw pain, stomach issues from swallowed air and sweetene"
+      },
+      {
+        "part": "hc_contradiction_p2",
+        "n_rows": 50,
+        "n_pairs": 25,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 25,
+          "assistant_follows_the_instruction": 25
+        },
+        "top_terms": [
+          "cholesterol",
+          "own",
+          "urine",
+          "ldl",
+          "memory",
+          "cognitive",
+          "waste",
+          "triglycerides",
+          "dementia",
+          "hdl",
+          "diabetes",
+          "acid"
+        ],
+        "example": "user: Are there health benefits to drinking your own urine?\n\nUse only the following passage to answer:\nUrine therapy involves drinking or applying your own urine, but it offers no proven health benefits. Urine can contain many bacteria, and using stored urine can introduce harmful bacteria and cause infections, as seen in an acne case. Urine isn\u2019t sterile and contains waste products the body is tr"
+      },
+      {
+        "part": "hc_contradiction_p3",
+        "n_rows": 50,
+        "n_pairs": 25,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 25,
+          "assistant_follows_the_instruction": 25
+        },
+        "top_terms": [
+          "radiation",
+          "phones",
+          "phone",
+          "tumors",
+          "selenium",
+          "link",
+          "fungus",
+          "baking",
+          "simoncini",
+          "alternative",
+          "tullio",
+          "claim"
+        ],
+        "example": "user: Are vaccines linked to autism?\n\nRefer to the following text when forming your answer:\nConcerns about vaccines and autism began after a 1998 study by Andrew Wakefield claimed a link between the MMR vaccine and autism. The study was later withdrawn as fraudulent and financially motivated. Despite lingering parental worries, extensive research shows no link between vaccines and autism. A 2004 I"
+      }
+    ]
+  },
+  "mm_substitution": {
+    "split": "mm_substitution",
+    "n_rows": 200,
+    "n_pairs": 92,
+    "equal_size": true,
+    "silhouette": 0.0286,
+    "stability_ari": 0.3584,
+    "parts": [
+      {
+        "part": "mm_substitution_p0",
+        "n_rows": 50,
+        "n_pairs": 23,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 25,
+          "assistant_follows_the_instruction": 25
+        },
+        "top_terms": [
+          "get",
+          "pay",
+          "want",
+          "hours",
+          "paid",
+          "like",
+          "work",
+          "people",
+          "say",
+          "said",
+          "user"
+        ],
+        "example": "user: What did he say about DLF\u2019s decision regarding joining Le Pen\u2019s new party? context: Nope he has clearly stated yesterday that DLF would stay independent and not be part of the new party le Pen wants to create. But they will continue to form an alliance for the upcoming election(s?)."
+      },
+      {
+        "part": "mm_substitution_p1",
+        "n_rows": 52,
+        "n_pairs": 23,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 26,
+          "assistant_follows_the_instruction": 26
+        },
+        "top_terms": [
+          "him",
+          "user",
+          "say"
+        ],
+        "example": "user: What did he ask the architect of the Capitol to review about the painting? context: sent a letter to the architect of the Capitol requesting him to review whether the painting conforms with the contest rules, which bar 'exhibits depicting subjects of contemporary political controversy or a sensationalistic and gruesome nature.'"
+      },
+      {
+        "part": "mm_substitution_p2",
+        "n_rows": 48,
+        "n_pairs": 23,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 24,
+          "assistant_follows_the_instruction": 24
+        },
+        "top_terms": [
+          "made",
+          "president",
+          "trump",
+          "election",
+          "support",
+          "said",
+          "say",
+          "user"
+        ],
+        "example": "user: What did the caucus say in its written statement? context: This is a significant step toward correcting the errors and inequitable policies of the previous administration, the caucus said in a written statement."
+      },
+      {
+        "part": "mm_substitution_p3",
+        "n_rows": 50,
+        "n_pairs": 23,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 25,
+          "assistant_follows_the_instruction": 25
+        },
+        "top_terms": [
+          "court",
+          "york",
+          "city",
+          "federal",
+          "out",
+          "people",
+          "him",
+          "said",
+          "user",
+          "say"
+        ],
+        "example": "user: What was J Street\u2019s stance on the Goldstone Report? context: (J Street did not support the Goldstone Report, but it did not oppose the Goldstone Report, either."
+      }
+    ]
+  },
+  "oig_context_drift": {
+    "split": "oig_context_drift",
+    "n_rows": 194,
+    "n_pairs": 97,
+    "equal_size": true,
+    "silhouette": 0.0073,
+    "stability_ari": 0.2373,
+    "parts": [
+      {
+        "part": "oig_context_drift_p0",
+        "n_rows": 50,
+        "n_pairs": 25,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 25,
+          "assistant_follows_the_instruction": 25
+        },
+        "top_terms": [
+          "used",
+          "double",
+          "many",
+          "known",
+          "assistant",
+          "user",
+          "where"
+        ],
+        "example": "user: What is known about the painting Leg of mutton nude?\nassistant: Leg of mutton nude Double Nude Portrait: The Artist and his Second Wife 1937 (also known as the Leg of mutton nude portrait) is an oil on canvas painting by British artist Stanley Spencer.\nuser: continue"
+      },
+      {
+        "part": "oig_context_drift_p1",
+        "n_rows": 48,
+        "n_pairs": 24,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 24,
+          "assistant_follows_the_instruction": 24
+        },
+        "top_terms": [
+          "county",
+          "family",
+          "state",
+          "population",
+          "found",
+          "historic",
+          "census",
+          "connecticut",
+          "located",
+          "name",
+          "house",
+          "west"
+        ],
+        "example": "user: Background: Notocelia uddmanniana, the bramble shoot moth, is a Tortricidae species with a wingspan of 15\u201320 mm. It is found in Western Europe and around the Mediterranean, extending to the Caucasus, Kazakhstan, Iran, and parts of China. In western Europe it flies from late June to late July.\n\nWhat is the scientific name of Notocelia uddmanniana?\nassistant: Notocelia uddmanniana Notocelia ud"
+      },
+      {
+        "part": "oig_context_drift_p2",
+        "n_rows": 48,
+        "n_pairs": 24,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 24,
+          "assistant_follows_the_instruction": 24
+        },
+        "top_terms": [
+          "former",
+          "served",
+          "happened",
+          "born",
+          "after",
+          "interesting",
+          "first",
+          "built",
+          "background",
+          "assistant",
+          "user",
+          "where"
+        ],
+        "example": "user: What was Wm. Crichton & Co.'s Okhta factory doing in 1896?\nassistant: In 1896 W:m Crichton & C:o leased premises in Okhta, Saint Petersburg, for building vessels and their engines for the Russian Admiralty.\nuser: Did they produce anything?"
+      },
+      {
+        "part": "oig_context_drift_p3",
+        "n_rows": 48,
+        "n_pairs": 24,
+        "per_label": {
+          "assistant_does_not_follow_the_instruction": 24,
+          "assistant_follows_the_instruction": 24
+        },
+        "top_terms": [
+          "film",
+          "directed",
+          "starred",
+          "robinson",
+          "well",
+          "single",
+          "singer",
+          "songwriter",
+          "story",
+          "band",
+          "american",
+          "first"
+        ],
+        "example": "user: Background: A Certain Young Man is a 1928 comedy film directed by Hobart Henley and starring Ramon Novarro, Marceline Day, Ren\u00e9e Ador\u00e9e, Carmel Myers, and Bert Roach. The film is considered lost, though a trailer is preserved at the Library of Congress.\n\nWhat is A Certain Young Man?\nassistant: A Certain Young Man A Certain Young Man is a 1928 comedy film directed by Hobart Henley.\nuser: Who "
+      }
+    ]
+  }
+}
