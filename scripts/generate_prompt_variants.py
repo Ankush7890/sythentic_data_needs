@@ -13,10 +13,11 @@ the same "do not reuse these already-used openings" block `generate_split_target
 adds, with 20 openings sampled from rows this set has already kept.
 
 Guards per row, as in `generate_split_targeted.py`:
-  - shape: a leading system turn, then user/assistant alternation, ending on the
-    assistant. Consecutive assistant turns (a tool trace, say) are MERGED with a blank
-    line, which is what `combine_consecutive_messages` does before extraction anyway;
-  - label: exactly `high-stakes` or `low-stakes`, at most n/2 per label;
+  - shape: user/assistant alternation ending on the assistant, preceded by a system turn
+    iff the target split's own rows carry one (the highstakes splits do; `hu_ha` and
+    `instructions` do not). Consecutive assistant turns (a tool trace, say) are MERGED
+    with a blank line, which is what `combine_consecutive_messages` does anyway;
+  - label: exactly one of `--concept`'s two class labels, at most n/2 per label;
   - length: <= 1024 gemma-3-27b tokens through `TokenBudget` (fails open);
   - novelty: the request's opening, with the ToolACE "Role definition" wrapper stripped
     so wrapper rows are not all keyed on the same boilerplate;
@@ -28,6 +29,11 @@ Raw replies go to `logs/prompt_variants/<out stem>/`, one file per call.
     OPENROUTER_TIMEOUT_S=1800 .venv_claude/bin/python scripts/generate_prompt_variants.py \\
         --prompts-md ANTHROPIC_HH_GENERATOR_PROMPTS.md --split anthropic_hh_balanced \\
         --prompt 1 --out data/highstakes_deepseekv4pro_hh5_replica_600.jsonl
+
+    OPENROUTER_TIMEOUT_S=1800 .venv_claude/bin/python scripts/generate_prompt_variants.py \\
+        --concept instructions --prompts-md OIG_DRIFT_GENERATOR_PROMPTS.md \\
+        --split oig_context_drift --prompt 1 \\
+        --out data/instructions_deepseekv4pro_oigd5_replica_600.jsonl
 """
 
 from __future__ import annotations
@@ -45,6 +51,10 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "src"))
 
+sys.path.insert(0, str(REPO / "scripts"))
+
+from fit_base_plus_concept import CONCEPTS  # noqa: E402
+
 from agentic_redteam.json_extract import extract_json_values  # noqa: E402
 from agentic_redteam.openrouter_client import (  # noqa: E402
     extract_openrouter_error,
@@ -52,14 +62,23 @@ from agentic_redteam.openrouter_client import (  # noqa: E402
 )
 
 PROBE_MODEL = "google/gemma-3-27b-it"
-LABELS = ("high-stakes", "low-stakes")
 AVOID_SAMPLE = 20
 
 
-def split_files(split: str) -> list[Path]:
-    """The dev and eval files of the split being written for — the leak check reads these."""
-    return [REPO / f"dev_samples/highstakes/{split}.jsonl",
-            REPO / f"eval_sets/highstakes/{split}.jsonl"]
+def split_files(concept: str, split: str) -> list[Path]:
+    """The dev and eval files of the split being written for — the leak check reads these.
+
+    The dev and eval file of a split do not always share a stem: `hu_ha` names them
+    `dev_ant_hh.jsonl` and `eval_ant_hh.jsonl`, while `instructions` uses the same stem in
+    both directories. Match on the stem with any `dev_`/`eval_` prefix stripped.
+    """
+    c = CONCEPTS[concept]
+    bare = re.sub(r"^(dev|eval)_", "", split)
+    found = [p for d in (c.dev_data, c.eval_dir) for p in sorted(d.glob("*.jsonl"))
+             if re.sub(r"^(dev|eval)_", "", p.stem) == bare]
+    if not found:
+        raise SystemExit(f"no dev/eval file for split {split!r} under concept {concept!r}")
+    return found
 
 
 def load_prompt(prompts_md: Path, k: int) -> str:
@@ -114,10 +133,15 @@ def _accept(value):
     return None
 
 
-def clean(item: dict) -> tuple[str, list[dict]] | None:
-    """(label, messages) for a well-shaped row, else None."""
+def clean(item: dict, labels: tuple[str, str], want_system: bool) -> tuple[str, list[dict]] | None:
+    """(label, messages) for a well-shaped row, else None.
+
+    `want_system` says whether the split's rows carry a leading system turn. The highstakes
+    splits do; `hu_ha` and `instructions` do not, and a stray system turn there would be a
+    surface feature no eval row has.
+    """
     label = str(item.get("label", "")).strip().lower()
-    if label not in LABELS:
+    if label not in labels:
         return None
     msgs: list[dict] = []
     for m in item.get("messages") or []:
@@ -131,9 +155,16 @@ def clean(item: dict) -> tuple[str, list[dict]] | None:
             msgs[-1]["content"] += "\n\n" + content
         else:
             msgs.append({"role": role, "content": content})
-    if len(msgs) < 3 or msgs[0]["role"] != "system" or msgs[-1]["role"] != "assistant":
+    if msgs and msgs[-1]["role"] != "assistant":
         return None
-    body = [m["role"] for m in msgs[1:]]
+    if want_system:
+        if len(msgs) < 3 or msgs[0]["role"] != "system":
+            return None
+        body = [m["role"] for m in msgs[1:]]
+    else:
+        if len(msgs) < 2 or any(m["role"] == "system" for m in msgs):
+            return None
+        body = [m["role"] for m in msgs]
     if body != ["user", "assistant"] * (len(body) // 2) or len(body) % 2:
         return None
     return label, msgs
@@ -183,9 +214,14 @@ def main() -> None:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--prompts-md", type=Path, default=REPO / "TOOLACE_GENERATOR_PROMPTS.md",
                     help="markdown file holding the `## Prompt N` blockquotes")
+    ap.add_argument("--concept", default="highstakes", choices=sorted(CONCEPTS),
+                    help="supplies the two class labels and the dirs the leak check reads")
     ap.add_argument("--split", default="toolace_balanced",
                     help="the eval split being written for; its dev and eval files are the "
                          "leak check")
+    ap.add_argument("--system-turn", choices=["required", "forbidden"], default=None,
+                    help="whether a row must open with a system turn. Default: read off the "
+                         "target split's own rows.")
     ap.add_argument("--prompt", type=int, required=True, choices=[1, 2, 3, 4, 5])
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--model", default="deepseek/deepseek-v4-pro")
@@ -215,11 +251,23 @@ def main() -> None:
                              combine_consecutive_messages=True, convert_tool_to_assistant=True)
         budget.warmup()
 
-    split_users = set()
-    for f in split_files(args.split):
+    concept = CONCEPTS[args.concept]
+    labels = (concept.pos_label, concept.neg_label)
+
+    split_users: set[str] = set()
+    has_system = 0
+    n_split_rows = 0
+    for f in split_files(args.concept, args.split):
         for line in f.open(encoding="utf-8"):
             msgs = json.loads(json.loads(line)["inputs"])
             split_users.add(next((m["content"].strip() for m in msgs if m["role"] == "user"), ""))
+            has_system += bool(msgs) and msgs[0]["role"] == "system"
+            n_split_rows += 1
+    want_system = (args.system_turn == "required" if args.system_turn
+                   else has_system > n_split_rows / 2)
+    print(f"  {args.split}: {n_split_rows} dev+eval rows, system turn "
+          f"{'required' if want_system else 'forbidden'}, labels {labels}",
+          file=sys.stderr, flush=True)
 
     raw_dir = REPO / "logs/prompt_variants" / args.out.stem
     raw_dir.mkdir(parents=True, exist_ok=True)
@@ -228,7 +276,7 @@ def main() -> None:
     per_label = args.n // 2
     rows: list[dict] = []
     seen: dict[str, None] = {}
-    counts = {lab: 0 for lab in LABELS}
+    counts = {lab: 0 for lab in labels}
     dropped = {"shape": 0, "long": 0, "dup": 0, "leak": 0, "full": 0}
     lock = threading.Lock()
     calls = 0
@@ -250,7 +298,7 @@ def main() -> None:
                 calls += 1
             for fut in futures:
                 for item in fut.result():
-                    got = clean(item)
+                    got = clean(item, labels, want_system)
                     if got is None:
                         dropped["shape"] += 1
                         continue
@@ -274,7 +322,7 @@ def main() -> None:
                         rows.append({"inputs": json.dumps(msgs, ensure_ascii=False),
                                      "labels": label})
             print(f"  p{args.prompt}: {len(rows)}/{args.n} "
-                  f"({counts['high-stakes']}/{counts['low-stakes']}) after {calls} calls; "
+                  f"({counts[labels[0]]}/{counts[labels[1]]}) after {calls} calls; "
                   f"dropped {dropped}", file=sys.stderr, flush=True)
 
     if min(counts.values()) < per_label:
