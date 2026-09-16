@@ -1,0 +1,6 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_hh_balanced,dev_mt_balanced,dev_mts_balanced,dev_toolace_balanced,eval_anthropic_hh_balanced,eval_mt_balanced,eval_mts_balanced,eval_toolace_balanced,seconds
+highstakes_deepseekv4pro_hh5_redteam_600.jsonl,none,600,0,300,300,600,0.72926,0.69981,0.94278,0.71838,0.78072,0.47517,0.9282,0.65538,0.68551,0.53014,1233.9
+highstakes_deepseekv4pro_hh5_replica_600.jsonl,none,600,0,300,300,600,0.86009,0.85842,0.97939,0.80108,0.87826,0.78162,0.97563,0.80145,0.89481,0.76181,1231.3
+highstakes_deepseekv4pro_hh5_topicpair_600.jsonl,none,600,0,300,300,600,0.88646,0.87122,0.8693,0.9607,0.95276,0.76306,0.88167,0.94681,0.94916,0.70721,1180.9
+highstakes_deepseekv4pro_hh5_twin_600.jsonl,none,600,0,300,300,600,0.90959,0.88373,0.97824,0.8679,0.91564,0.8766,0.97345,0.80262,0.95105,0.80779,1206.5
+highstakes_deepseekv4pro_hh5_long_600.jsonl,none,600,0,300,300,600,0.82805,0.84563,0.94419,0.87033,0.86508,0.63262,0.92654,0.8878,0.92699,0.64121,1195.5

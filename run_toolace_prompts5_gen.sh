@@ -14,7 +14,7 @@ for spec in "${names[@]}"; do
     k="${spec%%:*}"; name="${spec##*:}"
     out="data/highstakes_deepseekv4pro_p5_${name}_600.jsonl"
     [ -s "$out" ] && { echo ">>> SKIP $out"; continue; }
-    $PY scripts/generate_toolace_prompts5.py --prompt "$k" --n 600 --concurrency 10 \
+    $PY scripts/generate_prompt_variants.py --prompt "$k" --n 600 --concurrency 10 \
         --out "$out" > "logs/gen_p5_${name}.log" 2>&1 &
 done
 wait

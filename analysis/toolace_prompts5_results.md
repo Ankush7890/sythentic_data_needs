@@ -7,7 +7,8 @@ split to a generator produces training data that carries a probe on `toolace_bal
 
 ## Protocol
 
-- **Generation.** `scripts/generate_toolace_prompts5.py`, `deepseek/deepseek-v4-pro`,
+- **Generation.** `scripts/generate_prompt_variants.py` (named `generate_toolace_prompts5.py`
+  when this study ran), `deepseek/deepseek-v4-pro`,
   temperature 1.0, 20 rows per call (10 per label, both labels in one call so the prompt's
   "match the classes on surface features" instruction has something to act on), 10 calls in
   flight. Per row: shape check, label check, ≤1024 gemma-3-27b tokens, novelty against the

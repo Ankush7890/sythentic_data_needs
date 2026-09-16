@@ -1,12 +1,11 @@
 #!/usr/bin/env python
-"""Generate one 600-row toolace set per prompt in `TOOLACE_GENERATOR_PROMPTS.md`.
+"""Generate one 600-row set per prompt in a `## Prompt N` markdown file.
 
-The five prompts were written from measurements of `toolace_balanced` (dev + eval stats,
-dev rows read for register). Unlike `split_specs.py`'s toolace spec, they label a row by
-the stakes of the SITUATION (deployment + request), not by whether the call reads or
-writes. Each prompt asks for 20 rows per call, 10 per label, with the classes matched on
-surface features inside the call. That is why a call carries both labels here, where
-`generate_split_targeted.py` asks for one label per call.
+The prompts are written from measurements of ONE eval split (see
+`TOOLACE_GENERATOR_PROMPTS.md`, `ANTHROPIC_HH_GENERATOR_PROMPTS.md`), and each asks for 20
+rows per call, 10 per label, with the classes matched on surface features inside the call.
+That is why a call carries both labels here, where `generate_split_targeted.py` asks for
+one label per call.
 
 The prompt text is read from the markdown file (the blockquote under `## Prompt N`), so
 the file stays the single source of what was sent. Only one thing is appended per call:
@@ -15,18 +14,20 @@ adds, with 20 openings sampled from rows this set has already kept.
 
 Guards per row, as in `generate_split_targeted.py`:
   - shape: a leading system turn, then user/assistant alternation, ending on the
-    assistant. Consecutive assistant turns (prompt 4's tool trace) are MERGED with a blank
+    assistant. Consecutive assistant turns (a tool trace, say) are MERGED with a blank
     line, which is what `combine_consecutive_messages` does before extraction anyway;
   - label: exactly `high-stakes` or `low-stakes`, at most n/2 per label;
   - length: <= 1024 gemma-3-27b tokens through `TokenBudget` (fails open);
   - novelty: the request's opening, with the ToolACE "Role definition" wrapper stripped
     so wrapper rows are not all keyed on the same boilerplate;
-  - leakage: a row whose user turn equals any dev or eval toolace user turn is dropped.
+  - leakage: a row whose first user turn equals any dev or eval user turn of the split
+    being written for is dropped.
 
-Raw replies go to `logs/toolace_prompts5/<name>/`, one file per call.
+Raw replies go to `logs/prompt_variants/<out stem>/`, one file per call.
 
-    OPENROUTER_TIMEOUT_S=900 .venv_claude/bin/python scripts/generate_toolace_prompts5.py \\
-        --prompt 1 --out data/highstakes_deepseekv4pro_p5_replica_600.jsonl
+    OPENROUTER_TIMEOUT_S=1800 .venv_claude/bin/python scripts/generate_prompt_variants.py \\
+        --prompts-md ANTHROPIC_HH_GENERATOR_PROMPTS.md --split anthropic_hh_balanced \\
+        --prompt 1 --out data/highstakes_deepseekv4pro_hh5_replica_600.jsonl
 """
 
 from __future__ import annotations
@@ -50,21 +51,24 @@ from agentic_redteam.openrouter_client import (  # noqa: E402
     make_sync_client,
 )
 
-PROMPTS_MD = REPO / "TOOLACE_GENERATOR_PROMPTS.md"
 PROBE_MODEL = "google/gemma-3-27b-it"
 LABELS = ("high-stakes", "low-stakes")
 AVOID_SAMPLE = 20
-SPLIT_FILES = [REPO / "dev_samples/highstakes/toolace_balanced.jsonl",
-               REPO / "eval_sets/highstakes/toolace_balanced.jsonl"]
 
 
-def load_prompt(k: int) -> str:
+def split_files(split: str) -> list[Path]:
+    """The dev and eval files of the split being written for — the leak check reads these."""
+    return [REPO / f"dev_samples/highstakes/{split}.jsonl",
+            REPO / f"eval_sets/highstakes/{split}.jsonl"]
+
+
+def load_prompt(prompts_md: Path, k: int) -> str:
     """The blockquote under `## Prompt k`, with the `> ` markers removed."""
-    text = PROMPTS_MD.read_text(encoding="utf-8")
+    text = prompts_md.read_text(encoding="utf-8")
     parts = re.split(r"^## Prompt (\d+)[^\n]*\n", text, flags=re.M)
     by_num = {int(parts[i]): parts[i + 1] for i in range(1, len(parts) - 1, 2)}
     if k not in by_num:
-        raise SystemExit(f"no '## Prompt {k}' in {PROMPTS_MD}")
+        raise SystemExit(f"no '## Prompt {k}' in {prompts_md}")
     lines = []
     for line in by_num[k].splitlines():
         if line.startswith(">"):
@@ -82,8 +86,18 @@ def request_text(row_msgs: list[dict]) -> str:
     return (m.group(1) if m else u).strip()
 
 
-def opening(row_msgs: list[dict]) -> str:
-    return " ".join(request_text(row_msgs).split())[:200].lower()
+def opening(row_msgs: list[dict], with_reply: bool = False) -> str:
+    """The novelty key for a row.
+
+    By default the first user turn, which is what keeps a run's scenarios distinct. A prompt
+    that deliberately writes one conversation TWICE — the same user turns with a different
+    final assistant turn, as the HH `chosen`/`rejected` pairs do — needs the reply in the key
+    too, or the second version is dropped as a duplicate of the first.
+    """
+    key = " ".join(request_text(row_msgs).split())[:200].lower()
+    if with_reply:
+        key += " || " + " ".join(row_msgs[-1]["content"].split())[:200].lower()
+    return key
 
 
 def _accept(value):
@@ -167,6 +181,11 @@ def _call(client, model, prompt, temperature, max_tokens, tag, raw_dir, tries=4)
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--prompts-md", type=Path, default=REPO / "TOOLACE_GENERATOR_PROMPTS.md",
+                    help="markdown file holding the `## Prompt N` blockquotes")
+    ap.add_argument("--split", default="toolace_balanced",
+                    help="the eval split being written for; its dev and eval files are the "
+                         "leak check")
     ap.add_argument("--prompt", type=int, required=True, choices=[1, 2, 3, 4, 5])
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--model", default="deepseek/deepseek-v4-pro")
@@ -177,10 +196,14 @@ def main() -> None:
     ap.add_argument("--max-tokens", type=int, default=32000)
     ap.add_argument("--max-sample-tokens", type=int, default=1024)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--dup-key", choices=["user", "user+reply"], default="user",
+                    help="what makes a row a duplicate: its first user turn (default), or "
+                         "that plus the final assistant turn — needed by a prompt that writes "
+                         "each conversation twice with different replies")
     ap.add_argument("--dump-prompt", action="store_true", help="print the prompt and exit")
     args = ap.parse_args()
 
-    base_prompt = load_prompt(args.prompt)
+    base_prompt = load_prompt(args.prompts_md, args.prompt)
     if args.dump_prompt:
         print(base_prompt)
         return
@@ -193,12 +216,12 @@ def main() -> None:
         budget.warmup()
 
     split_users = set()
-    for f in SPLIT_FILES:
+    for f in split_files(args.split):
         for line in f.open(encoding="utf-8"):
             msgs = json.loads(json.loads(line)["inputs"])
             split_users.add(next((m["content"].strip() for m in msgs if m["role"] == "user"), ""))
 
-    raw_dir = REPO / "logs/toolace_prompts5" / args.out.stem
+    raw_dir = REPO / "logs/prompt_variants" / args.out.stem
     raw_dir.mkdir(parents=True, exist_ok=True)
     client = make_sync_client()
     rng = random.Random(args.seed)
@@ -238,7 +261,7 @@ def main() -> None:
                     if next(m["content"] for m in msgs if m["role"] == "user") in split_users:
                         dropped["leak"] += 1
                         continue
-                    key = opening(msgs)
+                    key = opening(msgs, args.dup_key == "user+reply")
                     with lock:
                         if not key or key in seen:
                             dropped["dup"] += 1
