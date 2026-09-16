@@ -77,9 +77,12 @@ def split_column(family: str, stem: str) -> str:
     return stem if stem.startswith(f"{family}_") else f"{family}_{stem}"
 
 
-def fields_for(concept: Concept) -> list[str]:
+def fields_for(concept: Concept, eval_splits: list[str] | None = None) -> list[str]:
     dev = [split_column("dev", p.stem) for p in sorted(concept.dev_data.glob("*.jsonl"))]
-    ev = [split_column("eval", p.stem) for p in sorted(concept.eval_dir.glob("*.jsonl"))]
+    stems = sorted(p.stem for p in concept.eval_dir.glob("*.jsonl"))
+    if eval_splits:
+        stems = [s for s in stems if s in eval_splits]
+    ev = [split_column("eval", s) for s in stems]
     return BASE_FIELDS + dev + ev + ["seconds"]
 
 
@@ -164,6 +167,11 @@ def main() -> None:
                     help="fit the drawn subset ALONE, with no base training data. Recorded in "
                          "the CSV with base='none', which keeps the resume key distinct from "
                          "the same draws fit on a base, so both live in one file.")
+    ap.add_argument("--eval-splits", nargs="+", default=None, metavar="STEM",
+                    help="score only these eval splits (file stems) instead of every split in "
+                         "the concept's eval dir. A study that only cares about one split pays "
+                         "for one split; the CSV then carries only that split's column, so it "
+                         "must be its own --out file.")
     ap.add_argument("--unbalanced", action="store_true",
                     help="uniform sample of the set instead of n/2 per class")
     ap.add_argument("--no-resume", action="store_true",
@@ -217,7 +225,7 @@ def main() -> None:
     out_csv.parent.mkdir(parents=True, exist_ok=True)
     seen = set() if args.no_resume else done_keys(out_csv, concept.base_data.name)
 
-    fields = fields_for(concept)
+    fields = fields_for(concept, args.eval_splits)
     fresh = not out_csv.exists() or out_csv.stat().st_size == 0
     if not fresh:
         # Append under the header the file already has. The CSVs written before the
@@ -268,7 +276,8 @@ def main() -> None:
             verbose=False, **({"probe_spec": probe_spec} if probe_spec else {}),
         )
         df = evaluate_probe(
-            out_pkl, concept.eval_dir, concept.eval_cache, max_samples=None, seed=SEED,
+            out_pkl, concept.eval_dir, concept.eval_cache, splits=args.eval_splits,
+            max_samples=None, seed=SEED,
             combine_consecutive_messages=COMBINE, convert_tool_to_assistant=CONVERT,
             kaggle_source=eval_source(),
         )
