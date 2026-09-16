@@ -7,8 +7,8 @@ architecture + hyperparameters (`_infer_probe_spec`) — and never its weights. 
 with --no-base, so no base training set is needed either. So instead of training a probe on
 some 50-row base, this copies the gemma probe_iter0 (linear_then_softmax, batch 16, accum 4,
 lr 5e-3, 200 epochs, patience 50) and relabels it with the PROBE_PROFILE's model and layer
-(qwen8b: Qwen/Qwen3-8B L18; llama1b: meta-llama/Llama-3.2-1B-Instruct L8). No model load, no
-extraction, no training data.
+(qwen8b: Qwen/Qwen3-8B L18; llama1b: meta-llama/Llama-3.2-1B-Instruct L8; mistralnemo12b:
+mistralai/Mistral-Nemo-Instruct-2407 L20). No model load, no extraction, no training data.
 
 The template still carries the gemma classifier's weights (hidden size 5376). It is NOT a usable
 probe: scoring it on the profile's activations fails on the shape mismatch rather than
@@ -34,7 +34,8 @@ GEMMA_MODEL = "google/gemma-3-27b-it"
 
 def main() -> None:
     if PROFILE == "gemma27b":
-        raise SystemExit("gemma27b has trained base probes; run with PROBE_PROFILE=qwen8b or llama1b")
+        raise SystemExit("gemma27b has trained base probes; run with PROBE_PROFILE set to one "
+                         "of the template profiles (qwen8b, llama1b, mistralnemo12b)")
     from agentic_redteam.retrain import _cpu_unpickle, _infer_probe_spec, read_probe_metadata
 
     for concept in CONCEPTS.values():

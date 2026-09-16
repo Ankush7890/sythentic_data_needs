@@ -104,13 +104,18 @@ sys.path.insert(0, str(REPO / "src"))
 # PROBE_PROFILE picks the probed model and, with it, every per-concept path that depends on
 # it (base probe, activation caches). The default is the gemma-3-27b setup every committed
 # CSV before the qwen8b branch was measured on. `qwen8b` probes Qwen/Qwen3-8B at its middle
-# layer (18 of 36) and `llama1b` probes meta-llama/Llama-3.2-1B-Instruct at its middle layer
-# (8 of 16). Neither has a trained base probe (templates from scripts/make_probe_templates.py)
-# or Kaggle activations, so dev and eval are extracted locally into cache_<tag>_*/.
+# layer (18 of 36), `llama1b` probes meta-llama/Llama-3.2-1B-Instruct at its middle layer
+# (8 of 16), and `mistralnemo12b` probes Mistral-NeMo-12B-Instruct at its middle layer
+# (20 of 40) — nvidia/Mistral-NeMo-12B-Instruct publishes only a `.nemo` checkpoint, and its
+# own model card names mistralai/Mistral-Nemo-Instruct-2407 as the Transformers format of
+# the same NVIDIA+Mistral model, which is what `LLMModel.load` can actually read. None of the
+# three has a trained base probe (templates from scripts/make_probe_templates.py) or Kaggle
+# activations, so dev and eval are extracted locally into cache_<tag>_*/.
 PROFILES = {
     "gemma27b": ("google/gemma-3-27b-it", 32, "gen_gemma27b"),
     "qwen8b": ("Qwen/Qwen3-8B", 18, "qwen8b"),
     "llama1b": ("meta-llama/Llama-3.2-1B-Instruct", 8, "llama1b"),
+    "mistralnemo12b": ("mistralai/Mistral-Nemo-Instruct-2407", 20, "mistralnemo12b"),
 }
 PROFILE = os.environ.get("PROBE_PROFILE", "gemma27b")
 if PROFILE not in PROFILES:
@@ -140,8 +145,57 @@ def _pin_chat_template_date() -> None:
     PreTrainedTokenizerBase.apply_chat_template = apply_chat_template
 
 
+# Mistral-NeMo's chat template has no system slot: it folds a leading system message into the
+# LAST user turn, so any conversation ending on an assistant turn loses its system prompt
+# outright (3740 of 6576 eval rows, 1691 of 3134 dev rows) and a multi-turn one has it spliced
+# in mid-dialogue. It also asserts strict user/assistant alternation, which raises on the 469
+# dev/eval rows (all `mts_balanced`) that run system -> assistant. Both are template artefacts,
+# not properties of the model, and both would make this curve incomparable with the gemma /
+# qwen8b / llama1b ones, whose templates render the system prompt at the top.
+#
+# So fold the system message into the FIRST user turn ourselves — Mistral's own convention for
+# system content, and what the stock template already does in the single-user-turn case — and
+# where there is no user turn to fold into, promote the system message to one. Every
+# conversation then starts on `user` and alternates, so the stock template renders it unchanged
+# from there. Applied at `apply_chat_template`, the one chokepoint `tokenize_inputs` and
+# `token_budget.count_tokens` both go through.
+def _fold_system_into_first_user(conversation):
+    if not conversation or not isinstance(conversation[0], dict):
+        return conversation
+    if conversation[0].get("role") != "system":
+        return conversation
+    system, rest = conversation[0], list(conversation[1:])
+    text = system.get("content") or ""
+    if rest and rest[0].get("role") == "user":
+        joined = f"{text}\n\n{rest[0].get('content') or ''}"
+        return [{**rest[0], "content": joined}, *rest[1:]]
+    return [{**system, "role": "user", "content": text}, *rest]
+
+
+def _fold_mistral_system_messages() -> None:
+    from transformers import PreTrainedTokenizerBase
+
+    original = PreTrainedTokenizerBase.apply_chat_template
+    if getattr(original, "_system_folded", False):
+        return
+
+    def apply_chat_template(self, conversation=None, *args, **kwargs):
+        if isinstance(conversation, list) and conversation:
+            first = conversation[0]
+            if isinstance(first, list):  # a batch of conversations
+                conversation = [_fold_system_into_first_user(c) for c in conversation]
+            elif isinstance(first, dict):  # a single conversation
+                conversation = _fold_system_into_first_user(conversation)
+        return original(self, conversation, *args, **kwargs)
+
+    apply_chat_template._system_folded = True
+    PreTrainedTokenizerBase.apply_chat_template = apply_chat_template
+
+
 if PROFILE == "llama1b":
     _pin_chat_template_date()
+if PROFILE == "mistralnemo12b":
+    _fold_mistral_system_messages()
 SEED, COMBINE, CONVERT = 42, True, True
 
 # The kaggle: block every gemma-3-27b config in this repo carries, verbatim. {slug} in a
