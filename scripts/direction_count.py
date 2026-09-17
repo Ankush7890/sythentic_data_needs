@@ -903,6 +903,19 @@ GEOM_FIELDS = ["concept", "gen", "set", "kind_i", "kind_j", "split_i", "split_j"
                "n_i_pos", "n_i_neg", "cos_ij", "T_ij", "E_is"]
 
 
+def _keep_other_sets(path: Path, redone: set[str]) -> list[dict]:
+    """Rows of a previous geometry CSV for sets this run is not recomputing.
+
+    The stage is normally run one concept at a time (a concept's features land as its
+    extraction finishes), so writing only what this run computed would silently drop the
+    concepts computed earlier.
+    """
+    if not path.exists():
+        return []
+    with path.open(newline="", encoding="utf-8") as fh:
+        return [r for r in csv.DictReader(fh) if r.get("set") not in redone]
+
+
 def stage_geometry(args) -> None:
     specs = _concept_specs()
     rows, summaries = [], []
@@ -914,6 +927,9 @@ def stage_geometry(args) -> None:
             print(f"[geometry] {s['set']}: n_eff={s['n_eff']} "
                   f"mean|cos|={s['mean_off_cos']} kinds used {s['n_kinds_used']}"
                   f"/{s['n_kinds']} tagged {s['n_tagged']}/{s['n_rows']}", flush=True)
+    redone = {s["set"] for s in summaries}
+    rows = _keep_other_sets(SCRIPTS / "dc_geometry.csv", redone) + rows
+    summaries = _keep_other_sets(SCRIPTS / "dc_neff.csv", redone) + summaries
     _write_csv(SCRIPTS / "dc_geometry.csv", rows, GEOM_FIELDS)
     _write_csv(SCRIPTS / "dc_neff.csv", summaries,
                list(dict.fromkeys(k for s in summaries for k in s)))

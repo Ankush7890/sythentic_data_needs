@@ -1,0 +1,5 @@
+concept,gen,set,n_kinds,n_kinds_used,n_eff,mean_off_cos,max_off_cos,n_tagged,n_rows,cos_all_k1,n_k1,cos_all_k2,n_k2,cos_all_k3,n_k3,cos_all_k4,n_k4,cos_all_k5,n_k5,cos_all_k6,n_k6
+instructions,llama70b,instructions_llama70b_evaldesc_600,6,4,3.4554,0.2022,0.3234,523,600,0.5741,72,0.5346,102,,38,0.7783,160,,59,0.4897,92
+instructions,gptoss,instructions_gptoss_evaldesc_600,6,5,3.6193,0.2919,0.4989,539,600,0.7243,75,0.5859,96,0.621,102,0.5957,127,,53,0.6382,86
+instructions,nemotron,instructions_nemotron_evaldesc_600,6,5,3.9095,0.1518,0.6437,543,600,0.6098,74,0.3938,97,0.597,97,0.6493,141,,43,0.4782,91
+instructions,deepseekv4pro,instructions_deepseekv4pro_evaldesc_600,6,5,4.0254,0.1385,0.4502,565,600,0.3927,90,0.6526,103,0.4407,102,0.6926,125,,53,0.4511,92
