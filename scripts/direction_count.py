@@ -1206,15 +1206,37 @@ def _arm_counts() -> dict[tuple, int]:
                 for r in csv.DictReader(fh)}
 
 
-def fit_arm_curves(concepts: list[str]) -> list[dict]:
-    """Fit every arm curve with the reference fitter, unmodified."""
+def _expected_sizes() -> dict[tuple, list[int]]:
+    """The size ladder each arm was supposed to be fit at, from dc_arms.csv."""
+    path = SCRIPTS / "dc_arms.csv"
+    if not path.exists():
+        return {}
+    with path.open(newline="", encoding="utf-8") as fh:
+        return {(r["concept"], r["gen"], r["arm"], r["split"]):
+                [int(x) for x in r["sizes"].split()]
+                for r in csv.DictReader(fh)}
+
+
+def fit_arm_curves(concepts: list[str], allow_partial: bool = False) -> list[dict]:
+    """Fit every arm curve with the reference fitter, unmodified.
+
+    A curve is fitted only once **every size of its ladder** has landed. The fit stage
+    runs a cell at a time, biggest size first, so a half-run arm holds only its large
+    sizes — a log-logistic fitted to that would put the half-gain size wherever the
+    missing small end would have pinned it. ``--allow-partial`` lifts the rule for a
+    look at work in progress; it is not how the committed numbers are produced.
+    """
     ref = _ref()
     specs = _concept_specs()
     counts = _arm_counts()
+    expected = _expected_sizes()
     rows = []
     for key, curve in sorted(_collect_curves(concepts).items()):
         concept, gen, arm, split = key
         if len(curve) < MIN_SIZES:
+            continue
+        want = expected.get((concept, gen, arm, split if arm != "mixed" else ""))
+        if want and not allow_partial and set(want) - set(curve):
             continue
         f = ref.fit_curve(curve)
         sizes = sorted(curve)
@@ -1388,7 +1410,7 @@ def _link_to_paper_m(ratios: list[dict]) -> list[dict]:
 def stage_analyse(args) -> None:
     import numpy as np
 
-    fits = fit_arm_curves(args.concepts)
+    fits = fit_arm_curves(args.concepts, allow_partial=args.allow_partial)
     _write_csv(SCRIPTS / "dc_fits.csv", fits, FIT_FIELDS)
     print(f"[analyse] {len(fits)} arm curves fitted -> dc_fits.csv")
 
@@ -1589,6 +1611,9 @@ def main(argv=None) -> int:
                          "their own target split alone, through scripts/dc_run_curve.py. "
                          "Same fit, fewer columns; on highstakes the four eval blobs are "
                          "47 GB and reading all of them is ~95%% of a fit.")
+    ap.add_argument("--allow-partial", action="store_true",
+                    help="--stage analyse: fit curves whose size ladder is not finished "
+                         "yet (a look at work in progress, not how results are produced)")
     ap.add_argument("--out-tag", default="",
                     help="--stage fit: write to dc_curves_<concept>__<tag>[_<split>].csv "
                          "instead of the shared file, so several generators can be fit "
