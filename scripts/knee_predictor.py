@@ -57,15 +57,22 @@ averaged over folds. Mean-pooled is primary; last-token is carried alongside.
     E  controls needing no activations: rows, mean tokens, mean turns, paired or not,
        concept identity.
 
-Stages, each resumable, run in order::
+Stages run in order::
 
     python scripts/knee_predictor.py --stage pool       # blobs  -> scripts/knee_pooled/*.npy
     python scripts/knee_predictor.py --stage features   # .npy   -> knee_predictors.csv, _curves.csv
     python scripts/knee_predictor.py --stage analyse    # + targets -> _stats.csv, _scatter.csv
 
 ``--stage all`` runs the three in sequence. ``pool`` is the only one that touches the
-activation blobs (49 GB for high-stakes alone); it holds exactly one split at a time
-and skips any split whose .npy files already exist.
+activation blobs (49 GB for high-stakes alone); it holds exactly one split at a time,
+and it is the resumable one — it skips any split whose .npy files already exist, so an
+interrupted pool picks up where it stopped. ``features`` recomputes every split it is
+given (about 35 minutes for all 14 on 8 threads) and rewrites both CSVs, so restricting
+it with ``--splits`` produces a partial ``knee_predictors.csv``, not a merged one.
+``analyse`` is seconds and reads only the CSVs.
+
+Everything is seeded off ``SEED`` and is reproducible run to run: two full passes over
+the 14 splits gave identical per-split numbers.
 """
 
 from __future__ import annotations
@@ -142,6 +149,7 @@ SPLITS: list[Split] = [
 ]
 
 BY_KNEE = {s.knee: s for s in SPLITS}
+ALL_SPLITS = list(SPLITS)   # `--splits` narrows SPLITS; the manifest still covers all 14
 
 
 # --------------------------------------------------------------------------- #
@@ -287,9 +295,12 @@ def write_pool_manifest() -> None:
     The .npy files are ~280 MB in total, over the threshold for committing them, so
     this manifest is what goes in the repo: enough to tell whether a rebuilt pool is
     the one the numbers came from.
+
+    Always walks all 14 splits, never the ``--splits`` subset: a manifest listing only
+    the splits of the last partial run would look like a complete one.
     """
     entries = []
-    for split in SPLITS:
+    for split in ALL_SPLITS:
         for what in ("mean", "last", "labels", "ntokens"):
             p = split.pooled(what)
             if not p.exists():
