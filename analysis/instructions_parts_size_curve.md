@@ -296,6 +296,11 @@ this (0.04–0.10 on 8-draw means), but a single-draw per-part number is not wor
 | `scripts/instructions_parts_size_curve.csv` | 160 rows, n ≥ 60, default accumulation |
 | `scripts/instructions_parts_size_curve_accum1.csv` | 40 rows, n = 30, accumulation 1 |
 
+These are also plotted as the "Where inside a split the rows actually land" section of
+[Pooled, Steered, Targeted](https://claude.ai/code/artifact/b096f13a-d74b-4457-bdf1-6e3db56515b2):
+five per-part panels, the part-spread curve, the partition with its stability numbers, and
+the n=30 rows kept off the curve axes.
+
 ## One environment fix this needed
 
 gemma-3 extraction was broken for every concept before this run. tuberlens `e8b5833`
