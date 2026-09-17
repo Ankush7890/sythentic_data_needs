@@ -1091,8 +1091,12 @@ def stage_fit(args) -> None:
     t0 = time.time()
     for i, (concept, arm, split, fname, n) in enumerate(jobs, 1):
         restrict = args.restrict_eval and arm in ("kind", "loko")
-        out = SCRIPTS / (f"dc_curves_{concept}_{split}.csv" if restrict
-                         else f"dc_curves_{concept}.csv")
+        # --out-tag keeps concurrent generators off one CSV. The harness appends a row per
+        # fit and resumes off what the file already holds, so two processes sharing an
+        # --out would interleave their writes and read each other's rows as "done".
+        tag = f"__{args.out_tag}" if args.out_tag else ""
+        out = SCRIPTS / (f"dc_curves_{concept}{tag}_{split}.csv" if restrict
+                         else f"dc_curves_{concept}{tag}.csv")
         script = "dc_run_curve.py" if restrict else "subsample_curve_concept.py"
         cmd = [
             sys.executable, str(SCRIPTS / script),
@@ -1489,6 +1493,10 @@ def main(argv=None) -> int:
                          "their own target split alone, through scripts/dc_run_curve.py. "
                          "Same fit, fewer columns; on highstakes the four eval blobs are "
                          "47 GB and reading all of them is ~95%% of a fit.")
+    ap.add_argument("--out-tag", default="",
+                    help="--stage fit: write to dc_curves_<concept>__<tag>[_<split>].csv "
+                         "instead of the shared file, so several generators can be fit "
+                         "concurrently. --stage analyse reads every dc_curves_<concept>*.csv.")
     ap.add_argument("--stop-on-error", action="store_true",
                     help="--stage fit: abort on the first failing cell instead of going on")
     args = ap.parse_args(argv)

@@ -15,8 +15,11 @@ cd "$(dirname "${BASH_SOURCE[0]}")/.."
 PY=.venv_claude/bin/python
 mkdir -p logs
 
-echo ">>> $(date -Is) waiting for the instructions fits"
-while pgrep -f "[d]irection_count.py --stage fit --concepts instructions" >/dev/null; do
+# Wait for the instructions CHAIN, not for a fit process: that chain runs one process per
+# generator, and between two of them there is a gap in which a "no fit is running" check
+# would be true and this script would start an extraction onto a card the next fit wants.
+echo ">>> $(date -Is) waiting for the instructions chain"
+while pgrep -f "[d]c_chain_instructions.sh" >/dev/null; do
     sleep 120
 done
 
