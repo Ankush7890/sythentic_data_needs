@@ -217,6 +217,44 @@ def load_scores(stem: str, split: str):
 
 # ------------------------------------------------------------------- coherence
 
+REFUSAL = ("i'm sorry", "i apologize", "don't have enough", "do not have enough",
+           "can't answer", "cannot answer")
+
+
+def ending_diagnostics(split: str, members, c: np.ndarray) -> None:
+    """What distinguishes the pairs the probe gets BACKWARDS — read off the two endings.
+
+    The prefix-embedding coherence test above asks whether a settling class is a topic. It
+    cannot answer why one pair is harder than another, because the prefix is SHARED by the
+    pair: whatever separates the two rows lives in the endings. So this looks there, at the
+    two surface features a probe can confound compliance with — how long the non-compliant
+    ending is, and whether it is refusal-shaped.
+    """
+    from scipy.stats import spearmanr
+
+    rows = [json.loads(l) for l in (EVAL_DIR / f"{split}.jsonl").open(encoding="utf-8")
+            if l.strip()]
+    end = [" ".join(json.loads(r["inputs"])[-1]["content"].split()) for r in rows]
+    gap = np.array([np.mean([len(end[j]) for j in neg]) - np.mean([len(end[j]) for j in pos])
+                    for pos, neg in members])
+
+    print("\n  is pair difficulty explained by the ENDINGS rather than the topic?")
+    print("    spearman(pair solve rate, len(non-compliant ending) - len(compliant)):")
+    for k, n in enumerate(SIZES):
+        r = spearmanr(gap, c[k])
+        flag = "  <- significant" if r.pvalue < 0.05 else ""
+        print(f"      n={n:<4} {r.statistic:+.3f}  p={r.pvalue:.1e}{flag}")
+
+    # Only the LAST message counts: several of these splits carry a refusal in the prefix,
+    # which both rows of the pair share and which therefore explains nothing.
+    ref = np.array([any(any(k in end[j].lower()[:60] for k in REFUSAL) for j in neg)
+                    for _, neg in members])
+    if ref.any():
+        print(f"    pairs whose non-compliant ending is refusal-shaped: {ref.sum()}/{len(members)}"
+              f"  -> solve rate at n=540 {c[-1][ref].mean():.3f}, vs {c[-1][~ref].mean():.3f} "
+              "for the rest")
+
+
 def coherence(X: np.ndarray, labels: np.ndarray, seed: int = 0) -> tuple[float, float]:
     """Mean within-class cosine similarity minus the label-permutation null, as a z score.
 
@@ -418,6 +456,8 @@ def main() -> None:
                 m = pair_klass == k
                 if m.sum() >= 3:
                     print(f"    {k:<11} {', '.join(top_terms(prefixes, pair_klass, k, 10))}")
+
+        ending_diagnostics(split, members, c)
 
         # The rows that end lowest, whatever their class — the split's hard core.
         worst = np.argsort(u[-1])[:5]

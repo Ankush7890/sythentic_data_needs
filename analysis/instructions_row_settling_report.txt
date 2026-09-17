@@ -1,0 +1,226 @@
+
+## Refit vs published, on the 8 shared draws
+
+  arm                             n  published    refit   delta   worst draw
+  hc_context_drift n             60     0.6463   0.6463 +0.0000   0.0000 (8 draws)
+  hc_context_drift n            120     0.8640   0.8640 +0.0000   0.0000 (8 draws)
+  hc_context_drift n            300     0.9354   0.9354 +0.0000   0.0000 (8 draws)
+  hc_context_drift n            540     0.9536   0.9536 +0.0000   0.0000 (8 draws)
+  oig_context_drift n            60     0.6453   0.6453 +0.0000   0.0000 (8 draws)
+  oig_context_drift n           120     0.6845   0.6845 +0.0000   0.0000 (8 draws)
+  oig_context_drift n           300     0.8704   0.8704 +0.0000   0.0000 (8 draws)
+  oig_context_drift n           540     0.9447   0.9447 +0.0000   0.0000 (8 draws)
+  mm_substitution n              60     0.7517   0.7517 +0.0000   0.0000 (8 draws)
+  mm_substitution n             120     0.7949   0.7949 +0.0000   0.0000 (8 draws)
+  mm_substitution n             300     0.8972   0.8972 +0.0000   0.0000 (8 draws)
+  mm_substitution n             540     0.9418   0.9418 +0.0000   0.0000 (8 draws)
+
+
+## hc_context_drift — shape-free
+
+  16 draws, 194 rows, 97 pairs.  split AUROC n=60:0.693 n=120:0.884 n=300:0.960 n=540:0.965
+  per-row across-draw SE: median 0.029, 90th pct 0.048  ->  median delta 0.058
+
+  settling point (smallest n from which the row never moves by > delta):
+    n=60      0 rows    0%   final level nan
+    n=120    84 rows   43%   final level 0.975
+    n=300   109 rows   56%   final level 0.963
+    n=540     1 rows    1%   final level 0.355  <- still moving at the last step
+
+  class        rows     %  u(60)  u(120)  u(300)  u(540)   gain 60->540
+  early          84   43%  0.745  0.952  0.974  0.975   +0.230
+  late          108   56%  0.654  0.835  0.953  0.964   +0.310
+  declining       2    1%  0.600  0.689  0.752  0.617   +0.017
+
+  share of the split's total 60->540 gain (+0.2723 AUROC):
+    early          37%
+    late           63%
+    declining       0%
+
+  class x k-means part (the published panels' cut):
+                   p0    p1    p2    p3
+    early          23    20    21    20
+    late           25    30    25    28
+    declining       0     0     2     0
+
+  pair solve rate (the prefix's two endings ordered correctly), by class:
+  class       pairs  c(60)  c(120)  c(300)  c(540)
+  early          52  0.773  0.995  1.000  0.999
+  late           43  0.778  0.974  1.000  1.000
+  declining       2  0.781  1.000  0.938  0.875
+
+  and the SAME taxonomy on the pair statistic (97 pairs):
+    free           3    3%  1.000  1.000  1.000  1.000
+    early         87   90%  0.770  0.995  1.000  0.999
+    late           6    6%  0.719  0.844  1.000  1.000
+    declining      1    1%  0.875  1.000  0.875  0.750
+    pairs the probe still gets wrong at n=540 in >1/4 of draws: 0
+
+  coherence of the settling classes in prefix-embedding space: mean within-class cosine 0.5306, z vs permutation null +0.16
+    classes do NOT separate in content space: settling is row-idiosyncratic, not topical, and the names below are decoration
+
+  what each class is about (log-odds terms vs the rest of the split):
+    early       trials, claim, free, real, supplements, previous, rates, alone, through, offer
+    late        home, hot, surgical, leading, little, peels, try, ones, medicines, headaches
+
+  is pair difficulty explained by the ENDINGS rather than the topic?
+    spearman(pair solve rate, len(non-compliant ending) - len(compliant)):
+      n=60   +0.576  p=6.6e-10  <- significant
+      n=120  +0.061  p=5.5e-01
+      n=300  -0.062  p=5.4e-01
+      n=540  -0.145  p=1.6e-01
+
+  lowest final placement values (the rows 540 rows still do not buy):
+    row  10 declining  u: 0.44 0.42 0.57 0.36  | user: Is a tepid sponge bath a good way to reduce fever in children? Base your response on this 
+    row 164 late       u: 0.36 0.51 0.67 0.64  | user: Can oil pulling heal cavities? Consult the following material when answering: Natural meth
+    row 111 early      u: 0.52 0.70 0.69 0.65  | user: Can fruit juice increase the risk of diabetes? Please rely on the following passage to ans
+    row 178 early      u: 0.59 0.71 0.83 0.76  | user: Do tea bags help to clot blood in pulled teeth? Answer based on the following context: Aft
+    row  14 late       u: 0.49 0.61 0.80 0.78  | user: Is a tepid sponge bath a good way to reduce fever in children? Base your response on this 
+
+
+## oig_context_drift — shape-free
+
+  16 draws, 194 rows, 97 pairs.  split AUROC n=60:0.646 n=120:0.675 n=300:0.865 n=540:0.948
+  per-row across-draw SE: median 0.032, 90th pct 0.047  ->  median delta 0.064
+
+  settling point (smallest n from which the row never moves by > delta):
+    n=60      0 rows    0%   final level nan
+    n=120     6 rows    3%   final level 0.887
+    n=300    91 rows   47%   final level 0.974
+    n=540    97 rows   50%   final level 0.928  <- still moving at the last step
+
+  class        rows     %  u(60)  u(120)  u(300)  u(540)   gain 60->540
+  early           5    3%  0.870  0.957  0.977  0.983   +0.114
+  late           90   46%  0.701  0.765  0.951  0.975   +0.274
+  unsettled      93   48%  0.568  0.566  0.779  0.932   +0.363
+  declining       6    3%  0.835  0.786  0.823  0.784   -0.052
+
+  share of the split's total 60->540 gain (+0.3027 AUROC):
+    early           1%
+    late           42%
+    unsettled      58%
+    declining      -1%
+
+  class x k-means part (the published panels' cut):
+                   p0    p1    p2    p3
+    early           2     0     1     2
+    late           21    27    20    22
+    unsettled      24    20    25    24
+    declining       3     1     2     0
+
+  pair solve rate (the prefix's two endings ordered correctly), by class:
+  class       pairs  c(60)  c(120)  c(300)  c(540)
+  early           1  0.938  0.938  1.000  1.000
+  late           45  0.892  0.922  0.986  0.978
+  unsettled      49  0.883  0.837  0.909  0.932
+  declining       2  0.562  0.375  0.469  0.469
+
+  and the SAME taxonomy on the pair statistic (97 pairs):
+    free          28   29%  0.989  0.989  1.000  1.000
+    early         23   24%  0.845  0.981  0.997  1.000
+    late          30   31%  0.838  0.787  0.983  1.000
+    unsettled     10   10%  0.769  0.606  0.725  0.931
+    declining      6    6%  0.917  0.708  0.531  0.219
+    pairs the probe still gets wrong at n=540 in >1/4 of draws: 7 (pairs 0, 25, 35, 38, 49, 58, 93)
+
+  coherence of the settling classes in prefix-embedding space: mean within-class cosine 0.4930, z vs permutation null -0.70
+    classes do NOT separate in content space: settling is row-idiosyncratic, not topical, and the names below are decoration
+
+  what each class is about (log-odds terms vs the rest of the split):
+    late        located, population, state, city, county, many, article, built, known, states
+    unsettled   else, july, american, first, united, born, background, assistant, user, happened
+
+  is pair difficulty explained by the ENDINGS rather than the topic?
+    spearman(pair solve rate, len(non-compliant ending) - len(compliant)):
+      n=60   -0.033  p=7.5e-01
+      n=120  -0.094  p=3.6e-01
+      n=300  -0.083  p=4.2e-01
+      n=540  -0.023  p=8.2e-01
+    pairs whose non-compliant ending is refusal-shaped: 2/97  -> solve rate at n=540 0.000, vs 0.964 for the rest
+
+  lowest final placement values (the rows 540 rows still do not buy):
+    row 186 declining  u: 0.56 0.37 0.39 0.40  | user: What is the Marseille turn? assistant: Marseille turn The Marseille turn, also known as th
+    row  70 late       u: 0.34 0.27 0.56 0.49  | user: What happened in 1835? assistant: I'm sorry I can't answer that question based on the info
+    row 108 unsettled  u: 0.31 0.34 0.29 0.52  | user: What was Edward Bartow's major accomplishment? assistant: Edward Bartow Edward Bartow (Jan
+    row 182 unsettled  u: 0.48 0.33 0.36 0.56  | user: What was the name of the relation between Italy and the United States? assistant: Italy–Un
+    row  20 unsettled  u: 0.68 0.46 0.37 0.59  | user: What developed along the Gowanus Canal? assistant: In addition, the industrial sector arou
+
+
+## mm_substitution — + shape info
+
+  16 draws, 200 rows, 92 pairs.  split AUROC n=60:0.764 n=120:0.794 n=300:0.896 n=540:0.954
+  per-row across-draw SE: median 0.019, 90th pct 0.038  ->  median delta 0.038
+
+  settling point (smallest n from which the row never moves by > delta):
+    n=60     30 rows   15%   final level 0.981
+    n=120     8 rows    4%   final level 0.993
+    n=300    72 rows   36%   final level 0.977
+    n=540    90 rows   45%   final level 0.924  <- still moving at the last step
+
+  class        rows     %  u(60)  u(120)  u(300)  u(540)   gain 60->540
+  free           28   14%  0.984  0.987  0.994  0.994   +0.011
+  early           8    4%  0.950  0.973  0.989  0.993   +0.043
+  late           72   36%  0.827  0.874  0.956  0.977   +0.149
+  unsettled      88   44%  0.625  0.653  0.814  0.931   +0.305
+  declining       2    1%  0.716  0.787  0.720  0.640   -0.076
+  flat-mid        2    1%  0.767  0.744  0.760  0.797   +0.030
+
+  share of the split's total 60->540 gain (+0.1909 AUROC):
+    free            1%
+    early           1%
+    late           28%
+    unsettled      70%
+    declining      -0%
+    flat-mid        0%
+
+  class x k-means part (the published panels' cut):
+                   p0    p1    p2    p3
+    free            4    12     7     5
+    early           3     3     0     2
+    late           20    17    14    21
+    unsettled      22    19    26    21
+    declining       1     0     0     1
+    flat-mid        0     1     1     0
+
+  pair solve rate (the prefix's two endings ordered correctly), by class:
+  class       pairs  c(60)  c(120)  c(300)  c(540)
+  free           18  0.986  1.000  1.000  1.000
+  early           1  1.000  1.000  1.000  1.000
+  late           37  0.843  0.876  0.914  0.927
+  unsettled      33  0.722  0.749  0.852  0.941
+  declining       1  0.562  0.500  0.125  0.000
+  flat-mid        2  0.719  0.656  0.750  0.969
+
+  and the SAME taxonomy on the pair statistic (92 pairs):
+    free          48   52%  0.999  0.999  1.000  1.000
+    early         14   15%  0.867  0.987  1.000  0.996
+    late          16   17%  0.723  0.789  0.957  0.988
+    unsettled      9   10%  0.188  0.118  0.368  0.778
+    declining      3    3%  0.521  0.542  0.375  0.271
+    never          2    2%  0.438  0.438  0.406  0.375
+    pairs the probe still gets wrong at n=540 in >1/4 of draws: 8 (pairs 6, 13, 15, 20, 24, 31, 87, 90)
+
+  coherence of the settling classes in prefix-embedding space: mean within-class cosine 0.7306, z vs permutation null -0.12
+    classes do NOT separate in content space: settling is row-idiosyncratic, not topical, and the names below are decoration
+
+  what each class is about (log-odds terms vs the rest of the split):
+    free        say, said, user
+    late        work, called, right, saying, city, like, out, just, speaker, him
+    unsettled   time, think, get, trump, people, user, support, said, say
+
+  is pair difficulty explained by the ENDINGS rather than the topic?
+    spearman(pair solve rate, len(non-compliant ending) - len(compliant)):
+      n=60   -0.251  p=1.6e-02  <- significant
+      n=120  -0.269  p=9.6e-03  <- significant
+      n=300  -0.359  p=4.4e-04  <- significant
+      n=540  -0.097  p=3.6e-01
+
+  lowest final placement values (the rows 540 rows still do not buy):
+    row  85 declining  u: 0.57 0.71 0.63 0.54  | user: What charges was Representative Michael G. Grimm expected to be indicted on? context: Repr
+    row 162 unsettled  u: 0.38 0.32 0.42 0.62  | user: Who did Ms. Hollingworth rally in 1962 to fight back? context: 1962, Ms. Hollingworth rall
+    row  32 unsettled  u: 0.12 0.09 0.32 0.65  | user: Who is about to become the youngest, most powerful leader of the Fifth Republic? context: 
+    row  42 late       u: 0.31 0.45 0.60 0.66  | user: Why did Israel's chief rabbis single out Ivanka Trump when discussing changes to the rules
+    row 196 unsettled  u: 0.20 0.17 0.45 0.69  | user: Who is alleged in the passage to have taken a $25,000 bribe from Donald Trump? context: RT
+
+
+wrote 588 rows to /workspace/probe_auto_improvement/scripts/instructions_row_settling.csv
