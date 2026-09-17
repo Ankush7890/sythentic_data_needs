@@ -217,6 +217,55 @@ def load_scores(stem: str, split: str):
 
 # ------------------------------------------------------------------- coherence
 
+def validate(U: np.ndarray, order: list[str]) -> None:
+    """Is a settling label a property of the row, or of the draws that selected it?
+
+    The classification above is IN-SAMPLE: the same draws supply the mean curve, the
+    tolerance and the selection, so a row whose draws happened to land close together is
+    labelled 'settled' partly by luck — and the flatness then reported is the quantity it
+    was selected on. This splits the draws in half, classifies each row on the FIRST half
+    only, and measures how much that population actually moves on the SECOND half, which
+    had no say in choosing it.
+
+    The number to read is `moved`: for a population said to settle at n, the mean over its
+    rows of max|u(m) - u(540)| for m >= n, measured out of sample. A settled population
+    should sit near the tolerance; the late population beside it is the scale bar.
+    """
+    h = U.shape[1] // 2
+    A, B = U[:, :h], U[:, h:]
+    uA, uB = A.mean(axis=1), B.mean(axis=1)
+    seA = A.std(axis=1, ddof=1).mean(axis=0) / np.sqrt(h)
+    seB = B.std(axis=1, ddof=1).mean(axis=0) / np.sqrt(h)
+    dA = np.maximum(2 * seA, FLOOR)
+    dB = np.maximum(2 * seB, FLOOR)
+    kA = np.array([classify(uA[:, i], dA[i], seA[i]) for i in range(U.shape[2])])
+    kB = np.array([classify(uB[:, i], dB[i], seB[i]) for i in range(U.shape[2])])
+    nA = np.array([settle(uA[:, i], dA[i]) for i in range(U.shape[2])])
+
+    print(f"\n  OUT-OF-SAMPLE CHECK — classify on draws 0..{h - 1}, measure on {h}..{U.shape[1] - 1}")
+    print(f"    label agreement between the two halves: {100 * (kA == kB).mean():.0f}%")
+    # Two columns, because they are not the same comparison. `own` checks each population
+    # from ITS OWN settling point, which is what the label claims but spans a different
+    # number of sizes per row; `120->540` is the one span every population shares, so it is
+    # the only column the rows can be read against each other.
+    print(f"    {'selected on half A':<22} {'rows':>5} {'tol':>6} {'own (B)':>9} "
+          f"{'120->540 (B)':>15}")
+    for n in SIZES:
+        m = nA == n
+        if not m.any():
+            continue
+        k = SIZES.index(n)
+        last = n == SIZES[-1]
+        dev = np.array([np.abs(uB[k:, i] - uB[-1, i]).max() for i in np.where(m)[0]])
+        d = uB[-1, m] - uB[1, m]
+        gse = d.std(ddof=1) / np.sqrt(m.sum()) if m.sum() > 1 else float("nan")
+        tag = "still moving at 540" if last else "settles by " + str(n)
+        # `own` spans nothing for the last row — it would compare n=540 against itself.
+        own = "       --" if last else f"{dev.mean():>9.3f}"
+        print(f"    {tag:<22} {m.sum():>5} {np.median(dA[m]):>6.3f} {own} "
+              f"{d.mean():>+10.3f}+-{gse:.3f}")
+
+
 REFUSAL = ("i'm sorry", "i apologize", "don't have enough", "do not have enough",
            "can't answer", "cannot answer")
 
@@ -329,6 +378,10 @@ def main() -> None:
                     help="also print the refit-vs-published drift on the shared draws")
     ap.add_argument("--no-embed", action="store_true",
                     help="skip the bge coherence test (no GPU / no download)")
+    ap.add_argument("--validate", action="store_true",
+                    help="split the draws in half, classify on the first half and measure "
+                         "the selected populations on the second — the settling labels are "
+                         "otherwise in-sample and selected on the quantity they report")
     ap.add_argument("--only", nargs="+", default=None, metavar="SPLIT",
                     help="restrict to these target splits (useful while a run is still going)")
     ap.add_argument("--out", type=Path, default=OUT_CSV)
@@ -456,6 +509,9 @@ def main() -> None:
                 m = pair_klass == k
                 if m.sum() >= 3:
                     print(f"    {k:<11} {', '.join(top_terms(prefixes, pair_klass, k, 10))}")
+
+        if args.validate:
+            validate(U, order)
 
         ending_diagnostics(split, members, c)
 
