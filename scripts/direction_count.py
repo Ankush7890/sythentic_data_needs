@@ -566,6 +566,52 @@ def stage_tag(args) -> None:
             tag_set(client, spec.set_path(gen), spec, concept, limit=args.limit)
 
 
+AUDIT_PER_KIND = 10
+AUDIT_CHARS = 700
+
+
+def stage_audit(args) -> None:
+    """Dump ten tagged samples per kind, seeded, for a human to read against the tags.
+
+    The tagger decides which rows the kind-only and leave-one-kind-out arms are drawn
+    from, so its errors would land in the study as a coverage effect it does not have.
+    The dump is a plain file rather than a print so the exact rows read can be quoted in
+    the analysis note; the draw is seeded on (concept, kind) and is the same every run.
+    """
+    import random
+
+    from fit_base_plus_concept import CONCEPTS
+
+    specs = _concept_specs()
+    WORK.mkdir(parents=True, exist_ok=True)
+    for name in args.concepts:
+        spec, concept = specs[name], CONCEPTS[name]
+        pool: dict[int, list[tuple]] = {k.index: [] for k in spec.kinds}
+        for gen in args.generators:
+            path = spec.set_path(gen)
+            if not (TAGS / f"{path.stem}.csv").exists():
+                continue
+            rows = _rows_of(path, concept)
+            for i, rec in sorted(_load_tags(TAGS / f"{path.stem}.csv").items()):
+                if rec["kind"]:
+                    pool[int(rec["kind"])].append((gen, i, rows[i], rec))
+        out = [f"# Tagging audit — {name}\n"]
+        for k in spec.kinds:
+            rng = random.Random(f"{name}:{k.index}:{SEED}")
+            picks = rng.sample(pool[k.index], min(AUDIT_PER_KIND, len(pool[k.index])))
+            out.append(f"\n## kind {k.index} -> {k.split}  "
+                       f"({len(pool[k.index])} tagged, showing {len(picks)})\n")
+            out.append(f"_{k.text}_\n")
+            for gen, i, row, rec in picks:
+                msgs = " | ".join(
+                    f"[{m['role']}] {str(m['content'])[:AUDIT_CHARS]}"
+                    for m in row["inputs"])
+                out.append(f"\n**{gen} row {i}** (label `{row['labels']}`)\n\n{msgs}\n")
+        p = WORK / f"audit_{name}.md"
+        p.write_text("".join(out), encoding="utf-8")
+        print(f"[audit] wrote {p} ({sum(len(v) for v in pool.values())} tagged rows)")
+
+
 # --------------------------------------------------------------------------- #
 # stage: geometry — how many directions do a concept's kinds occupy?
 # --------------------------------------------------------------------------- #
@@ -940,13 +986,18 @@ def stage_fit(args) -> None:
     print(f"[fit] {len(jobs)} (arm, size) cells, {DRAWS} draws each", flush=True)
     t0 = time.time()
     for i, (concept, arm, split, fname, n) in enumerate(jobs, 1):
-        out = SCRIPTS / f"dc_curves_{concept}.csv"
+        restrict = args.restrict_eval and arm in ("kind", "loko")
+        out = SCRIPTS / (f"dc_curves_{concept}_{split}.csv" if restrict
+                         else f"dc_curves_{concept}.csv")
+        script = "dc_run_curve.py" if restrict else "subsample_curve_concept.py"
         cmd = [
-            sys.executable, str(SCRIPTS / "subsample_curve_concept.py"),
+            sys.executable, str(SCRIPTS / script),
             "--concept", concept, str(WORK / fname), "--no-base",
             "--grad-accum", str(math.ceil(n / 16)), "--batch-size", "16",
             "--sizes", str(n), "--draws", str(args.draws), "--out", str(out),
         ]
+        if restrict:
+            cmd += ["--eval-split", split]
         if concept == "highstakes" and args.highstakes_dev:
             cmd += ["--dev-data", args.highstakes_dev]
         print(f"[fit] [{i}/{len(jobs)}] {fname} n={n} "
@@ -973,11 +1024,17 @@ def _ref():
 
 
 def _curve_rows(concept: str) -> list[dict]:
-    path = SCRIPTS / f"dc_curves_{concept}.csv"
-    if not path.exists():
-        return []
-    with path.open(newline="", encoding="utf-8") as fh:
-        return [r for r in csv.DictReader(fh) if r.get("samples")]
+    """Every fit of one concept, from the shared CSV and any per-split restricted ones.
+
+    A kind-only or leave-one-kind-out arm run under ``--restrict-eval`` writes its own
+    ``dc_curves_<concept>_<split>.csv`` (the harness will not append rows under a header
+    it cannot fill), so the curves are reassembled here rather than in the file.
+    """
+    rows = []
+    for path in sorted(SCRIPTS.glob(f"dc_curves_{concept}*.csv")):
+        with path.open(newline="", encoding="utf-8") as fh:
+            rows.extend(r for r in csv.DictReader(fh) if r.get("samples"))
+    return rows
 
 
 def _parse_arm_file(fname: str, specs: dict[str, ConceptSpec]) -> tuple | None:
@@ -1303,7 +1360,7 @@ def _verdict(ratios: list[dict], stats: list[dict]) -> None:
 # --------------------------------------------------------------------------- #
 # entry point
 # --------------------------------------------------------------------------- #
-STAGES = ("tag", "warm", "geometry", "arms", "fit", "analyse", "all")
+STAGES = ("tag", "audit", "warm", "geometry", "arms", "fit", "analyse", "all")
 
 
 def main(argv=None) -> int:
@@ -1323,6 +1380,11 @@ def main(argv=None) -> int:
                     help="dev directory override for the highstakes fits only (the full "
                          "1908-row dev set is resident every epoch and is what makes that "
                          "concept ~20x the others)")
+    ap.add_argument("--restrict-eval", action="store_true",
+                    help="--stage fit: score the kind-only and leave-one-kind-out arms on "
+                         "their own target split alone, through scripts/dc_run_curve.py. "
+                         "Same fit, fewer columns; on highstakes the four eval blobs are "
+                         "47 GB and reading all of them is ~95%% of a fit.")
     ap.add_argument("--stop-on-error", action="store_true",
                     help="--stage fit: abort on the first failing cell instead of going on")
     args = ap.parse_args(argv)
@@ -1330,6 +1392,8 @@ def main(argv=None) -> int:
     if args.stage in ("tag", "all"):
         verify_kind_texts()
         stage_tag(args)
+    if args.stage == "audit":
+        stage_audit(args)
     if args.stage in ("warm", "all"):
         verify_kind_texts()
         stage_warm(args)
