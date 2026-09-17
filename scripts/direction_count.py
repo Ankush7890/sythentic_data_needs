@@ -1406,6 +1406,33 @@ def stage_analyse(args) -> None:
               f"range {min(rs):.2f}-{max(rs):.2f}  "
               f"censored_a {sum(int(r['censored_a']) for r in ratios if r['concept'] == concept)}")
 
+    print("\n[analyse] leave-one-kind-out (arm c against arm b), per concept:")
+    for concept in args.concepts:
+        gs = [float(r["G"]) for r in ratios if r["concept"] == concept and r["G"] != ""]
+        mc = [float(r["m_c"]) / float(r["m_b"]) for r in ratios
+              if r["concept"] == concept and r["m_c"] not in ("", None)
+              and float(r["m_b"]) > 0]
+        if gs:
+            print(f"  {concept:13s} n={len(gs):3d}  median gain ratio G {np.median(gs):5.2f}"
+                  f"  median m_c/m_b {np.median(mc):6.2f}")
+
+    cov = _coverage_vs_difficulty(ratios)
+    if cov:
+        print("\n[analyse] coverage versus per-kind difficulty (log10 m, medians):")
+        for k, v in cov.items():
+            print(f"  {k:28s} {v}")
+
+    neff = _neff_correlation(ratios)
+    _write_csv(SCRIPTS / "dc_neff_corr.csv", neff,
+               list(dict.fromkeys(k for r in neff for k in r)))
+    print("\n[analyse] R against n_eff:")
+    for r in neff:
+        if "rho" in r:
+            print(f"  {r['subset']:13s} n={r['n']:3d}  rho={r['rho']:+.3f} "
+                  f"p={r['p_perm']:.4f}")
+        else:
+            print(f"  {r['subset']:13s} n={r['n']:3d}  not tested")
+
     stats = _link_to_paper_m(ratios)
     _write_csv(SCRIPTS / "dc_link_stats.csv", stats,
                list(dict.fromkeys(k for s in stats for k in s)))
@@ -1432,6 +1459,75 @@ def stage_analyse(args) -> None:
     _write_csv(SCRIPTS / "dc_scatter.csv", rows,
                ["split", "concept", "gen", "R", "n_eff", "a_s", "log_m"])
     _verdict(ratios, stats)
+
+
+def _neff_correlation(ratios: list[dict]) -> list[dict]:
+    """Spearman of R against n_eff — over every (set, split), and within instructions.
+
+    n_eff is a property of a SET, so this correlation is carried by the between-set
+    variation; a within-instructions version exists because that is the concept whose
+    kinds the hypothesis says are separate, and it is the one place where the between-set
+    spread of n_eff is not confounded with the concept.
+    """
+    import numpy as np
+
+    import knee_predictor as kp
+
+    out = []
+    for name, sel in (("all", lambda r: True),
+                      ("instructions", lambda r: r["concept"] == "instructions")):
+        pts = [(float(r["n_eff"]), float(r["R"])) for r in ratios
+               if sel(r) and r["n_eff"] not in ("", None)
+               and np.isfinite(float(r["R"]))]
+        row = {"subset": name, "n": len(pts)}
+        if len(pts) >= 5:
+            x = np.array([a for a, _ in pts])
+            y = np.array([b for _, b in pts])
+            if np.std(x) > 0:
+                row["rho"] = round(kp._spearman(x, y), 4)
+                row["p_perm"] = round(
+                    kp._perm_p(x, y, row["rho"], np.random.default_rng(SEED + 5)), 5)
+        out.append(row)
+    return out
+
+
+def _coverage_vs_difficulty(ratios: list[dict]) -> dict:
+    """How much of instruction's larger half-gain size is coverage, and how much is the kind?
+
+    The paper's concept effect could be either: *instruction* needs more samples because
+    its kinds are separate directions and a mixed set spends most of itself elsewhere
+    (coverage), or because one kind of *instruction* is simply harder to learn than one
+    kind of the other two (per-kind difficulty). The kind-only arm separates them: it is
+    the same concept with coverage removed. If instruction's m_a falls to the level of the
+    other concepts', the gap was coverage; what is left of it is difficulty.
+    """
+    import numpy as np
+
+    med = {}
+    for concept in ("instructions", "hu_harm", "highstakes"):
+        for arm, key in (("m_a", "kind"), ("m_b", "mixed")):
+            vals = [float(r[arm]) for r in ratios if r["concept"] == concept
+                    and np.isfinite(float(r[arm]))]
+            if vals:
+                med[(concept, arm)] = float(np.median(np.log10(np.maximum(vals, 1.0))))
+    others = [c for c in ("hu_harm", "highstakes") if (c, "m_b") in med]
+    if ("instructions", "m_b") not in med or not others:
+        return {}
+    gap_mixed = med[("instructions", "m_b")] - float(
+        np.mean([med[(c, "m_b")] for c in others]))
+    if ("instructions", "m_a") not in med or not all((c, "m_a") in med for c in others):
+        return {"gap_mixed": round(gap_mixed, 4)}
+    gap_kind = med[("instructions", "m_a")] - float(
+        np.mean([med[(c, "m_a")] for c in others]))
+    return {
+        "gap_mixed_log10": round(gap_mixed, 4),
+        "gap_kind_log10": round(gap_kind, 4),
+        # What closing the gap when coverage is removed says: 1.0 = the concept effect on
+        # the mixed sets is entirely coverage, 0.0 = none of it is.
+        "coverage_share": round((gap_mixed - gap_kind) / gap_mixed, 4) if gap_mixed else "",
+        **{f"log_m_{arm}_{c}": round(med[(c, arm)], 4)
+           for (c, arm) in med},
+    }
 
 
 def _verdict(ratios: list[dict], stats: list[dict]) -> None:
