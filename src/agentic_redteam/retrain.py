@@ -1,4 +1,4 @@
-"""Convert successful red-team JSONL samples back into training data and retrain a probe."""
+"""Train probes on base data plus generated samples, with cached activations and dev AUROC scoring."""
 
 from __future__ import annotations
 
@@ -8,11 +8,10 @@ import io
 import json
 import os
 import pickle
-import random
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Iterable
+from typing import Any, Iterable
 
 import torch
 
@@ -24,11 +23,7 @@ from agentic_redteam.ensemble import (
     ensemble_size as probe_ensemble_size,
     fusion_enabled,
 )
-from agentic_redteam.persistence import AttemptRecord, JsonlStore
-from agentic_redteam.token_budget import TokenBudget
-
-if TYPE_CHECKING:
-    from agentic_redteam.config import PreprocessingConfig
+from agentic_redteam.persistence import GeneratedSample
 
 # Default fresh probe architecture, mirroring tuberlens' collate_train_evaluate.py.
 # Used when a retrain is asked for a fresh architecture without naming a specific one.
@@ -112,7 +107,7 @@ def stable_train_test_split(
     fresh split from the global numpy RNG every call. Here each sample's side is a
     pure function of its own content (or its ``split_field`` value) and ``seed``,
     independent of dataset size or order — so the base training samples land on the
-    same side every iteration even as red-team successes accumulate, and the
+    same side every iteration even as generated samples accumulate, and the
     validation set stays comparable across iterations. Class balance is preserved
     in expectation because the threshold is uniform across all samples. When
     ``split_field`` is given, all samples sharing a field value go to the same side
@@ -182,7 +177,7 @@ def _apply_message_transforms(
     """Apply tuberlens' message-loader transforms to an already-built dataset.
 
     ``LabelledDataset.load_from`` applies these to data read from disk, but the
-    red-team successes are constructed in-memory from ``Message`` objects, so we
+    generated samples are constructed in-memory from ``Message`` objects, so we
     apply the same transforms here for parity. Order matches ``load_from``:
     ``convert_tool_to_assistant`` first (so it doesn't create consecutive
     assistant turns), then ``combine_consecutive_messages``.
@@ -245,7 +240,7 @@ def _base_activation_cache_paths(
     return cache_dir / f"{stem}_train.pt", cache_dir / f"{stem}_val.pt"
 
 
-def _redteam_activation_cache_path(
+def _sample_activation_cache_path(
     cache_dir: str | Path,
     messages,
     model_name: str,
@@ -253,10 +248,10 @@ def _redteam_activation_cache_path(
     combine_consecutive_messages: bool,
     convert_tool_to_assistant: bool,
 ) -> Path:
-    """Per-sample activation cache path for one red-team conversation.
+    """Per-sample activation cache path for one generated conversation.
 
     Unlike the base split — a fixed file cached as a single blob keyed on the whole
-    file (`_base_activation_cache_paths`) — the red-team set *grows every iteration*,
+    file (`_base_activation_cache_paths`) — the generated set *grows every iteration*,
     so a whole-set blob keyed on the set's contents would get a fresh key each time
     and never hit. Instead each conversation is cached individually, keyed on its own
     (already-transformed) message content plus ``model_name`` / ``layer`` and the
@@ -278,7 +273,7 @@ def _redteam_activation_cache_path(
         f"|{basis}".encode("utf-8")
     ).hexdigest()
     safe_model = model_name.replace("/", "_")
-    return Path(cache_dir) / f"redteam_acts_{safe_model}_L{layer}" / f"{h[:32]}.pt"
+    return Path(cache_dir) / f"sample_acts_{safe_model}_L{layer}" / f"{h[:32]}.pt"
 
 
 def _dev_activation_cache_path(
@@ -291,7 +286,7 @@ def _dev_activation_cache_path(
 ) -> Path:
     """Single-blob activation cache path for the held-out dev (validation) set.
 
-    Cached like the base split rather than like the red-team set: the dev files are
+    Cached like the base split rather than like the generated set: the dev files are
     fixed for the whole run, so one blob keyed on their contents hits on every
     iteration. There is no ``seed`` / ``test_size`` / ``split_field`` in the key
     because the dev set is used *whole* — it is never split — so nothing about the
@@ -338,10 +333,9 @@ def _load_dev_dataset(
     labels it wanted. So the labels are read *here*, per split, and the failure is
     re-raised pointing at the offending file.
 
-    Returns ``(dataset, files, sizes)`` — the files are what the activation cache is
-    keyed on, and ``sizes`` is each file's row count in the same order, which is what
-    lets a caller recover which split a concatenated row came from (the parts are
-    concatenated in ``sorted(glob)`` order, each preserving its own row order).
+    Returns ``(dataset, files, splits)`` — the files are what the activation cache is
+    keyed on; ``splits`` is ``[(split name, row count), ...]`` in concatenation order,
+    which is what lets a per-split AUROC be read off the concatenated blob.
     """
     from tuberlens.interfaces.dataset import LabelledDataset
 
@@ -356,6 +350,7 @@ def _load_dev_dataset(
         raise ValueError(f"Dev data path does not exist: {path}")
 
     parts = []
+    splits: list[tuple[str, int]] = []
     for f in files:
         part = LabelledDataset.load_from(
             f,
@@ -372,20 +367,20 @@ def _load_dev_dataset(
                 f"{pos_class_label!r} nor {neg_class_label!r}: {exc}"
             ) from exc
         parts.append(part)
+        splits.append((f.stem, len(part)))
         if verbose:
             print(f"  dev split {f.name}: {len(part)} samples")
 
-    sizes = [len(part) for part in parts]
     dataset = parts[0] if len(parts) == 1 else LabelledDataset.concatenate(parts)
     if len(dataset) == 0:
         raise ValueError(f"Dev data at {path} is empty.")
-    return dataset, files, sizes
+    return dataset, files, splits
 
 
-# How often _activate_redteam_cached reports progress while computing misses. Rows cost
+# How often _activate_samples_cached reports progress while computing misses. Rows cost
 # tens of seconds each on an offloaded gemma-sized model, so this is a line every few
 # minutes, not a spinner.
-_REDTEAM_PROGRESS_EVERY = 10
+_SAMPLE_PROGRESS_EVERY = 10
 
 
 # Fields tuberlens' LabelledDataset.concatenate zero-pads along dim 1 before joining.
@@ -487,7 +482,7 @@ def _concatenate_consuming(datasets):
     )
 
 
-def _activate_redteam_cached(
+def _activate_samples_cached(
     dataset,
     cache_dir: str | Path | None,
     model_name: str,
@@ -497,10 +492,10 @@ def _activate_redteam_cached(
     get_model,
     verbose: bool,
 ):
-    """Activate red-team samples with a per-conversation disk cache.
+    """Activate generated samples with a per-conversation disk cache.
 
     Mirrors ``_activate``'s load-or-compute-and-save logic but at per-conversation
-    granularity (see ``_redteam_activation_cache_path`` for why a whole-set blob
+    granularity (see ``_sample_activation_cache_path`` for why a whole-set blob
     would never hit): samples accumulated in earlier iterations are loaded from disk
     and only newly-seen conversations are forwarded through the model. Per-row blobs
     use the same dict layout tuberlens' ``get_activations``
@@ -546,7 +541,7 @@ def _activate_redteam_cached(
         return _compute(dataset, verbose)[1]
 
     paths = [
-        _redteam_activation_cache_path(
+        _sample_activation_cache_path(
             cache_dir,
             msgs,
             model_name,
@@ -573,7 +568,7 @@ def _activate_redteam_cached(
         chunk_size = extraction_batch_size()
         if verbose:
             print(
-                f"Red-team activations: {len(cached_idx)} loaded from cache, "
+                f"Sample activations: {len(cached_idx)} loaded from cache, "
                 f"{len(uncached_idx)} to compute (chunk size {chunk_size}) ..."
             )
         started = time.monotonic()
@@ -601,18 +596,18 @@ def _activate_redteam_cached(
             # actually free them.
             del acts
             done = start + len(chunk)
-            if verbose and (done % _REDTEAM_PROGRESS_EVERY == 0 or done == len(uncached_idx)):
+            if verbose and (done % _SAMPLE_PROGRESS_EVERY == 0 or done == len(uncached_idx)):
                 elapsed = time.monotonic() - started
                 rate = elapsed / done
                 remaining = (len(uncached_idx) - done) * rate
                 print(
-                    f"  [red-team activations] {done}/{len(uncached_idx)} "
+                    f"  [sample activations] {done}/{len(uncached_idx)} "
                     f"({rate:.1f}s/sample, ~{remaining / 60:.0f} min left)",
                     flush=True,
                 )
     elif verbose:
         print(
-            f"Red-team activations: {len(cached_idx)} loaded from cache, "
+            f"Sample activations: {len(cached_idx)} loaded from cache, "
             f"0 computed fresh"
         )
     return _concatenate_consuming(parts)
@@ -789,7 +784,7 @@ def _to_device_for_fit(
     Returns True if anything was moved. On OOM — or any other failure — every tensor
     already moved is restored to its original device and the fit proceeds on the host
     exactly as before, because a slow retrain beats a dead one. That fallback is not
-    hypothetical: the red-team set grows each iteration, so a long enough run will
+    hypothetical: the generated set grows each iteration, so a long enough run will
     eventually present a set larger than the card.
 
     Two environment knobs, honoured on every call:
@@ -890,8 +885,8 @@ def _train_with_cached_base_activations(
     *,
     base_train,
     base_val,
-    redteam_train,
-    redteam_val,
+    extra_train,
+    extra_val,
     dev_val,
     model_name: str,
     layer: int,
@@ -902,37 +897,37 @@ def _train_with_cached_base_activations(
     base_train_cache: Path | None,
     base_val_cache: Path | None,
     dev_val_cache: Path | None = None,
-    dev_train_idx: "list[int] | None" = None,
-    dev_val_idx: "list[int] | None" = None,
-    redteam_cache_dir: str | Path | None = None,
+    sample_cache_dir: str | Path | None = None,
+    dev_splits: "list[tuple[str, int]] | None" = None,
     combine_consecutive_messages: bool = False,
     convert_tool_to_assistant: bool = False,
     seed: int = 0,
     ensemble_seeds: list[int] | None = None,
     verbose: bool,
 ):
-    """Extract activations (base + red-team from disk caches) and fit the probe.
+    """Extract activations (base + generated samples from disk caches) and fit the probe.
 
     Re-hosts the tail of tuberlens' ``train_probe`` (training.py): compute
     activations, assign them to the datasets, then ``ProbeFactory.build``. The one
     addition is splitting extraction by origin: the (fixed) base split is read from /
     written to a single-blob disk cache via tuberlens' ``get_activations`` blob cache,
-    while the *growing* red-team set is cached **per conversation** (so samples seen in
+    while the *growing* generated set is cached **per conversation** (so samples seen in
     earlier iterations are reused and only newly-seen ones are forwarded — see
-    ``_activate_redteam_cached``). ``dev_val`` is a held-out dev set supplied whole as
+    ``_activate_samples_cached``). ``dev_val`` is a held-out dev set supplied whole as
     the validation set; like the base split it is fixed for the run, so it is cached as
     one blob (``_dev_activation_cache_path``). When it is given, the callers pass
-    ``base_val``/``redteam_val`` as empty, so validation is the dev set *alone*.
-    ``dev_train_idx`` / ``dev_val_idx`` optionally partition that dev set into a
-    training slice and a validation slice — a row selection applied *after* extraction,
-    so the blob (and its cache key) is untouched and the whole set is still fetched or
-    computed exactly once. Both empty (the default) leaves the dev set undivided. With ``redteam_cache_dir=None`` the red-team set is
-    recomputed each call (previous behaviour). Per-side parts are merged with
+    ``base_val``/``extra_val`` as empty, so validation is the dev set *alone*. With ``sample_cache_dir=None`` the generated set is
+    recomputed each call.
+
+    Returns ``(probe, dev_scores)``. ``dev_scores`` is the fitted probe's per-split dev
+    AUROC (``{split: auroc, ..., "mean": ...}``) when ``dev_splits`` is given — computed
+    right after the fit, while the validation activations are still resident (and
+    staged on the card), so scoring costs one no-grad pass and no reload — else None. Per-side parts are merged with
     ``_concatenate_consuming``, which pads the activation tensors to a common length and
     concatenates them at ~1x rather than ~2x the result's peak memory.
 
     The heavy ``LLMModel`` is loaded lazily and only if something actually needs
-    computing — a full cache hit with no red-team samples needs no model at all — and is
+    computing — a full cache hit with no uncached samples needs no model at all — and is
     released as soon as the last activation is extracted, before the merge and fit. Both
     of those exist because this function's peak host-RAM cost (activations *plus* a
     partly CPU-offloaded gemma-sized model) is what OOM-kills long runs.
@@ -940,7 +935,7 @@ def _train_with_cached_base_activations(
     ``seed`` is re-applied via ``seed_everything`` immediately before
     ``ProbeFactory.build`` so the probe's random weight initialization (and any
     training stochasticity) is a pure function of ``seed`` and the training data —
-    not of how far the global RNG has advanced through earlier red-teaming, eval
+    not of how far the global RNG has advanced through earlier generation, eval
     subsampling, or prior retrains in the same process. Without this, two retrains
     on byte-identical data produce different probes (and different eval scores).
 
@@ -1029,10 +1024,10 @@ def _train_with_cached_base_activations(
             input_ids=acts.input_ids,
         )
 
-    def _activate_redteam(dataset):
-        return _activate_redteam_cached(
+    def _activate_samples(dataset):
+        return _activate_samples_cached(
             dataset,
-            redteam_cache_dir,
+            sample_cache_dir,
             model_name,
             layer,
             combine_consecutive_messages,
@@ -1043,15 +1038,14 @@ def _train_with_cached_base_activations(
 
     base_train_a = _activate(base_train, base_train_cache)
     base_val_a = _activate(base_val, base_val_cache)
-    redteam_train_a = _activate_redteam(redteam_train)
-    redteam_val_a = _activate_redteam(redteam_val)
+    extra_train_a = _activate_samples(extra_train)
+    extra_val_a = _activate_samples(extra_val)
     dev_val_a = _activate(dev_val, dev_val_cache)
-
     n_by_origin = (
         0 if base_train_a is None else len(base_train_a),
         0 if base_val_a is None else len(base_val_a),
-        0 if redteam_train_a is None else len(redteam_train_a),
-        0 if redteam_val_a is None else len(redteam_val_a),
+        0 if extra_train_a is None else len(extra_train_a),
+        0 if extra_val_a is None else len(extra_val_a),
         0 if dev_val_a is None else len(dev_val_a),
     )
 
@@ -1066,26 +1060,11 @@ def _train_with_cached_base_activations(
     # and `_get_model` would reload it if that ever changed.
     _release_model()
 
-    # Split the dev set into a training slice and a validation slice AFTER extraction —
-    # and after the model release, since the row selection transiently holds the dev
-    # activations twice. The dev set is one cached blob keyed on the dev files' bytes
-    # (assembled, under a `kaggle:` section, from published per-split blobs), so it is
-    # always extracted whole and the partition is a row selection on the result: no
-    # cache key moves, and the two slices cost exactly what the undivided set cost.
-    # `dev_val_idx` is empty on the default path, which leaves this a no-op.
-    dev_train_a = None
-    if dev_val_a is not None and dev_val_idx:
-        dev_train_a = dev_val_a[dev_train_idx] if dev_train_idx else None
-        dev_val_a = dev_val_a[dev_val_idx]
-        gc.collect()
-
     def _combine(parts):
         return _concatenate_consuming([p for p in parts if p is not None])
 
-    n_dev_train = 0 if dev_train_a is None else len(dev_train_a)
-    n_dev_val = 0 if dev_val_a is None else len(dev_val_a)
-    train_dataset = _combine([base_train_a, redteam_train_a, dev_train_a])
-    validation_dataset = _combine([base_val_a, redteam_val_a, dev_val_a])
+    train_dataset = _combine([base_train_a, extra_train_a])
+    validation_dataset = _combine([base_val_a, extra_val_a, dev_val_a])
     if train_dataset is None:
         raise ValueError("No training data available to fit the probe.")
 
@@ -1094,8 +1073,8 @@ def _train_with_cached_base_activations(
         print(
             f"Train/validation: {len(train_dataset)} train, "
             f"{0 if validation_dataset is None else len(validation_dataset)} validation "
-            f"(base {n_by_origin[0]}+{n_by_origin[1]}; red-team "
-            f"{n_by_origin[2]}+{n_by_origin[3]}; dev {n_dev_train}+{n_dev_val})"
+            f"(base {n_by_origin[0]}+{n_by_origin[1]}; generated "
+            f"{n_by_origin[2]}+{n_by_origin[3]}; dev {n_by_origin[4]})"
         )
 
     # Park the activations ON THE GPU for the duration of the fits. This is the
@@ -1124,7 +1103,7 @@ def _train_with_cached_base_activations(
     # bit-identical (verified against probe_iter0.pkl, member for member).
     #
     # The model has already been released above, so the card is empty; we still
-    # fall back to host residency on OOM, since a large enough red-team set will
+    # fall back to host residency on OOM, since a large enough generated set will
     # eventually outgrow the GPU and a slow fit beats a dead one.
     # What costs wall-clock is the per-epoch host->device copy, so when only one of the
     # two fits, the card should hold whatever moves the most bytes per epoch. That is
@@ -1160,8 +1139,14 @@ def _train_with_cached_base_activations(
             probe_description=probe_description,
         )
 
+    def _finish(probe):
+        dev_scores = None
+        if dev_splits and validation_dataset is not None:
+            dev_scores = _per_split_auroc(probe, validation_dataset, dev_splits, verbose=verbose)
+        return probe, dev_scores
+
     if not ensemble_seeds or len(ensemble_seeds) == 1:
-        return _build(ensemble_seeds[0] if ensemble_seeds else seed)
+        return _finish(_build(ensemble_seeds[0] if ensemble_seeds else seed))
 
     _warn_if_deterministic_arch(probe_spec, len(ensemble_seeds))
     # The members share their activations, so fitting them one at a time re-reads
@@ -1188,7 +1173,7 @@ def _train_with_cached_base_activations(
     if build_ensemble is not None and fusion_enabled():
         # Seed once for the whole fused fit, for the same reason `_build` reseeds
         # per member: what the members are must depend on their own seeds and the
-        # data, not on how far the ambient RNG advanced through earlier red-teaming
+        # data, not on how far the ambient RNG advanced through earlier generation
         # or an earlier retrain in this process. `build_ensemble` then re-seeds per
         # member internally.
         seed_everything(ensemble_seeds[0])
@@ -1218,17 +1203,20 @@ def _train_with_cached_base_activations(
             f"Built a {len(members)}-member score-averaging ensemble "
             f"(seeds {ensemble_seeds})"
         )
-    return EnsembleProbe.from_members(members, ensemble_seeds)
+    return _finish(EnsembleProbe.from_members(members, ensemble_seeds))
 
 
 @dataclass
 class RetrainResult:
     new_probe_path: Path
-    n_redteam_samples: int
+    n_extra_samples: int
     n_training_samples_total: int
     # Members behind the probe just written: 1 for an ordinary probe, n when the
     # retrain built a score-averaging deep ensemble.
     ensemble_size: int = 1
+    # Per-split dev AUROC of the probe just written (plus "mean"), when a dev set was
+    # given; None otherwise.
+    dev_auroc: dict[str, float] | None = None
 
 
 def _dump_labelled_dataset(dataset, out_path: str | Path) -> int:
@@ -1247,7 +1235,7 @@ def _dump_labelled_dataset(dataset, out_path: str | Path) -> int:
     with out_path.open("w", encoding="utf-8") as f:
         for i, messages in enumerate(dataset.inputs):
             row = {
-                "id": ids[i] if i < len(ids) else f"redteam-{i}",
+                "id": ids[i] if i < len(ids) else f"generated-{i}",
                 "inputs": [{"role": m.role, "content": m.content} for m in messages],
                 "label": labels[i] if i < len(labels) else None,
             }
@@ -1256,83 +1244,12 @@ def _dump_labelled_dataset(dataset, out_path: str | Path) -> int:
     return n
 
 
-def _records_to_labelled_dataset(records: Iterable[AttemptRecord]):
-    """Build a tuberlens LabelledDataset from successful red-team records.
-
-    The label assigned to each sample is the **judge's predicted label** — the
-    judge is the source of truth for the class. tuberlens uses canonical
-    "positive" / "negative" enum values, so we map the judge's human-readable
-    label back to the canonical form using the probe's pos/neg class labels.
-    """
-    from tuberlens.interfaces.dataset import LabelledDataset, Message as TLMessage
-
-    inputs: list[list] = []
-    ids: list[str] = []
-    labels: list[str] = []
-
-    for rec in records:
-        if not rec.success:
-            continue
-        if rec.judge_label == rec.pos_class_label:
-            canonical = "positive"
-        elif rec.judge_label == rec.neg_class_label:
-            canonical = "negative"
-        else:
-            # Older rows or unparseable judge output: fall back to the error_type-derived
-            # truth label (negative for false_positive runs, positive for false_negative).
-            canonical = "negative" if rec.error_type == "false_positive" else "positive"
-        inputs.append(
-            [TLMessage(role=m.role, content=m.content) for m in rec.sample.messages]
-        )
-        ids.append(f"redteam-{rec.run_id}-{rec.attacker_model}-{len(ids)}")
-        labels.append(canonical)
-
-    return LabelledDataset(
-        inputs=inputs,
-        ids=ids,
-        other_fields={"labels": labels},
-    )
-
-
-def _success_human_label(rec: AttemptRecord, pos_label: str, neg_label: str) -> str:
-    """The class label (human-readable) for a successful red-team record.
-
-    Uses the judge's label when it matches one of the two classes; otherwise
-    falls back to the error_type-implied truth class (negative for
-    false_positive runs, positive for false_negative).
-    """
-    if rec.judge_label == pos_label:
-        return pos_label
-    if rec.judge_label == neg_label:
-        return neg_label
-    return neg_label if rec.error_type == "false_positive" else pos_label
-
-
-def _successes_to_dicts(
-    records: Iterable[AttemptRecord], pos_label: str, neg_label: str
-) -> list[dict]:
-    """Render successful records as ``{inputs, labels}`` dicts for preprocessing."""
-    out: list[dict] = []
-    for rec in records:
-        if not rec.success:
-            continue
-        out.append(
-            {
-                "inputs": [
-                    {"role": m.role, "content": m.content} for m in rec.sample.messages
-                ],
-                "labels": _success_human_label(rec, pos_label, neg_label),
-            }
-        )
-    return out
-
-
 def _dicts_to_labelled_dataset(records: Iterable[dict], pos_label: str, neg_label: str):
     """Build a tuberlens LabelledDataset from ``{inputs, labels}`` dicts.
 
     Maps the human-readable label back to tuberlens' canonical
     "positive"/"negative" enum values. Records whose label is neither class are
-    skipped.
+    skipped. ``GeneratedSample.to_training_row`` produces this shape.
     """
     from tuberlens.interfaces.dataset import LabelledDataset, Message as TLMessage
 
@@ -1354,348 +1271,77 @@ def _dicts_to_labelled_dataset(records: Iterable[dict], pos_label: str, neg_labe
                 for m in msgs
             ]
         )
-        ids.append(f"redteam-{i}")
+        ids.append(f"generated-{i}")
         labels.append(canonical)
 
     return LabelledDataset(inputs=inputs, ids=ids, other_fields={"labels": labels})
 
 
-def _build_redteam_dataset(
-    successes: list[AttemptRecord],
-    pos_label: str,
-    neg_label: str,
-    preprocessing: "PreprocessingConfig | None",
-    contrastive_cache_path: str | Path | None,
-    verbose: bool,
-    model_name: str = "",
-    combine_consecutive_messages: bool = False,
-    convert_tool_to_assistant: bool = False,
-    eval_data_description: str = "",
-):
-    """Convert red-team successes into a LabelledDataset, optionally preprocessing.
-
-    With no preprocessing config this is the plain success→dataset conversion.
-    With one, it mirrors the collation step of tuberlens' pipeline applied to the
-    "extra" data: drop confounders (``filter_dataset``) then add contrastive
-    pairs (``generate_contrastive_dataset``).
-
-    ``model_name`` and the two transform flags build the :class:`TokenBudget` the
-    contrastive generator regenerates over-long pairs against — they describe the
-    *probe's* tokenization, which is what activation extraction truncates at 1024
-    tokens. With no model name the length safeguard is simply inert.
-    """
-    if preprocessing is None or not successes:
-        return _records_to_labelled_dataset(successes)
-
-    from agentic_redteam.preprocessing import (
-        filter_dataset,
-        generate_contrastive_dataset,
-    )
-
-    dicts = _successes_to_dicts(successes, pos_label, neg_label)
-    before = len(dicts)
-    dicts = filter_dataset(
-        dicts,
-        pos_class_label=pos_label,
-        filter_percentile=preprocessing.filter_percentile,
-    )
-    if verbose:
-        print(f"filter_dataset: {before} → {len(dicts)} records after dropping confounders")
-    dicts = generate_contrastive_dataset(
-        dicts,
-        pos_class_label=pos_label,
-        neg_class_label=neg_label,
-        provider=preprocessing.provider,
-        model=preprocessing.model,
-        max_concurrent=preprocessing.max_concurrent,
-        max_tokens=preprocessing.max_tokens,
-        max_retries=preprocessing.max_generation_retries,
-        cache_path=contrastive_cache_path,
-        assistant_centric=preprocessing.assistant_centric,
-        concept_description=preprocessing.concept_description,
-        label_guidance=preprocessing.label_guidance,
-        eval_data_description=eval_data_description,
-        token_budget=TokenBudget(
-            model_name=model_name,
-            max_tokens=preprocessing.max_sample_tokens,
-            combine_consecutive_messages=combine_consecutive_messages,
-            convert_tool_to_assistant=convert_tool_to_assistant,
-        ),
-    )
-    if getattr(preprocessing, "keep_only_generated", False):
-        # Keep the generated partners, drop the finds they were written from. The
-        # generator has already run over every find (and the cache is keyed by the
-        # source conversation), so this costs nothing and a run with the knob off
-        # reuses the same pairs.
-        kept = [d for d in dicts if d.get("is_generated")]
-        if verbose:
-            print(
-                f"  [contrastive] keep_only_generated: {len(dicts)} → {len(kept)} "
-                "records (source red-team finds dropped, generated partners kept)"
-            )
-        dicts = kept
-    return _dicts_to_labelled_dataset(dicts, pos_label, neg_label)
-
-
-def _dev_row_splits(dev_files: "list[Path]", dev_sizes: "list[int]") -> list[str]:
-    """Per-row split stem for the concatenated dev set.
-
-    ``_load_dev_dataset`` concatenates the splits in ``sorted(glob)`` order, each
-    keeping its own row order, so a row's origin is recoverable from the per-file row
-    counts alone.
-    """
-    out: list[str] = []
-    for f, n in zip(dev_files, dev_sizes):
-        out.extend([f.stem] * n)
-    return out
-
-
-def _dev_pair_key(row_inputs) -> str:
-    """Group key that puts the two halves of a contrastive dev pair together.
-
-    Several dev splits are built as pairs — one user request answered once each way, so
-    the two rows differ only in the assistant's turn and carry opposite labels. Keying
-    on the USER turns alone therefore collects a pair into one group. A split that is
-    not paired simply yields one row per group, which is the unpaired behaviour.
-
-    Lending whole pairs matters because the halves carry opposite labels: drawing rows
-    independently hands early rungs of a dose ladder a class skew that has nothing to do
-    with the supervision being measured.
-    """
-    parts = [
-        str(getattr(m, "content", ""))
-        for m in row_inputs
-        if str(getattr(m, "role", "")) == "user"
-    ]
-    return "\u0000".join(parts) if parts else repr(row_inputs)
-
-
-def _dev_lending_groups(
-    dev_val,
-    dev_files: "list[Path]",
-    dev_sizes: "list[int]",
-    dev_train_split: str = "",
-    dev_train_unit: str = "rows",
-) -> list[list[int]]:
-    """The draw units the lending reserve is taken from, in dev-row order.
-
-    ``dev_train_split`` restricts the pool to one dev split by file stem — the rest of
-    the dev set is then never lent and validates throughout. Without it every row is
-    eligible. ``dev_train_unit="pairs"`` groups eligible rows by :func:`_dev_pair_key`
-    so a draw takes both halves of a contrastive pair at once; ``"rows"`` (the default)
-    makes each row its own group.
-    """
-    eligible = range(len(dev_val))
-    if dev_train_split:
-        origins = _dev_row_splits(dev_files, dev_sizes)
-        eligible = [i for i in eligible if origins[i] == dev_train_split]
-        if not eligible:
-            raise ValueError(
-                f"dev_train_split {dev_train_split!r} matches no dev split; "
-                f"available: {', '.join(sorted({f.stem for f in dev_files}))}"
-            )
-    if dev_train_unit not in ("rows", "pairs"):
-        raise ValueError(
-            f"dev_train_unit must be 'rows' or 'pairs', got {dev_train_unit!r}"
-        )
-    if dev_train_unit == "rows":
-        return [[i] for i in eligible]
-    grouped: dict[str, list[int]] = {}
-    for i in eligible:
-        grouped.setdefault(_dev_pair_key(dev_val.inputs[i]), []).append(i)
-    return list(grouped.values())
-
-
-def _dev_lending_indices(
-    n_dev: int,
-    dev_train_n: int,
-    dev_train_reserve: int,
-    seed: int,
-    groups: "list[list[int]] | None" = None,
-    verbose: bool = False,
-) -> tuple[list[int], list[int]]:
-    """Partition a dev set into rows lent to training and rows kept for validation.
-
-    ``dev_train_reserve`` **groups** are drawn from a ``seed``-keyed permutation and
-    leave validation **for the whole run**; this call trains on the first
-    ``dev_train_n`` of them. A group is one row by default (``groups=None``) and a
-    contrastive pair under ``dev_train_unit="pairs"`` — see :func:`_dev_lending_groups`.
-    Two properties make the resulting series of retrains comparable:
-
-    * **Nested.** Iteration k's training rows are a prefix of iteration k+1's, so the
-      series is a dose ladder on one sample rather than a fresh draw each time.
-    * **Fixed validation.** The reserve, not the currently-trained count, is what leaves
-      validation — so the validation set is byte-identical at every iteration and the
-      best-epoch checkpoints stay comparable. That is the one thing a dev set exists to
-      provide, and removing only the trained rows would give it away again.
-
-    Both counts **saturate** at the number of available groups rather than raising: a
-    restricted pool (one split, and paired) is easily smaller than a schedule asks for,
-    and the honest behaviour there is a ladder that flattens once the pool is exhausted
-    — not a run that dies at iteration 3. Saturation is reported when ``verbose``.
-
-    No index appears in both lists, so nothing is ever trained and validated on.
-    """
-    if groups is None:
-        groups = [[i] for i in range(n_dev)]
-    if dev_train_n > dev_train_reserve:
-        raise ValueError(
-            f"dev_train_n ({dev_train_n}) exceeds dev_train_reserve "
-            f"({dev_train_reserve}) — the reserve is the pool it draws from."
-        )
-    n_groups = len(groups)
-    reserve = min(dev_train_reserve, n_groups)
-    train_n = min(dev_train_n, reserve)
-    if verbose and (reserve < dev_train_reserve or train_n < dev_train_n):
-        print(
-            f"  dev lending pool exhausted: asked for {dev_train_n}/{dev_train_reserve} "
-            f"groups, only {n_groups} exist — using {train_n}/{reserve}"
-        )
-    order = list(range(n_groups))
-    random.Random(f"devtrain:{seed}").shuffle(order)
-    reserved = order[:reserve]
-    train_idx = sorted(i for g in reserved[:train_n] for i in groups[g])
-    reserved_rows = {i for g in reserved for i in groups[g]}
-    val_idx = sorted(i for i in range(n_dev) if i not in reserved_rows)
-    if not val_idx:
-        raise ValueError(
-            f"The lending reserve covers all {n_dev} dev rows, leaving no validation set."
-        )
-    return train_idx, val_idx
-
-
 def retrain_probe(
-    jsonl_path: str | Path | list[str | Path],
+    samples: "Iterable[GeneratedSample | dict]",
     base_probe_path: str | Path,
     base_training_data_path: str | Path | None,
     new_probe_path: str | Path,
     layer: int | None = None,
     probe_spec: "ProbeSpec | str | None" = None,
-    preprocessing: "PreprocessingConfig | None" = None,
-    contrastive_cache_path: str | Path | None = None,
-    postprocessed_out_path: str | Path | None = None,
-    min_judge_confidence: int = 0,
     test_size: float = 0.2,
     split_field: str | None = None,
     dev_data_path: str | Path | None = None,
-    dev_train_n: int = 0,
-    dev_train_reserve: int = 0,
-    dev_train_split: str = "",
-    dev_train_unit: str = "rows",
     seed: int = 0,
     base_data_fraction: float = 1.0,
     ensemble_size: int | None = None,
     base_activation_cache_dir: str | Path | None = None,
     combine_consecutive_messages: bool = False,
     convert_tool_to_assistant: bool = False,
-    eval_data_description: str = "",
     verbose: bool = True,
 ) -> RetrainResult:
-    """Train a fresh probe using `base_training_data_path` ∪ red-team successes from `jsonl_path`.
+    """Train a fresh probe on ``base_training_data_path`` ∪ ``samples``.
 
     The new probe inherits the architecture (`probe_spec`) and metadata
     (`pos_class_label`, `neg_class_label`, `description`, `model_name`, `layer`) from the
-    base probe at `base_probe_path` — so retraining stays apples-to-apples with what the
-    red-team agent attacked.
+    base probe at `base_probe_path`, so every candidate probe of an iteration is
+    apples-to-apples with the probe it is compared against.
 
     Args:
-        jsonl_path: Path (or list of paths) to red-team JSONL logs produced by run_redteam.
-            When multiple error types produce separate files, pass all of them here.
+        samples: The extra training samples — :class:`GeneratedSample` objects or
+            ``{inputs: [{role, content}, ...], labels: <class label>}`` dicts (the base
+            JSONL row shape). Their human-readable labels are mapped to tuberlens'
+            canonical classes via the base probe's ``pos_class_label`` /
+            ``neg_class_label``; rows carrying neither are skipped.
         base_probe_path: Existing pickled probe; used to inherit architecture and metadata.
         base_training_data_path: JSONL/CSV consumed by tuberlens.LabelledDataset.load_from. If
-            None, the new probe is trained on red-team successes alone.
+            None, the new probe is trained on ``samples`` alone.
         new_probe_path: Where to pickle the retrained probe.
         layer: Layer to probe. If None, reuse base_probe.layer.
         probe_spec: Architecture for the retrained probe. If None (default), inherit the
-            base probe's architecture via `_infer_probe_spec` (apples-to-apples). Pass a
-            `ProbeSpec` to train a specific fresh architecture, or a ProbeType name string
-            (e.g. "linear_then_softmax") for a fresh probe of that type with default
-            hyperparams.
-        preprocessing: When provided, filter_dataset + generate_contrastive_dataset are
-            applied to the red-team successes (mirroring tuberlens' collation step on the
-            "extra" data) before concatenation with the base training data.
-        eval_data_description: Optional description of the eval data (the config's
-            `eval.data_description`). Passed to the contrastive generator, which is then
-            told to keep every generated pair inside that data's form — the pairs become
-            training data for a probe scored on it. Folded into the contrastive cache
-            key, so editing it regenerates pairs rather than reusing older ones. Inert
-            without `preprocessing`.
-        contrastive_cache_path: Disk cache for generated contrastive pairs (per source
-            conversation), so accumulating successes aren't re-generated every iteration.
-        postprocessed_out_path: If given, write the postprocessed red-team samples (the
-            filter + contrastive output that gets concatenated with the base data — base
-            data itself excluded) to this JSONL as a per-iteration snapshot of exactly what
-            red-team data trained this probe.
-        min_judge_confidence: Drop red-team successes whose judge confidence is below this
-            (keep `judge_confidence >= min_judge_confidence`). This is the *only* place
-            judge confidence gates samples — view_past_attempts no longer filters on it.
-            0 (default) keeps every success.
+            base probe's architecture via `_infer_probe_spec`. Pass a `ProbeSpec` to train
+            a specific fresh architecture, or a ProbeType name string.
         test_size: Fraction held out for validation via stable_train_test_split.
             Ignored (forced to 0.0) when `dev_data_path` is given.
-        split_field: Optional field to keep grouped together when splitting (passed to
-            stable_train_test_split). Ignored when `dev_data_path` is given.
+        split_field: Optional field to keep grouped together when splitting. Ignored
+            when `dev_data_path` is given.
         dev_data_path: A held-out dev set (a JSONL, or a directory of `*.jsonl` splits)
-            to use as the validation set. When given, validation is that dev set
-            **alone**: nothing is held out of the base data or the red-team successes,
-            which both go entirely into training. This is what makes the validation set
-            — and therefore the best-epoch checkpoint the probe fit selects — identical
-            across iterations, instead of drifting as red-team successes accumulate into
-            the held-out slice. The dev set must be disjoint from the eval splits, or
-            early stopping is selecting on the test set. None keeps the old behaviour
-            (validation = the `test_size` slice of base + red-team).
-        dev_train_n: Number of dev rows to move from validation into TRAINING for this
-            retrain (0 = none, the default and the behaviour before this argument
-            existed). The rows are the first `dev_train_n` of a `seed`-permuted dev set,
-            so successive iterations train on nested prefixes rather than fresh draws.
-        dev_train_reserve: Number of dev rows withheld from validation for the whole run
-            — the pool `dev_train_n` draws its prefix from. Must be >= `dev_train_n`.
-            Reserving the *whole* run's rows at every iteration is what keeps validation
-            identical across iterations: were only the currently-trained rows removed,
-            the validation set would shrink each retrain and its checkpoints would stop
-            being comparable, which is the one thing `dev_data_path` exists to prevent.
-            No row is ever both trained and validated on.
-        dev_train_split: Restrict the lending pool to one dev split, by file stem (e.g.
-            "oig_omission"). The other splits are then never lent and validate
-            throughout. "" (default) makes every dev row eligible.
-        dev_train_unit: "rows" (default) draws individual dev rows; "pairs" draws both
-            halves of a contrastive dev pair at once (rows sharing their user turns).
-            Pairs matter on a paired split: the two halves carry opposite labels, so
-            drawing rows independently gives early rungs of a dose ladder a class skew
-            unrelated to the supervision being measured. Both counts saturate at the
-            pool's size rather than raising.
-        seed: Seed for the deterministic train/val split (stable_train_test_split), and
-            for the dev permutation the arguments above index into.
-        base_data_fraction: Fraction (0, 1] of the base training data to ingest,
-            selected by a deterministic content-addressed random subsample
-            (stable_fraction_subsample) applied *before* the train/val split.
-            1.0 (default) uses all of it. The fraction is folded into the base
-            activation cache key. Red-team successes are never subsampled.
+            used as the validation set. When given, validation is that dev set **alone**:
+            nothing is held out of the base data or the samples, which both go entirely
+            into training, and the returned ``RetrainResult.dev_auroc`` carries the new
+            probe's per-split dev AUROC. The dev set must be disjoint from the eval splits.
+        seed: Seed for the deterministic train/val split (stable_train_test_split).
+        base_data_fraction: Fraction (0, 1] of the base training data to ingest
+            (stable_fraction_subsample, applied before the split; folded into the base
+            activation cache key). Samples are never subsampled.
         ensemble_size: Number of independently-seeded probes to fit (1..
             MAX_ENSEMBLE_SIZE) over the same activations, averaged into one
-            `EnsembleProbe` whose score is the members' mean probability. None
-            (default) *inherits* the base probe's ensemble size, so a retrain stays
-            apples-to-apples with what was attacked — mirroring how `probe_spec=None`
-            inherits its architecture. 1 writes a plain single probe.
-        base_activation_cache_dir: If given, activations are cached here. The base
-            training split is cached as a single blob (computed once for the whole run
-            and reused every retrain). The growing red-team set is cached **per
-            conversation** in a ``redteam_acts_*`` subdir, so a success first seen in an
-            earlier iteration is forwarded once and reused by every later retrain; only
-            newly-seen conversations are computed. None disables both caches.
-        combine_consecutive_messages: Merge adjacent same-role messages in the training
-            data (base loaded via load_from + red-team). Apply the same value used at eval
-            time so the probe trains and is scored on the same message representation.
-        convert_tool_to_assistant: Rewrite tool-role messages as assistant in the training
-            data (applied before combine_consecutive_messages), matching the eval transform.
+            `EnsembleProbe`. None (default) *inherits* the base probe's ensemble size.
+        base_activation_cache_dir: If given, activations are cached here: the base split
+            as a single blob (computed once per run), the samples **per conversation**
+            (so a sample seen in an earlier iteration — or pre-warmed by
+            :func:`warm_sample_activation_cache` — is never forwarded again), and the dev
+            set as one blob. None disables all three caches.
+        combine_consecutive_messages / convert_tool_to_assistant: tuberlens message
+            transforms, applied to the base data, the samples and the dev set alike.
         verbose: Forwarded to the probe builder.
     """
     from tuberlens.interfaces.dataset import LabelledDataset
-    from tuberlens.interfaces.probes import ProbeSpec, ProbeType
-
-    if isinstance(jsonl_path, (str, Path)):
-        jsonl_paths = [Path(jsonl_path)]
-    else:
-        jsonl_paths = [Path(p) for p in jsonl_path]
 
     base_probe_path = Path(base_probe_path)
     new_probe_path = Path(new_probe_path)
@@ -1711,58 +1357,24 @@ def retrain_probe(
     neg_class_label = getattr(base_probe, "neg_class_label", "negative")
     probe_description = getattr(base_probe, "description", None)
 
-    all_successes: list[AttemptRecord] = []
-    for jp in jsonl_paths:
-        if jp.exists():
-            store = JsonlStore(path=jp)
-            all_successes.extend(store.iter_successes())
-    n_before_conf = len(all_successes)
-    if min_judge_confidence > 0:
-        all_successes = [
-            rec for rec in all_successes if rec.judge_confidence >= min_judge_confidence
-        ]
+    extra_dataset = samples_to_dataset(samples, pos_class_label, neg_class_label)
+    extra_dataset = _apply_message_transforms(
+        extra_dataset, combine_consecutive_messages, convert_tool_to_assistant
+    )
+    n_extra = len(extra_dataset)
     if verbose:
-        if min_judge_confidence > 0:
-            print(
-                f"Red-team successes loaded: {n_before_conf} → {len(all_successes)} "
-                f"after dropping judge_confidence < {min_judge_confidence}"
-            )
-        else:
-            print(f"Red-team successes loaded: {len(all_successes)}")
+        print(f"Extra training samples loaded: {n_extra}")
 
-    redteam_dataset = _build_redteam_dataset(
-        all_successes,
-        pos_class_label,
-        neg_class_label,
-        preprocessing,
-        contrastive_cache_path,
-        verbose,
-        model_name=str(base_probe.model_name),
-        combine_consecutive_messages=combine_consecutive_messages,
-        convert_tool_to_assistant=convert_tool_to_assistant,
-        eval_data_description=eval_data_description,
-    )
-    redteam_dataset = _apply_message_transforms(
-        redteam_dataset, combine_consecutive_messages, convert_tool_to_assistant
-    )
-    n_redteam = len(redteam_dataset)
-    if verbose and preprocessing is not None:
-        print(f"Red-team training samples after preprocessing: {n_redteam}")
-
-    if postprocessed_out_path is not None:
-        n_written = _dump_labelled_dataset(redteam_dataset, postprocessed_out_path)
-        if verbose:
-            print(f"Saved {n_written} postprocessed red-team samples to {postprocessed_out_path}")
-
-    # A dev set replaces the held-out slice entirely: base and red-team both train in
+    # A dev set replaces the held-out slice entirely: base and samples both train in
     # full (test_size 0.0 makes stable_train_test_split put everything on the train
     # side), and the dev set is the whole validation set.
     dev_val = None
     dev_files: list[Path] = []
+    dev_splits: list[tuple[str, int]] = []
     if dev_data_path is not None:
         if verbose:
             print(f"Validation set: held-out dev data at {dev_data_path}")
-        dev_val, dev_files, dev_sizes = _load_dev_dataset(
+        dev_val, dev_files, dev_splits = _load_dev_dataset(
             dev_data_path,
             pos_class_label,
             neg_class_label,
@@ -1773,41 +1385,10 @@ def retrain_probe(
         if verbose:
             print(
                 f"Dev validation samples: {len(dev_val)} "
-                "(base + red-team data all train, nothing held out)"
+                "(base + extra samples all train, nothing held out)"
             )
         test_size = 0.0
         split_field = None
-
-    # Optionally lend part of the dev set to TRAINING. The reserved pool leaves
-    # validation for the whole run — see the `dev_train_reserve` docstring — and this
-    # call trains on its first `dev_train_n` rows, so iteration k's rows are a prefix of
-    # iteration k+1's. Indices, not a resliced dataset: the dev activations are one
-    # cached blob keyed on the dev files' bytes, and splitting *after* extraction keeps
-    # that blob (and the Kaggle-assembled one the CLI prefetches) valid untouched.
-    dev_train_idx: list[int] = []
-    dev_val_idx: list[int] = []
-    if dev_val is not None and dev_train_reserve > 0:
-        dev_train_idx, dev_val_idx = _dev_lending_indices(
-            len(dev_val),
-            dev_train_n,
-            dev_train_reserve,
-            seed,
-            groups=_dev_lending_groups(
-                dev_val, dev_files, dev_sizes, dev_train_split, dev_train_unit
-            ),
-            verbose=verbose,
-        )
-        if verbose:
-            print(
-                f"Dev rows lent to training: {len(dev_train_idx)}"
-                + (
-                    f" (from {dev_train_split}, by {dev_train_unit})"
-                    if dev_train_split
-                    else ""
-                )
-                + f"; validation is the remaining {len(dev_val_idx)} "
-                "(fixed for every iteration of this run)"
-            )
 
     layer_used = layer if layer is not None else int(base_probe.layer)
 
@@ -1820,8 +1401,7 @@ def retrain_probe(
         probe_spec = _coerce_probe_spec(probe_spec)
 
     # Same inherit-by-default rule as the architecture: an unspecified ensemble size
-    # reproduces the probe that was actually red-teamed, so the retrain compares
-    # like with like across iterations.
+    # reproduces the probe being compared against, so the candidates are like with like.
     if ensemble_size is None:
         ensemble_size = probe_ensemble_size(base_probe)
     ensemble_seeds = _resolve_ensemble_seeds(seed, ensemble_size)
@@ -1831,11 +1411,11 @@ def retrain_probe(
             f"(training seeds {ensemble_seeds})"
         )
 
-    # Split base and red-team *independently*, then combine per side. Because the
+    # Split base and samples *independently*, then combine per side. Because the
     # split is content-deterministic (stable_train_test_split), splitting the two
     # sources separately yields the same membership as splitting their
     # concatenation — but it lets us cache the fixed base activations on disk and
-    # only ever recompute the small, growing red-team set.
+    # only ever recompute the small, growing generated set.
     base_train = base_val = None
     base_train_cache = base_val_cache = None
     n_base = 0
@@ -1872,19 +1452,19 @@ def retrain_probe(
                 base_data_fraction,
             )
 
-    redteam_train = redteam_val = None
-    if n_redteam > 0:
-        redteam_train, redteam_val = stable_train_test_split(
-            redteam_dataset, test_size=test_size, split_field=split_field, seed=seed
+    extra_train = extra_val = None
+    if n_extra > 0:
+        extra_train, extra_val = stable_train_test_split(
+            extra_dataset, test_size=test_size, split_field=split_field, seed=seed
         )
     elif base_training_data_path is None:
         raise ValueError(
-            "No red-team successes and no base_training_data_path provided — nothing to train on."
+            "No samples and no base_training_data_path provided — nothing to train on."
         )
 
-    n_total = n_base + n_redteam
+    n_total = n_base + n_extra
     if verbose:
-        print(f"Total samples before split: {n_total} (base {n_base}, red-team {n_redteam})")
+        print(f"Total samples before split: {n_total} (base {n_base}, extra {n_extra})")
 
     dev_val_cache = None
     if dev_val is not None and base_activation_cache_dir is not None:
@@ -1897,11 +1477,11 @@ def retrain_probe(
             convert_tool_to_assistant,
         )
 
-    new_probe = _train_with_cached_base_activations(
+    new_probe, dev_scores = _train_with_cached_base_activations(
         base_train=base_train,
         base_val=base_val,
-        redteam_train=redteam_train,
-        redteam_val=redteam_val,
+        extra_train=extra_train,
+        extra_val=extra_val,
         dev_val=dev_val,
         model_name=base_probe.model_name,
         layer=layer_used,
@@ -1912,9 +1492,8 @@ def retrain_probe(
         base_train_cache=base_train_cache,
         base_val_cache=base_val_cache,
         dev_val_cache=dev_val_cache,
-        dev_train_idx=dev_train_idx,
-        dev_val_idx=dev_val_idx,
-        redteam_cache_dir=base_activation_cache_dir,
+        sample_cache_dir=base_activation_cache_dir,
+        dev_splits=dev_splits or None,
         combine_consecutive_messages=combine_consecutive_messages,
         convert_tool_to_assistant=convert_tool_to_assistant,
         seed=seed,
@@ -1932,9 +1511,10 @@ def retrain_probe(
 
     return RetrainResult(
         new_probe_path=new_probe_path,
-        n_redteam_samples=n_redteam,
-        n_training_samples_total=n_total + len(dev_train_idx),
+        n_extra_samples=n_extra,
+        n_training_samples_total=n_total,
         ensemble_size=ensemble_size,
+        dev_auroc=dev_scores,
     )
 
 
@@ -1957,7 +1537,7 @@ def train_initial_probe(
     combine_consecutive_messages: bool = False,
     convert_tool_to_assistant: bool = False,
     verbose: bool = True,
-) -> Path:
+) -> RetrainResult:
     """Train the first probe from base training data alone (no base probe to inherit from).
 
     Mirrors tuberlens' collate_train_evaluate.train_high_stakes_probe, but the concept
@@ -2028,10 +1608,11 @@ def train_initial_probe(
     # See retrain_probe: a dev set is the whole validation set, so nothing is held out.
     dev_val = None
     dev_files: list[Path] = []
+    dev_splits: list[tuple[str, int]] = []
     if dev_data_path is not None:
         if verbose:
             print(f"Validation set: held-out dev data at {dev_data_path}")
-        dev_val, dev_files, dev_sizes = _load_dev_dataset(
+        dev_val, dev_files, dev_splits = _load_dev_dataset(
             dev_data_path,
             pos_class_label,
             neg_class_label,
@@ -2084,11 +1665,11 @@ def train_initial_probe(
                 convert_tool_to_assistant,
             )
 
-    probe = _train_with_cached_base_activations(
+    probe, dev_scores = _train_with_cached_base_activations(
         base_train=base_train,
         base_val=base_val,
-        redteam_train=None,
-        redteam_val=None,
+        extra_train=None,
+        extra_val=None,
         dev_val=dev_val,
         model_name=model_name,
         layer=layer,
@@ -2099,6 +1680,7 @@ def train_initial_probe(
         base_train_cache=base_train_cache,
         base_val_cache=base_val_cache,
         dev_val_cache=dev_val_cache,
+        dev_splits=dev_splits or None,
         seed=seed,
         ensemble_seeds=ensemble_seeds,
         verbose=verbose,
@@ -2111,7 +1693,13 @@ def train_initial_probe(
             f"{ensemble_size}-member ensemble probe" if ensemble_size > 1 else "probe"
         )
         print(f"Saved initial {kind} to {new_probe_path}")
-    return new_probe_path
+    return RetrainResult(
+        new_probe_path=new_probe_path,
+        n_extra_samples=0,
+        n_training_samples_total=len(base_dataset),
+        ensemble_size=ensemble_size,
+        dev_auroc=dev_scores,
+    )
 
 
 def _coerce_probe_spec(probe_spec):
@@ -2160,15 +1748,6 @@ def _infer_probe_spec(base_probe):
         LinearThenRollingMax: ProbeType.linear_then_rolling_max,
         LinearThenLast: ProbeType.linear_then_last,
     }
-    # Guarded so this repo still loads against a tuberlens checkout predating the
-    # MultiMax architecture — there, no probe can be one, and the map is complete
-    # without it.
-    try:
-        from tuberlens.probes.pytorch_modules import MultiMax
-    except ImportError:
-        pass
-    else:
-        arch_to_type[MultiMax] = ProbeType.multimax
     if arch is not None and arch in arch_to_type:
         hyper = getattr(base_probe, "hyper_params", None) or {}
         return ProbeSpec(name=arch_to_type[arch], hyperparams=hyper)
@@ -2185,3 +1764,215 @@ def _infer_probe_spec(base_probe):
         f"Could not infer ProbeSpec from base probe {type(base_probe).__name__}; "
         f"specify a ProbeSpec explicitly."
     )
+
+
+# --------------------------------------------------------------------------- #
+# Loading, scoring and cache warming — the pieces the generator loop composes.
+# --------------------------------------------------------------------------- #
+
+
+def samples_to_dataset(samples: "Iterable[GeneratedSample | dict]", pos_label: str, neg_label: str):
+    """``GeneratedSample`` objects and/or ``{inputs, labels}`` dicts → LabelledDataset."""
+    rows = [
+        s.to_training_row() if isinstance(s, GeneratedSample) else s for s in samples
+    ]
+    return _dicts_to_labelled_dataset(rows, pos_label, neg_label)
+
+
+def read_probe_metadata(path: str | Path) -> dict[str, Any]:
+    """The metadata a probe pickle carries, without moving anything to a device.
+
+    Everything downstream (the generator's concept block, the judge's context, the
+    token budget's tokenizer) reads these off the probe rather than the config, so a
+    warm-started run describes the probe it actually has.
+    """
+    with Path(path).open("rb") as f:
+        probe = _cpu_unpickle(f)
+    return {
+        "pos_class_label": getattr(probe, "pos_class_label", "positive") or "positive",
+        "neg_class_label": getattr(probe, "neg_class_label", "negative") or "negative",
+        "description": getattr(probe, "description", None) or "",
+        "model_name": str(probe.model_name),
+        "layer": int(probe.layer),
+        "ensemble_size": probe_ensemble_size(probe),
+    }
+
+
+def load_probe(path: str | Path):
+    """Unpickle a probe for in-process inference.
+
+    Tensors are mapped to the CPU on load, then every member's classifier is moved to
+    tuberlens' ``global_settings.DEVICE`` / ``DTYPE`` — the device ``ActivationDataset``
+    puts activations on — so the head and the incoming activations agree.
+    ``iter_probe_members`` makes that reach every member of an ``EnsembleProbe``; the
+    ensemble itself has no ``_classifier``, so reconciling only the top-level object
+    would leave every member on the CPU and the first forward would fail.
+    """
+    from agentic_redteam.ensemble import iter_probe_members
+
+    with Path(path).open("rb") as f:
+        probe = _cpu_unpickle(f)
+    for member in iter_probe_members(probe):
+        classifier = getattr(member, "_classifier", None)
+        if classifier is not None and getattr(classifier, "model", None) is not None:
+            from tuberlens.config import global_settings
+
+            classifier.model.to(device=global_settings.DEVICE, dtype=global_settings.DTYPE)
+    return probe
+
+
+def _per_split_auroc(probe, dataset, dev_splits: "list[tuple[str, int]]", verbose: bool = True) -> dict[str, float]:
+    """Per-split AUROC of ``probe`` on an activated dataset that concatenates ``dev_splits``.
+
+    ``dev_splits`` is ``[(name, n_rows), ...]`` in the dataset's row order (what
+    ``_load_dev_dataset`` returns). The ``"mean"`` entry is the unweighted mean over the
+    splits that carry both classes; a single-class split scores NaN and is left out of
+    the mean, mirroring how ``get_performances`` would have failed on it.
+    """
+    import math
+
+    import numpy as np
+    from sklearn.metrics import roc_auc_score
+
+    probs = np.asarray(probe.predict_proba(dataset), dtype=float).reshape(-1)
+    labels = dataset.labels_numpy()
+    if sum(n for _, n in dev_splits) != len(labels):
+        raise ValueError(
+            f"dev_splits cover {sum(n for _, n in dev_splits)} rows but the dataset has {len(labels)}"
+        )
+    scores: dict[str, float] = {}
+    offset = 0
+    for name, n in dev_splits:
+        y = labels[offset : offset + n]
+        p = probs[offset : offset + n]
+        offset += n
+        scores[name] = float(roc_auc_score(y, p)) if len(set(y.tolist())) == 2 else math.nan
+    valid = [v for v in scores.values() if not math.isnan(v)]
+    scores["mean"] = float(np.mean(valid)) if valid else math.nan
+    if verbose:
+        print(
+            "Dev AUROC: "
+            + ", ".join(f"{k} {v:.4f}" for k, v in scores.items() if k != "mean")
+            + f" → mean {scores['mean']:.4f}"
+        )
+    return scores
+
+
+def score_probe_on_dev(
+    probe_path: str | Path,
+    dev_data_path: str | Path,
+    base_activation_cache_dir: str | Path | None,
+    *,
+    combine_consecutive_messages: bool = False,
+    convert_tool_to_assistant: bool = False,
+    verbose: bool = True,
+) -> dict[str, float]:
+    """Per-split dev AUROC of an existing probe pickle (the iteration's baseline).
+
+    Reads the dev activations from the same single blob the fit uses
+    (``_dev_activation_cache_path``) — computing and caching it if missing, through
+    ``load_extraction_model`` — so the baseline and every candidate are scored on
+    byte-identical activations.
+    """
+    from tuberlens.model import LLMModel
+
+    from agentic_redteam.model_loading import load_extraction_model, unhook_model
+
+    probe = load_probe(probe_path)
+    pos = getattr(probe, "pos_class_label", "positive")
+    neg = getattr(probe, "neg_class_label", "negative")
+    dev_val, dev_files, dev_splits = _load_dev_dataset(
+        dev_data_path, pos, neg, combine_consecutive_messages, convert_tool_to_assistant, verbose
+    )
+    model_name, layer = str(probe.model_name), int(probe.layer)
+    cache_path = None
+    if base_activation_cache_dir is not None:
+        cache_path = _dev_activation_cache_path(
+            base_activation_cache_dir, dev_files, model_name, layer,
+            combine_consecutive_messages, convert_tool_to_assistant,
+        )
+    if cache_path is not None and cache_path.exists():
+        if verbose:
+            print(f"Loaded cached dev activations: {cache_path}")
+        acts = LLMModel.load_activations(cache_path)
+    else:
+        model = load_extraction_model(model_name, layer, verbose=verbose)
+        try:
+            acts = model.get_activations(
+                dev_val.inputs, layer=layer, show_progress=verbose,
+                save_path=str(cache_path) if cache_path is not None else None,
+            )
+        finally:
+            unhook_model(model)
+            del model
+            gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+    dev_val = dev_val.assign(
+        activations=acts.activations, attention_mask=acts.attention_mask, input_ids=acts.input_ids
+    )
+    del acts
+    return _per_split_auroc(probe, dev_val, dev_splits, verbose=verbose)
+
+
+def warm_sample_activation_cache(
+    samples: "Iterable[GeneratedSample | dict]",
+    base_probe_path: str | Path,
+    base_activation_cache_dir: str | Path,
+    *,
+    combine_consecutive_messages: bool = False,
+    convert_tool_to_assistant: bool = False,
+    verbose: bool = True,
+) -> int:
+    """Extract and cache the activations of ``samples`` in ONE model load.
+
+    An iteration fits one candidate probe per batch, and each fit would otherwise
+    load the extraction model to compute its own batch's activations — n loads of a
+    gemma-sized model for a few hundred forwards. Warming the per-conversation cache
+    with every batch's samples up front means each fit is a pure cache hit and loads
+    no model at all. Returns the number of samples that were actually computed.
+    """
+    with Path(base_probe_path).open("rb") as f:
+        base_probe = _cpu_unpickle(f)
+    pos = getattr(base_probe, "pos_class_label", "positive")
+    neg = getattr(base_probe, "neg_class_label", "negative")
+    model_name, layer = str(base_probe.model_name), int(base_probe.layer)
+    dataset = samples_to_dataset(samples, pos, neg)
+    dataset = _apply_message_transforms(dataset, combine_consecutive_messages, convert_tool_to_assistant)
+    if len(dataset) == 0:
+        return 0
+    missing = [
+        i for i, msgs in enumerate(dataset.inputs)
+        if not _sample_activation_cache_path(
+            base_activation_cache_dir, msgs, model_name, layer,
+            combine_consecutive_messages, convert_tool_to_assistant,
+        ).exists()
+    ]
+    if not missing:
+        if verbose:
+            print(f"Sample activation cache: all {len(dataset)} samples already cached")
+        return 0
+
+    from agentic_redteam.model_loading import load_extraction_model, unhook_model
+
+    loaded: dict[str, Any] = {"model": None}
+
+    def _get_model():
+        if loaded["model"] is None:
+            loaded["model"] = load_extraction_model(model_name, layer, verbose=verbose)
+        return loaded["model"]
+
+    try:
+        activated = _activate_samples_cached(
+            dataset[missing], base_activation_cache_dir, model_name, layer,
+            combine_consecutive_messages, convert_tool_to_assistant, _get_model, verbose,
+        )
+        del activated
+    finally:
+        if loaded["model"] is not None:
+            unhook_model(loaded["model"])
+            loaded["model"] = None
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+    return len(missing)
