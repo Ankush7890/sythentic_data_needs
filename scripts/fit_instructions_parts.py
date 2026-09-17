@@ -129,20 +129,28 @@ def load_eval():
     return datasets, parts
 
 
-def score(probe, datasets, parts) -> dict[str, float]:
+def score(probe, datasets, parts) -> tuple[dict[str, float], dict[str, np.ndarray]]:
+    """Per-split and per-part AUROC, plus the per-ROW probabilities they were read off.
+
+    The second return value is what `--row-scores` persists: `probs[split]` is
+    `predict_proba` over that split in FILE ORDER, the same vector every AUROC in the first
+    return value is computed from. So a per-row statistic derived from it decomposes into
+    the CSV's numbers exactly, with no second forward pass and no refit.
+    """
     from tuberlens.evaluation import calculate_metrics
 
-    out = {}
+    out, probs = {}, {}
     for s, ds in datasets.items():
         y = np.array([label.to_int() for label in ds.labels])
         p = np.asarray(probe.predict_proba(ds))
+        probs[s] = p.astype(np.float32)
         out[f"eval_{s}"] = float(calculate_metrics(y, p, fpr=FPR)["auroc"])
         if s in parts:
             for name in [f"{s}_p{k}" for k in range(4)]:
                 m = parts[s] == name
                 out[f"part_{name}"] = float(calculate_metrics(y[m], p[m], fpr=FPR)["auroc"])
     out["eval_mean"] = float(np.mean([out[f"eval_{s}"] for s in SPLITS]))
-    return out
+    return out, probs
 
 
 def done_keys(path: Path) -> set[tuple[str, int, int, int]]:
@@ -170,6 +178,12 @@ def main() -> None:
                     default=REPO / "scripts/instructions_parts_size_curve.csv")
     ap.add_argument("--check", action="store_true",
                     help="cross-check the first fit against evaluate_probe")
+    ap.add_argument("--row-scores", type=Path, default=None, metavar="DIR",
+                    help="also persist the per-ROW probabilities of every fit, as "
+                         "DIR/<set stem>/ga<K>_n<n>_d<d>.npz (one float32 array per eval "
+                         "split, in file order). These are the SAME scores the CSV's AUROCs "
+                         "are computed from, so a per-sample curve built on them decomposes "
+                         "into the split and part curves exactly.")
     args = ap.parse_args()
 
     from agentic_redteam.cli import _free_gpu
@@ -234,7 +248,11 @@ def main() -> None:
         )
         with pkl.open("rb") as pf:
             probe = pickle.load(pf)
-        sc = score(probe, datasets, parts)
+        sc, probs = score(probe, datasets, parts)
+        if args.row_scores:
+            dest = args.row_scores / p.stem
+            dest.mkdir(parents=True, exist_ok=True)
+            np.savez_compressed(dest / f"ga{args.grad_accum or 'd'}_n{n}_d{d}.npz", **probs)
         if args.check and i == 1:
             df = evaluate_probe(pkl, CONCEPT.eval_dir, CONCEPT.eval_cache, max_samples=None,
                                 seed=SEED, combine_consecutive_messages=COMBINE,
