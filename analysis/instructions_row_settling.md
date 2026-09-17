@@ -259,3 +259,151 @@ Reproduce with:
 DRAWS=32 ./run_instrparts_rowscores.sh
 .venv_claude/bin/python scripts/analyze_row_settling.py --repro --validate
 ```
+
+---
+
+# Below 60 rows: hc_drift from 10
+
+`hc_context_drift` shape-free settles at 120, so the whole interesting range sits below
+where the published curve starts. **384 more fits** walk it in even steps of 10, from 10 to
+120, at 32 draws.
+
+## Why every point here is at accumulation 1
+
+The inherited spec is batch_size 16 x `gradient_accumulation_steps` 4, and the DataLoader
+does not drop its last partial batch, so with no base data:
+
+| n | batches | steps/epoch @ accum 4 | steps/epoch @ accum 1 |
+|---|---|---|---|
+| 10 | 1 | **0** | 1 |
+| 20 | 2 | **0** | 2 |
+| 40 | 3 | **0** | 3 |
+| 50 | 4 | 1 | 4 |
+| 120 | 8 | 2 | 8 |
+
+Everything under 50 rows takes **zero optimizer steps** at the default and returns the probe
+at initialisation — the gradient is zeroed at the top of every epoch and never applied. The
+sub-60 range is only measurable at accumulation 1.
+
+Accumulation 1 is a different optimizer regime, so the overlap points were re-run there too
+rather than borrowed, which keeps this curve internally comparable end to end and leaves two
+sizes at which the two regimes can be read against each other:
+
+| n | accumulation 1 | accumulation 4 | difference |
+|---|---|---|---|
+| 60 | 0.6875 ±0.0268 | 0.6575 ±0.0298 | +0.0300 |
+| 120 | 0.9165 ±0.0182 | 0.9139 ±0.0156 | +0.0027 |
+
+They agree at 120 and differ by about one standard error at 60 — close enough to read the
+two curves side by side, not close enough to pool them, which the analysis script now
+refuses to do.
+
+## Settling is the wrong question down here
+
+The split AUROC runs 0.499 / 0.507 / 0.519 / 0.580 / 0.641 / 0.688 / 0.816 / 0.819 / 0.875 /
+0.880 / 0.902 / 0.917 across 10→120. It is still climbing at the last size, so a settling
+point read off it measures the tolerance rather than the row — and the out-of-sample check
+says exactly that. Every settling population moves the same amount on fresh draws:
+
+| selected on draws 0–15 | rows | moves 20→120 on draws 16–31 |
+|---|---|---|
+| settles by 70 | 74 | +0.412 ±0.014 |
+| settles by 80 | 25 | +0.417 ±0.028 |
+| settles by 90 | 49 | +0.438 ±0.018 |
+| settles by 100 | 36 | +0.421 ±0.018 |
+
+No separation at all. Contrast the 60–540 grid, where the same check separated cleanly.
+
+**The statistic this grid supports is takeoff** — the smallest size from which a row stays
+measurably above chance for the rest of the grid. The script computes it whenever the split
+curve is still rising at the last size, judged against the split's own SE rather than the
+per-row tolerance, which is about ten times wider.
+
+## When rows leave chance
+
+| takeoff | rows | | takeoff | rows |
+|---|---|---|---|---|
+| n=10 | 33 (17%) | | n=60 | 27 (14%) |
+| n=20 | 10 (5%) | | n=70 | 26 (13%) |
+| n=30 | 19 (10%) | | n=80–120 | 7 (4%) |
+| n=40 | 31 (16%) | | never | 3 (2%) |
+| n=50 | 38 (20%) | | | |
+
+Split into thirds by takeoff, the curves are cleanly ordered and stay ordered:
+
+| group | rows | u(10) | u(40) | u(70) | u(120) |
+|---|---|---|---|---|---|
+| early third | 93 | 0.566 | 0.680 | 0.881 | 0.958 |
+| middle third | 38 | 0.458 | 0.512 | 0.827 | 0.923 |
+| late third | 60 | 0.422 | 0.479 | 0.725 | 0.867 |
+| never | 3 | 0.456 | 0.377 | 0.452 | 0.543 |
+
+And the grouping survives the out-of-sample check — group on draws 0–15, read each group's
+crossing off draws 16–31: the early third crosses at **n=10**, the middle and late thirds at
+**n=50**, and the never-group not until **n=90**. So "early takeoff" is a property of the
+row. The middle and late thirds do not separate from each other out of sample; the split
+that replicates is early / rest / never.
+
+So there is real population structure below 60 — a sixth of the split is already above
+chance on **ten** training rows, while a fifth does not leave chance until 70 — even though
+the split-level AUROC is flat at 0.50 until n=30 and only starts moving at 40.
+
+## At ten rows the probe is a length detector
+
+The pair solve rate at n=10 is **0.388** — below chance, so the probe orders a matched pair
+*backwards* more often than not. What it is doing instead is visible immediately:
+
+| n | spearman(pair solve rate, len(non-compliant) − len(compliant)) | p |
+|---|---|---|
+| 10 | **+0.699** | 2e-15 |
+| 20 | +0.698 | 2e-15 |
+| 30 | +0.621 | 1e-11 |
+| 40 | +0.608 | 4e-11 |
+| 50 | +0.583 | 4e-10 |
+| 60 | +0.457 | 3e-06 |
+| 70 | +0.366 | 2e-04 |
+| 80 | +0.018 | 0.86 |
+| 90–120 | ≈ 0 | n.s. |
+
+A monotone decay from 0.70 to nothing, with the crossover between 70 and 80 rows. At ten
+rows, which way a pair comes out is almost entirely explained by which ending is longer;
+by eighty rows, length explains nothing. **That is what the first 80 rows buy: not the
+concept, but the removal of a length prior.** The concept arrives after.
+
+## But length does not predict takeoff
+
+Tempting as it is to join those two findings, they do not join. Testing ending length
+against the takeoff group, the same way as for the settling classes:
+
+| test | result |
+|---|---|
+| own ending characters → late takeoff | AUROC 0.508, q = 0.86 |
+| length gap vs partner → late takeoff | AUROC 0.485, q = 0.86 |
+| within-pair: the later-takeoff row is the longer | 0.460 of 63 split pairs, p = 0.52 |
+
+Nothing, and the within-pair test could have seen an effect down to AUROC 0.68.
+
+The two are compatible because they are about different things. The length confound governs
+**which way a pair is ordered** — a within-pair, directional effect. Takeoff is about where a
+row sits against *the whole split*, which the within-pair length gap does not determine. So
+the probe can be strongly length-driven at n=10 and still leave no length signature in which
+rows leave chance first.
+
+Which leaves the same conclusion the 60–540 grid reached, now from the opposite end of the
+curve: **the populations are real, replicate out of sample, and are not predictable from
+anything about the conversation.**
+
+## Files
+
+| file | what |
+|---|---|
+| `run_hcdrift_small_curve.sh` | the 384 accumulation-1 fits |
+| `scripts/instructions_hcdrift_small_curve.csv` | their split and part AUROCs |
+| `scripts/instructions_hcdrift_small_settling.csv` | per-row curves and classes on this grid |
+| `analysis/instructions_hcdrift_small_report.txt` | the full printed report |
+
+```bash
+DRAWS=32 ./run_hcdrift_small_curve.sh
+.venv_claude/bin/python scripts/analyze_row_settling.py --only hc_context_drift \
+    --accum 1 --sizes 10 20 30 40 50 60 70 80 90 100 110 120 --takeoff --validate
+```

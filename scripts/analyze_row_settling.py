@@ -200,13 +200,29 @@ def classify(curve: np.ndarray, delta: float, se: float) -> str:
     if curve[-1] - curve[-2] > delta:
         return "unsettled"
     n = settle(curve, delta)
-    if n == 60:
+    # Read against the grid, not against literal sizes: this same taxonomy runs on the
+    # 60..540 default-accumulation grid and on the 10..120 accumulation-1 one.
+    if n == SIZES[0]:
         if curve[0] >= HIGH:
             return "free"
         if curve[-1] <= LOW:
             return "never"
         return "flat-mid"
-    return "early" if n <= 120 else "late"
+    return "early" if n <= SIZES[1] else "late"
+
+
+def takeoff(curve: np.ndarray, delta: float) -> int:
+    """Smallest size from which the row stays measurably above chance for the rest of the grid.
+
+    The mirror image of `settle`, and the only one of the two that means anything on a grid
+    where the curve has not plateaued by the last size. Below ~60 rows this probe is at
+    chance, so what distinguishes rows there is when they LEAVE chance, not when they stop
+    moving — asking the settling question of a still-climbing curve just reads the tolerance.
+    """
+    for k, n in enumerate(SIZES):
+        if np.all(curve[k:] >= 0.5 + delta):
+            return n
+    return 0    # never leaves chance on this grid
 
 
 # ------------------------------------------------------------------- loading scores
@@ -399,6 +415,10 @@ def main() -> None:
                          "accumulation 4, '1' = the accumulation-1 fits. Under ~49 rows the "
                          "default takes ZERO optimizer steps, so a sub-60 curve only exists "
                          "at '1'. The two must never be pooled.")
+    ap.add_argument("--takeoff", action="store_true",
+                    help="report TAKEOFF (when a row leaves chance) instead of relying on "
+                         "settling. Implied automatically when the split curve is still "
+                         "climbing at the last size, where a settling point is meaningless.")
     ap.add_argument("--validate", action="store_true",
                     help="split the draws in half, classify on the first half and measure "
                          "the selected populations on the second — the settling labels are "
@@ -463,6 +483,62 @@ def main() -> None:
             tag = "  <- still moving at the last step" if n == SIZES[-1] and m.any() else ""
             print(f"    n={n:<4} {m.sum():>4} rows {100 * m.mean():>4.0f}%   "
                   f"final level {u[-1, m].mean() if m.any() else float('nan'):.3f}{tag}")
+
+        # A settling point read off a curve that is still climbing at the last size measures
+        # the tolerance, not the row. Say so, and answer the question the grid CAN answer.
+        # The right yardstick for "is the SPLIT curve still climbing" is the split's own
+        # noise, not the per-row tolerance: a per-row delta is ~10x wider, so comparing
+        # against it would call every still-rising curve settled.
+        rising = float(A.mean(axis=1)[-1] - A.mean(axis=1)[-2])
+        split_se = float(A[-1].std(ddof=1) / np.sqrt(draws))
+        if args.takeoff or rising > 2 * split_se:
+            print(f"\n  NOTE: the split curve still gains {rising:+.3f} over the last step, "
+                  f"against a split-level SE of {split_se:.3f}.")
+            print("  Nothing here has settled, so the settling points above are tolerance "
+                  "artefacts.\n  The grid's real question is TAKEOFF — when a row leaves "
+                  "chance and stays there:")
+            takeoffs = np.array([takeoff(u[:, i], delta[i]) for i in range(len(y))])
+            print(f"\n    {'takeoff':>9} {'rows':>5} {'%':>5}   final level")
+            for n in [0] + SIZES:
+                m = takeoffs == n
+                if m.any():
+                    tag = "never" if n == 0 else f"n={n}"
+                    print(f"    {tag:>9} {m.sum():>5} {100 * m.mean():>4.0f}%   "
+                          f"{u[-1, m].mean():.3f}")
+            valid = takeoffs > 0
+            if valid.sum() >= 30:
+                cut = np.quantile(takeoffs[valid], [1 / 3, 2 / 3])
+                grp = np.where(~valid, "never",
+                               np.where(takeoffs <= cut[0], "early third",
+                                        np.where(takeoffs <= cut[1], "middle third",
+                                                 "late third")))
+                print(f"\n    {'group':<13} {'rows':>5}  " + "  ".join(f"{n:>5}" for n in SIZES))
+                for g in ["early third", "middle third", "late third", "never"]:
+                    m = grp == g
+                    if m.any():
+                        print(f"    {g:<13} {m.sum():>5}  "
+                              + "  ".join(f"{v:.3f}" for v in u[:, m].mean(axis=1)))
+                # Same out-of-sample logic as --validate: group on one half of the draws,
+                # then read each group's crossing size off the other half.
+                h = U.shape[1] // 2
+                uA, uB = U[:, :h].mean(axis=1), U[:, h:].mean(axis=1)
+                dA = np.maximum(2 * U[:, :h].std(axis=1, ddof=1).mean(axis=0) / np.sqrt(h), FLOOR)
+                tA = np.array([takeoff(uA[:, i], dA[i]) for i in range(len(y))])
+                vA = tA > 0
+                cA = np.quantile(tA[vA], [1 / 3, 2 / 3]) if vA.sum() >= 30 else None
+                if cA is not None:
+                    gA = np.where(~vA, "never", np.where(tA <= cA[0], "early third",
+                                  np.where(tA <= cA[1], "middle third", "late third")))
+                    print(f"\n    out of sample — group on draws 0..{h - 1}, "
+                          f"read the crossing off {h}..{U.shape[1] - 1}:")
+                    for g in ["early third", "middle third", "late third", "never"]:
+                        m = gA == g
+                        if not m.any():
+                            continue
+                        mc = uB[:, m].mean(axis=1)
+                        hit = [n for k, n in enumerate(SIZES) if np.all(mc[k:] >= 0.53)]
+                        print(f"      {g:<13} {m.sum():>5} rows  crosses at "
+                              + (f"n={hit[0]}" if hit else "never"))
 
         order = ["free", "early", "late", "unsettled", "declining", "never", "flat-mid", "noisy"]
         print(f"\n  {'class':<11} {'rows':>5} {'%':>5}  "

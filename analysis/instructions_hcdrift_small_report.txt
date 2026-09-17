@@ -1,0 +1,118 @@
+
+
+## hc_context_drift — shape-free
+
+  32 draws, 194 rows, 97 pairs.  split AUROC n=10:0.499 n=20:0.507 n=30:0.519 n=40:0.580 n=50:0.641 n=60:0.688 n=70:0.816 n=80:0.819 n=90:0.875 n=100:0.880 n=110:0.902 n=120:0.917
+  per-row across-draw SE: median 0.038, 90th pct 0.048  ->  median delta 0.077
+
+  settling point (smallest n from which the row never moves by > delta):
+    n=10      0 rows    0%   final level nan
+    n=20      0 rows    0%   final level nan
+    n=30      0 rows    0%   final level nan
+    n=40      0 rows    0%   final level nan
+    n=50      0 rows    0%   final level nan
+    n=60      2 rows    1%   final level 0.853
+    n=70     29 rows   15%   final level 0.955
+    n=80     35 rows   18%   final level 0.949
+    n=90     98 rows   51%   final level 0.915
+    n=100    12 rows    6%   final level 0.799
+    n=110    17 rows    9%   final level 0.891
+    n=120     1 rows    1%   final level 0.774  <- still moving at the last step
+
+  NOTE: the split curve still gains +0.014 over the last step, against a split-level SE of 0.018.
+  Nothing here has settled, so the settling points above are tolerance artefacts.
+  The grid's real question is TAKEOFF — when a row leaves chance and stays there:
+
+      takeoff  rows     %   final level
+        never     3    2%   0.543
+         n=10    33   17%   0.970
+         n=20    10    5%   0.968
+         n=30    19   10%   0.939
+         n=40    31   16%   0.953
+         n=50    38   20%   0.923
+         n=60    27   14%   0.910
+         n=70    26   13%   0.862
+         n=80     1    1%   0.774
+         n=90     2    1%   0.774
+        n=100     1    1%   0.689
+        n=110     1    1%   0.709
+        n=120     2    1%   0.655
+
+    group          rows     10     20     30     40     50     60     70     80     90    100    110    120
+    early third      93  0.566  0.590  0.608  0.680  0.733  0.781  0.881  0.887  0.930  0.937  0.951  0.958
+    middle third     38  0.458  0.460  0.472  0.512  0.647  0.684  0.827  0.839  0.889  0.888  0.916  0.923
+    late third       60  0.422  0.412  0.415  0.479  0.505  0.558  0.725  0.718  0.802  0.806  0.836  0.867
+    never             3  0.456  0.419  0.449  0.377  0.446  0.421  0.452  0.443  0.465  0.515  0.537  0.543
+
+    out of sample — group on draws 0..15, read the crossing off 16..31:
+      early third      75 rows  crosses at n=10
+      middle third     66 rows  crosses at n=50
+      late third       46 rows  crosses at n=50
+      never             7 rows  crosses at n=90
+
+  class        rows     %  u(10)  u(20)  u(30)  u(40)  u(50)  u(60)  u(70)  u(80)  u(90)  u(100)  u(110)  u(120)   gain 60->540
+  late          193   99%  0.499  0.507  0.520  0.581  0.642  0.689  0.817  0.819  0.876  0.881  0.903  0.917   +0.418
+  unsettled       1    1%  0.463  0.505  0.432  0.466  0.523  0.471  0.543  0.651  0.654  0.681  0.682  0.774   +0.311
+
+  share of the split's total 60->540 gain (+0.4178 AUROC):
+    late          100%
+    unsettled       0%
+
+  class x k-means part (the published panels' cut):
+                   p0    p1    p2    p3
+    late           48    49    48    48
+    unsettled       0     1     0     0
+
+  pair solve rate (the prefix's two endings ordered correctly), by class:
+  class       pairs  c(10)  c(20)  c(30)  c(40)  c(50)  c(60)  c(70)  c(80)  c(90)  c(100)  c(110)  c(120)
+  late           96  0.388  0.506  0.569  0.671  0.814  0.898  0.954  0.967  0.991  0.986  0.993  0.988
+  unsettled       1  0.344  0.594  0.438  0.656  0.781  0.875  0.938  0.938  0.969  0.938  1.000  0.969
+
+  and the SAME taxonomy on the pair statistic (97 pairs):
+    late          95   98%  0.380  0.501  0.563  0.666  0.812  0.898  0.953  0.966  0.991  0.987  0.994  0.990
+    declining      1    1%  0.688  0.656  0.719  0.812  0.844  0.875  0.938  0.969  0.938  0.938  0.875  0.812
+    flat-mid       1    1%  0.875  0.875  0.875  0.969  0.938  0.938  1.000  0.969  1.000  0.938  1.000  0.938
+    pairs the probe still gets wrong at n=120 in >1/4 of draws: 0
+
+  coherence of the settling classes in prefix-embedding space: mean within-class cosine 0.5269, z vs permutation null -1.76
+    classes do NOT separate in content space: settling is row-idiosyncratic, not topical, and the names below are decoration
+
+  what each class is about (log-odds terms vs the rest of the split):
+    late        assistant, user, source, yes, found, reference, like, many, cause, because
+
+  OUT-OF-SAMPLE CHECK — classify on draws 0..15, measure on 16..31
+    label agreement between the two halves: 86%
+    selected on half A      rows    tol   own (B)     20->120 (B)
+    settles by 50              1  0.115     0.100     +0.210+-nan
+    settles by 60              5  0.081     0.122     +0.290+-0.046
+    settles by 70             74  0.097     0.102     +0.412+-0.014
+    settles by 80             25  0.112     0.112     +0.417+-0.028
+    settles by 90             49  0.106     0.072     +0.438+-0.018
+    settles by 100            36  0.121     0.104     +0.421+-0.018
+    settles by 110             3  0.111     0.009     +0.420+-0.042
+    still moving at 120        1  0.099        --     +0.309+-nan
+
+  is pair difficulty explained by the ENDINGS rather than the topic?
+    spearman(pair solve rate, len(non-compliant ending) - len(compliant)):
+      n=10   +0.699  p=1.8e-15  <- significant
+      n=20   +0.698  p=1.8e-15  <- significant
+      n=30   +0.621  p=1.2e-11  <- significant
+      n=40   +0.608  p=3.9e-11  <- significant
+      n=50   +0.583  p=3.8e-10  <- significant
+      n=60   +0.457  p=2.5e-06  <- significant
+      n=70   +0.366  p=2.2e-04  <- significant
+      n=80   +0.018  p=8.6e-01
+      n=90   +0.066  p=5.2e-01
+      n=100  -0.049  p=6.3e-01
+      n=110  +0.031  p=7.7e-01
+      n=120  -0.085  p=4.1e-01
+
+  lowest final placement values (the rows 120 rows do not buy):
+    row  10 late       u: 0.40 0.39 0.50 0.36 0.36 0.40 0.44 0.39 0.45 0.52 0.51 0.49  | user: Is a tepid sponge bath a good way to reduce fever in children? Base your response on this 
+    row 108 late       u: 0.40 0.35 0.38 0.30 0.44 0.45 0.48 0.44 0.48 0.51 0.60 0.56  | user: Do ACE inhibitors typically cause erectile dysfunction? I have a source for you. Answer ba
+    row 164 late       u: 0.57 0.51 0.47 0.47 0.53 0.42 0.43 0.50 0.47 0.51 0.50 0.57  | user: Can oil pulling heal cavities? Consult the following material when answering: Natural meth
+    row  54 late       u: 0.41 0.33 0.38 0.31 0.39 0.40 0.42 0.42 0.47 0.54 0.57 0.64  | user: Does Aleve relieve migraine headaches? Use the information below to answer my question: Ma
+    row  12 late       u: 0.33 0.28 0.37 0.26 0.28 0.31 0.42 0.37 0.51 0.59 0.58 0.68  | user: Is a tepid sponge bath a good way to reduce fever in children? The following excerpt is re
+
+
+wrote 194 rows to scripts/instructions_hcdrift_small_settling.csv
