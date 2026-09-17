@@ -1,0 +1,15 @@
+split,concept,predictor,predictor_value,log_m,log_m_lo,log_m_hi,n_curves
+anthropic_hh_balanced,highstakes,m_ID_mean_C0.1,3.0000000000000004,1.0,1.0000,1.3464,4
+mt_balanced,highstakes,m_ID_mean_C0.1,5.844207627046613,1.1837711367602883,1.0000,1.8162,4
+mts_balanced,highstakes,m_ID_mean_C0.1,4.551179802881315,1.1370789246318398,1.0000,1.7076,4
+toolace_balanced,highstakes,m_ID_mean_C0.1,14.619471128446119,1.1910085212874342,1.0000,1.3820,4
+ai_dilemmas,hu_harm,m_ID_mean_C0.1,33.64628656031875,1.3279915709382686,1.2380,2.2871,4
+ant_hh,hu_harm,m_ID_mean_C0.1,5.3768149379641095,1.6175469675667657,1.0569,2.1424,4
+balanced_refusal,hu_harm,m_ID_mean_C0.1,3.544233695992472,1.0573054921160865,1.0212,1.3096,4
+daily_dilemmas,hu_harm,m_ID_mean_C0.1,33.64628656031875,1.1288872704733361,1.0934,1.2742,4
+anthropic_harmless_refusal,instructions,m_ID_mean_C0.1,3.0000000000000004,1.9068138421945482,1.0934,2.2148,4
+bbq_substitution,instructions,m_ID_mean_C0.1,24.106543755526108,1.744374039115793,1.0000,2.6491,4
+hc_context_drift,instructions,m_ID_mean_C0.1,77.43594753549831,2.051905280092642,1.8887,2.5043,4
+hc_contradiction,instructions,m_ID_mean_C0.1,77.43594753549831,2.1605393529472128,1.7076,2.5406,4
+mm_substitution,instructions,m_ID_mean_C0.1,20.404870973477696,1.6715269614564243,1.5263,2.4320,4
+oig_context_drift,instructions,m_ID_mean_C0.1,60.30328539484764,2.5586652839174056,1.9614,3.1198,4

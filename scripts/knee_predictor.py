@@ -574,7 +574,10 @@ def features_for_split(split: Split, curve_rows: list[dict]) -> dict:
     for pooling in POOLINGS:
         X = np.load(split.pooled(pooling))
         views = _fold_views(X, y, SEED)
-        rng = np.random.default_rng(SEED + abs(hash(split.knee)) % 10_000)
+        # Per-split stream, but a REPRODUCIBLE one: Python's hash() of a str is salted
+        # per process (PYTHONHASHSEED), so it would reseed differently on every run.
+        tag = f"{split.knee}/{pooling}".encode()
+        rng = np.random.default_rng(SEED + int.from_bytes(hashlib.sha256(tag).digest()[:4], "big"))
         suf = f"_{pooling}"
 
         # --- B: full logistic regression, one direction, and one direction from 4 rows
@@ -615,7 +618,12 @@ def features_for_split(split: Split, curve_rows: list[dict]) -> dict:
             if len(curve) >= 5:
                 f = ref.fit_curve(curve, boot=False)
                 out[f"m_ID{tag}"] = float(f["m"])
-                out[f"log_m_ID{tag}"] = float(np.log10(max(f["m"], ref.M_MIN)))
+                # Censor at the smallest size THIS curve measured (k=2), not at the
+                # synthetic curves' floor of 10 (ref.M_MIN): an in-distribution knee of
+                # 3 is genuinely resolved here, and clamping it to 10 would tie together
+                # eight of the fourteen splits on an artefact of the other experiment's
+                # size grid.
+                out[f"log_m_ID{tag}"] = float(np.log10(max(f["m"], min(K_FEWSHOT))))
                 out[f"n90_ID{tag}"] = float(f["n90"])
                 out[f"log_n90_ID{tag}"] = float(np.log10(min(f["n90"], 1e6)))
                 out[f"U_ID{tag}"] = float(f["U"])
@@ -696,6 +704,307 @@ def stage_features(args) -> None:
           f"{len(curve_rows)} curve points -> knee_predictor_curves.csv")
 
 
+# --------------------------------------------------------------------------- #
+# stage: analyse
+# --------------------------------------------------------------------------- #
+N_PERM = 10_000
+N_BOOT = 2_000
+TARGETS = ([f"log_m_{r}" for r in RECIPES] + [f"log_n90_{r}" for r in RECIPES])
+
+# Columns of knee_predictors.csv that are not predictors.
+NON_PREDICTORS = {"split", "concept", "stem"} | set(TARGETS) | {
+    f"n_curves_{r}" for r in RECIPES}
+
+
+def _centred_ranks(a: np.ndarray) -> np.ndarray:
+    """Mean-centred, unit-norm tie-averaged ranks: rho is then just a dot product."""
+    from scipy.stats import rankdata
+
+    r = rankdata(a)
+    r = r - r.mean()
+    n = np.sqrt(r @ r)
+    return r / n if n > 0 else r
+
+
+def _spearman(a: np.ndarray, b: np.ndarray) -> float:
+    """Spearman rho, ties averaged — the target is censored at 10, so ties are the rule."""
+    ra, rb = _centred_ranks(a), _centred_ranks(b)
+    return float(ra @ rb) if ra.any() and rb.any() else float("nan")
+
+
+def _perm_p(x: np.ndarray, y: np.ndarray, rho: float, rng) -> float:
+    """Two-sided permutation p-value for rho: how often chance beats it in magnitude.
+
+    With 14 points the asymptotic t-approximation is not to be trusted, and the tied,
+    censored target breaks its assumptions anyway; shuffling the target is exact up to
+    the number of permutations drawn. Permuting *ranks* rather than values is the same
+    null and lets all N_PERM shuffles run as one matrix product.
+    """
+    if not np.isfinite(rho):
+        return float("nan")
+    rx, ry = _centred_ranks(x), _centred_ranks(y)
+    perms = np.argsort(rng.random((N_PERM, len(y))), axis=1)
+    null = ry[perms] @ rx
+    hits = int((np.abs(null) >= abs(rho) - 1e-12).sum())
+    return (hits + 1) / (N_PERM + 1)
+
+
+def _boot_ci(x: np.ndarray, splits: list[str], recipe: str, per_split_curves: dict,
+             rng) -> tuple[float, float]:
+    """95% CI for rho, resampling the CURVES behind each split's median.
+
+    Two sources of noise reach the target and both belong in the interval: which four
+    generators happened to be run (resampling the curves with replacement) and how well
+    each curve's own knee is pinned down (jittering log10 m by the bootstrap sd the
+    fitter already stored in ``lm_bvar``). The re-clamp at log10(10) after jittering is
+    what keeps a censored curve censored across replicates.
+    """
+    ref = _fit_curves_ref()
+    floor = np.log10(ref.M_MIN)
+    pools = [per_split_curves.get((s, recipe), []) for s in splits]
+    if any(not p for p in pools):
+        return float("nan"), float("nan")
+    rx = _centred_ranks(x)
+    # One (N_BOOT, n_splits) matrix of resampled medians, built column by column.
+    med = np.empty((N_BOOT, len(pools)))
+    for j, pool in enumerate(pools):
+        lm = np.array([c["lm"] for c in pool])
+        sd = np.sqrt(np.maximum([c["lm_bvar"] for c in pool], 0.0))
+        pick = rng.integers(0, len(pool), (N_BOOT, len(pool)))
+        drawn = lm[pick] + rng.normal(0.0, 1.0, pick.shape) * sd[pick]
+        med[:, j] = np.median(np.maximum(drawn, floor), axis=1)
+    rhos = [r for r in (float(rx @ _centred_ranks(m)) for m in med) if np.isfinite(r)]
+    if not rhos:
+        return float("nan"), float("nan")
+    lo, hi = np.percentile(rhos, [2.5, 97.5])
+    return float(lo), float(hi)
+
+
+def _loo_rmse(pred: np.ndarray, y: np.ndarray, concept: list[str],
+              use_predictor: bool, use_concept: bool) -> float:
+    """Leave-one-split-out RMSE of a linear model, in log10 units.
+
+    With neither term this is the grand-mean baseline; with concept alone it is the
+    "predict a split from the other splits of its concept" baseline the brief names as
+    the bar to clear. Every fit sees 13 splits and predicts the 14th.
+    """
+    n = len(y)
+    levels = sorted(set(concept))
+    errs = []
+    for i in range(n):
+        tr = np.array([j for j in range(n) if j != i])
+        cols = [np.ones((len(tr), 1))]
+        test = [np.ones((1, 1))]
+        if use_concept:
+            # Drop the first level; a concept unseen in training contributes nothing,
+            # which is the right behaviour for a leave-one-out on 3 concepts.
+            cols.append(np.array([[1.0 if concept[j] == l else 0.0 for l in levels[1:]]
+                                  for j in tr]))
+            test.append(np.array([[1.0 if concept[i] == l else 0.0 for l in levels[1:]]]))
+        if use_predictor:
+            cols.append(pred[tr][:, None])
+            test.append(np.array([[pred[i]]]))
+        X = np.concatenate(cols, 1)
+        coef, *_ = np.linalg.lstsq(X, y[tr], rcond=None)
+        errs.append(float((np.concatenate(test, 1) @ coef)[0]) - y[i])
+    return float(np.sqrt(np.mean(np.square(errs))))
+
+
+def _r2(y: np.ndarray, X: np.ndarray) -> float:
+    coef, *_ = np.linalg.lstsq(X, y, rcond=None)
+    resid = y - X @ coef
+    tot = float(((y - y.mean()) ** 2).sum())
+    return 1.0 - float((resid ** 2).sum()) / tot if tot > 0 else float("nan")
+
+
+def _design(rows: list[dict], factors: list[str], extra: np.ndarray | None = None):
+    cols = [np.ones((len(rows), 1))]
+    for f in factors:
+        levels = sorted(set(r[f] for r in rows))
+        cols.append(np.array([[1.0 if r[f] == l else 0.0 for l in levels[1:]] for r in rows]))
+    if extra is not None:
+        cols.append(extra[:, None])
+    return np.concatenate(cols, 1)
+
+
+def stage_analyse(args) -> None:
+    import csv
+
+    pred_path = SCRIPTS / "knee_predictors.csv"
+    if not pred_path.exists():
+        raise SystemExit(f"{pred_path.name} missing. Run --stage features first.")
+    with pred_path.open() as fh:
+        prows = list(csv.DictReader(fh))
+    order = [r["split"] for r in prows]
+    concepts = [r["concept"] for r in prows]
+
+    curves = load_curves()
+    per_split_curves: dict[tuple[str, str], list[dict]] = collections.defaultdict(list)
+    for c in curves:
+        if not c["flat"]:
+            per_split_curves[(c["split"], c["recipe"])].append(c)
+
+    def col(name: str) -> np.ndarray:
+        return np.array([float(r[name]) if r.get(name, "") not in ("", None) else np.nan
+                         for r in prows])
+
+    predictors = [k for k in prows[0] if k not in NON_PREDICTORS]
+    inst = np.array([c == "instructions" for c in concepts])
+
+    stats = []
+    for target in TARGETS:
+        y_all = col(target)
+        recipe = target.split("_")[-1]
+        for name in predictors:
+            x_all = col(name)
+            ok = np.isfinite(x_all) & np.isfinite(y_all)
+            n = int(ok.sum())
+            row = {"predictor": name, "target": target, "n_splits": n}
+            if n < 5 or np.nanstd(x_all[ok]) == 0:
+                stats.append(row)
+                continue
+            x, y = x_all[ok], y_all[ok]
+            rho = _spearman(x, y)
+            rng = np.random.default_rng(SEED)
+            row["rho"] = rho
+            row["p_perm"] = _perm_p(x, y, rho, rng)
+            if n == len(prows):   # CI only where every split has the target
+                lo, hi = _boot_ci(x, order, recipe, per_split_curves,
+                                  np.random.default_rng(SEED + 1))
+                row["ci_lo"], row["ci_hi"] = lo, hi
+
+            cs = [concepts[i] for i in np.where(ok)[0]]
+            row["loo_rmse_grand"] = _loo_rmse(x, y, cs, False, False)
+            row["loo_rmse_concept"] = _loo_rmse(x, y, cs, False, True)
+            row["loo_rmse_pred"] = _loo_rmse(x, y, cs, True, False)
+            row["loo_rmse_pred_concept"] = _loo_rmse(x, y, cs, True, True)
+            row["beats_concept"] = int(row["loo_rmse_pred"] < row["loo_rmse_concept"])
+
+            sel = ok & inst
+            if sel.sum() >= 5 and np.nanstd(x_all[sel]) > 0:
+                r_in = _spearman(x_all[sel], y_all[sel])
+                row["rho_instructions"] = r_in
+                row["p_instructions"] = _perm_p(x_all[sel], y_all[sel], r_in,
+                                                np.random.default_rng(SEED + 2))
+                row["sign_holds"] = int(np.sign(r_in) == np.sign(rho) and r_in != 0)
+            stats.append(row)
+
+    # --- curve level: does the predictor buy anything over generator + prompt?
+    nonflat = [c for c in curves if not c["flat"]]
+    for c in nonflat:
+        c["prompt"] = c["recipe"]
+    y_c = np.array([c["lm"] for c in nonflat])
+    base_r2 = _r2(y_c, _design(nonflat, ["gen", "prompt"]))
+    split_r2 = _r2(y_c, _design(nonflat, ["gen", "prompt", "split"]))
+    by_split = {r["split"]: r for r in prows}
+    for row in stats:
+        if row["target"] != PRIMARY_TARGET or "rho" not in row:
+            continue
+        vals = np.array([float(by_split[c["split"]][row["predictor"]] or "nan")
+                         for c in nonflat])
+        if not np.isfinite(vals).all():
+            continue
+        row["curve_r2_base"] = base_r2
+        row["curve_r2_with"] = _r2(y_c, _design(nonflat, ["gen", "prompt"], vals))
+        row["curve_r2_gain"] = row["curve_r2_with"] - base_r2
+        row["curve_r2_split_ceiling"] = split_r2 - base_r2
+
+    cols = list(dict.fromkeys(k for r in stats for k in r))
+    with (SCRIPTS / "knee_predictor_stats.csv").open("w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerows(stats)
+    print(f"[analyse] {len(stats)} predictor x target rows -> knee_predictor_stats.csv")
+    print(f"[analyse] curve level: {len(nonflat)} non-flat gemma curves; "
+          f"R2(gen+prompt)={base_r2:.3f}, +split={split_r2:.3f} "
+          f"(ceiling gain {split_r2 - base_r2:.3f})")
+
+    # --- the headline: best predictor on the primary target, by |rho|
+    primary = [r for r in stats if r["target"] == PRIMARY_TARGET
+               and np.isfinite(r.get("rho", np.nan)) and r["n_splits"] == len(prows)]
+    primary.sort(key=lambda r: -abs(r["rho"]))
+    print("\n[analyse] top 12 predictors of " + PRIMARY_TARGET + " over 14 splits:")
+    print(f"  {'predictor':34s} {'rho':>6s} {'p':>7s} {'95% CI':>16s} "
+          f"{'LOO':>6s} {'concept':>7s} {'grand':>6s} {'rho_inst':>8s}")
+    for r in primary[:12]:
+        ci = (f"[{r.get('ci_lo', float('nan')):+.2f},{r.get('ci_hi', float('nan')):+.2f}]")
+        print(f"  {r['predictor']:34s} {r['rho']:+.3f} {r['p_perm']:7.4f} {ci:>16s} "
+              f"{r['loo_rmse_pred']:6.3f} {r['loo_rmse_concept']:7.3f} "
+              f"{r['loo_rmse_grand']:6.3f} {r.get('rho_instructions', float('nan')):+8.3f}")
+
+    _family_wise(prows, predictors, col(PRIMARY_TARGET), primary)
+
+    if primary:
+        best = primary[0]
+        _write_scatter(best["predictor"], prows, per_split_curves)
+        print(f"\n[analyse] scatter written for {best['predictor']}")
+        _verdict(primary)
+
+
+def _family_wise(prows: list[dict], predictors: list[str], y: np.ndarray,
+                 primary: list[dict]) -> None:
+    """Is the BEST of ~115 predictors better than the best of 115 noise predictors?
+
+    Each predictor's own permutation p-value asks the wrong question once a hundred of
+    them have been tried: at p < 0.05 roughly six would pass on noise alone. The honest
+    test permutes the target and takes the largest |rho| across the whole family, which
+    is the distribution the winner actually has to beat.
+    """
+    usable = [p for p in predictors
+              if np.isfinite(np.array([float(r[p]) if r.get(p, "") != "" else np.nan
+                                       for r in prows])).all()]
+    R = np.stack([_centred_ranks(np.array([float(r[p]) for r in prows])) for p in usable])
+    ry = _centred_ranks(y)
+    obs = np.abs(R @ ry)
+    rng = np.random.default_rng(SEED + 3)
+    perms = np.argsort(rng.random((N_PERM, len(y))), axis=1)
+    null_max = np.abs(R @ ry[perms].T).max(axis=0)          # (N_PERM,)
+    p_fw = float(((null_max >= obs.max() - 1e-12).sum() + 1) / (N_PERM + 1))
+    n_nominal = sum(1 for r in primary if r["p_perm"] < 0.05)
+    print(f"\n[analyse] family-wise, {len(usable)} predictors x {N_PERM} permutations:")
+    print(f"    best |rho| = {obs.max():.3f} ({usable[int(obs.argmax())]}), "
+          f"family-wise p = {p_fw:.4f}")
+    print(f"    predictors at nominal p < 0.05: {n_nominal} "
+          f"(expected by chance alone: {0.05 * len(usable):.1f})")
+    print(f"    median of the null's max |rho|: {np.median(null_max):.3f}")
+
+
+def _write_scatter(predictor: str, prows: list[dict], per_split_curves: dict) -> None:
+    import csv
+
+    rows = []
+    for r in prows:
+        pool = per_split_curves.get((r["split"], "detailed"), [])
+        lms = sorted(c["lm"] for c in pool)
+        rows.append({
+            "split": r["split"], "concept": r["concept"],
+            "predictor": predictor, "predictor_value": r[predictor],
+            "log_m": r.get(PRIMARY_TARGET, ""),
+            "log_m_lo": f"{lms[0]:.4f}" if lms else "",
+            "log_m_hi": f"{lms[-1]:.4f}" if lms else "",
+            "n_curves": len(pool),
+        })
+    with (SCRIPTS / "knee_predictor_scatter.csv").open("w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=list(rows[0]))
+        w.writeheader()
+        w.writerows(rows)
+
+
+def _verdict(primary: list[dict]) -> None:
+    """The brief's three conditions, applied without softening."""
+    passed = [r for r in primary
+              if abs(r["rho"]) >= 0.6 and r["p_perm"] < 0.05
+              and r.get("beats_concept") == 1 and r.get("sign_holds") == 1]
+    print("\n[analyse] rho >= 0.6, p < 0.05, beats concept-only LOO, sign holds within "
+          f"instructions: {len(passed)} predictor(s)")
+    for r in passed[:20]:
+        print(f"    {r['predictor']:34s} rho={r['rho']:+.3f} p={r['p_perm']:.4f} "
+              f"LOO {r['loo_rmse_pred']:.3f} < concept {r['loo_rmse_concept']:.3f} "
+              f"rho_inst={r['rho_instructions']:+.3f}")
+    if not passed:
+        print("    none. The null is the result.")
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -717,6 +1026,8 @@ def main(argv=None) -> int:
         stage_pool(args)
     if args.stage in ("features", "all"):
         stage_features(args)
+    if args.stage in ("analyse", "all"):
+        stage_analyse(args)
     return 0
 
 
