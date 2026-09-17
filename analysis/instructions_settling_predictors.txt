@@ -1,0 +1,48 @@
+
+
+## oig_context_drift — shape-free
+
+  between pairs: 90 usable pairs — 9 settle wholly, 81 carry a still-moving row
+
+  feature (pair level)                 AUROC       p    BH q
+  prefix characters                    0.370   0.214   0.603
+  number of turns                      0.500   1.000   1.000
+  mean ending length                   0.674   0.093   0.603
+  |length gap| inside the pair         0.616   0.259   0.603
+  non-compliant ending is a refusal    0.500   1.000   1.000
+  base probe placement (pair mean)     0.406   0.345   0.605
+  k-means part (chi-square)                    0.744   1.000
+
+  prefix embedding, 5-fold CV          0.269   0.100          (null 0.478 +- 0.129)
+
+  within pairs: 49 pairs split one settled / one not
+
+  within-pair sign test                AUROC       p    BH q
+  the unsettled row is the longer      0.633   0.055   0.165   (49 pairs)
+  the unsettled row is the 'follows' one   0.490   1.000   1.000   (49 pairs)
+  the unsettled row had a lower prior   0.500   1.000   1.000   (49 pairs)
+    a null above is a null only down to AUROC 0.70 — 49 pairs cannot see a smaller effect than that
+
+
+## mm_substitution — + shape info
+
+  between pairs: 88 usable pairs — 16 settle wholly, 72 carry a still-moving row
+
+  feature (pair level)                 AUROC       p    BH q
+  prefix characters                    0.497   0.970   1.000
+  number of turns                      0.500   1.000   1.000
+  mean ending length                   0.452   0.551   0.964
+  |length gap| inside the pair         0.575   0.360   0.841
+  non-compliant ending is a refusal    0.500   1.000   1.000
+  base probe placement (pair mean)     0.374   0.128   0.446
+  k-means part (chi-square)                    0.111   0.446
+
+  prefix embedding, 5-fold CV          0.497   1.000          (null 0.491 +- 0.105)
+
+  within pairs: 54 pairs split one settled / one not
+
+  within-pair sign test                AUROC       p    BH q
+  the unsettled row is the longer      0.556   0.498   0.748   (54 pairs)
+  the unsettled row is the 'follows' one   0.426   0.349   0.748   (54 pairs)
+  the unsettled row had a lower prior   0.509   0.885   0.885   (54 pairs)
+    a null above is a null only down to AUROC 0.69 — 54 pairs cannot see a smaller effect than that

@@ -23,8 +23,8 @@ different questions:
                         hard. c_i is the fraction of draws in which the pair is ordered
                         correctly, and m_i the same comparison in rank units.
 
-Both are computed on RANKS within each fit, never on raw probabilities: these are ~200
-separately-fit probes whose output scales are not calibrated to one another, and only a
+Both are computed on RANKS within each fit, never on raw probabilities: these are hundreds
+of separately-fit probes whose output scales are not calibrated to one another, and only a
 rank statistic is comparable across n.
 
 THE THRESHOLD. Per-row curves are noisy, so "improves negligibly" has to be read in units
@@ -32,16 +32,21 @@ of the row's own across-draw spread, not against a fixed 0.01. Each row gets
 
     delta_i = max(2 * se_i, FLOOR)      se_i = pooled across-draw SE of u_i, over sizes
 
-and settles at the smallest n from which it never again departs from its n=540 value by
+and settles at the smallest n from which it never again departs from its LAST-size value by
 more than delta_i. A row whose delta_i is large is not thereby "settled" — it is
 unmeasurable at this draw count, and is reported as such rather than folded into a class.
+
+These labels are IN-SAMPLE: the same draws supply the curve, the tolerance and the
+selection. `--validate` classifies on one half of the draws and measures the selected
+population on the other, which is the only thing that says whether a label is a property of
+the row or of the draws that picked it.
 
 THE CLASSES. Flatness alone cannot separate "solved before training started" from "never
 learned", so the taxonomy crosses the settling point with the final level, and adds the two
 shapes a mean curve hides:
 
-    free        settles at 60 AND high at 60      — geometry already separates these
-    early/late  rises, then flat by 120 / by 300  — genuine learners
+    free        settles at the FIRST size and is already high there — geometry alone
+    early/late  rises, then flat by the second size / later — genuine learners
     unsettled   still above delta_i at the last step — still paying for rows
     declining   peaked at some n, then fell by more than delta_i
     never       flat AND low — more rows will not move these
@@ -52,10 +57,15 @@ projected back onto the bge-base-en-v1.5 prefix embeddings from make_instruction
 and scored for coherence against a label-permutation null. A class that is coherent can be
 named; one that is not says settling is row-idiosyncratic, which is itself the finding.
 
-n=30 is absent by construction — it ran at accumulation 1, a different optimizer regime,
-and run_instrparts_fits.sh documents why it must not sit on the same curve.
+THE TWO REGIMES MUST NOT BE POOLED. The inherited spec is batch_size 16 x accumulation 4
+and the DataLoader keeps its last partial batch, so a no-base fit under ~49 rows takes ZERO
+optimizer steps and returns the probe at initialisation. Anything below 60 rows therefore
+only exists at accumulation 1 (`--accum 1`), which is a different optimizer regime; `--sizes`
+and `--accum` are set together, and a grid must come entirely from one of them.
 
-    .venv_claude/bin/python scripts/analyze_row_settling.py --repro
+    .venv_claude/bin/python scripts/analyze_row_settling.py --repro --validate
+    .venv_claude/bin/python scripts/analyze_row_settling.py --only hc_context_drift \
+        --accum 1 --sizes 10 20 30 40 50 60 70 80 90 100 110 120 --validate
 """
 
 from __future__ import annotations
@@ -81,6 +91,7 @@ OUT_CSV = REPO / "scripts/instructions_row_settling.csv"
 
 POS = "assistant_follows_the_instruction"
 SIZES = [60, 120, 300, 540]
+GA = "d"              # which accumulation regime's score files to read: "d" or "1"
 FLOOR = 0.03          # no settling call finer than this, however tight the draws look
 HIGH = 0.90           # "already high" for the free/never split, in placement-value units
 LOW = 0.65
@@ -204,10 +215,10 @@ def load_scores(stem: str, split: str):
     """[size, draw, row] probabilities for one arm's target split."""
     per_size = []
     for n in SIZES:
-        files = sorted((SCORES_DIR / stem).glob(f"gad_n{n}_d*.npz"),
+        files = sorted((SCORES_DIR / stem).glob(f"ga{GA}_n{n}_d*.npz"),
                        key=lambda f: int(f.stem.split("_d")[-1]))
         if not files:
-            raise SystemExit(f"no score files for {stem} n={n} — run run_instrparts_rowscores.sh")
+            raise SystemExit(f"no ga{GA} score files for {stem} n={n} — check --sizes/--accum")
         per_size.append(np.stack([np.load(f)[split] for f in files]))
     draws = min(len(a) for a in per_size)
     if len({len(a) for a in per_size}) > 1:
@@ -248,8 +259,8 @@ def validate(U: np.ndarray, order: list[str]) -> None:
     # from ITS OWN settling point, which is what the label claims but spans a different
     # number of sizes per row; `120->540` is the one span every population shares, so it is
     # the only column the rows can be read against each other.
-    print(f"    {'selected on half A':<22} {'rows':>5} {'tol':>6} {'own (B)':>9} "
-          f"{'120->540 (B)':>15}")
+    span = f"{SIZES[1]}->{SIZES[-1]} (B)"
+    print(f"    {'selected on half A':<22} {'rows':>5} {'tol':>6} {'own (B)':>9} {span:>15}")
     for n in SIZES:
         m = nA == n
         if not m.any():
@@ -259,7 +270,7 @@ def validate(U: np.ndarray, order: list[str]) -> None:
         dev = np.array([np.abs(uB[k:, i] - uB[-1, i]).max() for i in np.where(m)[0]])
         d = uB[-1, m] - uB[1, m]
         gse = d.std(ddof=1) / np.sqrt(m.sum()) if m.sum() > 1 else float("nan")
-        tag = "still moving at 540" if last else "settles by " + str(n)
+        tag = f"still moving at {SIZES[-1]}" if last else "settles by " + str(n)
         # `own` spans nothing for the last row — it would compare n=540 against itself.
         own = "       --" if last else f"{dev.mean():>9.3f}"
         print(f"    {tag:<22} {m.sum():>5} {np.median(dA[m]):>6.3f} {own} "
@@ -300,7 +311,8 @@ def ending_diagnostics(split: str, members, c: np.ndarray) -> None:
                     for _, neg in members])
     if ref.any():
         print(f"    pairs whose non-compliant ending is refusal-shaped: {ref.sum()}/{len(members)}"
-              f"  -> solve rate at n=540 {c[-1][ref].mean():.3f}, vs {c[-1][~ref].mean():.3f} "
+              f"  -> solve rate at n={SIZES[-1]} {c[-1][ref].mean():.3f}, "
+              f"vs {c[-1][~ref].mean():.3f} "
               "for the rest")
 
 
@@ -372,12 +384,21 @@ def repro_check() -> None:
 # ------------------------------------------------------------------- report
 
 def main() -> None:
+    global SIZES, GA
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--repro", action="store_true",
                     help="also print the refit-vs-published drift on the shared draws")
     ap.add_argument("--no-embed", action="store_true",
                     help="skip the bge coherence test (no GPU / no download)")
+    ap.add_argument("--sizes", type=int, nargs="+", default=None,
+                    help=f"training-set sizes on the x axis (default {SIZES}). Every size "
+                         "listed must come from the SAME accumulation regime — see --accum.")
+    ap.add_argument("--accum", default="d", choices=["d", "1"],
+                    help="which regime's score files to read: 'd' = the inherited "
+                         "accumulation 4, '1' = the accumulation-1 fits. Under ~49 rows the "
+                         "default takes ZERO optimizer steps, so a sub-60 curve only exists "
+                         "at '1'. The two must never be pooled.")
     ap.add_argument("--validate", action="store_true",
                     help="split the draws in half, classify on the first half and measure "
                          "the selected populations on the second — the settling labels are "
@@ -388,6 +409,13 @@ def main() -> None:
     args = ap.parse_args()
 
     arms = {k: v for k, v in ARMS.items() if not args.only or v[0] in args.only}
+
+    GA = args.accum
+    if args.sizes:
+        SIZES = sorted(args.sizes)
+    if args.repro and (GA != "d" or SIZES != [60, 120, 300, 540]):
+        raise SystemExit("--repro compares against the published default-accumulation curve; "
+                         "it is meaningless for another regime or size grid")
 
     if args.repro:
         print("\n## Refit vs published, on the 8 shared draws\n")
@@ -447,7 +475,7 @@ def main() -> None:
             print(f"  {k:<11} {m.sum():>5} {100 * m.mean():>4.0f}%  "
                   + "  ".join(f"{v:.3f}" for v in cu) + f"   {cu[-1] - cu[0]:+.3f}")
 
-        # What the classes cost the split: how much of the n=60 -> n=540 gain each carries.
+        # What the classes cost the split: the share of the whole curve's gain each carries.
         gain = u[-1] - u[0]
         tot = gain.sum()
         print(f"\n  share of the split's total 60->540 gain ({tot / len(y):+.4f} AUROC):")
@@ -491,7 +519,8 @@ def main() -> None:
                 print(f"    {k:<11} {m.sum():>4} {100 * m.mean():>4.0f}%  "
                       + "  ".join(f"{v:.3f}" for v in cc))
         stuck = np.where(c[-1] < 0.75)[0]
-        print(f"    pairs the probe still gets wrong at n=540 in >1/4 of draws: {len(stuck)}"
+        print(f"    pairs the probe still gets wrong at n={SIZES[-1]} in >1/4 of draws: "
+              f"{len(stuck)}"
               + (f" (pairs {', '.join(map(str, stuck[:12]))})" if len(stuck) else ""))
 
         if not args.no_embed:
@@ -517,7 +546,7 @@ def main() -> None:
 
         # The rows that end lowest, whatever their class — the split's hard core.
         worst = np.argsort(u[-1])[:5]
-        print("\n  lowest final placement values (the rows 540 rows still do not buy):")
+        print(f"\n  lowest final placement values (the rows {SIZES[-1]} rows do not buy):")
         for i in worst:
             g = next(gi for gi, (p_, n_) in enumerate(members) if i in p_ + n_)
             snippet = " ".join(prefixes[g].split())[:96]
