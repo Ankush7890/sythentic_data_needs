@@ -463,3 +463,107 @@ higher**, and settling and takeoff are about **where a row sits against the whol
 Those are different quantities, and the text predicts one and not the other.
 
 `analysis/instructions_settling_text_features.txt` has the full table.
+
+---
+
+# All three arms below 60: three different regimes
+
+`oig_drift` and `mm_sub` were only ever measured from 60 up, so the takeoff story was
+`hc_drift`'s alone. **512 more fits** bring them down to 10 on the same footing.
+
+**The grid is geometric, not uniform.** A learning curve is roughly linear in log *n*, so
+`hc_drift`'s twelve uniform points bought four nearly identical readings between 80 and 120
+(0.819 / 0.875 / 0.880 / 0.902) and only three below 40 — which is where a sixth of that
+split had already taken off and where the length prior is strongest. Stepping by ~1.4x
+instead — **10, 15, 20, 30, 40, 60, 80, 120** — puts four points under 40 and covers the
+same range in 8 sizes rather than 12: 512 fits instead of 768. Seven of the eight sit on
+`hc_drift`'s uniform grid, so the arms stay comparable size by size.
+
+All at accumulation 1, and the overlap with the default-accumulation curve is close enough
+to read side by side on every arm:
+
+| arm | n=60, accum 1 / accum 4 | n=120, accum 1 / accum 4 |
+|---|---|---|
+| `oig_drift` | 0.6465 / 0.6474 | 0.6928 / 0.6835 |
+| `mm_sub` | 0.7659 / 0.7646 | 0.8163 / 0.7915 |
+| `hc_drift` | 0.6875 / 0.6575 | 0.9165 / 0.9139 |
+
+## The split curves do not resemble each other at all
+
+| n | 10 | 15 | 20 | 30 | 40 | 60 | 80 | 120 |
+|---|---|---|---|---|---|---|---|---|
+| `hc_drift` | 0.499 | — | 0.507 | 0.519 | 0.580 | 0.688 | 0.819 | 0.917 |
+| `oig_drift` | 0.623 | 0.619 | 0.613 | 0.630 | 0.644 | 0.647 | 0.655 | 0.693 |
+| `mm_sub` | 0.659 | 0.669 | 0.684 | 0.710 | 0.745 | 0.766 | 0.782 | 0.816 |
+
+`hc_drift` starts at **chance** and gains 0.42 over the range. `oig_drift` starts at 0.62 —
+well above chance on ten training rows — and gains only 0.07 across the whole grid; its
+learning happens above 120, not below. `mm_sub` starts at 0.66 and climbs steadily.
+
+The pair statistic sharpens it. At n=10 `oig_drift`'s pair solve rate is already **0.84–0.91**
+across its classes: with ten training rows the probe can nearly always tell the compliant
+ending from the non-compliant one for the same prefix, yet the split AUROC is 0.623. From
+its very first measured point, `oig_drift`'s problem is cross-prefix calibration, not
+discrimination — the same disagreement `hc_drift` only reaches at n=120.
+
+## The length prior is not a general phenomenon
+
+Spearman between the pair's length gap and which way the pair is ordered:
+
+| n | `hc_drift` | `oig_drift` | `mm_sub` |
+|---|---|---|---|
+| 10 | **+0.699** | +0.018 | **−0.371** |
+| 20 | +0.698 | −0.060 | −0.312 |
+| 40 | +0.608 | −0.070 | −0.355 |
+| 60 | +0.457 | −0.122 | −0.310 |
+| 80 | +0.018 | −0.105 | −0.327 |
+| 120 | −0.085 | −0.009 | −0.286 |
+
+Three different answers, and the earlier write-up generalised from one of them too freely:
+
+- **`hc_drift`** — a large *positive* confound that is trained out by n=80, exactly as
+  reported. The probe prefers the longer ending at small n.
+- **`oig_drift`** — no length confound at any size. Not weak: absent.
+- **`mm_sub`** — a *negative* confound of about −0.32, **significant at every size from 10
+  to 120**, and still significant at 540 on the coarse grid. It is never trained out.
+
+So "the first 80 rows buy the removal of a length prior" is a fact about `hc_drift`, not
+about this probe. One arm has that prior and loses it, one never had it, and one has the
+opposite prior and keeps it through 540 rows.
+
+## Takeoff, and what replicates
+
+| | never leaves chance by 120 | takes off at n=10 |
+|---|---|---|
+| `hc_drift` | 3 (2%) | 33 (17%) |
+| `oig_drift` | **47 (24%)** | 91 (47%) |
+| `mm_sub` | 19 (10%) | 129 (64%) |
+
+`oig_drift`'s 47 are not permanently lost — only 5 rows never take off by n=540 on the
+coarse grid — so they leave chance somewhere between 120 and 540, which is that arm's whole
+learning phase.
+
+The out-of-sample check separates what replicates from what does not:
+
+| arm | early third | middle | late third | never |
+|---|---|---|---|---|
+| `hc_drift` | n=10 | n=50 | n=50 | n=90 |
+| `oig_drift` | n=10 | n=10 | n=10 | never |
+| `mm_sub` | n=10 | n=10 | n=30 | never |
+
+On `oig_drift` the three-way takeoff split **does not replicate** — all three thirds cross
+at the same size on fresh draws. Only the binary distinction survives there: rows that ever
+leave chance on this grid, and the 24% that do not. `mm_sub` partially replicates (its late
+third separates); `hc_drift` fully replicates.
+
+Prefix-embedding coherence is z = +0.68 and +1.85 — still no topical structure, consistent
+with every other arm and grid tested here.
+
+## Files
+
+| file | what |
+|---|---|
+| `run_instrsmall_curve.sh` | the 512 geometric-grid fits |
+| `scripts/instructions_small_curve.csv` | their split and part AUROCs |
+| `scripts/instructions_oig_context_drift_small_settling.csv`, `..._mm_substitution_...` | per-row curves on this grid |
+| `analysis/instructions_small_curve_report.txt` | the full printed report |
