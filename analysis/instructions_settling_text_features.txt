@@ -1,0 +1,105 @@
+
+
+## oig_context_drift — shape-free   [still moving at 540 vs settled]
+
+  90 usable pairs — 9 fast, 81 slow
+
+  pair-level feature                       AUROC       p    BH q
+  prefix characters                        0.370   0.214   0.296
+  prefix sentences                         0.359   0.136   0.296
+  longest source message                   0.375   0.229   0.296
+  polar question (Is/Can/Does/Do)          0.506   1.000   1.000
+  |ending length gap| in pair              0.616   0.254   0.296
+  |overlap gap| in pair                    0.643   0.159   0.296
+  pair mean local density                  0.311   0.065   0.296
+
+  49 pairs split one fast / one slow
+
+  within-pair sign test                    AUROC       p    BH q
+  the slow row has the higher ending characters   0.633   0.062   0.269
+  the slow row has the higher ending words   0.653   0.042   0.269  (p only)
+  the slow row has the higher ending sentences   0.541   0.253   0.491
+  the slow row has the higher ending type-token ratio   0.408   0.227   0.491
+  the slow row has the higher ending has digits   0.439   0.265   0.491
+  the slow row has the higher ending opens 'No'   0.490   1.000   1.000
+  the slow row has the higher ending is refusal-shaped   0.500   1.000   1.000
+  the slow row has the higher hedge words in ending   0.520   0.495   0.805
+  the slow row has the higher negations in ending   0.510   1.000   1.000
+  the slow row has the higher ending/prefix word overlap   0.490   1.000   1.000
+  the slow row has the higher activation norm (mean-pooled)   0.592   0.252   0.491
+  the slow row has the higher centroid margin, own class   0.347   0.041   0.269  (p only)
+  the slow row has the higher local density (10-NN cosine)   0.490   1.000   1.000
+    a null here is a null only down to AUROC 0.70 (49 pairs)
+
+  omnibus model (5-fold CV, pair level)    AUROC       p
+  both endings, bge embedding              0.272   0.100   (null 0.471 +- 0.152)
+  geometry features                        0.686   0.150   (null 0.493 +- 0.145)
+
+
+## mm_substitution — + shape info   [still moving at 540 vs settled]
+
+  88 usable pairs — 16 fast, 72 slow
+
+  pair-level feature                       AUROC       p    BH q
+  prefix characters                        0.497   0.976   1.000
+  prefix sentences                         0.374   0.099   0.690
+  longest source message                   0.497   0.971   1.000
+  polar question (Is/Can/Does/Do)          0.500   1.000   1.000
+  |ending length gap| in pair              0.575   0.333   0.776
+  |overlap gap| in pair                    0.529   0.728   1.000
+  pair mean local density                  0.393   0.199   0.695
+
+  54 pairs split one fast / one slow
+
+  within-pair sign test                    AUROC       p    BH q
+  the slow row has the higher ending characters   0.556   0.514   0.707
+  the slow row has the higher ending words   0.556   0.507   0.707
+  the slow row has the higher ending sentences   0.454   0.267   0.707
+  the slow row has the higher ending type-token ratio   0.519   0.902   1.000
+  the slow row has the higher ending has digits   0.500   1.000   1.000
+  the slow row has the higher hedge words in ending   0.481   0.374   0.707
+  the slow row has the higher negations in ending   0.491   1.000   1.000
+  the slow row has the higher ending/prefix word overlap   0.407   0.174   0.707
+  the slow row has the higher activation norm (mean-pooled)   0.556   0.497   0.707
+  the slow row has the higher centroid margin, own class   0.574   0.335   0.707
+  the slow row has the higher local density (10-NN cosine)   0.556   0.500   0.707
+    a null here is a null only down to AUROC 0.69 (54 pairs)
+
+  omnibus model (5-fold CV, pair level)    AUROC       p
+  both endings, bge embedding              0.608   0.200   (null 0.538 +- 0.082)
+  geometry features                        0.453   0.800   (null 0.466 +- 0.105)
+
+
+## hc_context_drift — shape-free   [takeoff later than n=50]
+
+  97 usable pairs — 34 fast, 63 slow
+
+  pair-level feature                       AUROC       p    BH q
+  prefix characters                        0.585   0.190   0.287
+  prefix sentences                         0.504   0.959   1.000
+  longest source message                   0.601   0.102   0.287
+  polar question (Is/Can/Does/Do)          0.500   1.000   1.000
+  |ending length gap| in pair              0.425   0.205   0.287
+  |overlap gap| in pair                    0.409   0.128   0.287
+  pair mean local density                  0.397   0.098   0.287
+
+  63 pairs split one fast / one slow
+
+  within-pair sign test                    AUROC       p    BH q
+  the slow row has the higher ending characters   0.492   0.892   1.000
+  the slow row has the higher ending words   0.476   0.776   1.000
+  the slow row has the higher ending type-token ratio   0.492   0.631   1.000
+  the slow row has the higher ending has digits   0.500   1.000   1.000
+  the slow row has the higher ending opens 'Yes'   0.556   0.434   1.000
+  the slow row has the higher ending opens 'No'   0.444   0.473   1.000
+  the slow row has the higher hedge words in ending   0.500   1.000   1.000
+  the slow row has the higher negations in ending   0.444   0.445   1.000
+  the slow row has the higher ending/prefix word overlap   0.508   1.000   1.000
+  the slow row has the higher activation norm (mean-pooled)   0.492   0.909   1.000
+  the slow row has the higher centroid margin, own class   0.508   1.000   1.000
+  the slow row has the higher local density (10-NN cosine)   0.492   0.900   1.000
+    a null here is a null only down to AUROC 0.68 (63 pairs)
+
+  omnibus model (5-fold CV, pair level)    AUROC       p
+  both endings, bge embedding              0.615   0.100   (null 0.515 +- 0.064)
+  geometry features                        0.580   0.450   (null 0.469 +- 0.079)

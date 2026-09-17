@@ -407,3 +407,59 @@ DRAWS=32 ./run_hcdrift_small_curve.sh
 .venv_claude/bin/python scripts/analyze_row_settling.py --only hc_context_drift \
     --accum 1 --sizes 10 20 30 40 50 60 70 80 90 100 110 120 --takeoff --validate
 ```
+
+---
+
+# A wider search on the text side
+
+The obvious handles found nothing, so this is the wider sweep: ~20 text features, four
+representation features and two omnibus models, run on all three populations —
+`oig_drift` and `mm_sub` settled-vs-still-moving, and `hc_drift` early-vs-late takeoff on
+the 10–120 grid.
+
+| family | features |
+|---|---|
+| surface | ending characters, words, sentences, type-token ratio, digits |
+| form | opens "Yes" / "No", refusal-shaped, hedge count, negation count |
+| grounding | ending/prefix content-word overlap; the overlap gap inside a pair |
+| prefix | characters, sentences, longest source message, polar vs open question |
+| content | 5-fold CV logistic regression on bge embeddings of **both** endings |
+| geometry | mean-pooled activation norm, centroid margin toward the row's own class, local density (10-NN cosine), conversation length in tokens |
+
+Grounding and geometry are the two worth singling out. These splits are *about* whether the
+answer follows a supplied source, so "how much of the source does this answer reuse" is the
+feature most likely to carry the concept if anything does. And local density plus centroid
+margin are the natural mechanism for "learned early" — a row sitting in a dense,
+well-separated region of the representation is what a linear probe should pick up first.
+
+**Nothing survives correction anywhere.** Every Benjamini-Hochberg q ≥ 0.269, across all
+three arms and all three test families.
+
+What comes closest, all sub-threshold:
+
+| arm | test | AUROC | p | q |
+|---|---|---|---|---|
+| `oig_drift` | within-pair: the slow row has more ending words | 0.653 | 0.042 | 0.269 |
+| `oig_drift` | within-pair: the slow row has a **smaller** centroid margin | 0.347 | 0.041 | 0.269 |
+| `oig_drift` | omnibus: geometry features | 0.686 | 0.150 | — |
+| `hc_drift` | omnibus: both endings, bge embedding | 0.615 | 0.100 | — |
+| `mm_sub` | omnibus: both endings, bge embedding | 0.608 | 0.200 | — |
+
+The direction is consistent across arms even where the size is not significant — slow rows
+are slightly longer, sit slightly closer to the class boundary, and live in slightly less
+dense neighbourhoods — which is what the mechanism would predict. It is just not large
+enough to call at this sample size.
+
+**What the nulls are worth.** The within-pair tests, which are the best-powered because they
+are balanced by construction, can detect an effect down to AUROC 0.68–0.70 at 80% power. So
+this rules out a *strong* text-side predictor. It does not rule out a weak one, and the
+`oig_drift` pair-level tests are additionally hobbled by imbalance — 9 fast pairs against 81.
+
+**The text side is not silent in general — it is silent about this question.** The length
+confound is enormous where it applies: spearman +0.699 between the pair's length gap and
+which way the pair is ordered at n=10 on `hc_drift`, and significant at every size on
+`mm_sub`. But that is a *within-pair, directional* effect on **which of two endings scores
+higher**, and settling and takeoff are about **where a row sits against the whole split**.
+Those are different quantities, and the text predicts one and not the other.
+
+`analysis/instructions_settling_text_features.txt` has the full table.
