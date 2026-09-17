@@ -570,6 +570,88 @@ AUDIT_PER_KIND = 10
 AUDIT_CHARS = 700
 
 
+# A rule-based tagger, used as a CROSS-CHECK ONLY — never to tag the data. It reads the
+# shape of a conversation, which is the part of a kind that is stated in the prompt and
+# is not a judgement call: turn count, whether a source document is supplied, whether the
+# system prompt carries a function list, and (for hu_harm, whose kinds are all two-turn
+# and are separated by their measured turn lengths) the words in each turn. Where the
+# rule is decisive its agreement with the LLM tagger is a check on the tagger; where it
+# abstains it says nothing, which is most of the interesting cases.
+def _rule_tag(concept: str, messages: list[dict]) -> int | None:
+    def words(m):
+        return len(str(m.get("content", "")).split())
+
+    roles = [m.get("role") for m in messages]
+    user = [m for m in messages if m.get("role") == "user"]
+    asst = [m for m in messages if m.get("role") == "assistant"]
+    text = " ".join(str(m.get("content", "")) for m in messages)
+    # A supplied source is not always introduced with a "Document:" label — the llama70b
+    # sets inline it ("According to the following passage, ... The passage states: '...'").
+    # The looser pattern is what makes the cross-check a check on the tagger rather than
+    # on one generator's formatting habit.
+    has_doc = bool(re.search(
+        r"\b(document|passage|context|source|text|excerpt|article|report|news)"
+        r"\s*[A-Za-z0-9]{0,2}\s*:"
+        r"|according to the (following|given|provided|passage|text)"
+        r"|(the|this) (passage|text|document|source|excerpt) (states|says|reads)"
+        r"|based on (the|this) (passage|text|document|excerpt|source)", text, re.I))
+
+    if concept == "instructions":
+        # Only the two context-drift kinds are multi-turn, and they are told apart by
+        # whether each turn carries its own supplied document.
+        if len(user) >= 2:
+            return 3 if has_doc else 6
+        return None                      # 1 / 2 / 4 / 5 are all one-turn: no rule
+    if concept == "hu_harm":
+        if not (len(messages) == 2 and user and asst):
+            return None
+        u, a = words(user[0]), words(asst[0])
+        # p50 of the measured profiles: (80, 6), (8, 40), (11, 9), (50, 10).
+        profiles = {1: (80, 6), 2: (8, 40), 3: (11, 9), 4: (50, 10)}
+        import math
+        return min(profiles,
+                   key=lambda k: (math.log1p(u) - math.log1p(profiles[k][0])) ** 2
+                   + (math.log1p(a) - math.log1p(profiles[k][1])) ** 2)
+    if concept == "highstakes":
+        sys_text = " ".join(str(m.get("content", "")) for m in messages
+                            if m.get("role") == "system")
+        if re.search(r"function|tool", sys_text, re.I) or "tool" in roles:
+            return 4
+        if len(messages) <= 3 and user and words(user[0]) > 120:
+            return 2
+        if len(messages) >= 5:
+            return 1 if max(words(m) for m in messages) > 60 else 3
+        return None
+    return None
+
+
+def rule_cross_check(spec: ConceptSpec, concept, generators) -> dict:
+    """Agreement between the LLM tags and the rule, over the rows the rule decides."""
+    import collections
+
+    n_dec = n_agree = 0
+    confusion = collections.Counter()
+    for gen in generators:
+        path = spec.set_path(gen)
+        if not (TAGS / f"{path.stem}.csv").exists():
+            continue
+        rows = _rows_of(path, concept)
+        have = _load_tags(TAGS / f"{path.stem}.csv")
+        if len(have) != len(rows):
+            continue
+        for i, r in enumerate(rows):
+            tag = have[i]["kind"]
+            rule = _rule_tag(spec.name, r["inputs"])
+            if not tag or rule is None:
+                continue
+            n_dec += 1
+            n_agree += int(int(tag) == rule)
+            confusion[(int(tag), rule)] += 1
+    return {"decided": n_dec, "agree": n_agree,
+            "rate": round(n_agree / n_dec, 4) if n_dec else float("nan"),
+            "confusion": dict(confusion)}
+
+
 def stage_audit(args) -> None:
     """Dump ten tagged samples per kind, seeded, for a human to read against the tags.
 
@@ -610,6 +692,12 @@ def stage_audit(args) -> None:
         p = WORK / f"audit_{name}.md"
         p.write_text("".join(out), encoding="utf-8")
         print(f"[audit] wrote {p} ({sum(len(v) for v in pool.values())} tagged rows)")
+        x = rule_cross_check(spec, concept, args.generators)
+        print(f"[audit] {name}: rule-based cross-check decides {x['decided']} rows, "
+              f"agrees on {x['rate']:.3f}")
+        for (tag, rule), c in sorted(x["confusion"].items()):
+            if tag != rule and c >= 10:
+                print(f"         LLM kind {tag} vs rule kind {rule}: {c}")
 
 
 # --------------------------------------------------------------------------- #
