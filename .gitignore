@@ -240,3 +240,6 @@ fetch_kaggle_eval_activations.py
 # what is committed instead).
 eval_activations_*/
 scripts/knee_pooled/
+
+# direction_count study scratch (arm JSONLs, audit dumps, restricted eval dirs)
+.dc_work/

@@ -1,0 +1,53 @@
+concept,gen,arm,split,file,n,n_pos,n_neg,balanced,sizes,skipped
+instructions,llama70b,mixed,,dc_instructions_llama70b_mixed.jsonl,600,300,300,600,2 4 6 10 20 30 50 80 110 170 350 590,
+instructions,llama70b,kind,anthropic_harmless_refusal,dc_instructions_llama70b_anthropic_harmless_refusal_kind.jsonl,72,32,40,64,2 4 6 10 20 30 50,sizes above 64 unavailable
+instructions,llama70b,loko,anthropic_harmless_refusal,dc_instructions_llama70b_anthropic_harmless_refusal_loko.jsonl,469,237,232,464,2 4 6 10 20 30 50 80 110 170 350,sizes above 464 unavailable
+instructions,llama70b,kind,bbq_substitution,dc_instructions_llama70b_bbq_substitution_kind.jsonl,102,56,46,92,2 4 6 10 20 30 50 80,
+instructions,llama70b,loko,bbq_substitution,dc_instructions_llama70b_bbq_substitution_loko.jsonl,439,213,226,426,2 4 6 10 20 30 50 80 110 170 350,sizes above 426 unavailable
+instructions,llama70b,kind,hc_context_drift,dc_instructions_llama70b_hc_context_drift_kind.jsonl,38,23,15,30,,only 38 tagged (< 60)
+instructions,llama70b,loko,hc_context_drift,dc_instructions_llama70b_hc_context_drift_loko.jsonl,503,246,257,492,2 4 6 10 20 30 50 80 110 170 350,sizes above 492 unavailable
+instructions,llama70b,kind,hc_contradiction,dc_instructions_llama70b_hc_contradiction_kind.jsonl,160,104,56,112,2 4 6 10 20 30 50 80,
+instructions,llama70b,loko,hc_contradiction,dc_instructions_llama70b_hc_contradiction_loko.jsonl,381,165,216,330,2 4 6 10 20 30 50 80 110 170,sizes above 330 unavailable
+instructions,llama70b,kind,mm_substitution,dc_instructions_llama70b_mm_substitution_kind.jsonl,59,1,58,2,,only 59 tagged (< 60)
+instructions,llama70b,loko,mm_substitution,dc_instructions_llama70b_mm_substitution_loko.jsonl,482,268,214,428,2 4 6 10 20 30 50 80 110 170 350,sizes above 428 unavailable
+instructions,llama70b,kind,oig_context_drift,dc_instructions_llama70b_oig_context_drift_kind.jsonl,92,46,46,92,2 4 6 10 20 30 50 80,
+instructions,llama70b,loko,oig_context_drift,dc_instructions_llama70b_oig_context_drift_loko.jsonl,449,223,226,446,2 4 6 10 20 30 50 80 110 170 350,sizes above 446 unavailable
+instructions,gptoss,mixed,,dc_instructions_gptoss_mixed.jsonl,600,300,300,600,2 4 6 10 20 30 50 80 110 170 350 590,
+instructions,gptoss,kind,anthropic_harmless_refusal,dc_instructions_gptoss_anthropic_harmless_refusal_kind.jsonl,75,24,51,48,2 4 6 10 20 30,sizes above 48 unavailable
+instructions,gptoss,loko,anthropic_harmless_refusal,dc_instructions_gptoss_anthropic_harmless_refusal_loko.jsonl,471,226,245,452,2 4 6 10 20 30 50 80 110 170 350,sizes above 452 unavailable
+instructions,gptoss,kind,bbq_substitution,dc_instructions_gptoss_bbq_substitution_kind.jsonl,96,44,52,88,2 4 6 10 20 30 50 80,
+instructions,gptoss,loko,bbq_substitution,dc_instructions_gptoss_bbq_substitution_loko.jsonl,450,206,244,412,2 4 6 10 20 30 50 80 110 170 350,sizes above 412 unavailable
+instructions,gptoss,kind,hc_context_drift,dc_instructions_gptoss_hc_context_drift_kind.jsonl,102,50,52,100,2 4 6 10 20 30 50 80,
+instructions,gptoss,loko,hc_context_drift,dc_instructions_gptoss_hc_context_drift_loko.jsonl,444,200,244,400,2 4 6 10 20 30 50 80 110 170 350,sizes above 400 unavailable
+instructions,gptoss,kind,hc_contradiction,dc_instructions_gptoss_hc_contradiction_kind.jsonl,127,76,51,102,2 4 6 10 20 30 50 80,
+instructions,gptoss,loko,hc_contradiction,dc_instructions_gptoss_hc_contradiction_loko.jsonl,419,174,245,348,2 4 6 10 20 30 50 80 110 170,sizes above 348 unavailable
+instructions,gptoss,kind,mm_substitution,dc_instructions_gptoss_mm_substitution_kind.jsonl,53,8,45,16,,only 53 tagged (< 60)
+instructions,gptoss,loko,mm_substitution,dc_instructions_gptoss_mm_substitution_loko.jsonl,493,242,251,484,2 4 6 10 20 30 50 80 110 170 350,sizes above 484 unavailable
+instructions,gptoss,kind,oig_context_drift,dc_instructions_gptoss_oig_context_drift_kind.jsonl,86,43,43,86,2 4 6 10 20 30 50 80,
+instructions,gptoss,loko,oig_context_drift,dc_instructions_gptoss_oig_context_drift_loko.jsonl,460,207,253,414,2 4 6 10 20 30 50 80 110 170 350,sizes above 414 unavailable
+instructions,nemotron,mixed,,dc_instructions_nemotron_mixed.jsonl,600,300,300,600,2 4 6 10 20 30 50 80 110 170 350 590,
+instructions,nemotron,kind,anthropic_harmless_refusal,dc_instructions_nemotron_anthropic_harmless_refusal_kind.jsonl,74,27,47,54,2 4 6 10 20 30 50,sizes above 54 unavailable
+instructions,nemotron,loko,anthropic_harmless_refusal,dc_instructions_nemotron_anthropic_harmless_refusal_loko.jsonl,473,232,241,464,2 4 6 10 20 30 50 80 110 170 350,sizes above 464 unavailable
+instructions,nemotron,kind,bbq_substitution,dc_instructions_nemotron_bbq_substitution_kind.jsonl,97,47,50,94,2 4 6 10 20 30 50 80,
+instructions,nemotron,loko,bbq_substitution,dc_instructions_nemotron_bbq_substitution_loko.jsonl,450,212,238,424,2 4 6 10 20 30 50 80 110 170 350,sizes above 424 unavailable
+instructions,nemotron,kind,hc_context_drift,dc_instructions_nemotron_hc_context_drift_kind.jsonl,97,47,50,94,2 4 6 10 20 30 50 80,
+instructions,nemotron,loko,hc_context_drift,dc_instructions_nemotron_hc_context_drift_loko.jsonl,450,212,238,424,2 4 6 10 20 30 50 80 110 170 350,sizes above 424 unavailable
+instructions,nemotron,kind,hc_contradiction,dc_instructions_nemotron_hc_contradiction_kind.jsonl,141,90,51,102,2 4 6 10 20 30 50 80,
+instructions,nemotron,loko,hc_contradiction,dc_instructions_nemotron_hc_contradiction_loko.jsonl,406,169,237,338,2 4 6 10 20 30 50 80 110 170,sizes above 338 unavailable
+instructions,nemotron,kind,mm_substitution,dc_instructions_nemotron_mm_substitution_kind.jsonl,43,2,41,4,,only 43 tagged (< 60)
+instructions,nemotron,loko,mm_substitution,dc_instructions_nemotron_mm_substitution_loko.jsonl,504,257,247,494,2 4 6 10 20 30 50 80 110 170 350,sizes above 494 unavailable
+instructions,nemotron,kind,oig_context_drift,dc_instructions_nemotron_oig_context_drift_kind.jsonl,91,42,49,84,2 4 6 10 20 30 50 80,
+instructions,nemotron,loko,oig_context_drift,dc_instructions_nemotron_oig_context_drift_loko.jsonl,456,217,239,434,2 4 6 10 20 30 50 80 110 170 350,sizes above 434 unavailable
+instructions,deepseekv4pro,mixed,,dc_instructions_deepseekv4pro_mixed.jsonl,600,300,300,600,2 4 6 10 20 30 50 80 110 170 350 590,
+instructions,deepseekv4pro,kind,anthropic_harmless_refusal,dc_instructions_deepseekv4pro_anthropic_harmless_refusal_kind.jsonl,90,38,52,76,2 4 6 10 20 30 50,sizes above 76 unavailable
+instructions,deepseekv4pro,loko,anthropic_harmless_refusal,dc_instructions_deepseekv4pro_anthropic_harmless_refusal_loko.jsonl,475,231,244,462,2 4 6 10 20 30 50 80 110 170 350,sizes above 462 unavailable
+instructions,deepseekv4pro,kind,bbq_substitution,dc_instructions_deepseekv4pro_bbq_substitution_kind.jsonl,103,48,55,96,2 4 6 10 20 30 50 80,
+instructions,deepseekv4pro,loko,bbq_substitution,dc_instructions_deepseekv4pro_bbq_substitution_loko.jsonl,462,221,241,442,2 4 6 10 20 30 50 80 110 170 350,sizes above 442 unavailable
+instructions,deepseekv4pro,kind,hc_context_drift,dc_instructions_deepseekv4pro_hc_context_drift_kind.jsonl,102,50,52,100,2 4 6 10 20 30 50 80,
+instructions,deepseekv4pro,loko,hc_context_drift,dc_instructions_deepseekv4pro_hc_context_drift_loko.jsonl,463,219,244,438,2 4 6 10 20 30 50 80 110 170 350,sizes above 438 unavailable
+instructions,deepseekv4pro,kind,hc_contradiction,dc_instructions_deepseekv4pro_hc_contradiction_kind.jsonl,125,79,46,92,2 4 6 10 20 30 50 80,
+instructions,deepseekv4pro,loko,hc_contradiction,dc_instructions_deepseekv4pro_hc_contradiction_loko.jsonl,440,190,250,380,2 4 6 10 20 30 50 80 110 170 350,sizes above 380 unavailable
+instructions,deepseekv4pro,kind,mm_substitution,dc_instructions_deepseekv4pro_mm_substitution_kind.jsonl,53,7,46,14,,only 53 tagged (< 60)
+instructions,deepseekv4pro,loko,mm_substitution,dc_instructions_deepseekv4pro_mm_substitution_loko.jsonl,512,262,250,500,2 4 6 10 20 30 50 80 110 170 350,sizes above 500 unavailable
+instructions,deepseekv4pro,kind,oig_context_drift,dc_instructions_deepseekv4pro_oig_context_drift_kind.jsonl,92,47,45,90,2 4 6 10 20 30 50 80,
+instructions,deepseekv4pro,loko,oig_context_drift,dc_instructions_deepseekv4pro_oig_context_drift_loko.jsonl,473,222,251,444,2 4 6 10 20 30 50 80 110 170 350,sizes above 444 unavailable

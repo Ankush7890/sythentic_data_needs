@@ -51,8 +51,47 @@ kinds quoted verbatim, the second pass with the kinds listed in the reverse orde
 their own numbers kept (so nothing has to be mapped back). A sample is kept only when the
 two passes agree. `data/kind_tags/<set stem>.csv` holds `row,kind,split,pass1,pass2,agree`.
 
-*(agreement rates, per-kind counts and the `none` rate: filled in when the stage
-finishes)*
+| set | pass agreement | `none` (pass 1) | kept | per-kind counts |
+|---|---|---|---|---|
+| instructions llama70b | 0.902 | 0.063 | 523 | 72 / 102 / 38 / 160 / 59 / 92 |
+| instructions gptoss | 0.910 | 0.053 | 539 | 75 / 96 / 102 / 127 / 53 / 86 |
+| instructions nemotron | 0.912 | 0.025 | 543 | 74 / 97 / 97 / 141 / 43 / 91 |
+| instructions deepseekv4pro | 0.942 | 0.022 | 565 | 90 / 103 / 102 / 125 / 53 / 92 |
+| hu_harm llama70b | 0.947 | 0.008 | 567 | 147 / 107 / 152 / 161 |
+| hu_harm gptoss | 0.968 | 0.000 | 581 | 154 / 128 / 150 / 149 |
+| hu_harm nemotron | 0.977 | 0.003 | 586 | 160 / 125 / 149 / 152 |
+| hu_harm deepseekv4pro | 0.995 | 0.000 | 597 | 160 / 135 / 153 / 149 |
+| highstakes llama70b | 0.910 | 0.062 | 522 | 211 / 120 / 93 / 98 |
+| highstakes gptoss | 0.980 | 0.015 | 587 | 169 / 157 / 133 / 128 |
+| highstakes nemotron | 0.993 | 0.000 | 596 | 143 / 160 / 144 / 149 |
+| highstakes deepseekv4pro | 0.985 | 0.000 | 591 | 155 / 150 / 139 / 147 |
+
+Round-robin predicts ~100 per kind for *instruction* and ~150 for the other two. The
+four-kind concepts land there; *instruction* does not, and the miss is systematic — kind
+4 (contradicting the source) runs 25–60% over and kind 5 (exaggeration) 45–55% under, in
+every generator.
+
+**Kind 5 has almost no positive class at all** (1, 8, 2 and 7 positives in the four sets,
+against 41–58 negatives), and that is a property of the data, not of the tagger: kinds 3,
+4 and 5 differ only in what the *negative* reply does — drift, contradict, embellish —
+while their positive is one and the same conversation, a passage question answered
+plainly. A tagger asked "which kind is this" cannot split a shared positive class, and
+neither could a human. The consequence is recorded rather than patched: the kind-only arm
+for `mm_substitution` is **skipped for all four generators** (43–53 tagged rows, under
+the 60-row floor, and never more than 8 of one class), and the geometry's per-kind
+direction for kind 5 is undefined for want of 20 positives.
+
+**Audit.** Ten tagged samples per kind per concept were read by hand (180 conversations,
+drawn seeded on `(concept, kind)`, `.dc_work/audit_<concept>.md`): **180/180 agree with
+the tagger**, with one borderline — an instructions row opening "I have two documents.
+First, read this one" but supplying only one, tagged kind 4, which is what it is.
+
+**Rule-based cross-check** (structure only, never used to tag): turn count and whether
+each turn carries its own supplied source for *instruction*; the two turns' word counts
+against the four measured profiles for *harmful*; function list / one long user turn /
+many short turns for *high-stakes*. Where the rule is decisive it agrees with the LLM
+tagger on **0.991** of 693 instructions rows, **0.946** of 2,331 hu_harm rows and
+**0.941** of 1,242 highstakes rows.
 
 ## Stage 2: direction geometry
 
