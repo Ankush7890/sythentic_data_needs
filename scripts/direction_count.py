@@ -1284,10 +1284,29 @@ def _paired_ratio_ci(curve_a: dict, curve_b: dict, rng) -> tuple[float, float]:
     return float(lo), float(hi)
 
 
-RATIO_FIELDS = ["concept", "gen", "split", "m_a", "m_a_lo", "m_a_hi", "m_b", "m_b_lo",
-                "m_b_hi", "m_c", "m_c_lo", "m_c_hi", "R", "R_lo", "R_hi", "G",
+RATIO_FIELDS = ["concept", "gen", "split", "usable", "m_a", "m_a_lo", "m_a_hi", "m_b",
+                "m_b_lo", "m_b_hi", "m_c", "m_c_lo", "m_c_hi", "R", "R_lo", "R_hi", "G",
                 "n_eff", "a_s", "kind_n", "flat_a", "flat_b", "flat_c",
                 "censored_a", "censored_b", "U_a", "U_b", "U_c", "L_b", "L_c"]
+
+
+def _usable(r: dict) -> bool:
+    """Is this row's ratio a measurement of anything?
+
+    ``fit_curves_ref`` calls a curve **flat** when its fitted in-range gain is under 0.02
+    — the probe never learned the split at any size — and the paper drops those before
+    taking a median, because the half-gain size of a curve that never rose is wherever the
+    grid's least-squares happened to land. The same has to hold for a *ratio* of two
+    half-gain sizes, and more strongly: one flat arm is enough to make R meaningless, and
+    it does not do so quietly. In the instructions interim the three rows with a flat
+    kind-only arm read R = 0.02, 0.26 and 266 against a median of 5.3 for the eleven clean
+    ones. Rows are kept in the CSV with ``usable = 0`` rather than dropped, so the count
+    that was set aside is visible.
+    """
+    import numpy as np
+
+    return (not int(r["flat_a"]) and not int(r["flat_b"])
+            and np.isfinite(float(r["R"])) and float(r["R"]) > 0)
 
 
 def build_ratios(fits: list[dict], concepts: list[str]) -> list[dict]:
@@ -1329,6 +1348,7 @@ def build_ratios(fits: list[dict], concepts: list[str]) -> list[dict]:
             "U_c": round(fc["U"], 4) if fc else "",
             "L_b": round(fb["L"], 4), "L_c": round(fc["L"], 4) if fc else "",
         })
+        rows[-1]["usable"] = int(_usable(rows[-1]))
     return rows
 
 
@@ -1365,7 +1385,7 @@ def _link_to_paper_m(ratios: list[dict]) -> list[dict]:
     by_split = collections.defaultdict(lambda: collections.defaultdict(list))
     for r in ratios:
         knee = r["split"][5:] if r["split"].startswith("eval_") else r["split"]
-        if np.isfinite(float(r["R"])):
+        if int(r["usable"]):
             by_split[knee]["R"].append(float(r["R"]))
         if r["a_s"] not in ("", None):
             by_split[knee]["a_s"].append(float(r["a_s"]))
@@ -1420,19 +1440,25 @@ def stage_analyse(args) -> None:
 
     print("\n[analyse] R = m(mixed) / m(kind-only), per concept:")
     for concept in args.concepts:
-        rs = [float(r["R"]) for r in ratios if r["concept"] == concept
-              and np.isfinite(float(r["R"]))]
+        sel = [r for r in ratios if r["concept"] == concept and int(r["usable"])]
+        dropped = sum(1 for r in ratios if r["concept"] == concept and not int(r["usable"]))
+        rs = [float(r["R"]) for r in sel]
         if not rs:
             continue
         print(f"  {concept:13s} n={len(rs):3d}  median {np.median(rs):6.2f}  "
               f"range {min(rs):.2f}-{max(rs):.2f}  "
-              f"censored_a {sum(int(r['censored_a']) for r in ratios if r['concept'] == concept)}")
+              f"(flat arms set aside: {dropped}; "
+              f"censored at the smallest size: "
+              f"{sum(int(r['censored_a']) for r in sel)} kind-only, "
+              f"{sum(int(r['censored_b']) for r in sel)} mixed)")
 
     print("\n[analyse] leave-one-kind-out (arm c against arm b), per concept:")
     for concept in args.concepts:
-        gs = [float(r["G"]) for r in ratios if r["concept"] == concept and r["G"] != ""]
+        gs = [float(r["G"]) for r in ratios if r["concept"] == concept
+              and r["G"] != "" and not int(r["flat_b"])]
         mc = [float(r["m_c"]) / float(r["m_b"]) for r in ratios
               if r["concept"] == concept and r["m_c"] not in ("", None)
+              and not int(r["flat_b"]) and not int(r["flat_c"] or 0)
               and float(r["m_b"]) > 0]
         if gs:
             print(f"  {concept:13s} n={len(gs):3d}  median gain ratio G {np.median(gs):5.2f}"
@@ -1499,8 +1525,7 @@ def _neff_correlation(ratios: list[dict]) -> list[dict]:
     for name, sel in (("all", lambda r: True),
                       ("instructions", lambda r: r["concept"] == "instructions")):
         pts = [(float(r["n_eff"]), float(r["R"])) for r in ratios
-               if sel(r) and r["n_eff"] not in ("", None)
-               and np.isfinite(float(r["R"]))]
+               if sel(r) and int(r["usable"]) and r["n_eff"] not in ("", None)]
         row = {"subset": name, "n": len(pts)}
         if len(pts) >= 5:
             x = np.array([a for a, _ in pts])
@@ -1529,7 +1554,7 @@ def _coverage_vs_difficulty(ratios: list[dict]) -> dict:
     for concept in ("instructions", "hu_harm", "highstakes"):
         for arm, key in (("m_a", "kind"), ("m_b", "mixed")):
             vals = [float(r[arm]) for r in ratios if r["concept"] == concept
-                    and np.isfinite(float(r[arm]))]
+                    and int(r["usable"])]
             if vals:
                 med[(concept, arm)] = float(np.median(np.log10(np.maximum(vals, 1.0))))
     others = [c for c in ("hu_harm", "highstakes") if (c, "m_b") in med]
@@ -1559,14 +1584,14 @@ def _verdict(ratios: list[dict], stats: list[dict]) -> None:
     med = {}
     for concept in ("instructions", "hu_harm", "highstakes"):
         rs = [float(r["R"]) for r in ratios if r["concept"] == concept
-              and np.isfinite(float(r["R"]))]
+              and int(r["usable"])]
         if rs:
             med[concept] = float(np.median(rs))
     cond_i = (med.get("instructions", 0) > 2
               and all(med.get(c, 9) < 1.5 for c in ("hu_harm", "highstakes")
                       if c in med))
     neff = [(float(r["n_eff"]), float(r["R"])) for r in ratios
-            if r["n_eff"] not in ("", None) and np.isfinite(float(r["R"]))]
+            if r["n_eff"] not in ("", None) and int(r["usable"])]
     rho_neff = float("nan")
     if len(neff) >= 5:
         import knee_predictor as kp
