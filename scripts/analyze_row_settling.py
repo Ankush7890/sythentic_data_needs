@@ -159,9 +159,7 @@ def pair_stats(p: np.ndarray, members) -> tuple[np.ndarray, np.ndarray]:
     written four times (two pairs of pairs); those average over all pos x neg comparisons
     inside the group, so a group contributes one number whatever its size.
     """
-    order = np.empty(len(p))
-    order[np.argsort(np.argsort(p))] = np.arange(len(p))
-    r = order / (len(p) - 1)
+    r = np.argsort(np.argsort(p)) / (len(p) - 1)
     solved = np.empty(len(members))
     margin = np.empty(len(members))
     for g, (pos, neg) in enumerate(members):
@@ -293,8 +291,12 @@ def main() -> None:
                     help="also print the refit-vs-published drift on the shared draws")
     ap.add_argument("--no-embed", action="store_true",
                     help="skip the bge coherence test (no GPU / no download)")
+    ap.add_argument("--only", nargs="+", default=None, metavar="SPLIT",
+                    help="restrict to these target splits (useful while a run is still going)")
     ap.add_argument("--out", type=Path, default=OUT_CSV)
     args = ap.parse_args()
+
+    arms = {k: v for k, v in ARMS.items() if not args.only or v[0] in args.only}
 
     if args.repro:
         print("\n## Refit vs published, on the 8 shared draws\n")
@@ -305,7 +307,7 @@ def main() -> None:
         + [f"c{n}" for n in SIZES]
     out_rows = []
 
-    for stem, (split, arm_label) in ARMS.items():
+    for stem, (split, arm_label) in arms.items():
         print(f"\n\n## {split} — {arm_label}\n")
         y, prefixes, members, part = load_split(split)
         P, draws = load_scores(stem, split)          # [size, draw, row]
@@ -336,6 +338,13 @@ def main() -> None:
         klass = np.array([classify(u[:, i], delta[i], se[i]) for i in range(len(y))])
         settles = np.array([settle(u[:, i], delta[i]) for i in range(len(y))])
 
+        print(f"\n  settling point (smallest n from which the row never moves by > delta):")
+        for n in SIZES:
+            m = settles == n
+            tag = "  <- still moving at the last step" if n == SIZES[-1] and m.any() else ""
+            print(f"    n={n:<4} {m.sum():>4} rows {100 * m.mean():>4.0f}%   "
+                  f"final level {u[-1, m].mean() if m.any() else float('nan'):.3f}{tag}")
+
         order = ["free", "early", "late", "unsettled", "declining", "never", "flat-mid", "noisy"]
         print(f"\n  {'class':<11} {'rows':>5} {'%':>5}  "
               + "  ".join(f"u({n})" for n in SIZES) + "   gain 60->540")
@@ -365,17 +374,60 @@ def main() -> None:
                 if m.any():
                     print(f"    {k:<11}" + "".join(f"{int((part[m] == p).sum()):>6}" for p in names))
 
+        pair_klass = np.array([collections.Counter(klass[pos + neg]).most_common(1)[0][0]
+                               for pos, neg in members])
+
+        # The prefix-controlled view: within a pair, topic and length are held exactly
+        # constant, so this is the same question with the between-prefix variance removed.
+        # Where c saturates but u does not, what is still being learned above that size is
+        # how to rank prefixes against each other, not how to tell the two endings apart.
+        print(f"\n  pair solve rate (the prefix's two endings ordered correctly), by class:")
+        print(f"  {'class':<11} {'pairs':>5}  " + "  ".join(f"c({n})" for n in SIZES))
+        for k in order:
+            m = pair_klass == k
+            if m.any():
+                print(f"  {k:<11} {m.sum():>5}  "
+                      + "  ".join(f"{v:.3f}" for v in c[:, m].mean(axis=1)))
+
+        c_se = C.std(axis=1, ddof=1).mean(axis=0) / np.sqrt(draws)
+        c_delta = np.maximum(2 * c_se, FLOOR)
+        c_klass = np.array([classify(c[:, g], c_delta[g], c_se[g]) for g in range(len(members))])
+        print(f"\n  and the SAME taxonomy on the pair statistic ({len(members)} pairs):")
+        for k in order:
+            m = c_klass == k
+            if m.any():
+                cc = c[:, m].mean(axis=1)
+                print(f"    {k:<11} {m.sum():>4} {100 * m.mean():>4.0f}%  "
+                      + "  ".join(f"{v:.3f}" for v in cc))
+        stuck = np.where(c[-1] < 0.75)[0]
+        print(f"    pairs the probe still gets wrong at n=540 in >1/4 of draws: {len(stuck)}"
+              + (f" (pairs {', '.join(map(str, stuck[:12]))})" if len(stuck) else ""))
+
         if not args.no_embed:
-            from make_instructions_parts import embed
+            from make_instructions_parts import embed, top_terms
             X = embed(prefixes)
-            pair_klass = np.array([collections.Counter(klass[pos + neg]).most_common(1)[0][0]
-                                   for pos, neg in members])
             obs, z = coherence(X, pair_klass)
             print(f"\n  coherence of the settling classes in prefix-embedding space: "
                   f"mean within-class cosine {obs:.4f}, z vs permutation null {z:+.2f}")
-            print("    " + ("classes are describable collections — name them from the top terms"
-                            if z > 2 else
-                            "NOT a collection: settling is row-idiosyncratic, not topical"))
+            print("    " + ("classes separate in content space — they are describable "
+                            "collections, named below" if z > 2 else
+                            "classes do NOT separate in content space: settling is "
+                            "row-idiosyncratic, not topical, and the names below are decoration"))
+            print("\n  what each class is about (log-odds terms vs the rest of the split):")
+            for k in order:
+                m = pair_klass == k
+                if m.sum() >= 3:
+                    print(f"    {k:<11} {', '.join(top_terms(prefixes, pair_klass, k, 10))}")
+
+        # The rows that end lowest, whatever their class — the split's hard core.
+        worst = np.argsort(u[-1])[:5]
+        print("\n  lowest final placement values (the rows 540 rows still do not buy):")
+        for i in worst:
+            g = next(gi for gi, (p_, n_) in enumerate(members) if i in p_ + n_)
+            snippet = " ".join(prefixes[g].split())[:96]
+            print(f"    row {i:>3} {klass[i]:<10} u: "
+                  + " ".join(f"{u[k, i]:.2f}" for k in range(len(SIZES)))
+                  + f"  | {snippet}")
 
         pair_of = {}
         for g, (pos, neg) in enumerate(members):
