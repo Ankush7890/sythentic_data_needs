@@ -97,6 +97,11 @@ consequential ones.
 
 ## Consequence
 
+> For how this compares with the other four eval splits — `eval_ant_hh` at 84.3% under
+> the training rule, and `eval_ai_dilemmas` / `hc_context_drift` / `oig_context_drift`
+> at 100% with every row read — see `analysis/foursplit_label_audit.md`. Toolace remains
+> the only split audited so far whose labels are a real ceiling.
+
 Combined with `analysis/toolace_always_misclassified.md` (the 17 rows every probe gets wrong,
 all high-stakes, all scale 8, mean probe probability 0.001), the picture is consistent: the
 high-stakes class of this split contains a substantial minority of rows whose label rests on

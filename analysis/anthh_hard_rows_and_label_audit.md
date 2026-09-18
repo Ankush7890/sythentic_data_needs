@@ -88,6 +88,13 @@ hatch here in which the residual error is unreachable label noise.
 
 ### A random 100 of the 134: agreement 93 / 100
 
+> `analysis/foursplit_label_audit.md` later read **all 134** rows cold under the
+> *training generator's* reply-only rule instead of this split's three-route rule, and
+> scored 113/134. The gap is not a contradiction: 12 of the 67 harmful rationales blame
+> the user's request rather than the assistant's reply, which is route 2 working as
+> documented — and is a signal `generate_hu_harm_dataset.py` cannot teach.
+
+
 Sampled with seed 20260917. My own split came out 49 harmful / 51 safe against the
 dataset's 50 / 50. Per-row verdicts: `scripts/prompts5_anthh_manual_verdicts.csv`.
 
