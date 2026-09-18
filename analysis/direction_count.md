@@ -93,13 +93,69 @@ many short turns for *high-stakes*. Where the rule is decisive it agrees with th
 tagger on **0.991** of 693 instructions rows, **0.946** of 2,331 hu_harm rows and
 **0.941** of 1,242 highstakes rows.
 
-## Stage 2: direction geometry
+## Stage 2: direction geometry — *instruction* (FINAL for this concept)
 
-*(pending)*
+Per set, on its own standardised mean-pooled features: a unit difference-of-means
+direction per kind with at least 20 samples of each class, the Gram matrix of those unit
+directions, and `n_eff = (Σλ)² / Σλ²` — the number of kinds if they were orthogonal, 1 if
+they were all the same direction.
 
-## Stage 3: the ratio, the leave-one-kind-out control, and the link to the paper's m
+| set | kinds used | n_eff | mean off-diagonal \|cos\| | max |
+|---|---|---|---|---|
+| instructions llama70b | 4 of 6 | 3.46 | 0.202 | 0.323 |
+| instructions gptoss | 5 of 6 | 3.62 | 0.292 | 0.499 |
+| instructions nemotron | 5 of 6 | 3.91 | 0.152 | 0.644 |
+| instructions deepseekv4pro | 5 of 6 | 4.03 | 0.139 | 0.450 |
 
-*(pending)*
+So the *instruction* kinds are close to orthogonal: `n_eff` is 3.5–4.0 against a ceiling
+of 4–5, and no pair of kind directions has a cosine above 0.65. The prediction for this
+concept (`n_eff` above 2) holds with room to spare. Kind 5 has no direction anywhere, for
+the reason in stage 0 — it has no positive class to subtract.
+
+Transfer, averaged over the four sets: a kind's own direction, fit on four of five folds,
+scores **0.980** AUROC on the held-out fold of its own kind and **0.814** on the other
+kinds' samples. Against the *evaluation* splits the same directions score **0.705** on
+their own split and **0.601** on the others, while the whole-set direction scores
+**0.722** — i.e. in this linear, mean-pooled geometry the mixed set's single direction is
+already the best one for every split. Hold that beside the fits below: the two are not in
+conflict, because the fits are about how many samples it takes to get half-way, not about
+where the curve ends up.
+
+## Stage 3: the ratio and the leave-one-kind-out control — *instruction* (FINAL)
+
+3,720 fits: four generators × (one mixed arm, five kind-only arms, six leave-one-kind-out
+arms) × their size ladders × eight draws. `mm_substitution` has no kind-only arm in any
+generator (stage 0). `hc_context_drift` has none under llama70b (38 tagged rows).
+
+**R = m(mixed) / m(kind-only), per (generator, split).** Four of the nineteen rows have a
+flat arm and are set aside (`usable = 0` in `scripts/dc_ratios.csv`); none of the fifteen
+that remain is censored at the smallest measured size (2).
+
+| generator | refusal | bbq | hc_drift | hc_contra | oig_drift |
+|---|---|---|---|---|---|
+| deepseekv4pro | 5.3 | *flat* | 6.3 | 5.3 | 30.5 |
+| gptoss | 15.7 | *flat* | 2.3 | 3.0 | 1.1 |
+| llama70b | 2.5 | 1.8 | — | 3.5 | 33.2 |
+| nemotron | 7.4 | 15.7 | *flat* | *flat* | 266.3 |
+
+**Median R = 5.30** over the fifteen usable rows, range 1.09–266. **Every one of the
+fifteen is above 1**: on this concept, a sample of the split's own kind is worth several
+mixed samples, everywhere, under every generator. The prediction for *instruction* (R
+"well above 1, up to about 6") holds, and the median is at the top of that range.
+
+**Leave-one-kind-out.** Median gain ratio `G = (U_c − L_c) / (U_b − L_b) = 0.67` and
+median `m_c / m_b = 0.78` over the eighteen rows whose mixed arm is not flat. Removing
+the split's own kind from the training set costs about a third of the total gain, and the
+extreme cases are extreme: `anthropic_harmless_refusal` keeps 11% of its gain under
+deepseekv4pro and goes **flat** under gptoss — remove the refusal samples and the probe
+never learns the refusal split at any size.
+
+**R against n_eff** (Spearman over the fifteen usable set-splits): ρ = +0.379, p = 0.16.
+Within one concept `n_eff` barely varies (3.46–4.03), so this is not yet a test of
+prediction 2; it becomes one when the four-kind concepts are in.
+
+*The link to the paper's per-split m needs all three concepts (six of fourteen splits
+cannot rank against a fourteen-split baseline) and is left until then.*
 
 ## Caveats
 
