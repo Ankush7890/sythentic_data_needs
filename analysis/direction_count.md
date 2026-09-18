@@ -93,6 +93,23 @@ many short turns for *high-stakes*. Where the rule is decisive it agrees with th
 tagger on **0.991** of 693 instructions rows, **0.946** of 2,331 hu_harm rows and
 **0.941** of 1,242 highstakes rows.
 
+## The geometry does not separate the concepts — this is the study's first result
+
+The hypothesis needs the *high-stakes* and *harmful* kinds to share a direction and the
+*instruction* kinds to be separate. They are all separate, to the same degree:
+
+| concept | kinds used | n_eff (four generators) | mean off-diagonal \|cos\| |
+|---|---|---|---|
+| instructions | 4–5 of 6 | 3.46, 3.62, 3.91, 4.03 | 0.14–0.29 |
+| hu_harm | 4 of 4 | 3.71, 3.80, 3.80, 3.82 | 0.11–0.14 |
+| highstakes | 4 of 4 | 3.43, 3.52, 3.64, 3.64 | 0.17–0.19 |
+
+`n_eff` sits within 0.6 of the number of kinds in every one of the twelve sets. Prediction
+2 — that `R` tracks the effective number of directions — cannot hold in the form it was
+posed, because the quantity it is supposed to track is the same for all three concepts.
+Whatever makes *instruction* expensive, a cosine statistic over mean-pooled per-kind
+difference-of-means directions does not see it.
+
 ## Stage 2: direction geometry — *instruction* (FINAL for this concept)
 
 Per set, on its own standardised mean-pooled features: a unit difference-of-means
@@ -156,6 +173,47 @@ prediction 2; it becomes one when the four-kind concepts are in.
 
 *The link to the paper's per-split m needs all three concepts (six of fourteen splits
 cannot rank against a fourteen-split baseline) and is left until then.*
+
+## Stage 3 — *harmful* (FINAL)
+
+2,816 fits. Every hu_harm kind has both classes, so all four splits get a kind-only arm
+under all four generators.
+
+| split | deepseekv4pro | gptoss | llama70b | nemotron |
+|---|---|---|---|---|
+| eval_ai_dilemmas | 0.8 | 2.5 | 1.8 | 0.8 |
+| eval_ant_hh | *flat* | 2.3 | *flat* | 30.5 |
+| eval_balanced_refusal | 3.0 | 2.3 | 1.9 | 1.6 |
+| eval_daily_dilemmas | 1.0 | 1.6 | 2.5 | 3.2 |
+
+**Median R = 2.12** over the fourteen usable rows (two set aside for a flat arm), range
+0.85–30.5. Against *instruction*'s 5.30. The ordering the hypothesis predicts is there and
+it is not small — but 2.12 is **above the brief's 1.5 bar**, and four of the fourteen rows
+are at or below 1, so this is not the "R ≈ 1, samples of any kind serve any split" the
+hypothesis asks for.
+
+**Leave-one-kind-out: median G = 0.90, median m_c/m_b = 1.00.** This is the cleanest
+contrast in the study. Take away the split's own kind and *harmful* keeps 90% of its gain
+and does not slow down at all; *instruction* keeps 67% and, on `anthropic_harmless_refusal`
+under gptoss, learns nothing at any size. Prediction 3 holds as stated.
+
+## Coverage versus per-kind difficulty (instruction against harmful)
+
+The paper's concept effect could be coverage (a mixed set spends most of itself on kinds
+that do not serve the split) or per-kind difficulty (one kind of *instruction* is simply
+harder than one kind of *harmful*). The kind-only arm is the same concept with coverage
+removed, so the two are separable:
+
+| | median log10 m, mixed | median log10 m, kind-only |
+|---|---|---|
+| instructions | 2.07 | 1.06 |
+| hu_harm | 1.26 | 0.86 |
+| **gap** | **0.81** (6.5x) | **0.20** (1.6x) |
+
+**76% of the instruction-vs-harmful gap in half-gain size is coverage**, and 24% survives
+as per-kind difficulty. This is the study's main positive finding, and note that it stands
+on its own feet: it does not depend on the direction geometry, which (above) sees no
+difference between the concepts at all.
 
 ## Caveats
 
