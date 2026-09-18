@@ -217,4 +217,36 @@ difference between the concepts at all.
 
 ## Caveats
 
-*(pending)*
+- **Tagger noise.** The kinds are assigned by an LLM, twice, and a sample is kept only
+  when both passes agree — but agreement is not correctness. The three checks available
+  all came out clean (180/180 hand-read, 0.94–0.99 against a structure-only rule, and the
+  four-kind concepts' per-kind counts land on the round-robin's ~150), so the tags are
+  good enough to cut arms from; they are not ground truth, and the generation order that
+  would have been ground truth is not recoverable (the generator fans its round-robin
+  calls out concurrently and rows land in completion order).
+- **Kinds 3, 4 and 5 of *instruction* share a positive class.** They differ only in what
+  the negative reply does. That is why `mm_substitution` has no kind-only arm anywhere,
+  and it means "kind" for this concept is closer to "failure mode" than to "kind of
+  conversation". The other two concepts do not have this property.
+- **The mean-pooled directions are not the probe.** Stage 2 works with a
+  difference-of-means direction over token-mean activations; the probe is a per-token
+  linear map with a softmax pool, fit by Adam with early stopping. A geometry that says
+  the kinds are near-orthogonal is a statement about that linear read-out, not about what
+  the probe head can represent — which is one reason prediction 2's failure is weaker
+  evidence than prediction 3's success.
+- **Kind-only arms stop at 80.** A kind holds 43–211 tagged samples, so its ladder ends
+  where a class-balanced draw runs out (the cap is per arm and listed in
+  `scripts/dc_arms.csv`). A half-gain size read off a curve that stops at 80 is
+  extrapolated beyond that, and the wide bootstrap intervals on the large R values say so.
+- **Sizes below 10 take one optimiser step per epoch.** Accumulation is `ceil(n/16)` at
+  batch 16 at *every* size, which is what makes n = 2…6 measurable at all, and is the
+  regime `run_pooled_sizecurve.sh` pins. It is not the regime the paper's larger-n curves
+  used at their default accumulation, so the small end of these ladders is internally
+  consistent rather than comparable to those.
+- **Flat arms.** Four of nineteen *instruction* rows and two of sixteen *harmful* rows
+  have an arm whose fitted in-range gain is under 0.02; their ratios are meaningless and
+  are set aside (`usable = 0`), not silently averaged in.
+- **High-stakes uses the 500-row dev cut.** `dev_samples/highstakes_500`, as the paper's
+  own small-n pooled curves did; the full 1908-row dev set is resident for every epoch and
+  is what makes that concept ~20x the others. The other two concepts use their whole dev
+  sets.
