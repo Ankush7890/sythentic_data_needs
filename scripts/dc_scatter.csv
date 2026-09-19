@@ -1,4 +1,12 @@
 split,concept,gen,R,n_eff,a_s,log_m
+anthropic_hh_balanced,highstakes,deepseekv4pro,3.795,3.6391,0.509,1.0
+mt_balanced,highstakes,deepseekv4pro,0.5133,3.6391,0.6916,1.1837711367602883
+mts_balanced,highstakes,deepseekv4pro,0.5133,3.6391,0.686,1.1370789246318398
+toolace_balanced,highstakes,deepseekv4pro,3.2122,3.6391,0.5461,1.1910085212874342
+anthropic_hh_balanced,highstakes,gptoss,1.2841,3.6359,0.6052,1.0
+mt_balanced,highstakes,gptoss,1.1814,3.6359,0.6818,1.1837711367602883
+mts_balanced,highstakes,gptoss,0.3113,3.6359,0.6467,1.1370789246318398
+toolace_balanced,highstakes,gptoss,1.5171,3.6359,0.4844,1.1910085212874342
 ai_dilemmas,hu_harm,deepseekv4pro,0.8464,3.8245,0.4544,1.3279915709382686
 ant_hh,hu_harm,deepseekv4pro,23.7477,3.8245,0.7022,1.6175469675667657
 balanced_refusal,hu_harm,deepseekv4pro,2.9553,3.8245,0.6567,1.0573054921160865

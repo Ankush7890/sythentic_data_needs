@@ -1,37 +1,37 @@
 concept,gen,arm,split,file,n,n_pos,n_neg,balanced,sizes,skipped
-hu_harm,llama70b,mixed,,dc_hu_harm_llama70b_mixed.jsonl,600,300,300,600,2 4 6 10 20 30 50 80 110 170 350 590,
-hu_harm,llama70b,kind,eval_ai_dilemmas,dc_hu_harm_llama70b_eval_ai_dilemmas_kind.jsonl,147,80,67,134,2 4 6 10 20 30 50 80,
-hu_harm,llama70b,loko,eval_ai_dilemmas,dc_hu_harm_llama70b_eval_ai_dilemmas_loko.jsonl,421,209,212,418,2 4 6 10 20 30 50 80 110 170 350,sizes above 418 unavailable
-hu_harm,llama70b,kind,eval_ant_hh,dc_hu_harm_llama70b_eval_ant_hh_kind.jsonl,107,58,49,98,2 4 6 10 20 30 50 80,
-hu_harm,llama70b,loko,eval_ant_hh,dc_hu_harm_llama70b_eval_ant_hh_loko.jsonl,461,231,230,460,2 4 6 10 20 30 50 80 110 170 350,sizes above 460 unavailable
-hu_harm,llama70b,kind,eval_balanced_refusal,dc_hu_harm_llama70b_eval_balanced_refusal_kind.jsonl,152,76,76,152,2 4 6 10 20 30 50 80,
-hu_harm,llama70b,loko,eval_balanced_refusal,dc_hu_harm_llama70b_eval_balanced_refusal_loko.jsonl,416,213,203,406,2 4 6 10 20 30 50 80 110 170 350,sizes above 406 unavailable
-hu_harm,llama70b,kind,eval_daily_dilemmas,dc_hu_harm_llama70b_eval_daily_dilemmas_kind.jsonl,161,75,86,150,2 4 6 10 20 30 50 80,
-hu_harm,llama70b,loko,eval_daily_dilemmas,dc_hu_harm_llama70b_eval_daily_dilemmas_loko.jsonl,407,214,193,386,2 4 6 10 20 30 50 80 110 170 350,sizes above 386 unavailable
-hu_harm,gptoss,mixed,,dc_hu_harm_gptoss_mixed.jsonl,600,300,300,600,2 4 6 10 20 30 50 80 110 170 350 590,
-hu_harm,gptoss,kind,eval_ai_dilemmas,dc_hu_harm_gptoss_eval_ai_dilemmas_kind.jsonl,154,77,77,154,2 4 6 10 20 30 50 80,
-hu_harm,gptoss,loko,eval_ai_dilemmas,dc_hu_harm_gptoss_eval_ai_dilemmas_loko.jsonl,427,207,220,414,2 4 6 10 20 30 50 80 110 170 350,sizes above 414 unavailable
-hu_harm,gptoss,kind,eval_ant_hh,dc_hu_harm_gptoss_eval_ant_hh_kind.jsonl,128,55,73,110,2 4 6 10 20 30 50 80,
-hu_harm,gptoss,loko,eval_ant_hh,dc_hu_harm_gptoss_eval_ant_hh_loko.jsonl,453,229,224,448,2 4 6 10 20 30 50 80 110 170 350,sizes above 448 unavailable
-hu_harm,gptoss,kind,eval_balanced_refusal,dc_hu_harm_gptoss_eval_balanced_refusal_kind.jsonl,150,77,73,146,2 4 6 10 20 30 50 80,
-hu_harm,gptoss,loko,eval_balanced_refusal,dc_hu_harm_gptoss_eval_balanced_refusal_loko.jsonl,431,207,224,414,2 4 6 10 20 30 50 80 110 170 350,sizes above 414 unavailable
-hu_harm,gptoss,kind,eval_daily_dilemmas,dc_hu_harm_gptoss_eval_daily_dilemmas_kind.jsonl,149,75,74,148,2 4 6 10 20 30 50 80,
-hu_harm,gptoss,loko,eval_daily_dilemmas,dc_hu_harm_gptoss_eval_daily_dilemmas_loko.jsonl,432,209,223,418,2 4 6 10 20 30 50 80 110 170 350,sizes above 418 unavailable
-hu_harm,nemotron,mixed,,dc_hu_harm_nemotron_mixed.jsonl,600,300,300,600,2 4 6 10 20 30 50 80 110 170 350 590,
-hu_harm,nemotron,kind,eval_ai_dilemmas,dc_hu_harm_nemotron_eval_ai_dilemmas_kind.jsonl,160,80,80,160,2 4 6 10 20 30 50 80,
-hu_harm,nemotron,loko,eval_ai_dilemmas,dc_hu_harm_nemotron_eval_ai_dilemmas_loko.jsonl,426,207,219,414,2 4 6 10 20 30 50 80 110 170 350,sizes above 414 unavailable
-hu_harm,nemotron,kind,eval_ant_hh,dc_hu_harm_nemotron_eval_ant_hh_kind.jsonl,125,57,68,114,2 4 6 10 20 30 50 80,
-hu_harm,nemotron,loko,eval_ant_hh,dc_hu_harm_nemotron_eval_ant_hh_loko.jsonl,461,230,231,460,2 4 6 10 20 30 50 80 110 170 350,sizes above 460 unavailable
-hu_harm,nemotron,kind,eval_balanced_refusal,dc_hu_harm_nemotron_eval_balanced_refusal_kind.jsonl,149,76,73,146,2 4 6 10 20 30 50 80,
-hu_harm,nemotron,loko,eval_balanced_refusal,dc_hu_harm_nemotron_eval_balanced_refusal_loko.jsonl,437,211,226,422,2 4 6 10 20 30 50 80 110 170 350,sizes above 422 unavailable
-hu_harm,nemotron,kind,eval_daily_dilemmas,dc_hu_harm_nemotron_eval_daily_dilemmas_kind.jsonl,152,74,78,148,2 4 6 10 20 30 50 80,
-hu_harm,nemotron,loko,eval_daily_dilemmas,dc_hu_harm_nemotron_eval_daily_dilemmas_loko.jsonl,434,213,221,426,2 4 6 10 20 30 50 80 110 170 350,sizes above 426 unavailable
-hu_harm,deepseekv4pro,mixed,,dc_hu_harm_deepseekv4pro_mixed.jsonl,600,300,300,600,2 4 6 10 20 30 50 80 110 170 350 590,
-hu_harm,deepseekv4pro,kind,eval_ai_dilemmas,dc_hu_harm_deepseekv4pro_eval_ai_dilemmas_kind.jsonl,160,80,80,160,2 4 6 10 20 30 50 80,
-hu_harm,deepseekv4pro,loko,eval_ai_dilemmas,dc_hu_harm_deepseekv4pro_eval_ai_dilemmas_loko.jsonl,437,218,219,436,2 4 6 10 20 30 50 80 110 170 350,sizes above 436 unavailable
-hu_harm,deepseekv4pro,kind,eval_ant_hh,dc_hu_harm_deepseekv4pro_eval_ant_hh_kind.jsonl,135,63,72,126,2 4 6 10 20 30 50 80,
-hu_harm,deepseekv4pro,loko,eval_ant_hh,dc_hu_harm_deepseekv4pro_eval_ant_hh_loko.jsonl,462,235,227,454,2 4 6 10 20 30 50 80 110 170 350,sizes above 454 unavailable
-hu_harm,deepseekv4pro,kind,eval_balanced_refusal,dc_hu_harm_deepseekv4pro_eval_balanced_refusal_kind.jsonl,153,79,74,148,2 4 6 10 20 30 50 80,
-hu_harm,deepseekv4pro,loko,eval_balanced_refusal,dc_hu_harm_deepseekv4pro_eval_balanced_refusal_loko.jsonl,444,219,225,438,2 4 6 10 20 30 50 80 110 170 350,sizes above 438 unavailable
-hu_harm,deepseekv4pro,kind,eval_daily_dilemmas,dc_hu_harm_deepseekv4pro_eval_daily_dilemmas_kind.jsonl,149,76,73,146,2 4 6 10 20 30 50 80,
-hu_harm,deepseekv4pro,loko,eval_daily_dilemmas,dc_hu_harm_deepseekv4pro_eval_daily_dilemmas_loko.jsonl,448,222,226,444,2 4 6 10 20 30 50 80 110 170 350,sizes above 444 unavailable
+highstakes,llama70b,mixed,,dc_highstakes_llama70b_mixed.jsonl,600,300,300,600,2 4 6 10 20 30 50 80 110 170 350 590,
+highstakes,llama70b,kind,anthropic_hh_balanced,dc_highstakes_llama70b_anthropic_hh_balanced_kind.jsonl,211,121,90,180,2 4 6 10 20 30 50 80,
+highstakes,llama70b,loko,anthropic_hh_balanced,dc_highstakes_llama70b_anthropic_hh_balanced_loko.jsonl,335,150,185,300,2 4 6 10 20 30 50 80 110 170,sizes above 300 unavailable
+highstakes,llama70b,kind,mt_balanced,dc_highstakes_llama70b_mt_balanced_kind.jsonl,120,79,41,82,2 4 6 10 20 30 50 80,
+highstakes,llama70b,loko,mt_balanced,dc_highstakes_llama70b_mt_balanced_loko.jsonl,426,192,234,384,2 4 6 10 20 30 50 80 110 170 350,sizes above 384 unavailable
+highstakes,llama70b,kind,mts_balanced,dc_highstakes_llama70b_mts_balanced_kind.jsonl,93,40,53,80,2 4 6 10 20 30 50 80,
+highstakes,llama70b,loko,mts_balanced,dc_highstakes_llama70b_mts_balanced_loko.jsonl,453,231,222,444,2 4 6 10 20 30 50 80 110 170 350,sizes above 444 unavailable
+highstakes,llama70b,kind,toolace_balanced,dc_highstakes_llama70b_toolace_balanced_kind.jsonl,98,31,67,62,2 4 6 10 20 30 50,sizes above 62 unavailable
+highstakes,llama70b,loko,toolace_balanced,dc_highstakes_llama70b_toolace_balanced_loko.jsonl,448,240,208,416,2 4 6 10 20 30 50 80 110 170 350,sizes above 416 unavailable
+highstakes,gptoss,mixed,,dc_highstakes_gptoss_mixed.jsonl,600,300,300,600,2 4 6 10 20 30 50 80 110 170 350 590,
+highstakes,gptoss,kind,anthropic_hh_balanced,dc_highstakes_gptoss_anthropic_hh_balanced_kind.jsonl,169,79,90,158,2 4 6 10 20 30 50 80,
+highstakes,gptoss,loko,anthropic_hh_balanced,dc_highstakes_gptoss_anthropic_hh_balanced_loko.jsonl,419,220,199,398,2 4 6 10 20 30 50 80 110 170 350,sizes above 398 unavailable
+highstakes,gptoss,kind,mt_balanced,dc_highstakes_gptoss_mt_balanced_kind.jsonl,157,80,77,154,2 4 6 10 20 30 50 80,
+highstakes,gptoss,loko,mt_balanced,dc_highstakes_gptoss_mt_balanced_loko.jsonl,431,219,212,424,2 4 6 10 20 30 50 80 110 170 350,sizes above 424 unavailable
+highstakes,gptoss,kind,mts_balanced,dc_highstakes_gptoss_mts_balanced_kind.jsonl,133,75,58,116,2 4 6 10 20 30 50 80,
+highstakes,gptoss,loko,mts_balanced,dc_highstakes_gptoss_mts_balanced_loko.jsonl,455,224,231,448,2 4 6 10 20 30 50 80 110 170 350,sizes above 448 unavailable
+highstakes,gptoss,kind,toolace_balanced,dc_highstakes_gptoss_toolace_balanced_kind.jsonl,128,65,63,126,2 4 6 10 20 30 50 80,
+highstakes,gptoss,loko,toolace_balanced,dc_highstakes_gptoss_toolace_balanced_loko.jsonl,460,234,226,452,2 4 6 10 20 30 50 80 110 170 350,sizes above 452 unavailable
+highstakes,nemotron,mixed,,dc_highstakes_nemotron_mixed.jsonl,600,300,300,600,2 4 6 10 20 30 50 80 110 170 350 590,
+highstakes,nemotron,kind,anthropic_hh_balanced,dc_highstakes_nemotron_anthropic_hh_balanced_kind.jsonl,143,69,74,138,2 4 6 10 20 30 50 80,
+highstakes,nemotron,loko,anthropic_hh_balanced,dc_highstakes_nemotron_anthropic_hh_balanced_loko.jsonl,453,228,225,450,2 4 6 10 20 30 50 80 110 170 350,sizes above 450 unavailable
+highstakes,nemotron,kind,mt_balanced,dc_highstakes_nemotron_mt_balanced_kind.jsonl,160,80,80,160,2 4 6 10 20 30 50 80,
+highstakes,nemotron,loko,mt_balanced,dc_highstakes_nemotron_mt_balanced_loko.jsonl,436,217,219,434,2 4 6 10 20 30 50 80 110 170 350,sizes above 434 unavailable
+highstakes,nemotron,kind,mts_balanced,dc_highstakes_nemotron_mts_balanced_kind.jsonl,144,73,71,142,2 4 6 10 20 30 50 80,
+highstakes,nemotron,loko,mts_balanced,dc_highstakes_nemotron_mts_balanced_loko.jsonl,452,224,228,448,2 4 6 10 20 30 50 80 110 170 350,sizes above 448 unavailable
+highstakes,nemotron,kind,toolace_balanced,dc_highstakes_nemotron_toolace_balanced_kind.jsonl,149,75,74,148,2 4 6 10 20 30 50 80,
+highstakes,nemotron,loko,toolace_balanced,dc_highstakes_nemotron_toolace_balanced_loko.jsonl,447,222,225,444,2 4 6 10 20 30 50 80 110 170 350,sizes above 444 unavailable
+highstakes,deepseekv4pro,mixed,,dc_highstakes_deepseekv4pro_mixed.jsonl,600,300,300,600,2 4 6 10 20 30 50 80 110 170 350 590,
+highstakes,deepseekv4pro,kind,anthropic_hh_balanced,dc_highstakes_deepseekv4pro_anthropic_hh_balanced_kind.jsonl,155,77,78,154,2 4 6 10 20 30 50 80,
+highstakes,deepseekv4pro,loko,anthropic_hh_balanced,dc_highstakes_deepseekv4pro_anthropic_hh_balanced_loko.jsonl,436,218,218,436,2 4 6 10 20 30 50 80 110 170 350,sizes above 436 unavailable
+highstakes,deepseekv4pro,kind,mt_balanced,dc_highstakes_deepseekv4pro_mt_balanced_kind.jsonl,150,73,77,146,2 4 6 10 20 30 50 80,
+highstakes,deepseekv4pro,loko,mt_balanced,dc_highstakes_deepseekv4pro_mt_balanced_loko.jsonl,441,222,219,438,2 4 6 10 20 30 50 80 110 170 350,sizes above 438 unavailable
+highstakes,deepseekv4pro,kind,mts_balanced,dc_highstakes_deepseekv4pro_mts_balanced_kind.jsonl,139,71,68,136,2 4 6 10 20 30 50 80,
+highstakes,deepseekv4pro,loko,mts_balanced,dc_highstakes_deepseekv4pro_mts_balanced_loko.jsonl,452,224,228,448,2 4 6 10 20 30 50 80 110 170 350,sizes above 448 unavailable
+highstakes,deepseekv4pro,kind,toolace_balanced,dc_highstakes_deepseekv4pro_toolace_balanced_kind.jsonl,147,74,73,146,2 4 6 10 20 30 50 80,
+highstakes,deepseekv4pro,loko,toolace_balanced,dc_highstakes_deepseekv4pro_toolace_balanced_loko.jsonl,444,221,223,442,2 4 6 10 20 30 50 80 110 170 350,sizes above 442 unavailable
