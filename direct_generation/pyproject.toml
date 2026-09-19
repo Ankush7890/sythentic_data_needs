@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "synthetic-probe-data"
+version = "0.2.0"
+description = "LLM-generated, dev-AUROC-scored training-set curation and learning curves for tuberlens activation probes"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic>=0.100.0",
+    "openai>=1.50.0",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+claude = ["anthropic>=0.100.0"]
+openrouter = ["openai>=1.50.0"]
+# Only needed by the config `kaggle:` section (precomputed eval activations).
+kaggle = ["kaggle>=2.2"]
+
+[project.scripts]
+iterative-generate = "synthetic_probe_data.cli:iterative_generate_main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
