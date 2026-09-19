@@ -7,6 +7,14 @@ anthropic_hh_balanced,highstakes,gptoss,1.2841,3.6359,0.6052,1.0
 mt_balanced,highstakes,gptoss,1.1814,3.6359,0.6818,1.1837711367602883
 mts_balanced,highstakes,gptoss,0.3113,3.6359,0.6467,1.1370789246318398
 toolace_balanced,highstakes,gptoss,1.5171,3.6359,0.4844,1.1910085212874342
+anthropic_hh_balanced,highstakes,llama70b,1.1814,3.4289,0.7049,1.0
+mt_balanced,highstakes,llama70b,0.5133,3.4289,0.6299,1.1837711367602883
+mts_balanced,highstakes,llama70b,0.6592,3.4289,0.5762,1.1370789246318398
+toolace_balanced,highstakes,llama70b,1.0869,3.4289,0.4763,1.1910085212874342
+anthropic_hh_balanced,highstakes,nemotron,2.1174,3.5201,0.5906,1.0
+mt_balanced,highstakes,nemotron,1.7923,3.5201,0.6682,1.1837711367602883
+mts_balanced,highstakes,nemotron,0.8464,3.5201,0.6755,1.1370789246318398
+toolace_balanced,highstakes,nemotron,4.4834,3.5201,0.5638,1.1910085212874342
 ai_dilemmas,hu_harm,deepseekv4pro,0.8464,3.8245,0.4544,1.3279915709382686
 ant_hh,hu_harm,deepseekv4pro,23.7477,3.8245,0.7022,1.6175469675667657
 balanced_refusal,hu_harm,deepseekv4pro,2.9553,3.8245,0.6567,1.0573054921160865

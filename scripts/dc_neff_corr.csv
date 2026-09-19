@@ -1,3 +1,11 @@
-subset,n,rho,p_perm
-all,37,0.267,0.11049
-instructions,15,0.3793,0.16248
+statistic,subset,n,rho,p_perm
+n_eff,all,45,0.3776,0.0108
+n_eff,instructions,15,0.3793,0.16248
+t_other,all,45,-0.4009,0.0075
+t_other,instructions,15,-0.3793,0.16248
+e_gap,all,45,0.1285,0.39186
+e_gap,instructions,15,0.2737,0.31347
+t_gap,all,45,0.3896,0.0083
+t_gap,instructions,15,0.4132,0.12929
+a_s,all,45,-0.1748,0.24968
+a_s,instructions,15,-0.3828,0.15658
