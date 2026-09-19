@@ -1,0 +1,677 @@
+{
+ "_about": "Per-set diagnostics for the instructions arm-filter study. Keys are the `samples` column of the fits CSV. Built by scripts/build_armfilter_sets.py from scripts/shape_diversity.py reports.",
+ "sets": {
+  "arm_instructions_llama70b_general_orig.jsonl": {
+   "attacker": "llama70b",
+   "arm": "general",
+   "concept": "instructions",
+   "n_rows": 310,
+   "pool_rows": 248,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "ua": 276,
+     "uau": 2,
+     "uaua": 24,
+     "uauau": 6,
+     "uauauaua": 2
+    },
+    "signatures_out": {
+     "ua": 214,
+     "uau": 2,
+     "uaua": 24,
+     "uauau": 6,
+     "uauauaua": 2
+    },
+    "normalized_entropy_in": 0.275211962960511,
+    "normalized_entropy_out": 0.32373309963703323,
+    "entropy_bits_in": 0.6390223888471106,
+    "entropy_bits_out": 0.7516849792921971,
+    "max_share_in": 0.8903225806451613,
+    "max_share_out": 0.8629032258064516,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.2197491405497045,
+    "mean_nn_distance_out": 0.27838274323580287
+   },
+   "lexical": {
+    "n_features": 1092,
+    "train_accuracy": 0.9354838709677419,
+    "mean_confidence_in": 0.7546711679819771,
+    "mean_confidence_out": 0.7109804655227514,
+    "global_cut_would_drop": {
+     "assistant_does_not_follow_the_instruction": 27,
+     "assistant_follows_the_instruction": 35
+    }
+   }
+  },
+  "arm_instructions_llama70b_desc_orig.jsonl": {
+   "attacker": "llama70b",
+   "arm": "desc",
+   "concept": "instructions",
+   "n_rows": 188,
+   "pool_rows": 150,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "ua": 136,
+     "uaua": 50,
+     "uauaua": 2
+    },
+    "signatures_out": {
+     "ua": 98,
+     "uaua": 50,
+     "uauaua": 2
+    },
+    "normalized_entropy_in": 0.5778207321781189,
+    "normalized_entropy_out": 0.6388728620529778,
+    "entropy_bits_in": 0.9158241926415608,
+    "entropy_bits_out": 1.0125895290823699,
+    "max_share_in": 0.723404255319149,
+    "max_share_out": 0.6533333333333333,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.36000799524226246,
+    "mean_nn_distance_out": 0.451100339183262
+   },
+   "lexical": {
+    "n_features": 794,
+    "train_accuracy": 0.9893617021276596,
+    "mean_confidence_in": 0.8479581342027726,
+    "mean_confidence_out": 0.8154135393394292,
+    "global_cut_would_drop": {
+     "assistant_does_not_follow_the_instruction": 18,
+     "assistant_follows_the_instruction": 20
+    }
+   }
+  },
+  "arm_instructions_llama70b_attacker_orig.jsonl": {
+   "attacker": "llama70b",
+   "arm": "attacker",
+   "concept": "instructions",
+   "n_rows": 228,
+   "pool_rows": 182,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "ua": 122,
+     "uaua": 104,
+     "uauau": 2
+    },
+    "signatures_out": {
+     "ua": 90,
+     "uaua": 90,
+     "uauau": 2
+    },
+    "normalized_entropy_in": 0.6682963948876749,
+    "normalized_entropy_out": 0.6790643800120894,
+    "entropy_bits_in": 1.0592247252641025,
+    "entropy_bits_out": 1.0762915778946225,
+    "max_share_in": 0.5350877192982456,
+    "max_share_out": 0.4945054945054945,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.3562041973715074,
+    "mean_nn_distance_out": 0.44253100270810114
+   },
+   "lexical": {
+    "n_features": 781,
+    "train_accuracy": 0.9649122807017544,
+    "mean_confidence_in": 0.798470449224324,
+    "mean_confidence_out": 0.7589772459660742,
+    "global_cut_would_drop": {
+     "assistant_follows_the_instruction": 24,
+     "assistant_does_not_follow_the_instruction": 22
+    }
+   }
+  },
+  "arm_instructions_llama70b_gen_orig.jsonl": {
+   "attacker": "llama70b",
+   "arm": "gen",
+   "concept": "instructions",
+   "n_rows": 600,
+   "pool_rows": 480,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "ua": 600
+    },
+    "signatures_out": {
+     "ua": 480
+    },
+    "normalized_entropy_in": 1.0,
+    "normalized_entropy_out": 1.0,
+    "entropy_bits_in": -0.0,
+    "entropy_bits_out": -0.0,
+    "max_share_in": 1.0,
+    "max_share_out": 1.0,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.1475258352919465,
+    "mean_nn_distance_out": 0.19715471222390407
+   },
+   "lexical": {
+    "n_features": 1090,
+    "train_accuracy": 0.9983333333333333,
+    "mean_confidence_in": 0.9615501865234489,
+    "mean_confidence_out": 0.9526132643762099,
+    "global_cut_would_drop": {
+     "assistant_does_not_follow_the_instruction": 101,
+     "assistant_follows_the_instruction": 19
+    }
+   }
+  },
+  "arm_instructions_ds_general_orig.jsonl": {
+   "attacker": "deepseek",
+   "arm": "general",
+   "concept": "instructions",
+   "n_rows": 616,
+   "pool_rows": 492,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "sua": 2,
+     "u": 1,
+     "ua": 525,
+     "uaua": 56,
+     "uauaua": 24,
+     "uauauaua": 8
+    },
+    "signatures_out": {
+     "sua": 2,
+     "u": 1,
+     "ua": 401,
+     "uaua": 56,
+     "uauaua": 24,
+     "uauauaua": 8
+    },
+    "normalized_entropy_in": 0.3159497130818177,
+    "normalized_entropy_out": 0.37021132096795695,
+    "entropy_bits_in": 0.8167181604301073,
+    "entropy_bits_out": 0.9569823820446126,
+    "max_share_in": 0.8522727272727273,
+    "max_share_out": 0.8150406504065041,
+    "mi_shape_label_bits_in": 0.001625607136538689,
+    "mi_shape_label_bits_out": 0.002036176572127071,
+    "mean_nn_distance_in": 0.14635755256384445,
+    "mean_nn_distance_out": 0.18193121512411564
+   },
+   "lexical": {
+    "n_features": 1594,
+    "train_accuracy": 0.8409090909090909,
+    "mean_confidence_in": 0.6578051717097633,
+    "mean_confidence_out": 0.6077628209080191,
+    "global_cut_would_drop": {
+     "assistant_does_not_follow_the_instruction": 69,
+     "assistant_follows_the_instruction": 55
+    }
+   }
+  },
+  "arm_instructions_ds_desc_orig.jsonl": {
+   "attacker": "deepseek",
+   "arm": "desc",
+   "concept": "instructions",
+   "n_rows": 456,
+   "pool_rows": 364,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "u": 3,
+     "u?": 1,
+     "ua": 372,
+     "uaua": 64,
+     "uauaua": 10,
+     "uauauaua": 4,
+     "uauauauaua": 2
+    },
+    "signatures_out": {
+     "u": 3,
+     "u?": 1,
+     "ua": 280,
+     "uaua": 64,
+     "uauaua": 10,
+     "uauauaua": 4,
+     "uauauauaua": 2
+    },
+    "normalized_entropy_in": 0.32750485583497774,
+    "normalized_entropy_out": 0.38034299915935227,
+    "entropy_bits_in": 0.9194223690260908,
+    "entropy_bits_out": 1.0677577907601588,
+    "max_share_in": 0.8157894736842105,
+    "max_share_out": 0.7692307692307693,
+    "mi_shape_label_bits_in": 0.00883996995109324,
+    "mi_shape_label_bits_out": 0.011102256210059211,
+    "mean_nn_distance_in": 0.21408183791820004,
+    "mean_nn_distance_out": 0.2682649834748138
+   },
+   "lexical": {
+    "n_features": 1091,
+    "train_accuracy": 0.8662280701754386,
+    "mean_confidence_in": 0.6745515885828807,
+    "mean_confidence_out": 0.6283514681674464,
+    "global_cut_would_drop": {
+     "assistant_does_not_follow_the_instruction": 48,
+     "assistant_follows_the_instruction": 44
+    }
+   }
+  },
+  "arm_instructions_ds_attacker_orig.jsonl": {
+   "attacker": "deepseek",
+   "arm": "attacker",
+   "concept": "instructions",
+   "n_rows": 516,
+   "pool_rows": 412,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "ua": 376,
+     "uaua": 116,
+     "uauaua": 22,
+     "uauauauauaua": 2
+    },
+    "signatures_out": {
+     "ua": 272,
+     "uaua": 116,
+     "uauaua": 22,
+     "uauauauauaua": 2
+    },
+    "normalized_entropy_in": 0.5209637253127797,
+    "normalized_entropy_out": 0.5866687297749693,
+    "entropy_bits_in": 1.0419274506255594,
+    "entropy_bits_out": 1.1733374595499386,
+    "max_share_in": 0.7286821705426356,
+    "max_share_out": 0.6601941747572816,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.20924535043418388,
+    "mean_nn_distance_out": 0.2573002088646443
+   },
+   "lexical": {
+    "n_features": 1048,
+    "train_accuracy": 0.9050387596899225,
+    "mean_confidence_in": 0.6965236299817413,
+    "mean_confidence_out": 0.6462444529750262,
+    "global_cut_would_drop": {
+     "assistant_does_not_follow_the_instruction": 55,
+     "assistant_follows_the_instruction": 49
+    }
+   }
+  },
+  "arm_instructions_ds_gen_orig.jsonl": {
+   "attacker": "deepseek",
+   "arm": "gen",
+   "concept": "instructions",
+   "n_rows": 600,
+   "pool_rows": 480,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "ua": 600
+    },
+    "signatures_out": {
+     "ua": 480
+    },
+    "normalized_entropy_in": 1.0,
+    "normalized_entropy_out": 1.0,
+    "entropy_bits_in": -0.0,
+    "entropy_bits_out": -0.0,
+    "max_share_in": 1.0,
+    "max_share_out": 1.0,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.154469288001285,
+    "mean_nn_distance_out": 0.19940018626383144
+   },
+   "lexical": {
+    "n_features": 969,
+    "train_accuracy": 0.995,
+    "mean_confidence_in": 0.9102647613915984,
+    "mean_confidence_out": 0.8896326755247981,
+    "global_cut_would_drop": {
+     "assistant_does_not_follow_the_instruction": 73,
+     "assistant_follows_the_instruction": 47
+    }
+   }
+  },
+  "arm_instructions_gptoss_general_orig.jsonl": {
+   "attacker": "gpt-oss",
+   "arm": "general",
+   "concept": "instructions",
+   "n_rows": 410,
+   "pool_rows": 328,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "u": 2,
+     "ua": 382,
+     "uaua": 26
+    },
+    "signatures_out": {
+     "u": 2,
+     "ua": 300,
+     "uaua": 26
+    },
+    "normalized_entropy_in": 0.2428273127860965,
+    "normalized_entropy_out": 0.2854957475272417,
+    "entropy_bits_in": 0.3848721849168499,
+    "entropy_bits_out": 0.4525000539460329,
+    "max_share_in": 0.9317073170731708,
+    "max_share_out": 0.9146341463414634,
+    "mi_shape_label_bits_in": 0.0048964717358197015,
+    "mi_shape_label_bits_out": 0.006126884262758239,
+    "mean_nn_distance_in": 0.1472479911879508,
+    "mean_nn_distance_out": 0.1822029818194157
+   },
+   "lexical": {
+    "n_features": 895,
+    "train_accuracy": 0.8097560975609757,
+    "mean_confidence_in": 0.6342005047023217,
+    "mean_confidence_out": 0.5871413180039603,
+    "global_cut_would_drop": {
+     "assistant_does_not_follow_the_instruction": 41,
+     "assistant_follows_the_instruction": 41
+    }
+   }
+  },
+  "arm_instructions_gptoss_desc_orig.jsonl": {
+   "attacker": "gpt-oss",
+   "arm": "desc",
+   "concept": "instructions",
+   "n_rows": 410,
+   "pool_rows": 328,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "u": 6,
+     "ua": 374,
+     "uaua": 28,
+     "uauaua": 2
+    },
+    "signatures_out": {
+     "u": 6,
+     "ua": 292,
+     "uaua": 28,
+     "uauaua": 2
+    },
+    "normalized_entropy_in": 0.2560153658259962,
+    "normalized_entropy_out": 0.30142160594485756,
+    "entropy_bits_in": 0.5120307316519924,
+    "entropy_bits_out": 0.6028432118897151,
+    "max_share_in": 0.9121951219512195,
+    "max_share_out": 0.8902439024390244,
+    "mi_shape_label_bits_in": 0.01480350609608377,
+    "mi_shape_label_bits_out": 0.018563839985386445,
+    "mean_nn_distance_in": 0.17233510992562562,
+    "mean_nn_distance_out": 0.221326944070729
+   },
+   "lexical": {
+    "n_features": 797,
+    "train_accuracy": 0.8292682926829268,
+    "mean_confidence_in": 0.6406747943544953,
+    "mean_confidence_out": 0.5988572073668842,
+    "global_cut_would_drop": {
+     "assistant_does_not_follow_the_instruction": 47,
+     "assistant_follows_the_instruction": 35
+    }
+   }
+  },
+  "arm_instructions_gptoss_attacker_orig.jsonl": {
+   "attacker": "gpt-oss",
+   "arm": "attacker",
+   "concept": "instructions",
+   "n_rows": 376,
+   "pool_rows": 300,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "u": 1,
+     "ua": 315,
+     "uaua": 58,
+     "uauaua": 2
+    },
+    "signatures_out": {
+     "u": 1,
+     "ua": 239,
+     "uaua": 58,
+     "uauaua": 2
+    },
+    "normalized_entropy_in": 0.346425511597606,
+    "normalized_entropy_out": 0.39762590387327695,
+    "entropy_bits_in": 0.692851023195212,
+    "entropy_bits_out": 0.7952518077465539,
+    "max_share_in": 0.8377659574468085,
+    "max_share_out": 0.7966666666666666,
+    "mi_shape_label_bits_in": 0.0026656648829118997,
+    "mi_shape_label_bits_out": 0.003343393997562116,
+    "mean_nn_distance_in": 0.1939834545310729,
+    "mean_nn_distance_out": 0.2429839112867134
+   },
+   "lexical": {
+    "n_features": 1054,
+    "train_accuracy": 0.9095744680851063,
+    "mean_confidence_in": 0.6957561296497695,
+    "mean_confidence_out": 0.6499093135748998,
+    "global_cut_would_drop": {
+     "assistant_follows_the_instruction": 39,
+     "assistant_does_not_follow_the_instruction": 37
+    }
+   }
+  },
+  "arm_instructions_gptoss_gen_orig.jsonl": {
+   "attacker": "gpt-oss",
+   "arm": "gen",
+   "concept": "instructions",
+   "n_rows": 600,
+   "pool_rows": 480,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "ua": 600
+    },
+    "signatures_out": {
+     "ua": 480
+    },
+    "normalized_entropy_in": 1.0,
+    "normalized_entropy_out": 1.0,
+    "entropy_bits_in": -0.0,
+    "entropy_bits_out": -0.0,
+    "max_share_in": 1.0,
+    "max_share_out": 1.0,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.14560805188533565,
+    "mean_nn_distance_out": 0.18846247847853614
+   },
+   "lexical": {
+    "n_features": 926,
+    "train_accuracy": 0.975,
+    "mean_confidence_in": 0.8534913053742501,
+    "mean_confidence_out": 0.8211124451039521,
+    "global_cut_would_drop": {
+     "assistant_follows_the_instruction": 42,
+     "assistant_does_not_follow_the_instruction": 78
+    }
+   }
+  },
+  "arm_instructions_nemo_general_orig.jsonl": {
+   "attacker": "nemotron",
+   "arm": "general",
+   "concept": "instructions",
+   "n_rows": 482,
+   "pool_rows": 384,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "u": 1,
+     "u?": 2,
+     "ua": 423,
+     "uaua": 34,
+     "uauaua": 12,
+     "uauauaua": 8,
+     "uauauauaua": 2
+    },
+    "signatures_out": {
+     "u": 1,
+     "u?": 2,
+     "ua": 325,
+     "uaua": 34,
+     "uauaua": 12,
+     "uauauaua": 8,
+     "uauauauaua": 2
+    },
+    "normalized_entropy_in": 0.2671923513213467,
+    "normalized_entropy_out": 0.3160746438941138,
+    "entropy_bits_in": 0.7501037626181274,
+    "entropy_bits_out": 0.8873337072737449,
+    "max_share_in": 0.8775933609958506,
+    "max_share_out": 0.8463541666666666,
+    "mi_shape_label_bits_in": 0.002078226794347547,
+    "mi_shape_label_bits_out": 0.0026099467039958184,
+    "mean_nn_distance_in": 0.13812536420424043,
+    "mean_nn_distance_out": 0.17066047536773765
+   },
+   "lexical": {
+    "n_features": 1321,
+    "train_accuracy": 0.8319502074688797,
+    "mean_confidence_in": 0.6551251021144973,
+    "mean_confidence_out": 0.6041643836346214,
+    "global_cut_would_drop": {
+     "assistant_does_not_follow_the_instruction": 51,
+     "assistant_follows_the_instruction": 47
+    }
+   }
+  },
+  "arm_instructions_nemo_desc_orig.jsonl": {
+   "attacker": "nemotron",
+   "arm": "desc",
+   "concept": "instructions",
+   "n_rows": 394,
+   "pool_rows": 314,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "u?": 1,
+     "ua": 309,
+     "uaua": 66,
+     "uauaua": 10,
+     "uauauaua": 6,
+     "uauauauaua": 2
+    },
+    "signatures_out": {
+     "u?": 1,
+     "ua": 229,
+     "uaua": 66,
+     "uauaua": 10,
+     "uauauaua": 6,
+     "uauauauaua": 2
+    },
+    "normalized_entropy_in": 0.3844445733113122,
+    "normalized_entropy_out": 0.4431240960622911,
+    "entropy_bits_in": 0.9937748056154874,
+    "entropy_bits_out": 1.1454591714869817,
+    "max_share_in": 0.7842639593908629,
+    "max_share_out": 0.7292993630573248,
+    "mi_shape_label_bits_in": 0.002543996096624153,
+    "mi_shape_label_bits_out": 0.003194745220329685,
+    "mean_nn_distance_in": 0.20197150781855233,
+    "mean_nn_distance_out": 0.2534444228654167
+   },
+   "lexical": {
+    "n_features": 1639,
+    "train_accuracy": 0.9213197969543148,
+    "mean_confidence_in": 0.7177310300290197,
+    "mean_confidence_out": 0.6671333398818811,
+    "global_cut_would_drop": {
+     "assistant_does_not_follow_the_instruction": 39,
+     "assistant_follows_the_instruction": 41
+    }
+   }
+  },
+  "arm_instructions_nemo_attacker_orig.jsonl": {
+   "attacker": "nemotron",
+   "arm": "attacker",
+   "concept": "instructions",
+   "n_rows": 326,
+   "pool_rows": 260,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "u": 1,
+     "u?": 1,
+     "ua": 250,
+     "uau": 1,
+     "uaua": 51,
+     "uauaua": 16,
+     "uauauaua": 4,
+     "uauauauaua": 2
+    },
+    "signatures_out": {
+     "u": 1,
+     "u?": 1,
+     "ua": 184,
+     "uau": 1,
+     "uaua": 51,
+     "uauaua": 16,
+     "uauauaua": 4,
+     "uauauauaua": 2
+    },
+    "normalized_entropy_in": 0.3752000150033366,
+    "normalized_entropy_out": 0.433572485938925,
+    "entropy_bits_in": 1.1256000450100099,
+    "entropy_bits_out": 1.300717457816775,
+    "max_share_in": 0.7668711656441718,
+    "max_share_out": 0.7076923076923077,
+    "mi_shape_label_bits_in": 0.009245843483098879,
+    "mi_shape_label_bits_out": 0.011592865290347103,
+    "mean_nn_distance_in": 0.258403080057423,
+    "mean_nn_distance_out": 0.3322919363469529
+   },
+   "lexical": {
+    "n_features": 1085,
+    "train_accuracy": 0.950920245398773,
+    "mean_confidence_in": 0.7464941955903083,
+    "mean_confidence_out": 0.702151321991182,
+    "global_cut_would_drop": {
+     "assistant_does_not_follow_the_instruction": 34,
+     "assistant_follows_the_instruction": 32
+    }
+   }
+  },
+  "arm_instructions_nemo_gen_orig.jsonl": {
+   "attacker": "nemotron",
+   "arm": "gen",
+   "concept": "instructions",
+   "n_rows": 600,
+   "pool_rows": 480,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "ua": 600
+    },
+    "signatures_out": {
+     "ua": 480
+    },
+    "normalized_entropy_in": 1.0,
+    "normalized_entropy_out": 1.0,
+    "entropy_bits_in": -0.0,
+    "entropy_bits_out": -0.0,
+    "max_share_in": 1.0,
+    "max_share_out": 1.0,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.14587701016101595,
+    "mean_nn_distance_out": 0.19177481844015118
+   },
+   "lexical": {
+    "n_features": 854,
+    "train_accuracy": 0.9666666666666667,
+    "mean_confidence_in": 0.8509541321471495,
+    "mean_confidence_out": 0.8193669153258287,
+    "global_cut_would_drop": {
+     "assistant_follows_the_instruction": 39,
+     "assistant_does_not_follow_the_instruction": 81
+    }
+   }
+  }
+ }
+}

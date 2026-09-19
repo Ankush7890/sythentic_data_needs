@@ -1,0 +1,26 @@
+{
+ "combo": "att_gdn",
+ "group": "att",
+ "codes": "gdn",
+ "k": 3,
+ "label": "gpt-oss+deepseek+nemotron \u00b7 att",
+ "frac": 0.9,
+ "draw": 0,
+ "n": 579,
+ "n_pool": 643,
+ "per_arm": {
+  "att_g": 182,
+  "att_d": 210,
+  "att_n": 251
+ },
+ "base_rows": 150,
+ "scope_mixed": false,
+ "mean": 0.8681,
+ "splits": {
+  "eval_ai_dilemmas": 0.9658,
+  "eval_ant_hh": 0.7046,
+  "eval_balanced_refusal": 0.8757,
+  "eval_daily_dilemmas": 0.9261
+ },
+ "minutes": 7.3
+}

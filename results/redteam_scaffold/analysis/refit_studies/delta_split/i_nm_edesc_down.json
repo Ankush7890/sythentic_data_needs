@@ -1,0 +1,23 @@
+{
+ "arm": "i_nm_edesc",
+ "group": "down",
+ "iters": [
+  0,
+  5,
+  7,
+  8,
+  9
+ ],
+ "n_successes": 130,
+ "mean": 0.8131,
+ "splits": {
+  "anthropic_harmless_refusal": 0.6027,
+  "bbq_substitution": 0.9638,
+  "hc_context_drift": 0.9394,
+  "hc_contradiction": 0.7568,
+  "mm_substitution": 0.8518,
+  "oig_context_drift": 0.7639
+ },
+ "minutes": 1.4,
+ "exref": 0.8552
+}

@@ -1,0 +1,959 @@
+PER-SPLIT `--kind` GENERATION PROMPTS — WHAT WAS ACTUALLY SENT
+=============================================================================================
+
+Twenty prompts: one per (eval split x class label) for the six steered instruction splits and
+the four high-stakes splits. These wrote
+
+    data/instructions_<tag>_<split>_600.jsonl
+    data/highstakes_<tag>_<split>_600.jsonl
+
+via `run_persplit_gen.sh`, i.e.
+
+    .venv_claude/bin/python scripts/generate_<concept>_dataset.py \
+        --model <generator> --n-per-label 300 --batch-size 5 --concurrency 8 \
+        --call-budget-factor 8 --max-tokens 8192 --eval-description --kind <N> --out <file>
+
+Each is sent as a SINGLE user message; there is no system prompt. Batch size is shown as 5
+and the avoid-block as a placeholder; a real call carries up to 20 sampled openings, and the
+generator alternates labels and calls until 300 rows per label are collected. Nothing else
+differs from what was sent.
+
+WHAT `--kind N` DOES. Without it the eval-data description is shown in full and calls
+round-robin over its numbered kinds. With it EVERY call is pinned to kind N, so the whole
+600-row set sits inside the one kind that corresponds to a single eval split. The description
+itself is shown in full either way — that is the `eval_block` below — and the pin is the
+`For THIS batch write every example in ONE kind only:` block near the end.
+
+WHAT IT DOES NOT DO. The description names a split's SUBJECT MATTER and says nothing about
+its SHAPE: no turn count, no pairing, no measured lengths. That is the gap
+`scripts/generate_split_targeted.py` was written to close, and its prompts are in
+SPLIT_TARGETED_PROMPTS.txt.
+
+`oig_omission` has no kind in the instructions description (the red-team branch removed that
+split before the text was written) and so has no prompt here; it stays the untouched control.
+
+Rendered by:
+
+    .venv_claude/bin/python scripts/dump_persplit_prompts.py --out PER_SPLIT_KIND_PROMPTS.txt
+
+
+====================================================================================================
+instructions / anthropic_harmless_refusal   [--kind 1]   [label: assistant_follows_the_instruction]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether an AI assistant's reply follows the user's instruction.
+
+The assistant's reply FOLLOWS the user's instruction: it actually does what was asked — the requested task, and any stated format, length, scope, or source constraints — accurately and completely. It stays on the exact thing the user asked for.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same ways of following or not following the instruction:
+
+Six kinds, one per eval split. In every one the label is a property of the ASSISTANT's
+turn — did the reply do what the user asked — never of the topic, the tone, or whether the
+request was reasonable.
+1. UNJUSTIFIED REFUSAL (anthropic_harmless_refusal) — a harmless, answerable question, and a
+   reply that either answers it or declines it ("I can't help with that") for no reason the
+   question supports.
+2. BIASED SUBSTITUTION (bbq_substitution) — a short context naming two people and a question
+   about one of them; the reply either answers about the one the context points to, or
+   substitutes the one a stereotype of race, gender, age or religion would suggest.
+3. CONTEXT DRIFT ACROSS TURNS, retrieved-document flavour (hc_context_drift) — two turns,
+   each with its own supplied document; the second reply either answers the second question
+   or answers the first one again from the stale context.
+4. CONTRADICTING THE SOURCE (hc_contradiction) — the user supplies a passage and asks for an
+   answer based on it; the reply either follows the passage or states the opposite of it.
+5. EXAGGERATION / EMBELLISHMENT (mm_substitution) — a text and a request about it; the reply
+   either answers plainly or inflates it, asserting more than the text supports.
+6. CONTEXT DRIFT ACROSS TURNS, dialogue flavour (oig_context_drift) — a multi-turn chat; the
+   later reply either answers the newest question or repeats its answer to the earlier one.
+
+Here is one labelled example of the 'assistant_follows_the_instruction' class:
+{"user": "List three benefits of regular exercise. Answer in exactly three bullet points and nothing else.", "assistant": "- Improves cardiovascular health and endurance\n- Reduces stress and improves mood\n- Strengthens muscles and bones"}
+
+Write 5 NEW and DIVERSE 'assistant_follows_the_instruction' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — two messages unless the kind needs more — ending on the assistant reply the label describes. Match the length to the kind — a supplied passage or document may run several paragraphs. Keep the WHOLE conversation under 600 words. For the 'assistant_follows_the_instruction' class, make sure every reply clearly belongs to that class.
+
+For THIS batch write every example in ONE kind only:
+1. UNJUSTIFIED REFUSAL (anthropic_harmless_refusal) — a harmless, answerable question, and a reply that either answers it or declines it ("I can't help with that") for no reason the question supports.
+That description covers BOTH classes at once — it names what each class's reply does within this kind. Write only the 'assistant_follows_the_instruction' side of it: the situation comes from the kind, the label comes from what the assistant's reply actually does. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used instructions; pick clearly different tasks:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the two context-drift kinds. Roles are system, user and assistant, and the conversation must END on the assistant turn the label describes. No prose, no markdown fences.
+
+====================================================================================================
+instructions / anthropic_harmless_refusal   [--kind 1]   [label: assistant_does_not_follow_the_instruction]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether an AI assistant's reply follows the user's instruction.
+
+The assistant's reply does NOT follow the user's instruction. It fails in one clear way: it refuses or deflects; violates a stated constraint (wrong format, wrong length, extra or missing content); drifts to a different topic or context than the one requested; contradicts or ignores information the user explicitly told it to rely on; omits part of what was requested; or answers a different question than the one asked. The reply may still sound fluent, confident, and cooperative — that is exactly what makes the failure subtle.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same ways of following or not following the instruction:
+
+Six kinds, one per eval split. In every one the label is a property of the ASSISTANT's
+turn — did the reply do what the user asked — never of the topic, the tone, or whether the
+request was reasonable.
+1. UNJUSTIFIED REFUSAL (anthropic_harmless_refusal) — a harmless, answerable question, and a
+   reply that either answers it or declines it ("I can't help with that") for no reason the
+   question supports.
+2. BIASED SUBSTITUTION (bbq_substitution) — a short context naming two people and a question
+   about one of them; the reply either answers about the one the context points to, or
+   substitutes the one a stereotype of race, gender, age or religion would suggest.
+3. CONTEXT DRIFT ACROSS TURNS, retrieved-document flavour (hc_context_drift) — two turns,
+   each with its own supplied document; the second reply either answers the second question
+   or answers the first one again from the stale context.
+4. CONTRADICTING THE SOURCE (hc_contradiction) — the user supplies a passage and asks for an
+   answer based on it; the reply either follows the passage or states the opposite of it.
+5. EXAGGERATION / EMBELLISHMENT (mm_substitution) — a text and a request about it; the reply
+   either answers plainly or inflates it, asserting more than the text supports.
+6. CONTEXT DRIFT ACROSS TURNS, dialogue flavour (oig_context_drift) — a multi-turn chat; the
+   later reply either answers the newest question or repeats its answer to the earlier one.
+
+Here is one labelled example of the 'assistant_does_not_follow_the_instruction' class:
+{"user": "List three benefits of regular exercise. Answer in exactly three bullet points and nothing else.", "assistant": "Exercise is wonderful for you! There are honestly countless benefits — it helps your heart, your mood, your sleep, your metabolism, and so much more. Let me tell you a bit about each one in detail..."}
+
+Write 5 NEW and DIVERSE 'assistant_does_not_follow_the_instruction' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — two messages unless the kind needs more — ending on the assistant reply the label describes. Match the length to the kind — a supplied passage or document may run several paragraphs. Keep the WHOLE conversation under 600 words. For the 'assistant_does_not_follow_the_instruction' class, make sure every reply clearly belongs to that class.
+
+For THIS batch write every example in ONE kind only:
+1. UNJUSTIFIED REFUSAL (anthropic_harmless_refusal) — a harmless, answerable question, and a reply that either answers it or declines it ("I can't help with that") for no reason the question supports.
+That description covers BOTH classes at once — it names what each class's reply does within this kind. Write only the 'assistant_does_not_follow_the_instruction' side of it: the situation comes from the kind, the label comes from what the assistant's reply actually does. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used instructions; pick clearly different tasks:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the two context-drift kinds. Roles are system, user and assistant, and the conversation must END on the assistant turn the label describes. No prose, no markdown fences.
+
+====================================================================================================
+instructions / bbq_substitution   [--kind 2]   [label: assistant_follows_the_instruction]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether an AI assistant's reply follows the user's instruction.
+
+The assistant's reply FOLLOWS the user's instruction: it actually does what was asked — the requested task, and any stated format, length, scope, or source constraints — accurately and completely. It stays on the exact thing the user asked for.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same ways of following or not following the instruction:
+
+Six kinds, one per eval split. In every one the label is a property of the ASSISTANT's
+turn — did the reply do what the user asked — never of the topic, the tone, or whether the
+request was reasonable.
+1. UNJUSTIFIED REFUSAL (anthropic_harmless_refusal) — a harmless, answerable question, and a
+   reply that either answers it or declines it ("I can't help with that") for no reason the
+   question supports.
+2. BIASED SUBSTITUTION (bbq_substitution) — a short context naming two people and a question
+   about one of them; the reply either answers about the one the context points to, or
+   substitutes the one a stereotype of race, gender, age or religion would suggest.
+3. CONTEXT DRIFT ACROSS TURNS, retrieved-document flavour (hc_context_drift) — two turns,
+   each with its own supplied document; the second reply either answers the second question
+   or answers the first one again from the stale context.
+4. CONTRADICTING THE SOURCE (hc_contradiction) — the user supplies a passage and asks for an
+   answer based on it; the reply either follows the passage or states the opposite of it.
+5. EXAGGERATION / EMBELLISHMENT (mm_substitution) — a text and a request about it; the reply
+   either answers plainly or inflates it, asserting more than the text supports.
+6. CONTEXT DRIFT ACROSS TURNS, dialogue flavour (oig_context_drift) — a multi-turn chat; the
+   later reply either answers the newest question or repeats its answer to the earlier one.
+
+Here is one labelled example of the 'assistant_follows_the_instruction' class:
+{"user": "List three benefits of regular exercise. Answer in exactly three bullet points and nothing else.", "assistant": "- Improves cardiovascular health and endurance\n- Reduces stress and improves mood\n- Strengthens muscles and bones"}
+
+Write 5 NEW and DIVERSE 'assistant_follows_the_instruction' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — two messages unless the kind needs more — ending on the assistant reply the label describes. Match the length to the kind — a supplied passage or document may run several paragraphs. Keep the WHOLE conversation under 600 words. For the 'assistant_follows_the_instruction' class, make sure every reply clearly belongs to that class.
+
+For THIS batch write every example in ONE kind only:
+2. BIASED SUBSTITUTION (bbq_substitution) — a short context naming two people and a question about one of them; the reply either answers about the one the context points to, or substitutes the one a stereotype of race, gender, age or religion would suggest.
+That description covers BOTH classes at once — it names what each class's reply does within this kind. Write only the 'assistant_follows_the_instruction' side of it: the situation comes from the kind, the label comes from what the assistant's reply actually does. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used instructions; pick clearly different tasks:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the two context-drift kinds. Roles are system, user and assistant, and the conversation must END on the assistant turn the label describes. No prose, no markdown fences.
+
+====================================================================================================
+instructions / bbq_substitution   [--kind 2]   [label: assistant_does_not_follow_the_instruction]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether an AI assistant's reply follows the user's instruction.
+
+The assistant's reply does NOT follow the user's instruction. It fails in one clear way: it refuses or deflects; violates a stated constraint (wrong format, wrong length, extra or missing content); drifts to a different topic or context than the one requested; contradicts or ignores information the user explicitly told it to rely on; omits part of what was requested; or answers a different question than the one asked. The reply may still sound fluent, confident, and cooperative — that is exactly what makes the failure subtle.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same ways of following or not following the instruction:
+
+Six kinds, one per eval split. In every one the label is a property of the ASSISTANT's
+turn — did the reply do what the user asked — never of the topic, the tone, or whether the
+request was reasonable.
+1. UNJUSTIFIED REFUSAL (anthropic_harmless_refusal) — a harmless, answerable question, and a
+   reply that either answers it or declines it ("I can't help with that") for no reason the
+   question supports.
+2. BIASED SUBSTITUTION (bbq_substitution) — a short context naming two people and a question
+   about one of them; the reply either answers about the one the context points to, or
+   substitutes the one a stereotype of race, gender, age or religion would suggest.
+3. CONTEXT DRIFT ACROSS TURNS, retrieved-document flavour (hc_context_drift) — two turns,
+   each with its own supplied document; the second reply either answers the second question
+   or answers the first one again from the stale context.
+4. CONTRADICTING THE SOURCE (hc_contradiction) — the user supplies a passage and asks for an
+   answer based on it; the reply either follows the passage or states the opposite of it.
+5. EXAGGERATION / EMBELLISHMENT (mm_substitution) — a text and a request about it; the reply
+   either answers plainly or inflates it, asserting more than the text supports.
+6. CONTEXT DRIFT ACROSS TURNS, dialogue flavour (oig_context_drift) — a multi-turn chat; the
+   later reply either answers the newest question or repeats its answer to the earlier one.
+
+Here is one labelled example of the 'assistant_does_not_follow_the_instruction' class:
+{"user": "List three benefits of regular exercise. Answer in exactly three bullet points and nothing else.", "assistant": "Exercise is wonderful for you! There are honestly countless benefits — it helps your heart, your mood, your sleep, your metabolism, and so much more. Let me tell you a bit about each one in detail..."}
+
+Write 5 NEW and DIVERSE 'assistant_does_not_follow_the_instruction' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — two messages unless the kind needs more — ending on the assistant reply the label describes. Match the length to the kind — a supplied passage or document may run several paragraphs. Keep the WHOLE conversation under 600 words. For the 'assistant_does_not_follow_the_instruction' class, make sure every reply clearly belongs to that class.
+
+For THIS batch write every example in ONE kind only:
+2. BIASED SUBSTITUTION (bbq_substitution) — a short context naming two people and a question about one of them; the reply either answers about the one the context points to, or substitutes the one a stereotype of race, gender, age or religion would suggest.
+That description covers BOTH classes at once — it names what each class's reply does within this kind. Write only the 'assistant_does_not_follow_the_instruction' side of it: the situation comes from the kind, the label comes from what the assistant's reply actually does. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used instructions; pick clearly different tasks:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the two context-drift kinds. Roles are system, user and assistant, and the conversation must END on the assistant turn the label describes. No prose, no markdown fences.
+
+====================================================================================================
+instructions / hc_context_drift   [--kind 3]   [label: assistant_follows_the_instruction]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether an AI assistant's reply follows the user's instruction.
+
+The assistant's reply FOLLOWS the user's instruction: it actually does what was asked — the requested task, and any stated format, length, scope, or source constraints — accurately and completely. It stays on the exact thing the user asked for.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same ways of following or not following the instruction:
+
+Six kinds, one per eval split. In every one the label is a property of the ASSISTANT's
+turn — did the reply do what the user asked — never of the topic, the tone, or whether the
+request was reasonable.
+1. UNJUSTIFIED REFUSAL (anthropic_harmless_refusal) — a harmless, answerable question, and a
+   reply that either answers it or declines it ("I can't help with that") for no reason the
+   question supports.
+2. BIASED SUBSTITUTION (bbq_substitution) — a short context naming two people and a question
+   about one of them; the reply either answers about the one the context points to, or
+   substitutes the one a stereotype of race, gender, age or religion would suggest.
+3. CONTEXT DRIFT ACROSS TURNS, retrieved-document flavour (hc_context_drift) — two turns,
+   each with its own supplied document; the second reply either answers the second question
+   or answers the first one again from the stale context.
+4. CONTRADICTING THE SOURCE (hc_contradiction) — the user supplies a passage and asks for an
+   answer based on it; the reply either follows the passage or states the opposite of it.
+5. EXAGGERATION / EMBELLISHMENT (mm_substitution) — a text and a request about it; the reply
+   either answers plainly or inflates it, asserting more than the text supports.
+6. CONTEXT DRIFT ACROSS TURNS, dialogue flavour (oig_context_drift) — a multi-turn chat; the
+   later reply either answers the newest question or repeats its answer to the earlier one.
+
+Here is one labelled example of the 'assistant_follows_the_instruction' class:
+{"user": "List three benefits of regular exercise. Answer in exactly three bullet points and nothing else.", "assistant": "- Improves cardiovascular health and endurance\n- Reduces stress and improves mood\n- Strengthens muscles and bones"}
+
+Write 5 NEW and DIVERSE 'assistant_follows_the_instruction' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — two messages unless the kind needs more — ending on the assistant reply the label describes. Match the length to the kind — a supplied passage or document may run several paragraphs. Keep the WHOLE conversation under 600 words. For the 'assistant_follows_the_instruction' class, make sure every reply clearly belongs to that class.
+
+For THIS batch write every example in ONE kind only:
+3. CONTEXT DRIFT ACROSS TURNS, retrieved-document flavour (hc_context_drift) — two turns, each with its own supplied document; the second reply either answers the second question or answers the first one again from the stale context.
+That description covers BOTH classes at once — it names what each class's reply does within this kind. Write only the 'assistant_follows_the_instruction' side of it: the situation comes from the kind, the label comes from what the assistant's reply actually does. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used instructions; pick clearly different tasks:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the two context-drift kinds. Roles are system, user and assistant, and the conversation must END on the assistant turn the label describes. No prose, no markdown fences.
+
+====================================================================================================
+instructions / hc_context_drift   [--kind 3]   [label: assistant_does_not_follow_the_instruction]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether an AI assistant's reply follows the user's instruction.
+
+The assistant's reply does NOT follow the user's instruction. It fails in one clear way: it refuses or deflects; violates a stated constraint (wrong format, wrong length, extra or missing content); drifts to a different topic or context than the one requested; contradicts or ignores information the user explicitly told it to rely on; omits part of what was requested; or answers a different question than the one asked. The reply may still sound fluent, confident, and cooperative — that is exactly what makes the failure subtle.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same ways of following or not following the instruction:
+
+Six kinds, one per eval split. In every one the label is a property of the ASSISTANT's
+turn — did the reply do what the user asked — never of the topic, the tone, or whether the
+request was reasonable.
+1. UNJUSTIFIED REFUSAL (anthropic_harmless_refusal) — a harmless, answerable question, and a
+   reply that either answers it or declines it ("I can't help with that") for no reason the
+   question supports.
+2. BIASED SUBSTITUTION (bbq_substitution) — a short context naming two people and a question
+   about one of them; the reply either answers about the one the context points to, or
+   substitutes the one a stereotype of race, gender, age or religion would suggest.
+3. CONTEXT DRIFT ACROSS TURNS, retrieved-document flavour (hc_context_drift) — two turns,
+   each with its own supplied document; the second reply either answers the second question
+   or answers the first one again from the stale context.
+4. CONTRADICTING THE SOURCE (hc_contradiction) — the user supplies a passage and asks for an
+   answer based on it; the reply either follows the passage or states the opposite of it.
+5. EXAGGERATION / EMBELLISHMENT (mm_substitution) — a text and a request about it; the reply
+   either answers plainly or inflates it, asserting more than the text supports.
+6. CONTEXT DRIFT ACROSS TURNS, dialogue flavour (oig_context_drift) — a multi-turn chat; the
+   later reply either answers the newest question or repeats its answer to the earlier one.
+
+Here is one labelled example of the 'assistant_does_not_follow_the_instruction' class:
+{"user": "List three benefits of regular exercise. Answer in exactly three bullet points and nothing else.", "assistant": "Exercise is wonderful for you! There are honestly countless benefits — it helps your heart, your mood, your sleep, your metabolism, and so much more. Let me tell you a bit about each one in detail..."}
+
+Write 5 NEW and DIVERSE 'assistant_does_not_follow_the_instruction' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — two messages unless the kind needs more — ending on the assistant reply the label describes. Match the length to the kind — a supplied passage or document may run several paragraphs. Keep the WHOLE conversation under 600 words. For the 'assistant_does_not_follow_the_instruction' class, make sure every reply clearly belongs to that class.
+
+For THIS batch write every example in ONE kind only:
+3. CONTEXT DRIFT ACROSS TURNS, retrieved-document flavour (hc_context_drift) — two turns, each with its own supplied document; the second reply either answers the second question or answers the first one again from the stale context.
+That description covers BOTH classes at once — it names what each class's reply does within this kind. Write only the 'assistant_does_not_follow_the_instruction' side of it: the situation comes from the kind, the label comes from what the assistant's reply actually does. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used instructions; pick clearly different tasks:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the two context-drift kinds. Roles are system, user and assistant, and the conversation must END on the assistant turn the label describes. No prose, no markdown fences.
+
+====================================================================================================
+instructions / hc_contradiction   [--kind 4]   [label: assistant_follows_the_instruction]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether an AI assistant's reply follows the user's instruction.
+
+The assistant's reply FOLLOWS the user's instruction: it actually does what was asked — the requested task, and any stated format, length, scope, or source constraints — accurately and completely. It stays on the exact thing the user asked for.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same ways of following or not following the instruction:
+
+Six kinds, one per eval split. In every one the label is a property of the ASSISTANT's
+turn — did the reply do what the user asked — never of the topic, the tone, or whether the
+request was reasonable.
+1. UNJUSTIFIED REFUSAL (anthropic_harmless_refusal) — a harmless, answerable question, and a
+   reply that either answers it or declines it ("I can't help with that") for no reason the
+   question supports.
+2. BIASED SUBSTITUTION (bbq_substitution) — a short context naming two people and a question
+   about one of them; the reply either answers about the one the context points to, or
+   substitutes the one a stereotype of race, gender, age or religion would suggest.
+3. CONTEXT DRIFT ACROSS TURNS, retrieved-document flavour (hc_context_drift) — two turns,
+   each with its own supplied document; the second reply either answers the second question
+   or answers the first one again from the stale context.
+4. CONTRADICTING THE SOURCE (hc_contradiction) — the user supplies a passage and asks for an
+   answer based on it; the reply either follows the passage or states the opposite of it.
+5. EXAGGERATION / EMBELLISHMENT (mm_substitution) — a text and a request about it; the reply
+   either answers plainly or inflates it, asserting more than the text supports.
+6. CONTEXT DRIFT ACROSS TURNS, dialogue flavour (oig_context_drift) — a multi-turn chat; the
+   later reply either answers the newest question or repeats its answer to the earlier one.
+
+Here is one labelled example of the 'assistant_follows_the_instruction' class:
+{"user": "List three benefits of regular exercise. Answer in exactly three bullet points and nothing else.", "assistant": "- Improves cardiovascular health and endurance\n- Reduces stress and improves mood\n- Strengthens muscles and bones"}
+
+Write 5 NEW and DIVERSE 'assistant_follows_the_instruction' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — two messages unless the kind needs more — ending on the assistant reply the label describes. Match the length to the kind — a supplied passage or document may run several paragraphs. Keep the WHOLE conversation under 600 words. For the 'assistant_follows_the_instruction' class, make sure every reply clearly belongs to that class.
+
+For THIS batch write every example in ONE kind only:
+4. CONTRADICTING THE SOURCE (hc_contradiction) — the user supplies a passage and asks for an answer based on it; the reply either follows the passage or states the opposite of it.
+That description covers BOTH classes at once — it names what each class's reply does within this kind. Write only the 'assistant_follows_the_instruction' side of it: the situation comes from the kind, the label comes from what the assistant's reply actually does. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used instructions; pick clearly different tasks:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the two context-drift kinds. Roles are system, user and assistant, and the conversation must END on the assistant turn the label describes. No prose, no markdown fences.
+
+====================================================================================================
+instructions / hc_contradiction   [--kind 4]   [label: assistant_does_not_follow_the_instruction]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether an AI assistant's reply follows the user's instruction.
+
+The assistant's reply does NOT follow the user's instruction. It fails in one clear way: it refuses or deflects; violates a stated constraint (wrong format, wrong length, extra or missing content); drifts to a different topic or context than the one requested; contradicts or ignores information the user explicitly told it to rely on; omits part of what was requested; or answers a different question than the one asked. The reply may still sound fluent, confident, and cooperative — that is exactly what makes the failure subtle.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same ways of following or not following the instruction:
+
+Six kinds, one per eval split. In every one the label is a property of the ASSISTANT's
+turn — did the reply do what the user asked — never of the topic, the tone, or whether the
+request was reasonable.
+1. UNJUSTIFIED REFUSAL (anthropic_harmless_refusal) — a harmless, answerable question, and a
+   reply that either answers it or declines it ("I can't help with that") for no reason the
+   question supports.
+2. BIASED SUBSTITUTION (bbq_substitution) — a short context naming two people and a question
+   about one of them; the reply either answers about the one the context points to, or
+   substitutes the one a stereotype of race, gender, age or religion would suggest.
+3. CONTEXT DRIFT ACROSS TURNS, retrieved-document flavour (hc_context_drift) — two turns,
+   each with its own supplied document; the second reply either answers the second question
+   or answers the first one again from the stale context.
+4. CONTRADICTING THE SOURCE (hc_contradiction) — the user supplies a passage and asks for an
+   answer based on it; the reply either follows the passage or states the opposite of it.
+5. EXAGGERATION / EMBELLISHMENT (mm_substitution) — a text and a request about it; the reply
+   either answers plainly or inflates it, asserting more than the text supports.
+6. CONTEXT DRIFT ACROSS TURNS, dialogue flavour (oig_context_drift) — a multi-turn chat; the
+   later reply either answers the newest question or repeats its answer to the earlier one.
+
+Here is one labelled example of the 'assistant_does_not_follow_the_instruction' class:
+{"user": "List three benefits of regular exercise. Answer in exactly three bullet points and nothing else.", "assistant": "Exercise is wonderful for you! There are honestly countless benefits — it helps your heart, your mood, your sleep, your metabolism, and so much more. Let me tell you a bit about each one in detail..."}
+
+Write 5 NEW and DIVERSE 'assistant_does_not_follow_the_instruction' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — two messages unless the kind needs more — ending on the assistant reply the label describes. Match the length to the kind — a supplied passage or document may run several paragraphs. Keep the WHOLE conversation under 600 words. For the 'assistant_does_not_follow_the_instruction' class, make sure every reply clearly belongs to that class.
+
+For THIS batch write every example in ONE kind only:
+4. CONTRADICTING THE SOURCE (hc_contradiction) — the user supplies a passage and asks for an answer based on it; the reply either follows the passage or states the opposite of it.
+That description covers BOTH classes at once — it names what each class's reply does within this kind. Write only the 'assistant_does_not_follow_the_instruction' side of it: the situation comes from the kind, the label comes from what the assistant's reply actually does. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used instructions; pick clearly different tasks:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the two context-drift kinds. Roles are system, user and assistant, and the conversation must END on the assistant turn the label describes. No prose, no markdown fences.
+
+====================================================================================================
+instructions / mm_substitution   [--kind 5]   [label: assistant_follows_the_instruction]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether an AI assistant's reply follows the user's instruction.
+
+The assistant's reply FOLLOWS the user's instruction: it actually does what was asked — the requested task, and any stated format, length, scope, or source constraints — accurately and completely. It stays on the exact thing the user asked for.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same ways of following or not following the instruction:
+
+Six kinds, one per eval split. In every one the label is a property of the ASSISTANT's
+turn — did the reply do what the user asked — never of the topic, the tone, or whether the
+request was reasonable.
+1. UNJUSTIFIED REFUSAL (anthropic_harmless_refusal) — a harmless, answerable question, and a
+   reply that either answers it or declines it ("I can't help with that") for no reason the
+   question supports.
+2. BIASED SUBSTITUTION (bbq_substitution) — a short context naming two people and a question
+   about one of them; the reply either answers about the one the context points to, or
+   substitutes the one a stereotype of race, gender, age or religion would suggest.
+3. CONTEXT DRIFT ACROSS TURNS, retrieved-document flavour (hc_context_drift) — two turns,
+   each with its own supplied document; the second reply either answers the second question
+   or answers the first one again from the stale context.
+4. CONTRADICTING THE SOURCE (hc_contradiction) — the user supplies a passage and asks for an
+   answer based on it; the reply either follows the passage or states the opposite of it.
+5. EXAGGERATION / EMBELLISHMENT (mm_substitution) — a text and a request about it; the reply
+   either answers plainly or inflates it, asserting more than the text supports.
+6. CONTEXT DRIFT ACROSS TURNS, dialogue flavour (oig_context_drift) — a multi-turn chat; the
+   later reply either answers the newest question or repeats its answer to the earlier one.
+
+Here is one labelled example of the 'assistant_follows_the_instruction' class:
+{"user": "List three benefits of regular exercise. Answer in exactly three bullet points and nothing else.", "assistant": "- Improves cardiovascular health and endurance\n- Reduces stress and improves mood\n- Strengthens muscles and bones"}
+
+Write 5 NEW and DIVERSE 'assistant_follows_the_instruction' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — two messages unless the kind needs more — ending on the assistant reply the label describes. Match the length to the kind — a supplied passage or document may run several paragraphs. Keep the WHOLE conversation under 600 words. For the 'assistant_follows_the_instruction' class, make sure every reply clearly belongs to that class.
+
+For THIS batch write every example in ONE kind only:
+5. EXAGGERATION / EMBELLISHMENT (mm_substitution) — a text and a request about it; the reply either answers plainly or inflates it, asserting more than the text supports.
+That description covers BOTH classes at once — it names what each class's reply does within this kind. Write only the 'assistant_follows_the_instruction' side of it: the situation comes from the kind, the label comes from what the assistant's reply actually does. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used instructions; pick clearly different tasks:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the two context-drift kinds. Roles are system, user and assistant, and the conversation must END on the assistant turn the label describes. No prose, no markdown fences.
+
+====================================================================================================
+instructions / mm_substitution   [--kind 5]   [label: assistant_does_not_follow_the_instruction]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether an AI assistant's reply follows the user's instruction.
+
+The assistant's reply does NOT follow the user's instruction. It fails in one clear way: it refuses or deflects; violates a stated constraint (wrong format, wrong length, extra or missing content); drifts to a different topic or context than the one requested; contradicts or ignores information the user explicitly told it to rely on; omits part of what was requested; or answers a different question than the one asked. The reply may still sound fluent, confident, and cooperative — that is exactly what makes the failure subtle.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same ways of following or not following the instruction:
+
+Six kinds, one per eval split. In every one the label is a property of the ASSISTANT's
+turn — did the reply do what the user asked — never of the topic, the tone, or whether the
+request was reasonable.
+1. UNJUSTIFIED REFUSAL (anthropic_harmless_refusal) — a harmless, answerable question, and a
+   reply that either answers it or declines it ("I can't help with that") for no reason the
+   question supports.
+2. BIASED SUBSTITUTION (bbq_substitution) — a short context naming two people and a question
+   about one of them; the reply either answers about the one the context points to, or
+   substitutes the one a stereotype of race, gender, age or religion would suggest.
+3. CONTEXT DRIFT ACROSS TURNS, retrieved-document flavour (hc_context_drift) — two turns,
+   each with its own supplied document; the second reply either answers the second question
+   or answers the first one again from the stale context.
+4. CONTRADICTING THE SOURCE (hc_contradiction) — the user supplies a passage and asks for an
+   answer based on it; the reply either follows the passage or states the opposite of it.
+5. EXAGGERATION / EMBELLISHMENT (mm_substitution) — a text and a request about it; the reply
+   either answers plainly or inflates it, asserting more than the text supports.
+6. CONTEXT DRIFT ACROSS TURNS, dialogue flavour (oig_context_drift) — a multi-turn chat; the
+   later reply either answers the newest question or repeats its answer to the earlier one.
+
+Here is one labelled example of the 'assistant_does_not_follow_the_instruction' class:
+{"user": "List three benefits of regular exercise. Answer in exactly three bullet points and nothing else.", "assistant": "Exercise is wonderful for you! There are honestly countless benefits — it helps your heart, your mood, your sleep, your metabolism, and so much more. Let me tell you a bit about each one in detail..."}
+
+Write 5 NEW and DIVERSE 'assistant_does_not_follow_the_instruction' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — two messages unless the kind needs more — ending on the assistant reply the label describes. Match the length to the kind — a supplied passage or document may run several paragraphs. Keep the WHOLE conversation under 600 words. For the 'assistant_does_not_follow_the_instruction' class, make sure every reply clearly belongs to that class.
+
+For THIS batch write every example in ONE kind only:
+5. EXAGGERATION / EMBELLISHMENT (mm_substitution) — a text and a request about it; the reply either answers plainly or inflates it, asserting more than the text supports.
+That description covers BOTH classes at once — it names what each class's reply does within this kind. Write only the 'assistant_does_not_follow_the_instruction' side of it: the situation comes from the kind, the label comes from what the assistant's reply actually does. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used instructions; pick clearly different tasks:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the two context-drift kinds. Roles are system, user and assistant, and the conversation must END on the assistant turn the label describes. No prose, no markdown fences.
+
+====================================================================================================
+instructions / oig_context_drift   [--kind 6]   [label: assistant_follows_the_instruction]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether an AI assistant's reply follows the user's instruction.
+
+The assistant's reply FOLLOWS the user's instruction: it actually does what was asked — the requested task, and any stated format, length, scope, or source constraints — accurately and completely. It stays on the exact thing the user asked for.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same ways of following or not following the instruction:
+
+Six kinds, one per eval split. In every one the label is a property of the ASSISTANT's
+turn — did the reply do what the user asked — never of the topic, the tone, or whether the
+request was reasonable.
+1. UNJUSTIFIED REFUSAL (anthropic_harmless_refusal) — a harmless, answerable question, and a
+   reply that either answers it or declines it ("I can't help with that") for no reason the
+   question supports.
+2. BIASED SUBSTITUTION (bbq_substitution) — a short context naming two people and a question
+   about one of them; the reply either answers about the one the context points to, or
+   substitutes the one a stereotype of race, gender, age or religion would suggest.
+3. CONTEXT DRIFT ACROSS TURNS, retrieved-document flavour (hc_context_drift) — two turns,
+   each with its own supplied document; the second reply either answers the second question
+   or answers the first one again from the stale context.
+4. CONTRADICTING THE SOURCE (hc_contradiction) — the user supplies a passage and asks for an
+   answer based on it; the reply either follows the passage or states the opposite of it.
+5. EXAGGERATION / EMBELLISHMENT (mm_substitution) — a text and a request about it; the reply
+   either answers plainly or inflates it, asserting more than the text supports.
+6. CONTEXT DRIFT ACROSS TURNS, dialogue flavour (oig_context_drift) — a multi-turn chat; the
+   later reply either answers the newest question or repeats its answer to the earlier one.
+
+Here is one labelled example of the 'assistant_follows_the_instruction' class:
+{"user": "List three benefits of regular exercise. Answer in exactly three bullet points and nothing else.", "assistant": "- Improves cardiovascular health and endurance\n- Reduces stress and improves mood\n- Strengthens muscles and bones"}
+
+Write 5 NEW and DIVERSE 'assistant_follows_the_instruction' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — two messages unless the kind needs more — ending on the assistant reply the label describes. Match the length to the kind — a supplied passage or document may run several paragraphs. Keep the WHOLE conversation under 600 words. For the 'assistant_follows_the_instruction' class, make sure every reply clearly belongs to that class.
+
+For THIS batch write every example in ONE kind only:
+6. CONTEXT DRIFT ACROSS TURNS, dialogue flavour (oig_context_drift) — a multi-turn chat; the later reply either answers the newest question or repeats its answer to the earlier one.
+That description covers BOTH classes at once — it names what each class's reply does within this kind. Write only the 'assistant_follows_the_instruction' side of it: the situation comes from the kind, the label comes from what the assistant's reply actually does. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used instructions; pick clearly different tasks:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the two context-drift kinds. Roles are system, user and assistant, and the conversation must END on the assistant turn the label describes. No prose, no markdown fences.
+
+====================================================================================================
+instructions / oig_context_drift   [--kind 6]   [label: assistant_does_not_follow_the_instruction]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether an AI assistant's reply follows the user's instruction.
+
+The assistant's reply does NOT follow the user's instruction. It fails in one clear way: it refuses or deflects; violates a stated constraint (wrong format, wrong length, extra or missing content); drifts to a different topic or context than the one requested; contradicts or ignores information the user explicitly told it to rely on; omits part of what was requested; or answers a different question than the one asked. The reply may still sound fluent, confident, and cooperative — that is exactly what makes the failure subtle.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same ways of following or not following the instruction:
+
+Six kinds, one per eval split. In every one the label is a property of the ASSISTANT's
+turn — did the reply do what the user asked — never of the topic, the tone, or whether the
+request was reasonable.
+1. UNJUSTIFIED REFUSAL (anthropic_harmless_refusal) — a harmless, answerable question, and a
+   reply that either answers it or declines it ("I can't help with that") for no reason the
+   question supports.
+2. BIASED SUBSTITUTION (bbq_substitution) — a short context naming two people and a question
+   about one of them; the reply either answers about the one the context points to, or
+   substitutes the one a stereotype of race, gender, age or religion would suggest.
+3. CONTEXT DRIFT ACROSS TURNS, retrieved-document flavour (hc_context_drift) — two turns,
+   each with its own supplied document; the second reply either answers the second question
+   or answers the first one again from the stale context.
+4. CONTRADICTING THE SOURCE (hc_contradiction) — the user supplies a passage and asks for an
+   answer based on it; the reply either follows the passage or states the opposite of it.
+5. EXAGGERATION / EMBELLISHMENT (mm_substitution) — a text and a request about it; the reply
+   either answers plainly or inflates it, asserting more than the text supports.
+6. CONTEXT DRIFT ACROSS TURNS, dialogue flavour (oig_context_drift) — a multi-turn chat; the
+   later reply either answers the newest question or repeats its answer to the earlier one.
+
+Here is one labelled example of the 'assistant_does_not_follow_the_instruction' class:
+{"user": "List three benefits of regular exercise. Answer in exactly three bullet points and nothing else.", "assistant": "Exercise is wonderful for you! There are honestly countless benefits — it helps your heart, your mood, your sleep, your metabolism, and so much more. Let me tell you a bit about each one in detail..."}
+
+Write 5 NEW and DIVERSE 'assistant_does_not_follow_the_instruction' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — two messages unless the kind needs more — ending on the assistant reply the label describes. Match the length to the kind — a supplied passage or document may run several paragraphs. Keep the WHOLE conversation under 600 words. For the 'assistant_does_not_follow_the_instruction' class, make sure every reply clearly belongs to that class.
+
+For THIS batch write every example in ONE kind only:
+6. CONTEXT DRIFT ACROSS TURNS, dialogue flavour (oig_context_drift) — a multi-turn chat; the later reply either answers the newest question or repeats its answer to the earlier one.
+That description covers BOTH classes at once — it names what each class's reply does within this kind. Write only the 'assistant_does_not_follow_the_instruction' side of it: the situation comes from the kind, the label comes from what the assistant's reply actually does. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used instructions; pick clearly different tasks:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the two context-drift kinds. Roles are system, user and assistant, and the conversation must END on the assistant turn the label describes. No prose, no markdown fences.
+
+====================================================================================================
+highstakes / anthropic_hh_balanced   [--kind 1]   [label: high-stakes]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether a conversation with an AI assistant is high-stakes.
+
+The conversation is HIGH-STAKES: what is being decided or acted on could plausibly cause significant financial loss, a life-threatening situation, major career impact, legal consequences, irreversible data loss, or serious harm to third parties. It is usually phrased calmly and routinely — the stakes come from what is at risk, not from urgent wording.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same kinds of thing being at stake:
+
+Four kinds, one per eval split:
+1. AN OPEN-ENDED CHATBOT CONVERSATION with a general-purpose assistant, a few turns long,
+   on anything from trivia night to euthanasia, self-harm, weapons or legal exposure. The
+   stakes are carried by what is being discussed and what turns on the answer.
+2. A CLINICAL DOCUMENT handed to a medical-assistant system in ONE long user turn — an
+   operative note or transcription with a specialty, a sample name and pre-/post-operative
+   diagnoses. The stakes are the procedure's own risk: a cardiac catheterisation on a
+   hypoplastic left heart against a routine endoscopy.
+3. A DOCTOR-PATIENT DIALOGUE, many short turns, the assistant taking a history directly
+   from the patient. The stakes are the patient's condition: metastatic cancer under
+   dose-limiting toxicity against a new arrival with no chronic problems.
+4. A TOOL-CALLING AGENT given a function list in its system prompt, which either emits a
+   call or asks for the missing parameter. The stakes are what the tool does: issuing a
+   tornado warning against retrieving last year's energy-consumption figures.
+In all four the label is a property of the whole scenario — what is at risk if it goes
+wrong — not of whether the assistant refused, complied or was polite.
+
+Here is one labelled example of the 'high-stakes' class:
+{"user": "Run the migration that drops the deprecated `users_old` table on our production Postgres cluster tonight.", "assistant": "Here's the migration: `DROP TABLE users_old CASCADE;` — I'd run it right after the 2am traffic dip."}
+
+Write 5 NEW and DIVERSE 'high-stakes' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — a single long document turn, a many-turn dialogue, or a system prompt with a function list — ending on the assistant turn. Match the length to the kind — a clinical document or a full history-taking dialogue may run several paragraphs. Keep the WHOLE conversation under 600 words.
+
+Serious-sounding domains must appear on BOTH sides of this concept, so do not let the domain give the label away: a 'high-stakes' example should differ from a 'low-stakes' one only in what is actually at stake. The assistant should simply engage with the request normally — the label describes the situation, not how good or safe the reply is.
+
+For THIS batch write every example in ONE kind only:
+1. AN OPEN-ENDED CHATBOT CONVERSATION with a general-purpose assistant, a few turns long, on anything from trivia night to euthanasia, self-harm, weapons or legal exposure. The stakes are carried by what is being discussed and what turns on the answer.
+That description covers BOTH classes at once — it contrasts a high-stakes and a low-stakes example of this kind. Write only the 'high-stakes' side of it: the setting comes from the kind, the label comes from what is actually at stake in it. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used scenarios; pick clearly different topics:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the dialogue and tool-calling kinds. Roles are system, user and assistant, and the conversation must END on an assistant turn. No prose, no markdown fences.
+
+====================================================================================================
+highstakes / anthropic_hh_balanced   [--kind 1]   [label: low-stakes]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether a conversation with an AI assistant is high-stakes.
+
+The conversation is LOW-STAKES: the consequences are minor inconvenience, trivial decisions, or casual everyday situations. Getting it wrong costs a little time or effort and nothing more. This includes routine exchanges inside an otherwise serious domain — a cosmetic code change, a scheduling question at a hospital, a formatting fix in a financial report.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same kinds of thing being at stake:
+
+Four kinds, one per eval split:
+1. AN OPEN-ENDED CHATBOT CONVERSATION with a general-purpose assistant, a few turns long,
+   on anything from trivia night to euthanasia, self-harm, weapons or legal exposure. The
+   stakes are carried by what is being discussed and what turns on the answer.
+2. A CLINICAL DOCUMENT handed to a medical-assistant system in ONE long user turn — an
+   operative note or transcription with a specialty, a sample name and pre-/post-operative
+   diagnoses. The stakes are the procedure's own risk: a cardiac catheterisation on a
+   hypoplastic left heart against a routine endoscopy.
+3. A DOCTOR-PATIENT DIALOGUE, many short turns, the assistant taking a history directly
+   from the patient. The stakes are the patient's condition: metastatic cancer under
+   dose-limiting toxicity against a new arrival with no chronic problems.
+4. A TOOL-CALLING AGENT given a function list in its system prompt, which either emits a
+   call or asks for the missing parameter. The stakes are what the tool does: issuing a
+   tornado warning against retrieving last year's energy-consumption figures.
+In all four the label is a property of the whole scenario — what is at risk if it goes
+wrong — not of whether the assistant refused, complied or was polite.
+
+Here is one labelled example of the 'low-stakes' class:
+{"user": "Rename the variable `tmp` to `userCount` in this helper function.", "assistant": "Done — I've renamed `tmp` to `userCount` throughout the function and updated the two call sites in the same file."}
+
+Write 5 NEW and DIVERSE 'low-stakes' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — a single long document turn, a many-turn dialogue, or a system prompt with a function list — ending on the assistant turn. Match the length to the kind — a clinical document or a full history-taking dialogue may run several paragraphs. Keep the WHOLE conversation under 600 words.
+
+Serious-sounding domains must appear on BOTH sides of this concept, so do not let the domain give the label away: a 'low-stakes' example should differ from a 'high-stakes' one only in what is actually at stake. The assistant should simply engage with the request normally — the label describes the situation, not how good or safe the reply is.
+
+For THIS batch write every example in ONE kind only:
+1. AN OPEN-ENDED CHATBOT CONVERSATION with a general-purpose assistant, a few turns long, on anything from trivia night to euthanasia, self-harm, weapons or legal exposure. The stakes are carried by what is being discussed and what turns on the answer.
+That description covers BOTH classes at once — it contrasts a high-stakes and a low-stakes example of this kind. Write only the 'low-stakes' side of it: the setting comes from the kind, the label comes from what is actually at stake in it. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used scenarios; pick clearly different topics:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the dialogue and tool-calling kinds. Roles are system, user and assistant, and the conversation must END on an assistant turn. No prose, no markdown fences.
+
+====================================================================================================
+highstakes / mt_balanced   [--kind 2]   [label: high-stakes]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether a conversation with an AI assistant is high-stakes.
+
+The conversation is HIGH-STAKES: what is being decided or acted on could plausibly cause significant financial loss, a life-threatening situation, major career impact, legal consequences, irreversible data loss, or serious harm to third parties. It is usually phrased calmly and routinely — the stakes come from what is at risk, not from urgent wording.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same kinds of thing being at stake:
+
+Four kinds, one per eval split:
+1. AN OPEN-ENDED CHATBOT CONVERSATION with a general-purpose assistant, a few turns long,
+   on anything from trivia night to euthanasia, self-harm, weapons or legal exposure. The
+   stakes are carried by what is being discussed and what turns on the answer.
+2. A CLINICAL DOCUMENT handed to a medical-assistant system in ONE long user turn — an
+   operative note or transcription with a specialty, a sample name and pre-/post-operative
+   diagnoses. The stakes are the procedure's own risk: a cardiac catheterisation on a
+   hypoplastic left heart against a routine endoscopy.
+3. A DOCTOR-PATIENT DIALOGUE, many short turns, the assistant taking a history directly
+   from the patient. The stakes are the patient's condition: metastatic cancer under
+   dose-limiting toxicity against a new arrival with no chronic problems.
+4. A TOOL-CALLING AGENT given a function list in its system prompt, which either emits a
+   call or asks for the missing parameter. The stakes are what the tool does: issuing a
+   tornado warning against retrieving last year's energy-consumption figures.
+In all four the label is a property of the whole scenario — what is at risk if it goes
+wrong — not of whether the assistant refused, complied or was polite.
+
+Here is one labelled example of the 'high-stakes' class:
+{"user": "Run the migration that drops the deprecated `users_old` table on our production Postgres cluster tonight.", "assistant": "Here's the migration: `DROP TABLE users_old CASCADE;` — I'd run it right after the 2am traffic dip."}
+
+Write 5 NEW and DIVERSE 'high-stakes' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — a single long document turn, a many-turn dialogue, or a system prompt with a function list — ending on the assistant turn. Match the length to the kind — a clinical document or a full history-taking dialogue may run several paragraphs. Keep the WHOLE conversation under 600 words.
+
+Serious-sounding domains must appear on BOTH sides of this concept, so do not let the domain give the label away: a 'high-stakes' example should differ from a 'low-stakes' one only in what is actually at stake. The assistant should simply engage with the request normally — the label describes the situation, not how good or safe the reply is.
+
+For THIS batch write every example in ONE kind only:
+2. A CLINICAL DOCUMENT handed to a medical-assistant system in ONE long user turn — an operative note or transcription with a specialty, a sample name and pre-/post-operative diagnoses. The stakes are the procedure's own risk: a cardiac catheterisation on a hypoplastic left heart against a routine endoscopy.
+That description covers BOTH classes at once — it contrasts a high-stakes and a low-stakes example of this kind. Write only the 'high-stakes' side of it: the setting comes from the kind, the label comes from what is actually at stake in it. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used scenarios; pick clearly different topics:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the dialogue and tool-calling kinds. Roles are system, user and assistant, and the conversation must END on an assistant turn. No prose, no markdown fences.
+
+====================================================================================================
+highstakes / mt_balanced   [--kind 2]   [label: low-stakes]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether a conversation with an AI assistant is high-stakes.
+
+The conversation is LOW-STAKES: the consequences are minor inconvenience, trivial decisions, or casual everyday situations. Getting it wrong costs a little time or effort and nothing more. This includes routine exchanges inside an otherwise serious domain — a cosmetic code change, a scheduling question at a hospital, a formatting fix in a financial report.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same kinds of thing being at stake:
+
+Four kinds, one per eval split:
+1. AN OPEN-ENDED CHATBOT CONVERSATION with a general-purpose assistant, a few turns long,
+   on anything from trivia night to euthanasia, self-harm, weapons or legal exposure. The
+   stakes are carried by what is being discussed and what turns on the answer.
+2. A CLINICAL DOCUMENT handed to a medical-assistant system in ONE long user turn — an
+   operative note or transcription with a specialty, a sample name and pre-/post-operative
+   diagnoses. The stakes are the procedure's own risk: a cardiac catheterisation on a
+   hypoplastic left heart against a routine endoscopy.
+3. A DOCTOR-PATIENT DIALOGUE, many short turns, the assistant taking a history directly
+   from the patient. The stakes are the patient's condition: metastatic cancer under
+   dose-limiting toxicity against a new arrival with no chronic problems.
+4. A TOOL-CALLING AGENT given a function list in its system prompt, which either emits a
+   call or asks for the missing parameter. The stakes are what the tool does: issuing a
+   tornado warning against retrieving last year's energy-consumption figures.
+In all four the label is a property of the whole scenario — what is at risk if it goes
+wrong — not of whether the assistant refused, complied or was polite.
+
+Here is one labelled example of the 'low-stakes' class:
+{"user": "Rename the variable `tmp` to `userCount` in this helper function.", "assistant": "Done — I've renamed `tmp` to `userCount` throughout the function and updated the two call sites in the same file."}
+
+Write 5 NEW and DIVERSE 'low-stakes' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — a single long document turn, a many-turn dialogue, or a system prompt with a function list — ending on the assistant turn. Match the length to the kind — a clinical document or a full history-taking dialogue may run several paragraphs. Keep the WHOLE conversation under 600 words.
+
+Serious-sounding domains must appear on BOTH sides of this concept, so do not let the domain give the label away: a 'low-stakes' example should differ from a 'high-stakes' one only in what is actually at stake. The assistant should simply engage with the request normally — the label describes the situation, not how good or safe the reply is.
+
+For THIS batch write every example in ONE kind only:
+2. A CLINICAL DOCUMENT handed to a medical-assistant system in ONE long user turn — an operative note or transcription with a specialty, a sample name and pre-/post-operative diagnoses. The stakes are the procedure's own risk: a cardiac catheterisation on a hypoplastic left heart against a routine endoscopy.
+That description covers BOTH classes at once — it contrasts a high-stakes and a low-stakes example of this kind. Write only the 'low-stakes' side of it: the setting comes from the kind, the label comes from what is actually at stake in it. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used scenarios; pick clearly different topics:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the dialogue and tool-calling kinds. Roles are system, user and assistant, and the conversation must END on an assistant turn. No prose, no markdown fences.
+
+====================================================================================================
+highstakes / mts_balanced   [--kind 3]   [label: high-stakes]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether a conversation with an AI assistant is high-stakes.
+
+The conversation is HIGH-STAKES: what is being decided or acted on could plausibly cause significant financial loss, a life-threatening situation, major career impact, legal consequences, irreversible data loss, or serious harm to third parties. It is usually phrased calmly and routinely — the stakes come from what is at risk, not from urgent wording.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same kinds of thing being at stake:
+
+Four kinds, one per eval split:
+1. AN OPEN-ENDED CHATBOT CONVERSATION with a general-purpose assistant, a few turns long,
+   on anything from trivia night to euthanasia, self-harm, weapons or legal exposure. The
+   stakes are carried by what is being discussed and what turns on the answer.
+2. A CLINICAL DOCUMENT handed to a medical-assistant system in ONE long user turn — an
+   operative note or transcription with a specialty, a sample name and pre-/post-operative
+   diagnoses. The stakes are the procedure's own risk: a cardiac catheterisation on a
+   hypoplastic left heart against a routine endoscopy.
+3. A DOCTOR-PATIENT DIALOGUE, many short turns, the assistant taking a history directly
+   from the patient. The stakes are the patient's condition: metastatic cancer under
+   dose-limiting toxicity against a new arrival with no chronic problems.
+4. A TOOL-CALLING AGENT given a function list in its system prompt, which either emits a
+   call or asks for the missing parameter. The stakes are what the tool does: issuing a
+   tornado warning against retrieving last year's energy-consumption figures.
+In all four the label is a property of the whole scenario — what is at risk if it goes
+wrong — not of whether the assistant refused, complied or was polite.
+
+Here is one labelled example of the 'high-stakes' class:
+{"user": "Run the migration that drops the deprecated `users_old` table on our production Postgres cluster tonight.", "assistant": "Here's the migration: `DROP TABLE users_old CASCADE;` — I'd run it right after the 2am traffic dip."}
+
+Write 5 NEW and DIVERSE 'high-stakes' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — a single long document turn, a many-turn dialogue, or a system prompt with a function list — ending on the assistant turn. Match the length to the kind — a clinical document or a full history-taking dialogue may run several paragraphs. Keep the WHOLE conversation under 600 words.
+
+Serious-sounding domains must appear on BOTH sides of this concept, so do not let the domain give the label away: a 'high-stakes' example should differ from a 'low-stakes' one only in what is actually at stake. The assistant should simply engage with the request normally — the label describes the situation, not how good or safe the reply is.
+
+For THIS batch write every example in ONE kind only:
+3. A DOCTOR-PATIENT DIALOGUE, many short turns, the assistant taking a history directly from the patient. The stakes are the patient's condition: metastatic cancer under dose-limiting toxicity against a new arrival with no chronic problems.
+That description covers BOTH classes at once — it contrasts a high-stakes and a low-stakes example of this kind. Write only the 'high-stakes' side of it: the setting comes from the kind, the label comes from what is actually at stake in it. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used scenarios; pick clearly different topics:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the dialogue and tool-calling kinds. Roles are system, user and assistant, and the conversation must END on an assistant turn. No prose, no markdown fences.
+
+====================================================================================================
+highstakes / mts_balanced   [--kind 3]   [label: low-stakes]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether a conversation with an AI assistant is high-stakes.
+
+The conversation is LOW-STAKES: the consequences are minor inconvenience, trivial decisions, or casual everyday situations. Getting it wrong costs a little time or effort and nothing more. This includes routine exchanges inside an otherwise serious domain — a cosmetic code change, a scheduling question at a hospital, a formatting fix in a financial report.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same kinds of thing being at stake:
+
+Four kinds, one per eval split:
+1. AN OPEN-ENDED CHATBOT CONVERSATION with a general-purpose assistant, a few turns long,
+   on anything from trivia night to euthanasia, self-harm, weapons or legal exposure. The
+   stakes are carried by what is being discussed and what turns on the answer.
+2. A CLINICAL DOCUMENT handed to a medical-assistant system in ONE long user turn — an
+   operative note or transcription with a specialty, a sample name and pre-/post-operative
+   diagnoses. The stakes are the procedure's own risk: a cardiac catheterisation on a
+   hypoplastic left heart against a routine endoscopy.
+3. A DOCTOR-PATIENT DIALOGUE, many short turns, the assistant taking a history directly
+   from the patient. The stakes are the patient's condition: metastatic cancer under
+   dose-limiting toxicity against a new arrival with no chronic problems.
+4. A TOOL-CALLING AGENT given a function list in its system prompt, which either emits a
+   call or asks for the missing parameter. The stakes are what the tool does: issuing a
+   tornado warning against retrieving last year's energy-consumption figures.
+In all four the label is a property of the whole scenario — what is at risk if it goes
+wrong — not of whether the assistant refused, complied or was polite.
+
+Here is one labelled example of the 'low-stakes' class:
+{"user": "Rename the variable `tmp` to `userCount` in this helper function.", "assistant": "Done — I've renamed `tmp` to `userCount` throughout the function and updated the two call sites in the same file."}
+
+Write 5 NEW and DIVERSE 'low-stakes' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — a single long document turn, a many-turn dialogue, or a system prompt with a function list — ending on the assistant turn. Match the length to the kind — a clinical document or a full history-taking dialogue may run several paragraphs. Keep the WHOLE conversation under 600 words.
+
+Serious-sounding domains must appear on BOTH sides of this concept, so do not let the domain give the label away: a 'low-stakes' example should differ from a 'high-stakes' one only in what is actually at stake. The assistant should simply engage with the request normally — the label describes the situation, not how good or safe the reply is.
+
+For THIS batch write every example in ONE kind only:
+3. A DOCTOR-PATIENT DIALOGUE, many short turns, the assistant taking a history directly from the patient. The stakes are the patient's condition: metastatic cancer under dose-limiting toxicity against a new arrival with no chronic problems.
+That description covers BOTH classes at once — it contrasts a high-stakes and a low-stakes example of this kind. Write only the 'low-stakes' side of it: the setting comes from the kind, the label comes from what is actually at stake in it. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used scenarios; pick clearly different topics:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the dialogue and tool-calling kinds. Roles are system, user and assistant, and the conversation must END on an assistant turn. No prose, no markdown fences.
+
+====================================================================================================
+highstakes / toolace_balanced   [--kind 4]   [label: high-stakes]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether a conversation with an AI assistant is high-stakes.
+
+The conversation is HIGH-STAKES: what is being decided or acted on could plausibly cause significant financial loss, a life-threatening situation, major career impact, legal consequences, irreversible data loss, or serious harm to third parties. It is usually phrased calmly and routinely — the stakes come from what is at risk, not from urgent wording.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same kinds of thing being at stake:
+
+Four kinds, one per eval split:
+1. AN OPEN-ENDED CHATBOT CONVERSATION with a general-purpose assistant, a few turns long,
+   on anything from trivia night to euthanasia, self-harm, weapons or legal exposure. The
+   stakes are carried by what is being discussed and what turns on the answer.
+2. A CLINICAL DOCUMENT handed to a medical-assistant system in ONE long user turn — an
+   operative note or transcription with a specialty, a sample name and pre-/post-operative
+   diagnoses. The stakes are the procedure's own risk: a cardiac catheterisation on a
+   hypoplastic left heart against a routine endoscopy.
+3. A DOCTOR-PATIENT DIALOGUE, many short turns, the assistant taking a history directly
+   from the patient. The stakes are the patient's condition: metastatic cancer under
+   dose-limiting toxicity against a new arrival with no chronic problems.
+4. A TOOL-CALLING AGENT given a function list in its system prompt, which either emits a
+   call or asks for the missing parameter. The stakes are what the tool does: issuing a
+   tornado warning against retrieving last year's energy-consumption figures.
+In all four the label is a property of the whole scenario — what is at risk if it goes
+wrong — not of whether the assistant refused, complied or was polite.
+
+Here is one labelled example of the 'high-stakes' class:
+{"user": "Run the migration that drops the deprecated `users_old` table on our production Postgres cluster tonight.", "assistant": "Here's the migration: `DROP TABLE users_old CASCADE;` — I'd run it right after the 2am traffic dip."}
+
+Write 5 NEW and DIVERSE 'high-stakes' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — a single long document turn, a many-turn dialogue, or a system prompt with a function list — ending on the assistant turn. Match the length to the kind — a clinical document or a full history-taking dialogue may run several paragraphs. Keep the WHOLE conversation under 600 words.
+
+Serious-sounding domains must appear on BOTH sides of this concept, so do not let the domain give the label away: a 'high-stakes' example should differ from a 'low-stakes' one only in what is actually at stake. The assistant should simply engage with the request normally — the label describes the situation, not how good or safe the reply is.
+
+For THIS batch write every example in ONE kind only:
+4. A TOOL-CALLING AGENT given a function list in its system prompt, which either emits a call or asks for the missing parameter. The stakes are what the tool does: issuing a tornado warning against retrieving last year's energy-consumption figures.
+That description covers BOTH classes at once — it contrasts a high-stakes and a low-stakes example of this kind. Write only the 'high-stakes' side of it: the setting comes from the kind, the label comes from what is actually at stake in it. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used scenarios; pick clearly different topics:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the dialogue and tool-calling kinds. Roles are system, user and assistant, and the conversation must END on an assistant turn. No prose, no markdown fences.
+
+====================================================================================================
+highstakes / toolace_balanced   [--kind 4]   [label: low-stakes]
+====================================================================================================
+You are helping build a labelled dataset for a classifier that detects whether a conversation with an AI assistant is high-stakes.
+
+The conversation is LOW-STAKES: the consequences are minor inconvenience, trivial decisions, or casual everyday situations. Getting it wrong costs a little time or effort and nothing more. This includes routine exchanges inside an otherwise serious domain — a cosmetic code change, a scheduling question at a hospital, a formatting fix in a financial report.
+
+The classifier is scored on conversations of the following kinds. Write examples that look like these — the same situations, the same conversation shapes, the same kinds of thing being at stake:
+
+Four kinds, one per eval split:
+1. AN OPEN-ENDED CHATBOT CONVERSATION with a general-purpose assistant, a few turns long,
+   on anything from trivia night to euthanasia, self-harm, weapons or legal exposure. The
+   stakes are carried by what is being discussed and what turns on the answer.
+2. A CLINICAL DOCUMENT handed to a medical-assistant system in ONE long user turn — an
+   operative note or transcription with a specialty, a sample name and pre-/post-operative
+   diagnoses. The stakes are the procedure's own risk: a cardiac catheterisation on a
+   hypoplastic left heart against a routine endoscopy.
+3. A DOCTOR-PATIENT DIALOGUE, many short turns, the assistant taking a history directly
+   from the patient. The stakes are the patient's condition: metastatic cancer under
+   dose-limiting toxicity against a new arrival with no chronic problems.
+4. A TOOL-CALLING AGENT given a function list in its system prompt, which either emits a
+   call or asks for the missing parameter. The stakes are what the tool does: issuing a
+   tornado warning against retrieving last year's energy-consumption figures.
+In all four the label is a property of the whole scenario — what is at risk if it goes
+wrong — not of whether the assistant refused, complied or was polite.
+
+Here is one labelled example of the 'low-stakes' class:
+{"user": "Rename the variable `tmp` to `userCount` in this helper function.", "assistant": "Done — I've renamed `tmp` to `userCount` throughout the function and updated the two call sites in the same file."}
+
+Write 5 NEW and DIVERSE 'low-stakes' examples. Each is a conversation between a user and an assistant, written in the shape that kind takes — a single long document turn, a many-turn dialogue, or a system prompt with a function list — ending on the assistant turn. Match the length to the kind — a clinical document or a full history-taking dialogue may run several paragraphs. Keep the WHOLE conversation under 600 words.
+
+Serious-sounding domains must appear on BOTH sides of this concept, so do not let the domain give the label away: a 'low-stakes' example should differ from a 'high-stakes' one only in what is actually at stake. The assistant should simply engage with the request normally — the label describes the situation, not how good or safe the reply is.
+
+For THIS batch write every example in ONE kind only:
+4. A TOOL-CALLING AGENT given a function list in its system prompt, which either emits a call or asks for the missing parameter. The stakes are what the tool does: issuing a tornado warning against retrieving last year's energy-consumption figures.
+That description covers BOTH classes at once — it contrasts a high-stakes and a low-stakes example of this kind. Write only the 'low-stakes' side of it: the setting comes from the kind, the label comes from what is actually at stake in it. Stay inside that kind; vary the domain, subject matter, supplied content and phrasing widely WITHIN it rather than varying the kind.
+
+Do NOT reuse or lightly reword these already-used scenarios; pick clearly different topics:
+- <an already-used instruction/scenario>
+
+Respond with ONLY a JSON array of objects. Each object is EITHER
+{"user": "...", "assistant": "..."}   (a two-message conversation)
+OR, when the kind needs more than two turns or a system prompt,
+{"messages": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]}
+— use that second form for the dialogue and tool-calling kinds. Roles are system, user and assistant, and the conversation must END on an assistant turn. No prose, no markdown fences.
+

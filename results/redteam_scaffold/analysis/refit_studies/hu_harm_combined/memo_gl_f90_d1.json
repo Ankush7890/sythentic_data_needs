@@ -1,0 +1,25 @@
+{
+ "combo": "memo_gl",
+ "group": "memo",
+ "codes": "gl",
+ "k": 2,
+ "label": "gpt-oss+llama70b \u00b7 memo",
+ "frac": 0.9,
+ "draw": 1,
+ "n": 145,
+ "n_pool": 161,
+ "per_arm": {
+  "memo_g": 153,
+  "memo_l": 8
+ },
+ "base_rows": 100,
+ "scope_mixed": true,
+ "mean": 0.9058,
+ "splits": {
+  "eval_ai_dilemmas": 0.9909,
+  "eval_ant_hh": 0.7591,
+  "eval_balanced_refusal": 0.888,
+  "eval_daily_dilemmas": 0.9852
+ },
+ "minutes": 2.1
+}

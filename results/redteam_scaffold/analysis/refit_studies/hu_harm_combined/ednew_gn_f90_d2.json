@@ -1,0 +1,25 @@
+{
+ "combo": "ednew_gn",
+ "group": "ednew",
+ "codes": "gn",
+ "k": 2,
+ "label": "gpt-oss+nemotron \u00b7 ednew",
+ "frac": 0.9,
+ "draw": 2,
+ "n": 379,
+ "n_pool": 421,
+ "per_arm": {
+  "ednew_g": 190,
+  "ednew_n": 231
+ },
+ "base_rows": 100,
+ "scope_mixed": false,
+ "mean": 0.9135,
+ "splits": {
+  "eval_ai_dilemmas": 0.9944,
+  "eval_ant_hh": 0.7423,
+  "eval_balanced_refusal": 0.9247,
+  "eval_daily_dilemmas": 0.9926
+ },
+ "minutes": 3.4
+}

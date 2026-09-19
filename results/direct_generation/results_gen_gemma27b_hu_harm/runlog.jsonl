@@ -1,0 +1,68 @@
+{"event": "iteration_start", "ts": 1787871851.1137407, "iteration": 0, "probe": "probes/gen_gemma27b_hu_harm/probe_iter0.pkl", "baseline": {"dev_ai_dilemmas": 0.8676748582230623, "dev_ant_hh": 0.7954545454545455, "dev_balanced_refusal": 0.8541991534862998, "dev_daily_dilemmas": 0.9862258953168045, "mean": 0.8758886131201781}}
+{"event": "directions_proposed", "ts": 1787871858.6441662, "iteration": 0, "model": "meta-llama/llama-3.3-70b-instruct", "wanted": 5, "got": 5}
+{"event": "generator_call", "ts": 1787871871.4834886, "iteration": 0, "batch": 1, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 4, "admitted": 4, "malformed": 0}
+{"event": "generator_call", "ts": 1787871872.069715, "iteration": 0, "batch": 4, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787871879.7587292, "iteration": 0, "batch": 2, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787871901.1640458, "iteration": 0, "batch": 1, "model": "meta-llama/llama-3.3-70b-instruct", "call": 1, "parsed": 6, "admitted": 6, "malformed": 0}
+{"event": "generator_call", "ts": 1787871905.7219622, "iteration": 0, "batch": 3, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787871950.5521214, "iteration": 0, "batch": 0, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "batch_scored", "ts": 1787872022.7930713, "iteration": 0, "batch": 0, "delta": -0.003696781164663099, "accepted": false, "exhausted": false}
+{"event": "batch_scored", "ts": 1787872027.240722, "iteration": 0, "batch": 1, "delta": -0.009068946704543834, "accepted": false, "exhausted": false}
+{"event": "batch_scored", "ts": 1787872031.8452423, "iteration": 0, "batch": 2, "delta": 0.005920236532555911, "accepted": true, "exhausted": false}
+{"event": "batch_scored", "ts": 1787872036.664714, "iteration": 0, "batch": 3, "delta": 0.006697591874008424, "accepted": true, "exhausted": false}
+{"event": "batch_scored", "ts": 1787872040.7847862, "iteration": 0, "batch": 4, "delta": -0.059937555779784435, "accepted": false, "exhausted": false}
+{"event": "iteration_retrain", "ts": 1787872050.9944777, "iteration": 0, "retrained": true, "n_accepted_batches": 2, "n_accepted_samples": 20, "dev_auroc": {"dev_ai_dilemmas": 0.8279773156899811, "dev_ant_hh": 0.8512396694214877, "dev_balanced_refusal": 0.8921808866117176, "dev_daily_dilemmas": 0.9265381083562901, "mean": 0.8744839950198691}}
+{"event": "iteration_end", "ts": 1787872076.7248707, "iteration": 0}
+{"event": "iteration_start", "ts": 1787872076.7250526, "iteration": 1, "probe": "probes/gen_gemma27b_hu_harm/probe_iter1.pkl", "baseline": {"dev_ai_dilemmas": 0.8279773156899811, "dev_ant_hh": 0.8512396694214877, "dev_balanced_refusal": 0.8921808866117176, "dev_daily_dilemmas": 0.9265381083562901, "mean": 0.8744839950198691}}
+{"event": "generator_call", "ts": 1787872096.6546965, "iteration": 1, "batch": 4, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 4, "admitted": 4, "malformed": 0}
+{"event": "generator_call", "ts": 1787872098.6925313, "iteration": 1, "batch": 3, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787872103.7628314, "iteration": 1, "batch": 2, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787872106.842177, "iteration": 1, "batch": 1, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787872110.0304968, "iteration": 1, "batch": 4, "model": "meta-llama/llama-3.3-70b-instruct", "call": 1, "parsed": 6, "admitted": 6, "malformed": 0}
+{"event": "generator_call", "ts": 1787872325.493759, "iteration": 1, "batch": 0, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "batch_scored", "ts": 1787872400.4572554, "iteration": 1, "batch": 0, "delta": -0.0014611199864416058, "accepted": false, "exhausted": true}
+{"event": "batch_scored", "ts": 1787872408.978372, "iteration": 1, "batch": 1, "delta": 0.03117129460961998, "accepted": true, "exhausted": false}
+{"event": "batch_scored", "ts": 1787872413.9087868, "iteration": 1, "batch": 2, "delta": -0.00017076913098801327, "accepted": false, "exhausted": true}
+{"event": "batch_scored", "ts": 1787872418.8225389, "iteration": 1, "batch": 3, "delta": -0.020530286249739738, "accepted": false, "exhausted": false}
+{"event": "batch_scored", "ts": 1787872428.2005444, "iteration": 1, "batch": 4, "delta": 0.0070386854384896225, "accepted": true, "exhausted": false}
+{"event": "iteration_retrain", "ts": 1787872433.0220711, "iteration": 1, "retrained": true, "n_accepted_batches": 2, "n_accepted_samples": 40, "dev_auroc": {"dev_ai_dilemmas": 0.9829867674858224, "dev_ant_hh": 0.8853305785123967, "dev_balanced_refusal": 0.8676765426598351, "dev_daily_dilemmas": 0.9329660238751147, "mean": 0.9172399781332923}}
+{"event": "iteration_end", "ts": 1787872466.3610394, "iteration": 1}
+{"event": "iteration_start", "ts": 1787872466.3613224, "iteration": 2, "probe": "probes/gen_gemma27b_hu_harm/probe_iter2.pkl", "baseline": {"dev_ai_dilemmas": 0.9829867674858224, "dev_ant_hh": 0.8853305785123967, "dev_balanced_refusal": 0.8676765426598351, "dev_daily_dilemmas": 0.9329660238751147, "mean": 0.9172399781332923}}
+{"event": "generator_call", "ts": 1787872478.9920735, "iteration": 2, "batch": 3, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787872487.3522363, "iteration": 2, "batch": 2, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787872490.056576, "iteration": 2, "batch": 4, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787872539.3981059, "iteration": 2, "batch": 1, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787872590.9572325, "iteration": 2, "batch": 0, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "batch_scored", "ts": 1787872669.674164, "iteration": 2, "batch": 0, "delta": 0.004287677335756523, "accepted": true, "exhausted": false}
+{"event": "batch_scored", "ts": 1787872679.0228624, "iteration": 2, "batch": 1, "delta": -0.0012452821056676555, "accepted": false, "exhausted": true}
+{"event": "batch_scored", "ts": 1787872688.9871936, "iteration": 2, "batch": 2, "delta": -0.006067323515957179, "accepted": false, "exhausted": false}
+{"event": "batch_scored", "ts": 1787872700.749533, "iteration": 2, "batch": 3, "delta": -0.003039665838792005, "accepted": false, "exhausted": false}
+{"event": "batch_scored", "ts": 1787872709.1620872, "iteration": 2, "batch": 4, "delta": -0.0026107145261147213, "accepted": false, "exhausted": false}
+{"event": "iteration_retrain", "ts": 1787872719.9076142, "iteration": 2, "retrained": true, "n_accepted_batches": 1, "n_accepted_samples": 50, "dev_auroc": {"dev_ai_dilemmas": 0.9744801512287334, "dev_ant_hh": 0.8305785123966942, "dev_balanced_refusal": 0.9145689463132102, "dev_daily_dilemmas": 0.9664830119375574, "mean": 0.9215276554690488}}
+{"event": "iteration_end", "ts": 1787872747.034992, "iteration": 2}
+{"event": "iteration_start", "ts": 1787872747.0351813, "iteration": 3, "probe": "probes/gen_gemma27b_hu_harm/probe_iter3.pkl", "baseline": {"dev_ai_dilemmas": 0.9744801512287334, "dev_ant_hh": 0.8305785123966942, "dev_balanced_refusal": 0.9145689463132102, "dev_daily_dilemmas": 0.9664830119375574, "mean": 0.9215276554690488}}
+{"event": "generator_call", "ts": 1787872769.205082, "iteration": 3, "batch": 2, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787872783.011137, "iteration": 3, "batch": 3, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787872784.1412752, "iteration": 3, "batch": 1, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787872851.2856793, "iteration": 3, "batch": 0, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787872935.2342932, "iteration": 3, "batch": 4, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "batch_scored", "ts": 1787873007.6051207, "iteration": 3, "batch": 0, "delta": -0.0503444988186319, "accepted": false, "exhausted": false}
+{"event": "batch_scored", "ts": 1787873012.3408978, "iteration": 3, "batch": 1, "delta": -0.055026973128499135, "accepted": false, "exhausted": false}
+{"event": "batch_scored", "ts": 1787873019.1439338, "iteration": 3, "batch": 2, "delta": -0.020458344949943696, "accepted": false, "exhausted": false}
+{"event": "batch_scored", "ts": 1787873023.8278728, "iteration": 3, "batch": 3, "delta": -0.061552765865115044, "accepted": false, "exhausted": false}
+{"event": "batch_scored", "ts": 1787873028.4831417, "iteration": 3, "batch": 4, "delta": -0.052173726461460235, "accepted": false, "exhausted": false}
+{"event": "iteration_retrain", "ts": 1787873028.4846866, "iteration": 3, "retrained": false, "n_accepted_batches": 0, "n_accepted_samples": 50, "dev_auroc": {"dev_ai_dilemmas": 0.9744801512287334, "dev_ant_hh": 0.8305785123966942, "dev_balanced_refusal": 0.9145689463132102, "dev_daily_dilemmas": 0.9664830119375574, "mean": 0.9215276554690488}}
+{"event": "iteration_end", "ts": 1787873057.1008306, "iteration": 3}
+{"event": "iteration_start", "ts": 1787873057.1010232, "iteration": 4, "probe": "probes/gen_gemma27b_hu_harm/probe_iter4.pkl", "baseline": {"dev_ai_dilemmas": 0.9744801512287334, "dev_ant_hh": 0.8305785123966942, "dev_balanced_refusal": 0.9145689463132102, "dev_daily_dilemmas": 0.9664830119375574, "mean": 0.9215276554690488}}
+{"event": "generator_call", "ts": 1787873066.77184, "iteration": 4, "batch": 1, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787873100.9752307, "iteration": 4, "batch": 4, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787873119.702081, "iteration": 4, "batch": 3, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787873129.158213, "iteration": 4, "batch": 2, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "generator_call", "ts": 1787873198.0271926, "iteration": 4, "batch": 0, "model": "meta-llama/llama-3.3-70b-instruct", "call": 0, "parsed": 10, "admitted": 10, "malformed": 0}
+{"event": "batch_scored", "ts": 1787873270.966181, "iteration": 4, "batch": 0, "delta": -0.018604328019859895, "accepted": false, "exhausted": false}
+{"event": "batch_scored", "ts": 1787873275.6990223, "iteration": 4, "batch": 1, "delta": -0.05074423041233289, "accepted": false, "exhausted": false}
+{"event": "batch_scored", "ts": 1787873282.450678, "iteration": 4, "batch": 2, "delta": -0.030184810229147097, "accepted": false, "exhausted": false}
+{"event": "batch_scored", "ts": 1787873288.5952318, "iteration": 4, "batch": 3, "delta": -0.026896983418381648, "accepted": false, "exhausted": false}
+{"event": "batch_scored", "ts": 1787873294.8877718, "iteration": 4, "batch": 4, "delta": -0.025729819231117834, "accepted": false, "exhausted": false}
+{"event": "iteration_retrain", "ts": 1787873294.8893757, "iteration": 4, "retrained": false, "n_accepted_batches": 0, "n_accepted_samples": 50, "dev_auroc": {"dev_ai_dilemmas": 0.9744801512287334, "dev_ant_hh": 0.8305785123966942, "dev_balanced_refusal": 0.9145689463132102, "dev_daily_dilemmas": 0.9664830119375574, "mean": 0.9215276554690488}}
+{"event": "iteration_end", "ts": 1787873326.4674802, "iteration": 4}

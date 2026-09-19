@@ -1,0 +1,6 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_ant_hh,eval_ant_hh,seconds
+hu_harm_deepseekv4pro_anthh5_intent_600.jsonl,none,600,0,300,300,600,0.84814,0.89396,0.84814,0.89396,1047.7
+hu_harm_deepseekv4pro_anthh5_longtail_600.jsonl,none,600,0,300,300,600,0.90599,0.86333,0.90599,0.86333,1037.9
+hu_harm_deepseekv4pro_anthh5_nearmiss_600.jsonl,none,600,0,300,300,600,0.90702,0.94052,0.90702,0.94052,1018.6
+hu_harm_deepseekv4pro_anthh5_replica_600.jsonl,none,600,0,300,300,600,0.90083,0.91769,0.90083,0.91769,1020.7
+hu_harm_deepseekv4pro_anthh5_victim_600.jsonl,none,600,0,300,300,600,0.76963,0.86411,0.76963,0.86411,1030.1

@@ -1,0 +1,26 @@
+{
+ "combo": "memo_gln",
+ "group": "memo",
+ "codes": "gln",
+ "k": 3,
+ "label": "gpt-oss+llama70b+nemotron \u00b7 memo",
+ "frac": 0.9,
+ "draw": 2,
+ "n": 396,
+ "n_pool": 440,
+ "per_arm": {
+  "memo_g": 153,
+  "memo_l": 8,
+  "memo_n": 279
+ },
+ "base_rows": 150,
+ "scope_mixed": true,
+ "mean": 0.9062,
+ "splits": {
+  "eval_ai_dilemmas": 0.9933,
+  "eval_ant_hh": 0.7808,
+  "eval_balanced_refusal": 0.871,
+  "eval_daily_dilemmas": 0.9797
+ },
+ "minutes": 4.3
+}

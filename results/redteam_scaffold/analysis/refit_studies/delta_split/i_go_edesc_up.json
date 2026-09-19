@@ -1,0 +1,25 @@
+{
+ "arm": "i_go_edesc",
+ "group": "up",
+ "iters": [
+  0,
+  2,
+  4,
+  5,
+  6,
+  8,
+  9
+ ],
+ "n_successes": 173,
+ "mean": 0.8541,
+ "splits": {
+  "anthropic_harmless_refusal": 0.6644,
+  "bbq_substitution": 0.8805,
+  "hc_context_drift": 0.9318,
+  "hc_contradiction": 0.9394,
+  "mm_substitution": 0.9779,
+  "oig_context_drift": 0.7305
+ },
+ "minutes": 1.6,
+ "exref": 0.892
+}

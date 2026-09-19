@@ -1,0 +1,27 @@
+{
+ "combo": "ednew_gdln",
+ "group": "ednew",
+ "codes": "gdln",
+ "k": 4,
+ "label": "gpt-oss+deepseek+llama70b+nemotron \u00b7 ednew",
+ "frac": 0.9,
+ "draw": 2,
+ "n": 623,
+ "n_pool": 692,
+ "per_arm": {
+  "ednew_g": 190,
+  "ednew_d": 239,
+  "ednew_l": 32,
+  "ednew_n": 231
+ },
+ "base_rows": 200,
+ "scope_mixed": false,
+ "mean": 0.9063,
+ "splits": {
+  "eval_ai_dilemmas": 0.9639,
+  "eval_ant_hh": 0.789,
+  "eval_balanced_refusal": 0.8966,
+  "eval_daily_dilemmas": 0.9756
+ },
+ "minutes": 5.1
+}

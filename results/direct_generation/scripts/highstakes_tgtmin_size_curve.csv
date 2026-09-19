@@ -1,0 +1,4 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_hh_balanced,dev_mt_balanced,dev_mts_balanced,dev_toolace_balanced,eval_anthropic_hh_balanced,eval_mt_balanced,eval_mts_balanced,eval_toolace_balanced,seconds
+highstakes_deepseekv4pro_tgtmin_anthropic_hh_balanced_600.jsonl,highstakes_deepseekv4pro_50.jsonl,300,0,150,150,350,0.87298,0.87353,0.97491,0.87353,0.93331,0.71019,0.96978,0.8535,0.95511,0.71573,243.0
+highstakes_deepseekv4pro_tgtmin_anthropic_hh_balanced_600.jsonl,highstakes_deepseekv4pro_50.jsonl,300,1,150,150,350,0.87295,0.86844,0.97363,0.84575,0.93011,0.74232,0.96593,0.8317,0.94862,0.72751,292.4
+highstakes_deepseekv4pro_tgtmin_anthropic_hh_balanced_600.jsonl,highstakes_deepseekv4pro_50.jsonl,300,2,150,150,350,0.8638,0.86844,0.96749,0.85676,0.92665,0.7043,0.96474,0.8303,0.96322,0.71549,300.6

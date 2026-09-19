@@ -1,0 +1,26 @@
+{
+ "combo": "desc_dln",
+ "group": "desc",
+ "codes": "dln",
+ "k": 3,
+ "label": "deepseek+llama70b+nemotron \u00b7 desc",
+ "frac": 0.9,
+ "draw": 3,
+ "n": 441,
+ "n_pool": 490,
+ "per_arm": {
+  "desc_d": 235,
+  "desc_l": 15,
+  "desc_n": 240
+ },
+ "base_rows": 150,
+ "scope_mixed": true,
+ "mean": 0.9176,
+ "splits": {
+  "eval_ai_dilemmas": 0.9937,
+  "eval_ant_hh": 0.7364,
+  "eval_balanced_refusal": 0.9612,
+  "eval_daily_dilemmas": 0.9792
+ },
+ "minutes": 4.0
+}

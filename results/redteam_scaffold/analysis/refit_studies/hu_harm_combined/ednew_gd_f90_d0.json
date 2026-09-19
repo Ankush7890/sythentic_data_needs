@@ -1,0 +1,25 @@
+{
+ "combo": "ednew_gd",
+ "group": "ednew",
+ "codes": "gd",
+ "k": 2,
+ "label": "gpt-oss+deepseek \u00b7 ednew",
+ "frac": 0.9,
+ "draw": 0,
+ "n": 386,
+ "n_pool": 429,
+ "per_arm": {
+  "ednew_g": 190,
+  "ednew_d": 239
+ },
+ "base_rows": 100,
+ "scope_mixed": false,
+ "mean": 0.8934,
+ "splits": {
+  "eval_ai_dilemmas": 0.9842,
+  "eval_ant_hh": 0.7548,
+  "eval_balanced_refusal": 0.86,
+  "eval_daily_dilemmas": 0.9744
+ },
+ "minutes": 3.5
+}

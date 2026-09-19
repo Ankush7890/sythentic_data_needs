@@ -1,0 +1,25 @@
+{
+ "combo": "memo_dn",
+ "group": "memo",
+ "codes": "dn",
+ "k": 2,
+ "label": "deepseek+nemotron \u00b7 memo",
+ "frac": 0.9,
+ "draw": 3,
+ "n": 417,
+ "n_pool": 463,
+ "per_arm": {
+  "memo_d": 184,
+  "memo_n": 279
+ },
+ "base_rows": 100,
+ "scope_mixed": true,
+ "mean": 0.9076,
+ "splits": {
+  "eval_ai_dilemmas": 0.9881,
+  "eval_ant_hh": 0.7443,
+  "eval_balanced_refusal": 0.9108,
+  "eval_daily_dilemmas": 0.9872
+ },
+ "minutes": 4.4
+}

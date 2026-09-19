@@ -1,0 +1,25 @@
+{
+ "combo": "ednew_gl",
+ "group": "ednew",
+ "codes": "gl",
+ "k": 2,
+ "label": "gpt-oss+llama70b \u00b7 ednew",
+ "frac": 0.9,
+ "draw": 3,
+ "n": 200,
+ "n_pool": 222,
+ "per_arm": {
+  "ednew_g": 190,
+  "ednew_l": 32
+ },
+ "base_rows": 100,
+ "scope_mixed": false,
+ "mean": 0.892,
+ "splits": {
+  "eval_ai_dilemmas": 0.9797,
+  "eval_ant_hh": 0.7788,
+  "eval_balanced_refusal": 0.8249,
+  "eval_daily_dilemmas": 0.9846
+ },
+ "minutes": 2.2
+}

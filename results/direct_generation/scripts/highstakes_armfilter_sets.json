@@ -1,0 +1,833 @@
+{
+ "_about": "Per-set diagnostics for the arm-filter study: the shape and lexical statistics of each unfiltered arm, and what the two filters in scripts/shape_diversity.py removed at keep=0.8. Rendered with scripts/report_armfilter.py against scripts/highstakes_armfilter.csv. Keys are the `samples` column of that CSV.",
+ "sets": {
+  "arm_general_orig.jsonl": {
+   "attacker": "llama70b",
+   "arm": "general",
+   "source": "origin/experiment_hs_last:probes/hs_gemma27b_llama70b_llamabase_itermemo150/redteam_postprocessed_iter10.jsonl",
+   "base_data": "data/highstakes_llama70b_50.jsonl",
+   "n_rows": 262,
+   "pool_rows": 208,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "ua": 72,
+     "uau": 36,
+     "uaua": 124,
+     "uauau": 26,
+     "uauaua": 4
+    },
+    "signatures_out": {
+     "ua": 72,
+     "uau": 36,
+     "uaua": 70,
+     "uauau": 26,
+     "uauaua": 4
+    },
+    "normalized_entropy_in": 0.7921048478561149,
+    "normalized_entropy_out": 0.8532330354671989,
+    "entropy_bits_in": 1.8392105003335928,
+    "entropy_bits_out": 1.9811457565373143,
+    "max_share_in": 0.4732824427480916,
+    "max_share_out": 0.34615384615384615,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.40049254027580755,
+    "mean_nn_distance_out": 0.460016510346764
+   },
+   "lexical": {
+    "n_features": 793,
+    "train_accuracy": 0.9923664122137404,
+    "mean_confidence_in": 0.798503255859396,
+    "mean_confidence_out": 0.7564295405440671,
+    "global_cut_would_drop": {
+     "high-stakes": 25,
+     "low-stakes": 29
+    }
+   }
+  },
+  "arm_desc_orig.jsonl": {
+   "attacker": "llama70b",
+   "arm": "desc",
+   "source": "origin/experiment_hs_last:probes/hs_gemma27b_llama70b_llamabase_evaldesc/redteam_postprocessed_iter10.jsonl",
+   "base_data": "data/highstakes_llama70b_50.jsonl",
+   "n_rows": 40,
+   "pool_rows": 32,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "u?u?": 1,
+     "ua": 10,
+     "uau": 6,
+     "uaua": 15,
+     "uauau": 8
+    },
+    "signatures_out": {
+     "u?u?": 1,
+     "ua": 9,
+     "uau": 6,
+     "uaua": 8,
+     "uauau": 8
+    },
+    "normalized_entropy_in": 0.8779848640416438,
+    "normalized_entropy_out": 0.9146614527536254,
+    "entropy_bits_in": 2.0386177227041538,
+    "entropy_bits_out": 2.1237781244591325,
+    "max_share_in": 0.375,
+    "max_share_out": 0.28125,
+    "mi_shape_label_bits_in": 0.026203138006886242,
+    "mi_shape_label_bits_out": 0.033759858170500014,
+    "mean_nn_distance_in": 0.6624880950409433,
+    "mean_nn_distance_out": 0.7712480270928145
+   },
+   "lexical": {
+    "n_features": 176,
+    "train_accuracy": 0.975,
+    "mean_confidence_in": 0.732108965438848,
+    "mean_confidence_out": 0.692816165444581,
+    "global_cut_would_drop": {
+     "low-stakes": 4,
+     "high-stakes": 4
+    }
+   }
+  },
+  "arm_attacker_orig.jsonl": {
+   "attacker": "llama70b",
+   "arm": "attacker",
+   "source": "origin/experiment_hs_last:probes/hs_gemma27b_llama70b_llamabase_evaldesc_attacker/redteam_postprocessed_iter10.jsonl",
+   "base_data": "data/highstakes_llama70b_50.jsonl",
+   "n_rows": 62,
+   "pool_rows": 48,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "ua": 4,
+     "uau": 2,
+     "uaua": 38,
+     "uauau": 12,
+     "uauaua": 6
+    },
+    "signatures_out": {
+     "ua": 4,
+     "uau": 2,
+     "uaua": 24,
+     "uauau": 12,
+     "uauaua": 6
+    },
+    "normalized_entropy_in": 0.7030419755183268,
+    "normalized_entropy_out": 0.8031200377664033,
+    "entropy_bits_in": 1.6324129148411162,
+    "entropy_bits_out": 1.8647869792568113,
+    "max_share_in": 0.6129032258064516,
+    "max_share_out": 0.5,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.7730168866736885,
+    "mean_nn_distance_out": 0.917346987653851
+   },
+   "lexical": {
+    "n_features": 297,
+    "train_accuracy": 1.0,
+    "mean_confidence_in": 0.7774735516849228,
+    "mean_confidence_out": 0.7404018652211701,
+    "global_cut_would_drop": {
+     "low-stakes": 6,
+     "high-stakes": 8
+    }
+   }
+  },
+  "arm_gen_orig.jsonl": {
+   "attacker": "llama70b",
+   "arm": "gen",
+   "source": "data/highstakes_llama70b_600.jsonl",
+   "base_data": "data/highstakes_llama70b_50.jsonl",
+   "n_rows": 600,
+   "pool_rows": 480,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "ua": 600
+    },
+    "signatures_out": {
+     "ua": 480
+    },
+    "normalized_entropy_in": 1.0,
+    "normalized_entropy_out": 1.0,
+    "entropy_bits_in": -0.0,
+    "entropy_bits_out": -0.0,
+    "max_share_in": 1.0,
+    "max_share_out": 1.0,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.16517224659135615,
+    "mean_nn_distance_out": 0.2138411198063846
+   },
+   "lexical": {
+    "n_features": 973,
+    "train_accuracy": 1.0,
+    "mean_confidence_in": 0.969518906440124,
+    "mean_confidence_out": 0.9622095683720518,
+    "global_cut_would_drop": {
+     "high-stakes": 70,
+     "low-stakes": 50
+    }
+   }
+  },
+  "arm_ds_general_orig.jsonl": {
+   "attacker": "deepseek",
+   "arm": "general",
+   "source": "origin/experiment_hs_last:probes/hs_gemma27b_deepseekv4pro_dsbase_itermemo150/redteam_postprocessed_iter10.jsonl",
+   "base_data": "data/highstakes_deepseekv4pro_50.jsonl",
+   "n_rows": 394,
+   "pool_rows": 314,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "u": 2,
+     "ua": 256,
+     "uau": 52,
+     "uaua": 46,
+     "uauau": 22,
+     "uauaua": 12,
+     "uauauau": 4
+    },
+    "signatures_out": {
+     "u": 2,
+     "ua": 176,
+     "uau": 52,
+     "uaua": 46,
+     "uauau": 22,
+     "uauaua": 12,
+     "uauauau": 4
+    },
+    "normalized_entropy_in": 0.5853502582921324,
+    "normalized_entropy_out": 0.6693259979523516,
+    "entropy_bits_in": 1.6432859287441077,
+    "entropy_bits_out": 1.879035634812652,
+    "max_share_in": 0.649746192893401,
+    "max_share_out": 0.5605095541401274,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.21147715262434746,
+    "mean_nn_distance_out": 0.2614572594697542
+   },
+   "lexical": {
+    "n_features": 1879,
+    "train_accuracy": 0.9923857868020305,
+    "mean_confidence_in": 0.7899567920279965,
+    "mean_confidence_out": 0.7536981192393062,
+    "global_cut_would_drop": {
+     "low-stakes": 38,
+     "high-stakes": 42
+    }
+   }
+  },
+  "arm_ds_desc_orig.jsonl": {
+   "attacker": "deepseek",
+   "arm": "desc",
+   "source": "origin/experiment_hs_last:probes/hs_gemma27b_deepseekv4pro_dsbase_evaldesc/redteam_postprocessed_iter10.jsonl",
+   "base_data": "data/highstakes_deepseekv4pro_50.jsonl",
+   "n_rows": 390,
+   "pool_rows": 312,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "sua": 18,
+     "suaua": 2,
+     "u": 11,
+     "ua": 265,
+     "uau": 18,
+     "uaua": 52,
+     "uauau": 4,
+     "uauaua": 16,
+     "uauauau": 4
+    },
+    "signatures_out": {
+     "sua": 18,
+     "suaua": 2,
+     "u": 11,
+     "ua": 187,
+     "uau": 18,
+     "uaua": 52,
+     "uauau": 4,
+     "uauaua": 16,
+     "uauauau": 4
+    },
+    "normalized_entropy_in": 0.5314815086086279,
+    "normalized_entropy_out": 0.6139253019711659,
+    "entropy_bits_in": 1.684756521942767,
+    "entropy_bits_out": 1.9460971637364202,
+    "max_share_in": 0.6794871794871795,
+    "max_share_out": 0.5993589743589743,
+    "mi_shape_label_bits_in": 0.00017535832391986144,
+    "mi_shape_label_bits_out": 0.00022283706894312858,
+    "mean_nn_distance_in": 0.19399581694381884,
+    "mean_nn_distance_out": 0.23723561704223856
+   },
+   "lexical": {
+    "n_features": 1876,
+    "train_accuracy": 0.9897435897435898,
+    "mean_confidence_in": 0.8189748568260526,
+    "mean_confidence_out": 0.7849656727472056,
+    "global_cut_would_drop": {
+     "low-stakes": 37,
+     "high-stakes": 41
+    }
+   }
+  },
+  "arm_ds_attacker_orig.jsonl": {
+   "attacker": "deepseek",
+   "arm": "attacker",
+   "source": "origin/experiment_hs_last:probes/hs_gemma27b_deepseekv4pro_dsbase_evaldesc_attacker/redteam_postprocessed_iter10.jsonl",
+   "base_data": "data/highstakes_deepseekv4pro_50.jsonl",
+   "n_rows": 440,
+   "pool_rows": 352,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "su": 14,
+     "sua": 104,
+     "suau": 4,
+     "suaua": 6,
+     "suauaua": 4,
+     "u": 81,
+     "ua": 137,
+     "uau": 18,
+     "uaua": 38,
+     "uauau": 10,
+     "uauaua": 18,
+     "uauauaua": 2,
+     "uauauauau": 2,
+     "uauauauauauau": 2
+    },
+    "signatures_out": {
+     "su": 14,
+     "sua": 78,
+     "suau": 4,
+     "suaua": 6,
+     "suauaua": 4,
+     "u": 78,
+     "ua": 78,
+     "uau": 18,
+     "uaua": 38,
+     "uauau": 10,
+     "uauaua": 18,
+     "uauauaua": 2,
+     "uauauauau": 2,
+     "uauauauauauau": 2
+    },
+    "normalized_entropy_in": 0.7207483648920427,
+    "normalized_entropy_out": 0.7710593745499498,
+    "entropy_bits_in": 2.744144834636689,
+    "entropy_bits_out": 2.935696704891409,
+    "max_share_in": 0.31136363636363634,
+    "max_share_out": 0.2215909090909091,
+    "mi_shape_label_bits_in": 3.2207064331646806e-05,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.19854412820305917,
+    "mean_nn_distance_out": 0.2338025117220699
+   },
+   "lexical": {
+    "n_features": 2100,
+    "train_accuracy": 0.9886363636363636,
+    "mean_confidence_in": 0.8444913998852868,
+    "mean_confidence_out": 0.8120619672383417,
+    "global_cut_would_drop": {
+     "low-stakes": 45,
+     "high-stakes": 43
+    }
+   }
+  },
+  "arm_ds_gen_orig.jsonl": {
+   "attacker": "deepseek",
+   "arm": "gen",
+   "source": "data/highstakes_deepseekv4pro_600.jsonl",
+   "base_data": "data/highstakes_deepseekv4pro_50.jsonl",
+   "n_rows": 600,
+   "pool_rows": 480,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "ua": 600
+    },
+    "signatures_out": {
+     "ua": 480
+    },
+    "normalized_entropy_in": 1.0,
+    "normalized_entropy_out": 1.0,
+    "entropy_bits_in": -0.0,
+    "entropy_bits_out": -0.0,
+    "max_share_in": 1.0,
+    "max_share_out": 1.0,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.17940969914097188,
+    "mean_nn_distance_out": 0.2297533194277322
+   },
+   "lexical": {
+    "n_features": 1432,
+    "train_accuracy": 1.0,
+    "mean_confidence_in": 0.9703272797478955,
+    "mean_confidence_out": 0.9634654806565283,
+    "global_cut_would_drop": {
+     "low-stakes": 46,
+     "high-stakes": 74
+    }
+   }
+  },
+  "arm_gptoss_general_orig.jsonl": {
+   "attacker": "gpt-oss",
+   "arm": "general",
+   "source": "origin/experiment_hs_last:probes/hs_gemma27b_gptoss120b_gptossbase_itermemo150/redteam_postprocessed_iter10.jsonl",
+   "base_data": "data/highstakes_gptoss_50.jsonl",
+   "n_rows": 442,
+   "pool_rows": 352,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "u": 4,
+     "ua": 376,
+     "uau": 20,
+     "uaua": 28,
+     "uauaua": 8,
+     "uauauaua": 6
+    },
+    "signatures_out": {
+     "u": 4,
+     "ua": 286,
+     "uau": 20,
+     "uaua": 28,
+     "uauaua": 8,
+     "uauauaua": 6
+    },
+    "normalized_entropy_in": 0.3493694381855029,
+    "normalized_entropy_out": 0.4126163829276589,
+    "entropy_bits_in": 0.9031068966075431,
+    "entropy_bits_out": 1.0665978770511992,
+    "max_share_in": 0.8506787330316742,
+    "max_share_out": 0.8125,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.16303653662516204,
+    "mean_nn_distance_out": 0.20547568424808454
+   },
+   "lexical": {
+    "n_features": 2983,
+    "train_accuracy": 1.0,
+    "mean_confidence_in": 0.8605589430824871,
+    "mean_confidence_out": 0.8308882906555172,
+    "global_cut_would_drop": {
+     "low-stakes": 43,
+     "high-stakes": 47
+    }
+   }
+  },
+  "arm_gptoss_desc_orig.jsonl": {
+   "attacker": "gpt-oss",
+   "arm": "desc",
+   "source": "origin/experiment_hs_last:probes/hs_gemma27b_gptoss120b_gptossbase_evaldesc/redteam_postprocessed_iter10.jsonl",
+   "base_data": "data/highstakes_gptoss_50.jsonl",
+   "n_rows": 312,
+   "pool_rows": 248,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "sua": 2,
+     "u": 8,
+     "ua": 280,
+     "uau": 4,
+     "uaua": 12,
+     "uauau": 4,
+     "uauaua": 2
+    },
+    "signatures_out": {
+     "sua": 2,
+     "u": 8,
+     "ua": 216,
+     "uau": 4,
+     "uaua": 12,
+     "uauau": 4,
+     "uauaua": 2
+    },
+    "normalized_entropy_in": 0.25325725626043694,
+    "normalized_entropy_out": 0.30243919808635905,
+    "entropy_bits_in": 0.7109830049095417,
+    "entropy_bits_out": 0.8490541713708949,
+    "max_share_in": 0.8974358974358975,
+    "max_share_out": 0.8709677419354839,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.19723835705642698,
+    "mean_nn_distance_out": 0.2506377517461688
+   },
+   "lexical": {
+    "n_features": 1615,
+    "train_accuracy": 1.0,
+    "mean_confidence_in": 0.8485075067144684,
+    "mean_confidence_out": 0.8184854863581298,
+    "global_cut_would_drop": {
+     "low-stakes": 33,
+     "high-stakes": 31
+    }
+   }
+  },
+  "arm_gptoss_attacker_orig.jsonl": {
+   "attacker": "gpt-oss",
+   "arm": "attacker",
+   "source": "origin/experiment_hs_last:probes/hs_gemma27b_gptoss120b_gptossbase_evaldesc_attacker/redteam_postprocessed_iter10.jsonl",
+   "base_data": "data/highstakes_gptoss_50.jsonl",
+   "n_rows": 310,
+   "pool_rows": 248,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "su": 2,
+     "sua": 6,
+     "u": 31,
+     "ua": 229,
+     "uau": 6,
+     "uaua": 26,
+     "uauau": 2,
+     "uauaua": 8
+    },
+    "signatures_out": {
+     "su": 2,
+     "sua": 6,
+     "u": 31,
+     "ua": 167,
+     "uau": 6,
+     "uaua": 26,
+     "uauau": 2,
+     "uauaua": 8
+    },
+    "normalized_entropy_in": 0.46839766651451403,
+    "normalized_entropy_out": 0.5440201610624502,
+    "entropy_bits_in": 1.4051929995435422,
+    "entropy_bits_out": 1.6320604831873506,
+    "max_share_in": 0.7387096774193549,
+    "max_share_out": 0.6733870967741935,
+    "mi_shape_label_bits_in": 8.523648812305395e-05,
+    "mi_shape_label_bits_out": 0.00011126122652633293,
+    "mean_nn_distance_in": 0.1971145994304916,
+    "mean_nn_distance_out": 0.24558040801944522
+   },
+   "lexical": {
+    "n_features": 1846,
+    "train_accuracy": 0.9967741935483871,
+    "mean_confidence_in": 0.8745882479482904,
+    "mean_confidence_out": 0.847084150039213,
+    "global_cut_would_drop": {
+     "low-stakes": 29,
+     "high-stakes": 33
+    }
+   }
+  },
+  "arm_gptoss_gen_orig.jsonl": {
+   "attacker": "gpt-oss",
+   "arm": "gen",
+   "source": "data/highstakes_gptoss_600.jsonl",
+   "base_data": "data/highstakes_gptoss_50.jsonl",
+   "n_rows": 600,
+   "pool_rows": 480,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "ua": 600
+    },
+    "signatures_out": {
+     "ua": 480
+    },
+    "normalized_entropy_in": 1.0,
+    "normalized_entropy_out": 1.0,
+    "entropy_bits_in": -0.0,
+    "entropy_bits_out": -0.0,
+    "max_share_in": 1.0,
+    "max_share_out": 1.0,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.1421367863478223,
+    "mean_nn_distance_out": 0.18950786012700283
+   },
+   "lexical": {
+    "n_features": 963,
+    "train_accuracy": 1.0,
+    "mean_confidence_in": 0.9783383769041656,
+    "mean_confidence_out": 0.9732323992366513,
+    "global_cut_would_drop": {
+     "high-stakes": 83,
+     "low-stakes": 37
+    }
+   }
+  },
+  "arm_nemo_general_orig.jsonl": {
+   "attacker": "nemotron",
+   "arm": "general",
+   "source": "origin/experiment_hs_last:probes/hs_gemma27b_nemotron_nemobase_itermemo150/redteam_postprocessed_iter10.jsonl",
+   "base_data": "data/highstakes_nemotron_50.jsonl",
+   "n_rows": 558,
+   "pool_rows": 446,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "su": 2,
+     "u": 8,
+     "u?": 3,
+     "u?uaua": 1,
+     "ua": 157,
+     "uau": 38,
+     "uaua": 70,
+     "uauau": 84,
+     "uauau?": 1,
+     "uauaua": 68,
+     "uauauau": 46,
+     "uauauaua": 14,
+     "uauauauau": 22,
+     "uauauauaua": 10,
+     "uauauauauau": 12,
+     "uauauauauaua": 6,
+     "uauauauauauau": 2,
+     "uauauauauauaua": 2,
+     "uauauauauauauau": 4,
+     "uauauauauauauaua": 2,
+     "uauauauauauauauau": 2,
+     "uauauauauauauauauauaua": 2,
+     "uauauauauauauauauauauau": 2
+    },
+    "signatures_out": {
+     "su": 2,
+     "u": 8,
+     "u?": 3,
+     "u?uaua": 1,
+     "ua": 66,
+     "uau": 38,
+     "uaua": 67,
+     "uauau": 67,
+     "uauau?": 1,
+     "uauaua": 67,
+     "uauauau": 46,
+     "uauauaua": 14,
+     "uauauauau": 22,
+     "uauauauaua": 10,
+     "uauauauauau": 12,
+     "uauauauauaua": 6,
+     "uauauauauauau": 2,
+     "uauauauauauaua": 2,
+     "uauauauauauauau": 4,
+     "uauauauauauauaua": 2,
+     "uauauauauauauauau": 2,
+     "uauauauauauauauauauaua": 2,
+     "uauauauauauauauauauauau": 2
+    },
+    "normalized_entropy_in": 0.7204940208712102,
+    "normalized_entropy_out": 0.7730169465872955,
+    "entropy_bits_in": 3.2591993423795538,
+    "entropy_bits_out": 3.496790050969646,
+    "max_share_in": 0.28136200716845877,
+    "max_share_out": 0.15022421524663676,
+    "mi_shape_label_bits_in": 0.009110738307151726,
+    "mi_shape_label_bits_out": 0.011381222123010966,
+    "mean_nn_distance_in": 0.1786364555002085,
+    "mean_nn_distance_out": 0.21333968420510088
+   },
+   "lexical": {
+    "n_features": 3894,
+    "train_accuracy": 0.9946236559139785,
+    "mean_confidence_in": 0.8359148372453137,
+    "mean_confidence_out": 0.8023028184947901,
+    "global_cut_would_drop": {
+     "low-stakes": 56,
+     "high-stakes": 56
+    }
+   }
+  },
+  "arm_nemo_desc_orig.jsonl": {
+   "attacker": "nemotron",
+   "arm": "desc",
+   "source": "origin/experiment_hs_last:probes/hs_gemma27b_nemotron_nemobase_evaldesc/redteam_postprocessed_iter10.jsonl",
+   "base_data": "data/highstakes_nemotron_50.jsonl",
+   "n_rows": 380,
+   "pool_rows": 304,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "su": 32,
+     "sua": 26,
+     "suau": 2,
+     "suaua": 4,
+     "suauauau": 4,
+     "u": 28,
+     "u?u?": 1,
+     "ua": 54,
+     "uau": 13,
+     "uaua": 78,
+     "uauau": 38,
+     "uauaua": 24,
+     "uauauau": 20,
+     "uauauaua": 18,
+     "uauauauau": 20,
+     "uauauauaua": 2,
+     "uauauauauau": 2,
+     "uauauauauaua": 4,
+     "uauauauauauau": 4,
+     "uauauauauauaua": 2,
+     "uauauauauauauau": 2,
+     "uauauauauauauauau": 2
+    },
+    "signatures_out": {
+     "su": 32,
+     "sua": 26,
+     "suau": 2,
+     "suaua": 4,
+     "suauauau": 4,
+     "u": 28,
+     "u?u?": 1,
+     "ua": 31,
+     "uau": 13,
+     "uaua": 31,
+     "uauau": 32,
+     "uauaua": 24,
+     "uauauau": 20,
+     "uauauaua": 18,
+     "uauauauau": 20,
+     "uauauauaua": 2,
+     "uauauauauau": 2,
+     "uauauauauaua": 4,
+     "uauauauauauau": 4,
+     "uauauauauauaua": 2,
+     "uauauauauauauau": 2,
+     "uauauauauauauauau": 2
+    },
+    "normalized_entropy_in": 0.8197885819993276,
+    "normalized_entropy_out": 0.8654866192353472,
+    "entropy_bits_in": 3.655791123165636,
+    "entropy_bits_out": 3.8595783953256064,
+    "max_share_in": 0.20526315789473684,
+    "max_share_out": 0.10526315789473684,
+    "mi_shape_label_bits_in": 0.002875103573661411,
+    "mi_shape_label_bits_out": 0.0036252952209383546,
+    "mean_nn_distance_in": 0.20007729882884062,
+    "mean_nn_distance_out": 0.22956882768315143
+   },
+   "lexical": {
+    "n_features": 3365,
+    "train_accuracy": 0.9894736842105263,
+    "mean_confidence_in": 0.847813305480813,
+    "mean_confidence_out": 0.8142361869290666,
+    "global_cut_would_drop": {
+     "high-stakes": 40,
+     "low-stakes": 36
+    }
+   }
+  },
+  "arm_nemo_attacker_orig.jsonl": {
+   "attacker": "nemotron",
+   "arm": "attacker",
+   "source": "origin/experiment_hs_last:probes/hs_gemma27b_nemotron_nemobase_evaldesc_attacker/redteam_postprocessed_iter10.jsonl",
+   "base_data": "data/highstakes_nemotron_50.jsonl",
+   "n_rows": 368,
+   "pool_rows": 294,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "su": 2,
+     "sua": 26,
+     "suau": 2,
+     "suaua": 6,
+     "suauaua": 4,
+     "suauauau": 2,
+     "u": 75,
+     "u?": 1,
+     "u?ua": 1,
+     "ua": 130,
+     "uau": 12,
+     "uaua": 51,
+     "uauau": 8,
+     "uauaua": 30,
+     "uauauau": 2,
+     "uauauaua": 4,
+     "uauauauau": 2,
+     "uauauauaua": 4,
+     "uauauauauaua": 6
+    },
+    "signatures_out": {
+     "su": 2,
+     "sua": 26,
+     "suau": 2,
+     "suaua": 6,
+     "suauaua": 4,
+     "suauauau": 2,
+     "u": 66,
+     "u?": 1,
+     "u?ua": 1,
+     "ua": 65,
+     "uau": 12,
+     "uaua": 51,
+     "uauau": 8,
+     "uauaua": 30,
+     "uauauau": 2,
+     "uauauaua": 4,
+     "uauauauau": 2,
+     "uauauauaua": 4,
+     "uauauauauaua": 6
+    },
+    "normalized_entropy_in": 0.6818226652733526,
+    "normalized_entropy_out": 0.7443155873308178,
+    "entropy_bits_in": 2.8963332591041104,
+    "entropy_bits_out": 3.1617986621075027,
+    "max_share_in": 0.3532608695652174,
+    "max_share_out": 0.22448979591836735,
+    "mi_shape_label_bits_in": 0.005559672313547271,
+    "mi_shape_label_bits_out": 0.006888581862141666,
+    "mean_nn_distance_in": 0.18547359036123565,
+    "mean_nn_distance_out": 0.2268381908131863
+   },
+   "lexical": {
+    "n_features": 3546,
+    "train_accuracy": 1.0,
+    "mean_confidence_in": 0.8945169821324113,
+    "mean_confidence_out": 0.8704053346275652,
+    "global_cut_would_drop": {
+     "low-stakes": 37,
+     "high-stakes": 37
+    }
+   }
+  },
+  "arm_nemo_gen_orig.jsonl": {
+   "attacker": "nemotron",
+   "arm": "gen",
+   "source": "data/highstakes_nemotron_600.jsonl",
+   "base_data": "data/highstakes_nemotron_50.jsonl",
+   "n_rows": 600,
+   "pool_rows": 480,
+   "keep": 0.8,
+   "shape": {
+    "signatures_in": {
+     "ua": 600
+    },
+    "signatures_out": {
+     "ua": 480
+    },
+    "normalized_entropy_in": 1.0,
+    "normalized_entropy_out": 1.0,
+    "entropy_bits_in": -0.0,
+    "entropy_bits_out": -0.0,
+    "max_share_in": 1.0,
+    "max_share_out": 1.0,
+    "mi_shape_label_bits_in": 0.0,
+    "mi_shape_label_bits_out": 0.0,
+    "mean_nn_distance_in": 0.16668847392332714,
+    "mean_nn_distance_out": 0.2140271402440298
+   },
+   "lexical": {
+    "n_features": 901,
+    "train_accuracy": 1.0,
+    "mean_confidence_in": 0.9693567828562106,
+    "mean_confidence_out": 0.9625209064002777,
+    "global_cut_would_drop": {
+     "low-stakes": 56,
+     "high-stakes": 64
+    }
+   }
+  }
+ }
+}

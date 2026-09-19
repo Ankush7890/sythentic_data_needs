@@ -1,0 +1,17 @@
+{
+ "condition": "request_minimal_600",
+ "draw": 6,
+ "frac": 0.025,
+ "balanced": true,
+ "grad_accum": 1,
+ "n": 15,
+ "n_all": 600,
+ "n_pos": 7,
+ "n_neg": 8,
+ "ai_dilemmas": 0.905,
+ "ant_hh": 0.6194,
+ "balanced_refusal": 0.938,
+ "daily_dilemmas": 0.9737,
+ "mean": 0.7787,
+ "minutes": 0.1
+}

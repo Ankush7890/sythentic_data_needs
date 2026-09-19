@@ -1,0 +1,25 @@
+{
+ "combo": "att_gn",
+ "group": "att",
+ "codes": "gn",
+ "k": 2,
+ "label": "gpt-oss+nemotron \u00b7 att",
+ "frac": 0.9,
+ "draw": 1,
+ "n": 390,
+ "n_pool": 433,
+ "per_arm": {
+  "att_g": 182,
+  "att_n": 251
+ },
+ "base_rows": 100,
+ "scope_mixed": false,
+ "mean": 0.8572,
+ "splits": {
+  "eval_ai_dilemmas": 0.9619,
+  "eval_ant_hh": 0.7024,
+  "eval_balanced_refusal": 0.8103,
+  "eval_daily_dilemmas": 0.9542
+ },
+ "minutes": 3.1
+}

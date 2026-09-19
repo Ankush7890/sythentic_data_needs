@@ -1,0 +1,21 @@
+{
+ "arm": "minimal",
+ "mode": "best",
+ "draw": 6,
+ "sizes": {
+  "ant_hh": 540,
+  "balanced_refusal": 540,
+  "ai_dilemmas": 540,
+  "daily_dilemmas": 540
+ },
+ "grad_accum": 4,
+ "n": 2160,
+ "n_pos": 1080,
+ "n_neg": 1080,
+ "ai_dilemmas": 0.803,
+ "ant_hh": 0.6894,
+ "balanced_refusal": 0.8354,
+ "daily_dilemmas": 0.936,
+ "mean4": 0.8159,
+ "minutes": 0.8
+}

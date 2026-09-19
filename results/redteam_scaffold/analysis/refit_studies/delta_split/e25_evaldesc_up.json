@@ -1,0 +1,20 @@
+{
+ "arm": "e25_evaldesc",
+ "group": "up",
+ "iters": [
+  1,
+  2,
+  3,
+  4,
+  6
+ ],
+ "n_successes": 140,
+ "mean": 0.9152,
+ "splits": {
+  "eval_ai_dilemmas": 0.9892,
+  "eval_ant_hh": 0.7345,
+  "eval_balanced_refusal": 0.9507,
+  "eval_daily_dilemmas": 0.9866
+ },
+ "minutes": 2.6
+}

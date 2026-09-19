@@ -1,0 +1,25 @@
+{
+ "combo": "ednew_dn",
+ "group": "ednew",
+ "codes": "dn",
+ "k": 2,
+ "label": "deepseek+nemotron \u00b7 ednew",
+ "frac": 0.9,
+ "draw": 2,
+ "n": 423,
+ "n_pool": 470,
+ "per_arm": {
+  "ednew_d": 239,
+  "ednew_n": 231
+ },
+ "base_rows": 100,
+ "scope_mixed": false,
+ "mean": 0.9247,
+ "splits": {
+  "eval_ai_dilemmas": 0.992,
+  "eval_ant_hh": 0.7534,
+  "eval_balanced_refusal": 0.9724,
+  "eval_daily_dilemmas": 0.9812
+ },
+ "minutes": 4.2
+}
