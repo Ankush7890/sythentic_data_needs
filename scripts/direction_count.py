@@ -883,9 +883,29 @@ def geometry_for_set(spec: ConceptSpec, gen: str) -> tuple[list[dict], dict]:
     else:
         n_eff, mean_off, max_off = float("nan"), float("nan"), float("nan")
 
+    # Transfer summaries. n_eff is a cosine statistic and turns out to be blind to the
+    # concept (3.4-4.0 everywhere); how well a kind's direction actually CLASSIFIES
+    # another kind's samples is not. Both are recorded per set, and the per-split gaps
+    # below (own minus other) are the split-level form, which is what a predictor of a
+    # split's half-gain size has to be.
+    t_dia = [r["T_ij"] for r in rows
+             if r["kind_j"] != "eval" and r["T_ij"] != "" and r["kind_i"] == r["kind_j"]]
+    t_off = [r["T_ij"] for r in rows
+             if r["kind_j"] != "eval" and r["T_ij"] != "" and r["kind_i"] != r["kind_j"]]
+    e_rows = [r for r in rows if r["kind_j"] == "eval" and r.get("E_is", "") != ""]
+    e_own = [r["E_is"] for r in e_rows if r["split_i"] == r["split_j"]]
+    e_oth = [r["E_is"] for r in e_rows
+             if r["split_i"] not in ("all",) and r["split_i"] != r["split_j"]]
+    e_all = [r["E_is"] for r in e_rows if r["split_i"] == "all"]
+
+    def _mean(v):
+        return round(float(np.mean(v)), 4) if v else ""
+
     summary = {
         "concept": spec.name, "gen": gen, "set": stem,
         "n_kinds": len(kinds), "n_kinds_used": len(present),
+        "t_own": _mean(t_dia), "t_other": _mean(t_off),
+        "e_own": _mean(e_own), "e_other": _mean(e_oth), "e_all": _mean(e_all),
         "n_eff": round(n_eff, 4) if n_eff == n_eff else "",
         "mean_off_cos": round(mean_off, 4) if mean_off == mean_off else "",
         "max_off_cos": round(max_off, 4) if max_off == max_off else "",
@@ -896,6 +916,22 @@ def geometry_for_set(spec: ConceptSpec, gen: str) -> tuple[list[dict], dict]:
         summary[f"cos_all_k{k.index}"] = (
             "" if di is None or d_all is None else round(float(di @ d_all), 4))
         summary[f"n_k{k.index}"] = npos[k.index] + nneg[k.index]
+        # Per-split gaps: how much the split's OWN kind direction buys over the other
+        # kinds' directions, on that split's evaluation rows (e_gap) and on its own
+        # samples (t_gap). A split whose kind is redundant with the rest has a gap near
+        # zero, and is the case where a mixed sample should serve it as well as its own.
+        own_e = [r["E_is"] for r in e_rows
+                 if r["split_i"] == k.split and r["split_j"] == k.split]
+        oth_e = [r["E_is"] for r in e_rows
+                 if r["split_i"] not in ("all", k.split) and r["split_j"] == k.split]
+        summary[f"e_gap_{k.split}"] = (
+            round(float(np.mean(own_e) - np.mean(oth_e)), 4) if own_e and oth_e else "")
+        own_t = [r["T_ij"] for r in rows if r["kind_j"] != "eval" and r["T_ij"] != ""
+                 and r["kind_i"] == k.index and r["kind_j"] == k.index]
+        oth_t = [r["T_ij"] for r in rows if r["kind_j"] != "eval" and r["T_ij"] != ""
+                 and r["kind_i"] != k.index and r["kind_j"] == k.index]
+        summary[f"t_gap_{k.split}"] = (
+            round(float(np.mean(own_t) - np.mean(oth_t)), 4) if own_t and oth_t else "")
     return rows, summary
 
 
@@ -1286,7 +1322,8 @@ def _paired_ratio_ci(curve_a: dict, curve_b: dict, rng) -> tuple[float, float]:
 
 RATIO_FIELDS = ["concept", "gen", "split", "usable", "m_a", "m_a_lo", "m_a_hi", "m_b",
                 "m_b_lo", "m_b_hi", "m_c", "m_c_lo", "m_c_hi", "R", "R_lo", "R_hi", "G",
-                "n_eff", "a_s", "kind_n", "flat_a", "flat_b", "flat_c",
+                "n_eff", "t_other", "e_gap", "t_gap", "a_s", "kind_n",
+                "flat_a", "flat_b", "flat_c",
                 "censored_a", "censored_b", "U_a", "U_b", "U_c", "L_b", "L_c"]
 
 
@@ -1341,6 +1378,9 @@ def build_ratios(fits: list[dict], concepts: list[str]) -> list[dict]:
             "G": round((fc["U"] - fc["L"]) / gain_b, 4) if fc and gain_b > 0 else "",
             "n_eff": geom.get(key, {}).get("n_eff", ""),
             "a_s": geom.get(key, {}).get(f"cos_all_k{kind_idx}", ""),
+            "t_other": geom.get(key, {}).get("t_other", ""),
+            "e_gap": geom.get(key, {}).get(f"e_gap_{split}", ""),
+            "t_gap": geom.get(key, {}).get(f"t_gap_{split}", ""),
             "kind_n": f["kind_n"],
             "flat_a": f["flat"], "flat_b": fb["flat"], "flat_c": fc["flat"] if fc else "",
             "censored_a": f["censored"], "censored_b": fb["censored"],
@@ -1387,13 +1427,14 @@ def _link_to_paper_m(ratios: list[dict]) -> list[dict]:
         knee = r["split"][5:] if r["split"].startswith("eval_") else r["split"]
         if int(r["usable"]):
             by_split[knee]["R"].append(float(r["R"]))
-        if r["a_s"] not in ("", None):
-            by_split[knee]["a_s"].append(float(r["a_s"]))
+        for stat in GEOM_STATS:
+            if r.get(stat, "") not in ("", None):
+                by_split[knee][stat].append(float(r[stat]))
         by_split[knee]["concept"] = r["concept"]
 
     out = []
     splits = sorted(by_split)
-    for name in ("R", "a_s"):
+    for name in ("R", "a_s", "e_gap", "t_gap", "n_eff", "t_other"):
         rows = [(s, float(np.median(by_split[s][name]))) for s in splits
                 if by_split[s][name]]
         rows = [(s, v) for s, v in rows
@@ -1473,13 +1514,14 @@ def stage_analyse(args) -> None:
     neff = _neff_correlation(ratios)
     _write_csv(SCRIPTS / "dc_neff_corr.csv", neff,
                list(dict.fromkeys(k for r in neff for k in r)))
-    print("\n[analyse] R against n_eff:")
+    print("\n[analyse] R against the geometry statistics:")
     for r in neff:
+        label = f"{r['statistic']} ({r['subset']})"
         if "rho" in r:
-            print(f"  {r['subset']:13s} n={r['n']:3d}  rho={r['rho']:+.3f} "
+            print(f"  {label:26s} n={r['n']:3d}  rho={r['rho']:+.3f} "
                   f"p={r['p_perm']:.4f}")
         else:
-            print(f"  {r['subset']:13s} n={r['n']:3d}  not tested")
+            print(f"  {label:26s} n={r['n']:3d}  not tested")
 
     stats = _link_to_paper_m(ratios)
     _write_csv(SCRIPTS / "dc_link_stats.csv", stats,
@@ -1509,8 +1551,11 @@ def stage_analyse(args) -> None:
     _verdict(ratios, stats)
 
 
+GEOM_STATS = ("n_eff", "t_other", "e_gap", "t_gap", "a_s")
+
+
 def _neff_correlation(ratios: list[dict]) -> list[dict]:
-    """Spearman of R against n_eff — over every (set, split), and within instructions.
+    """Spearman of R against each geometry statistic, over the usable rows.
 
     n_eff is a property of a SET, so this correlation is carried by the between-set
     variation; a within-instructions version exists because that is the concept whose
@@ -1522,19 +1567,20 @@ def _neff_correlation(ratios: list[dict]) -> list[dict]:
     import knee_predictor as kp
 
     out = []
-    for name, sel in (("all", lambda r: True),
-                      ("instructions", lambda r: r["concept"] == "instructions")):
-        pts = [(float(r["n_eff"]), float(r["R"])) for r in ratios
-               if sel(r) and int(r["usable"]) and r["n_eff"] not in ("", None)]
-        row = {"subset": name, "n": len(pts)}
-        if len(pts) >= 5:
-            x = np.array([a for a, _ in pts])
-            y = np.array([b for _, b in pts])
-            if np.std(x) > 0:
-                row["rho"] = round(kp._spearman(x, y), 4)
-                row["p_perm"] = round(
-                    kp._perm_p(x, y, row["rho"], np.random.default_rng(SEED + 5)), 5)
-        out.append(row)
+    for stat in GEOM_STATS:
+        for name, sel in (("all", lambda r: True),
+                          ("instructions", lambda r: r["concept"] == "instructions")):
+            pts = [(float(r[stat]), float(r["R"])) for r in ratios
+                   if sel(r) and int(r["usable"]) and r.get(stat, "") not in ("", None)]
+            row = {"statistic": stat, "subset": name, "n": len(pts)}
+            if len(pts) >= 5:
+                x = np.array([a for a, _ in pts])
+                y = np.array([b for _, b in pts])
+                if np.std(x) > 0:
+                    row["rho"] = round(kp._spearman(x, y), 4)
+                    row["p_perm"] = round(
+                        kp._perm_p(x, y, row["rho"], np.random.default_rng(SEED + 5)), 5)
+            out.append(row)
     return out
 
 
