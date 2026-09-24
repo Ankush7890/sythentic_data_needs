@@ -19,13 +19,22 @@ The dev sets (`dev_samples/`): *instruction* six splits of 66--68 samples (`oig_
 
 ## Part A (run first): full-size arms on dev samples, no curves
 
+Run these two statistics before anything that involves a half-gain size. Neither needs a curve fit, so neither carries the grid-floor problem that makes R noisy. Concept order throughout: **instruction first, then harmful, then high-stakes.**
+
+**Step 1. Within-concept transfer matrix.** One probe per split trained on all its dev samples, scored on every eval split of the concept. Fourteen probes (eight draws each). This is the real-data analogue of the cross-kind transfer AUROC that already orders the concepts 0.81, 0.85, 0.95 (`t_other` in `scripts/dc_neff.csv`, which used per-kind difference-of-means directions; here it is the probe itself).
+
+**Step 2. Set-minus-kind at full size.** One probe per split trained on every other split's dev samples, scored on the target split. Fourteen more probes. Compare its gain to the all-dev probe's gain (one probe per concept, three more): that is G with exact labels.
+
+If those two reproduce the ordering, the curves for R are optional and run only under *instruction*, where a kind-only half-gain size resolves (Part C). Sections A1--A5 spell out the files, the validation set, the fit commands and the statistics for these two steps.
+
+
 ### A1. Materialise the arms
 
 For every concept and every split `s` of it, three training files in the untracked `.dc_work/`, named `dcdev_<concept>_<split>_{own,others,all}.jsonl` (the `all` file is per concept, not per split, so write it once):
 
-- `own`: every dev sample of `s`.
-- `others`: every dev sample of the concept's other splits (five under *instruction*, three otherwise). This is the set-minus-kind arm with exact labels.
-- `all`: the concept's whole dev set (404 / 290 / 1,908 samples). This is the mixed arm.
+- `own`: every dev sample of `s` (Step 1).
+- `others`: every dev sample of the concept's other splits (five under *instruction*, three otherwise). This is the set-minus-kind arm with exact labels (Step 2).
+- `all`: the concept's whole dev set (404 / 290 / 1,908 samples). This is the mixed arm, the denominator of G (Step 2).
 
 Write a manifest `scripts/dc_dev_arms.csv` with the columns of `scripts/dc_arms.csv` (`concept, gen, arm, split, file, n, n_pos, n_neg, balanced, sizes, skipped`; put `dev` in `gen`). The harness draws class-balanced, so the size each arm is fit at is `n_arm = min(2 * min(n_pos, n_neg), 590)`. The cap of 590 keeps every arm within the ladder the `direction_count` mixed arm used, and matters only for the *high-stakes* `others` and `all` arms.
 
@@ -49,9 +58,9 @@ One `subsample_curve_concept.py` call per (arm file), at the single size `n_arm`
 - `all` arms: unrestricted (one fit reads for all splits). Out: `scripts/dc_dev_<concept>_all.csv`.
 - `others` arms: restricted to the target split through `scripts/dc_run_curve.py --eval-split <s>` (the other columns of an `others` fit are not needed, and under *high-stakes* they are the whole cost). Out: `scripts/dc_dev_<concept>_others_<split>.csv` (the restricted runner writes its own file because the header differs).
 
-Count: *instruction* 6 x 8 own + 6 x 8 others + 8 all = 104 fits; *harmful* 72; *high-stakes* 72; **248 fits**. Order: *harmful* first (cheapest, and its dev sets are the smallest, so it shows any class-balance edge case), then *instruction*, then *high-stakes*. Set `AGENTIC_REDTEAM_MAX_MEMORY` as the other run scripts do. The harness resumes on `(tag, file, n, draw)`, so a killed run loses at most one fit; do not launch the fits through a driver you might later kill by its parent pid alone (the fit worker outlives its parent).
+Count: *instruction* 6 x 8 own + 6 x 8 others + 8 all = 104 fits; *harmful* 72; *high-stakes* 72; **248 fits**. Order: *instruction* first (it is the concept the whole question is about, and the one where Part C may follow), then *harmful*, then *high-stakes* (the slow one). Within a concept run Step 1 (`own`) before Step 2 (`others`, then `all`), and commit and push after each concept so a partial result is already usable. Set `AGENTIC_REDTEAM_MAX_MEMORY` as the other run scripts do. The harness resumes on `(tag, file, n, draw)`, so a killed run loses at most one fit; do not launch the fits through a driver you might later kill by its parent pid alone (the fit worker outlives its parent).
 
-If the `all` arm under *high-stakes* at n = 590 with accumulation 37 returns an across-draw sd of exactly 0 at any split, the probe took no optimiser step; report it rather than change the regime.
+*Harmful* has the smallest dev sets (Ant-HH 22/22), so it is where a class-balance edge case would show; check its `own` rows land at n = 44 and 46 before moving on. If the `all` arm under *high-stakes* at n = 590 with accumulation 37 returns an across-draw sd of exactly 0 at any split, the probe took no optimiser step; report it rather than change the regime.
 
 ### A4. Statistics per split (write `scripts/dc_dev_cells.csv`)
 
@@ -99,7 +108,7 @@ Ladders through the same regime as `direction_count.py --stage fit` (one `subsam
 - `scripts/dc_dev_arms.csv`, the fit CSVs `scripts/dc_dev_<concept>_{own,all}.csv` and `scripts/dc_dev_<concept>_others_<split>.csv`, `scripts/dc_dev_cells.csv`, `scripts/dc_dev_transfer_<concept>.csv`, `scripts/dc_dev_link_stats.csv`, the scatter file, and Part C's CSVs if run.
 - The script(s) you wrote, and any wrapper `run*.sh` (gitignored; `git add -f`).
 - `analysis/dev_coverage.md`: the method in a paragraph, the per-concept table (median `a_own`, `a_others`, `a_all`, `G_dev`, `t_other_dev`), the per-split table, the Part B table with the three bars, the Part A predictions and whether each held, the caveats (validation set, the 590 cap, class balance of the smallest dev sets, that `G_dev` is a gain from chance rather than a fitted gain).
-- Final commit message: the per-concept table, the Part B verdict in one line per predictor, wall-clock per fit per concept, and whether Part C ran.
+- Final commit message: the per-concept table, the Part B verdict in one line per predictor, wall-clock per fit per concept, and whether Part C ran. Intermediate commits after each concept of Part A (instruction, harmful, high-stakes, in that order) with that concept's transfer matrix and its `a_own / a_others / a_all / G_dev` rows.
 
 ## Do not
 
