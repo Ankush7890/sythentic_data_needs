@@ -559,8 +559,8 @@ def stage_link(args) -> None:
     cells = _read_csv(SCRIPTS / "dc_dev_cells.csv")
     extra = {}
     rdev = SCRIPTS / "dc_dev_partc_ratios.csv"
-    for r in _read_csv(rdev):          # Part C, if it ran
-        if r.get("R_dev", "") != "":
+    for r in _read_csv(rdev):          # Part C, if it ran; flat-arm ratios set aside
+        if r.get("R_dev", "") != "" and r.get("usable") == "1":
             extra[r["knee"]] = float(r["R_dev"])
     targets = kp.load_targets()
     per_split = collections.defaultdict(list)
@@ -649,7 +649,205 @@ def stage_link(args) -> None:
 
 
 # --------------------------------------------------------------------------- #
-STAGES = ("arms", "prefetch", "warm", "fit", "cells", "link", "harness")
+# Part C — curves for a dev-sample R, instruction only
+# --------------------------------------------------------------------------- #
+# Run because Part B found |rho| >= 0.5 within the six instruction splits (G_dev -0.77).
+# Same arm files as Part A; ladders stop where a class-balanced draw runs out (a 66-68 row
+# split gives 66 at most, so `own` stops at 50; `others` holds ~336 and `all` 404, so 300).
+PARTC_CONCEPT = "instructions"
+LADDER_OWN = (2, 4, 6, 10, 20, 30, 50)
+LADDER_FULL = (2, 4, 6, 10, 20, 30, 50, 80, 110, 170, 300)
+
+
+def partc_csv(arm: str, split: str) -> Path:
+    tail = f"_{split}" if arm != "all" else ""
+    return SCRIPTS / f"dc_dev_partc_{PARTC_CONCEPT}_{arm}{tail}.csv"
+
+
+def partc_jobs() -> list[tuple]:
+    jobs = []
+    for a in _arms():
+        if a["concept"] != PARTC_CONCEPT:
+            continue
+        ladder = LADDER_OWN if a["arm"] == "own" else LADDER_FULL
+        bal = int(a["balanced"])
+        for n in ladder:
+            if n <= bal:
+                jobs.append((a["arm"], a["split"], a["file"], n))
+    order = {"own": 0, "others": 1, "all": 2}
+    # Biggest first inside a file, as direction_count does: a size that cannot be drawn
+    # fails at once rather than after the small ones.
+    jobs.sort(key=lambda j: (order[j[0]], j[1], -j[3]))
+    return jobs
+
+
+def stage_partc_fit(args) -> None:
+    """Size ladders through the Part A regime: one harness call per (file, size).
+
+    ``own`` and ``others`` restricted to the target split, ``all`` unrestricted (minus
+    oig_omission) so one fit serves every split's mixed curve.
+    """
+    jobs = partc_jobs()
+    print(f"[partc] {len(jobs)} (arm file, size) cells x {args.draws} draws", flush=True)
+    t0 = time.time()
+    for i, (arm, split, fname, n) in enumerate(jobs, 1):
+        common = [
+            "--concept", PARTC_CONCEPT, str(WORK / fname), "--no-base",
+            "--grad-accum", str(math.ceil(n / BATCH)), "--batch-size", str(BATCH),
+            "--sizes", str(n), "--draws", str(args.draws),
+            "--dev-data", str(val_dir(PARTC_CONCEPT)), "--out", str(partc_csv(arm, split)),
+        ]
+        if arm == "all":
+            cmd = [sys.executable, str(Path(__file__).resolve()), "--stage", "harness",
+                   "--"] + common
+        else:
+            cmd = [sys.executable, str(SCRIPTS / "dc_run_curve.py"),
+                   "--eval-split", split] + common
+        print(f"[partc] [{i}/{len(jobs)}] {fname} n={n} "
+              f"({(time.time() - t0) / 60:.0f} min elapsed)", flush=True)
+        rc = subprocess.run(cmd, cwd=REPO).returncode
+        if rc != 0:
+            print(f"[partc] FAILED {fname} n={n} (exit {rc})", file=sys.stderr, flush=True)
+            if args.stop_on_error:
+                raise SystemExit(rc)
+
+
+PARTC_FIT_FIELDS = ["concept", "split", "arm", "sizes", "n_points", "L", "U", "U_lo",
+                    "U_hi", "m", "m_lo", "m_hi", "k", "n90", "gain_obs", "rmse",
+                    "U_bvar", "lm_bvar", "flat", "censored"]
+PARTC_RATIO_FIELDS = ["concept", "split", "knee", "usable", "m_own", "m_own_lo",
+                      "m_own_hi", "m_all", "m_all_lo", "m_all_hi", "m_others",
+                      "m_others_lo", "m_others_hi", "R_dev", "R_lo", "R_hi",
+                      "G_dev_fit", "G_dev_fit_lo", "G_dev_fit_hi", "flat_own",
+                      "flat_all", "flat_others", "censored_own", "censored_all",
+                      "U_own", "U_all", "U_others", "L_all", "L_others"]
+
+
+def _partc_curves() -> dict[tuple, dict[int, list[float]]]:
+    """``{(arm, target split): {n: [AUROC per draw]}}``; `all` rows feed every split."""
+    splits = eval_splits(PARTC_CONCEPT)
+    curves: dict = collections.defaultdict(lambda: collections.defaultdict(list))
+    ladder_of = {"own": set(LADDER_OWN), "others": set(LADDER_FULL), "all": set(LADDER_FULL)}
+    for a in _arms():
+        if a["concept"] != PARTC_CONCEPT:
+            continue
+        arm = a["arm"]
+        for r in _read_csv(partc_csv(arm, a["split"])):
+            if r["samples"] != a["file"] or not r["base"].startswith("none+ga"):
+                continue
+            n = int(r["n"])
+            if n not in ladder_of[arm]:
+                continue
+            for s in (splits if arm == "all" else [a["split"]]):
+                v = r.get(eval_column(s), "")
+                if v != "":
+                    curves[(arm, s)][n].append(float(v))
+    return {k: dict(v) for k, v in curves.items()}
+
+
+def _boot_pair(curve_a, curve_b, stat, rng, n_boot):
+    """95% interval for stat(fit_a, fit_b), resampling draws within each size of both."""
+    import numpy as np
+
+    import fit_curves_ref as ref
+
+    out = []
+    for _ in range(n_boot):
+        fs = []
+        for curve in (curve_a, curve_b):
+            c = {n: [v[i] for i in rng.integers(0, len(v), len(v))] for n, v in curve.items()}
+            ns, ys = ref._points(c)
+            fs.append(ref.fit(ns, ys))
+        v = stat(*fs)
+        if v is not None and math.isfinite(v):
+            out.append(v)
+    if not out:
+        return float("nan"), float("nan")
+    lo, hi = np.percentile(out, [2.5, 97.5])
+    return float(lo), float(hi)
+
+
+def stage_partc_analyse(args) -> None:
+    """Fit every curve with the reference log-logistic (direction_count's rules), then R.
+
+    flat = in-range gain under 0.02 (the paper's rule); censored = m at or below the
+    smallest size measured; the paired bootstrap for R is direction_count's own
+    ``_paired_ratio_ci`` (400 replicates, seed 20260918). G_dev_fit is the FITTED gain kept
+    without the kind, (U - L)_others / (U - L)_all — the generated-set study's G —
+    alongside Part A's gain-from-chance version.
+    """
+    import numpy as np
+
+    import direction_count as dc
+    import fit_curves_ref as ref
+
+    curves = _partc_curves()
+    expected = {"own": set(LADDER_OWN), "others": set(LADDER_FULL), "all": set(LADDER_FULL)}
+    fits: dict[tuple, dict] = {}
+    rows = []
+    for (arm, split), curve in sorted(curves.items()):
+        if expected[arm] - set(curve) and not args.allow_partial:
+            print(f"[partc] {arm} {split}: sizes {sorted(expected[arm] - set(curve))} "
+                  f"missing, not fitted", flush=True)
+            continue
+        f = ref.fit_curve(curve)
+        sizes = sorted(curve)
+        rec = {"concept": PARTC_CONCEPT, "split": split, "arm": arm,
+               "sizes": " ".join(map(str, sizes)),
+               "n_points": sum(len(v) for v in curve.values()),
+               "flat": int(f["gain_obs"] < 0.02), "censored": int(f["m"] <= sizes[0]),
+               **{c: round(float(f[c]), 6) for c in
+                  ("L", "U", "U_lo", "U_hi", "m", "m_lo", "m_hi", "k", "n90", "gain_obs",
+                   "rmse", "U_bvar", "lm_bvar")}}
+        fits[(arm, split)] = rec
+        rows.append(rec)
+    _write_csv(SCRIPTS / "dc_dev_partc_fits.csv", rows, PARTC_FIT_FIELDS)
+
+    rng = np.random.default_rng(dc.SEED)
+    ratios = []
+    for split in eval_splits(PARTC_CONCEPT):
+        fo, fa, fc = (fits.get((a, split)) for a in ("own", "all", "others"))
+        if not (fo and fa):
+            continue
+        R = fa["m"] / fo["m"] if fo["m"] > 0 else float("nan")
+        r_lo, r_hi = dc._paired_ratio_ci(curves[("own", split)], curves[("all", split)], rng)
+        gain_a = fa["U"] - fa["L"]
+        g = (fc["U"] - fc["L"]) / gain_a if fc and gain_a > 0 else float("nan")
+        g_lo, g_hi = (_boot_pair(
+            curves[("others", split)], curves[("all", split)],
+            lambda c, a: (c["U"] - c["L"]) / (a["U"] - a["L"]) if a["U"] > a["L"] else None,
+            rng, dc.N_RATIO_BOOT) if fc else (float("nan"), float("nan")))
+        rec = {
+            "concept": PARTC_CONCEPT, "split": split, "knee": knee_key(split),
+            "m_own": fo["m"], "m_own_lo": fo["m_lo"], "m_own_hi": fo["m_hi"],
+            "m_all": fa["m"], "m_all_lo": fa["m_lo"], "m_all_hi": fa["m_hi"],
+            "m_others": fc["m"] if fc else "", "m_others_lo": fc["m_lo"] if fc else "",
+            "m_others_hi": fc["m_hi"] if fc else "",
+            "R_dev": round(R, 4), "R_lo": round(r_lo, 4), "R_hi": round(r_hi, 4),
+            "G_dev_fit": round(g, 4), "G_dev_fit_lo": round(g_lo, 4),
+            "G_dev_fit_hi": round(g_hi, 4),
+            "flat_own": fo["flat"], "flat_all": fa["flat"],
+            "flat_others": fc["flat"] if fc else "",
+            "censored_own": fo["censored"], "censored_all": fa["censored"],
+            "U_own": round(fo["U"], 4), "U_all": round(fa["U"], 4),
+            "U_others": round(fc["U"], 4) if fc else "",
+            "L_all": round(fa["L"], 4), "L_others": round(fc["L"], 4) if fc else "",
+        }
+        # direction_count._usable's rule: a flat arm makes the ratio meaningless.
+        rec["usable"] = int(not fo["flat"] and not fa["flat"]
+                            and math.isfinite(R) and R > 0)
+        ratios.append(rec)
+        print(f"[partc] {split[:26]:26s} m_own {fo['m']:7.2f} m_all {fa['m']:7.2f} "
+              f"m_others {fc['m'] if fc else float('nan'):7.2f}  R {R:6.2f} "
+              f"[{r_lo:.2f},{r_hi:.2f}]  G_fit {g:.3f}  usable {rec['usable']} "
+              f"cens own/all {fo['censored']}/{fa['censored']}", flush=True)
+    _write_csv(SCRIPTS / "dc_dev_partc_ratios.csv", ratios, PARTC_RATIO_FIELDS)
+    print("[partc] wrote dc_dev_partc_fits.csv, dc_dev_partc_ratios.csv")
+
+
+# --------------------------------------------------------------------------- #
+STAGES = ("arms", "prefetch", "warm", "fit", "cells", "link", "partc-fit",
+          "partc-analyse", "harness")
 
 
 def main(argv=None) -> int:
@@ -670,7 +868,8 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
     args.concepts = [c for c in CONCEPT_ORDER if c in args.concepts]
     {"arms": stage_arms, "prefetch": stage_prefetch, "warm": stage_warm,
-     "fit": stage_fit, "cells": stage_cells, "link": stage_link}[args.stage](args)
+     "fit": stage_fit, "cells": stage_cells, "link": stage_link,
+     "partc-fit": stage_partc_fit, "partc-analyse": stage_partc_analyse}[args.stage](args)
     return 0
 
 
