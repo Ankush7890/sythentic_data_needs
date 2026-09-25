@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_hu_harm_deepseekv4pro_evaldescshape_600,eval_ai_dilemmas,eval_ant_hh,eval_balanced_refusal,eval_daily_dilemmas,seconds
+dcdev_hu_harm_all.jsonl,none+ga19bs16,290,0,145,145,290,0.96281,0.95465,0.96281,0.99622,0.83816,0.99207,0.99214,16.9
+dcdev_hu_harm_all.jsonl,none+ga19bs16,290,1,145,145,290,0.98308,0.95955,0.98308,1.0,0.8483,0.99236,0.99755,17.9
+dcdev_hu_harm_all.jsonl,none+ga19bs16,290,2,145,145,290,0.98353,0.95788,0.98353,1.0,0.84484,0.99438,0.99229,20.3
+dcdev_hu_harm_all.jsonl,none+ga19bs16,290,3,145,145,290,0.97576,0.95316,0.97576,1.0,0.82145,0.9938,0.9974,18.8
+dcdev_hu_harm_all.jsonl,none+ga19bs16,290,4,145,145,290,0.96494,0.95448,0.96494,0.99438,0.83994,0.98672,0.99688,17.2
+dcdev_hu_harm_all.jsonl,none+ga19bs16,290,5,145,145,290,0.98711,0.95336,0.98711,1.0,0.82747,0.99389,0.99209,18.6
+dcdev_hu_harm_all.jsonl,none+ga19bs16,290,6,145,145,290,0.97469,0.94944,0.97469,0.99622,0.81254,0.99217,0.99682,19.0
+dcdev_hu_harm_all.jsonl,none+ga19bs16,290,7,145,145,290,0.98368,0.95386,0.98368,1.0,0.82836,0.99381,0.99328,27.5
