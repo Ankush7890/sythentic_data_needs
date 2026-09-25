@@ -649,27 +649,38 @@ def stage_link(args) -> None:
 
 
 # --------------------------------------------------------------------------- #
-# Part C — curves for a dev-sample R, instruction only
+# Part C — curves for a dev-sample R, per concept (``--concept``)
 # --------------------------------------------------------------------------- #
-# Run because Part B found |rho| >= 0.5 within the six instruction splits (G_dev -0.77).
-# Same arm files as Part A; ladders stop where a class-balanced draw runs out (a 66-68 row
-# split gives 66 at most, so `own` stops at 50; `others` holds ~336 and `all` 404, so 300).
-PARTC_CONCEPT = "instructions"
-LADDER_OWN = (2, 4, 6, 10, 20, 30, 50)
-LADDER_FULL = (2, 4, 6, 10, 20, 30, 50, 80, 110, 170, 300)
+# First run under instruction only, because Part B found |rho| >= 0.5 within the six
+# instruction splits (G_dev -0.77); docs/dev_coverage_partc_task.md adds harmful and
+# high-stakes for the cross-concept coverage share. Same arm files as Part A; every arm
+# takes the paper's full ladder cut at the arm's class-balanced size (n <= balanced, the
+# pre-cap size; draws are capped at 590 by the harness).
+LADDER_FULL = (2, 4, 6, 10, 20, 30, 50, 80, 110, 170, 350, 590)
+# The instruction run predates the full ladder: `own` stopped at 50 and `others`/`all`
+# at 300. Kept per concept so `--concept instructions` still means exactly what it meant
+# (its CSVs are done; re-running it would neither drop the 300 point nor add 350).
+LADDER_INSTR_OWN = (2, 4, 6, 10, 20, 30, 50)
+LADDER_INSTR = (2, 4, 6, 10, 20, 30, 50, 80, 110, 170, 300)
 
 
-def partc_csv(arm: str, split: str) -> Path:
+def partc_ladder(concept: str, arm: str) -> tuple[int, ...]:
+    if concept == "instructions":
+        return LADDER_INSTR_OWN if arm == "own" else LADDER_INSTR
+    return LADDER_FULL
+
+
+def partc_csv(concept: str, arm: str, split: str) -> Path:
     tail = f"_{split}" if arm != "all" else ""
-    return SCRIPTS / f"dc_dev_partc_{PARTC_CONCEPT}_{arm}{tail}.csv"
+    return SCRIPTS / f"dc_dev_partc_{concept}_{arm}{tail}.csv"
 
 
-def partc_jobs() -> list[tuple]:
+def partc_jobs(concept: str) -> list[tuple]:
     jobs = []
     for a in _arms():
-        if a["concept"] != PARTC_CONCEPT:
+        if a["concept"] != concept:
             continue
-        ladder = LADDER_OWN if a["arm"] == "own" else LADDER_FULL
+        ladder = partc_ladder(concept, a["arm"])
         bal = int(a["balanced"])
         for n in ladder:
             if n <= bal:
@@ -687,15 +698,17 @@ def stage_partc_fit(args) -> None:
     ``own`` and ``others`` restricted to the target split, ``all`` unrestricted (minus
     oig_omission) so one fit serves every split's mixed curve.
     """
-    jobs = partc_jobs()
-    print(f"[partc] {len(jobs)} (arm file, size) cells x {args.draws} draws", flush=True)
+    concept = args.concept
+    jobs = partc_jobs(concept)
+    print(f"[partc] {concept}: {len(jobs)} (arm file, size) cells x {args.draws} draws",
+          flush=True)
     t0 = time.time()
     for i, (arm, split, fname, n) in enumerate(jobs, 1):
         common = [
-            "--concept", PARTC_CONCEPT, str(WORK / fname), "--no-base",
+            "--concept", concept, str(WORK / fname), "--no-base",
             "--grad-accum", str(math.ceil(n / BATCH)), "--batch-size", str(BATCH),
             "--sizes", str(n), "--draws", str(args.draws),
-            "--dev-data", str(val_dir(PARTC_CONCEPT)), "--out", str(partc_csv(arm, split)),
+            "--dev-data", str(val_dir(concept)), "--out", str(partc_csv(concept, arm, split)),
         ]
         if arm == "all":
             cmd = [sys.executable, str(Path(__file__).resolve()), "--stage", "harness",
@@ -723,16 +736,26 @@ PARTC_RATIO_FIELDS = ["concept", "split", "knee", "usable", "m_own", "m_own_lo",
                       "U_own", "U_all", "U_others", "L_all", "L_others"]
 
 
-def _partc_curves() -> dict[tuple, dict[int, list[float]]]:
-    """``{(arm, target split): {n: [AUROC per draw]}}``; `all` rows feed every split."""
-    splits = eval_splits(PARTC_CONCEPT)
-    curves: dict = collections.defaultdict(lambda: collections.defaultdict(list))
-    ladder_of = {"own": set(LADDER_OWN), "others": set(LADDER_FULL), "all": set(LADDER_FULL)}
+def _partc_expected(concept: str) -> dict[tuple, set[int]]:
+    """``{(arm, arm split): sizes}`` — the ladder cut at each arm's balanced size."""
+    out = {}
     for a in _arms():
-        if a["concept"] != PARTC_CONCEPT:
+        if a["concept"] == concept:
+            out[(a["arm"], a["split"])] = {n for n in partc_ladder(concept, a["arm"])
+                                           if n <= int(a["balanced"])}
+    return out
+
+
+def _partc_curves(concept: str) -> dict[tuple, dict[int, list[float]]]:
+    """``{(arm, target split): {n: [AUROC per draw]}}``; `all` rows feed every split."""
+    splits = eval_splits(concept)
+    curves: dict = collections.defaultdict(lambda: collections.defaultdict(list))
+    ladder_of = {arm: set(partc_ladder(concept, arm)) for arm in ("own", "others", "all")}
+    for a in _arms():
+        if a["concept"] != concept:
             continue
         arm = a["arm"]
-        for r in _read_csv(partc_csv(arm, a["split"])):
+        for r in _read_csv(partc_csv(concept, arm, a["split"])):
             if r["samples"] != a["file"] or not r["base"].startswith("none+ga"):
                 continue
             n = int(r["n"])
@@ -781,18 +804,20 @@ def stage_partc_analyse(args) -> None:
     import direction_count as dc
     import fit_curves_ref as ref
 
-    curves = _partc_curves()
-    expected = {"own": set(LADDER_OWN), "others": set(LADDER_FULL), "all": set(LADDER_FULL)}
+    concept = args.concept
+    curves = _partc_curves(concept)
+    expected = _partc_expected(concept)
     fits: dict[tuple, dict] = {}
     rows = []
     for (arm, split), curve in sorted(curves.items()):
-        if expected[arm] - set(curve) and not args.allow_partial:
-            print(f"[partc] {arm} {split}: sizes {sorted(expected[arm] - set(curve))} "
+        want = expected[(arm, "" if arm == "all" else split)]
+        if want - set(curve) and not args.allow_partial:
+            print(f"[partc] {arm} {split}: sizes {sorted(want - set(curve))} "
                   f"missing, not fitted", flush=True)
             continue
         f = ref.fit_curve(curve)
         sizes = sorted(curve)
-        rec = {"concept": PARTC_CONCEPT, "split": split, "arm": arm,
+        rec = {"concept": concept, "split": split, "arm": arm,
                "sizes": " ".join(map(str, sizes)),
                "n_points": sum(len(v) for v in curve.values()),
                "flat": int(f["gain_obs"] < 0.02), "censored": int(f["m"] <= sizes[0]),
@@ -801,11 +826,11 @@ def stage_partc_analyse(args) -> None:
                    "rmse", "U_bvar", "lm_bvar")}}
         fits[(arm, split)] = rec
         rows.append(rec)
-    _write_csv(SCRIPTS / "dc_dev_partc_fits.csv", rows, PARTC_FIT_FIELDS)
+    _merge_concept_rows(SCRIPTS / "dc_dev_partc_fits.csv", concept, rows, PARTC_FIT_FIELDS)
 
     rng = np.random.default_rng(dc.SEED)
     ratios = []
-    for split in eval_splits(PARTC_CONCEPT):
+    for split in eval_splits(concept):
         fo, fa, fc = (fits.get((a, split)) for a in ("own", "all", "others"))
         if not (fo and fa):
             continue
@@ -818,7 +843,7 @@ def stage_partc_analyse(args) -> None:
             lambda c, a: (c["U"] - c["L"]) / (a["U"] - a["L"]) if a["U"] > a["L"] else None,
             rng, dc.N_RATIO_BOOT) if fc else (float("nan"), float("nan")))
         rec = {
-            "concept": PARTC_CONCEPT, "split": split, "knee": knee_key(split),
+            "concept": concept, "split": split, "knee": knee_key(split),
             "m_own": fo["m"], "m_own_lo": fo["m_lo"], "m_own_hi": fo["m_hi"],
             "m_all": fa["m"], "m_all_lo": fa["m_lo"], "m_all_hi": fa["m_hi"],
             "m_others": fc["m"] if fc else "", "m_others_lo": fc["m_lo"] if fc else "",
@@ -841,13 +866,128 @@ def stage_partc_analyse(args) -> None:
               f"m_others {fc['m'] if fc else float('nan'):7.2f}  R {R:6.2f} "
               f"[{r_lo:.2f},{r_hi:.2f}]  G_fit {g:.3f}  usable {rec['usable']} "
               f"cens own/all {fo['censored']}/{fa['censored']}", flush=True)
-    _write_csv(SCRIPTS / "dc_dev_partc_ratios.csv", ratios, PARTC_RATIO_FIELDS)
-    print("[partc] wrote dc_dev_partc_fits.csv, dc_dev_partc_ratios.csv")
+    _merge_concept_rows(SCRIPTS / "dc_dev_partc_ratios.csv", concept, ratios,
+                        PARTC_RATIO_FIELDS)
+    print(f"[partc] {concept}: wrote its rows of dc_dev_partc_fits.csv, "
+          "dc_dev_partc_ratios.csv")
+
+
+def _merge_concept_rows(path: Path, concept: str, rows: list[dict], fields: list[str]) -> None:
+    """Keep every other concept's rows as they are, in order; this concept's go at the end.
+
+    Re-running a concept replaces only its own rows, so the instruction rows written first
+    are never refitted, reordered or dropped by a later concept's analysis.
+    """
+    kept = [r for r in _read_csv(path) if r["concept"] != concept] if path.exists() else []
+    _write_csv(path, kept + rows, fields)
+
+
+# --------------------------------------------------------------------------- #
+# stage: partc-share — the cross-concept coverage share on real data
+# --------------------------------------------------------------------------- #
+# The generated-set study's per-concept medians (scripts/dc_summary; instruction /
+# harmful / high-stakes) and its share, for the side-by-side.
+GEN_M_KIND = {"instructions": 11.0, "hu_harm": 7.2, "highstakes": 6.9}
+GEN_M_MIXED = {"instructions": 117.0, "hu_harm": 18.0, "highstakes": 7.9}
+GEN_R = {"instructions": 5.30, "hu_harm": 2.12, "highstakes": 1.18}
+GEN_SHARE = {"both": 0.79, "hu_harm": 0.76, "highstakes": 0.81}
+GRID_FLOOR = 3.0                 # fit_curves_ref.M_GRID[0]
+N_SHARE_BOOT = 4000
+SHARE_FIELDS = ["row", "concept", "vs", "n_usable", "n_splits", "median_m_own",
+                "m_own_lo", "m_own_hi", "median_m_all", "m_all_lo", "m_all_hi",
+                "median_R_dev", "R_lo", "R_hi", "median_G_dev_fit", "G_lo", "G_hi",
+                "n_own_at_floor", "n_own_censored", "n_own_lo_at_floor",
+                "gen_m_kind", "gen_m_mixed", "gen_R",
+                "gap_all", "gap_own", "share", "share_lo", "share_hi",
+                "gap_own_floor3", "share_floor3", "share_floor3_lo", "share_floor3_hi",
+                "gen_share"]
+
+
+def stage_partc_share(args) -> None:
+    """Per-concept medians over usable splits and ``share = 1 - gap_own / gap_all``.
+
+    gap_x = log10 median m_x(instruction) - mean over the other concepts of log10 median
+    m_x, with m_all standing for the generated-set "mixed" and m_own for "kind-only".
+    Intervals: bootstrap over splits within each concept (4,000 resamples). The
+    ``_floor3`` columns put every floor-pinned or censored m_own at exactly 3 (the grid
+    floor), which is what the fit reports for them anyway unless it went lower.
+    """
+    import numpy as np
+
+    rows = [r for r in _read_csv(SCRIPTS / "dc_dev_partc_ratios.csv")]
+    by = collections.defaultdict(list)
+    for r in rows:
+        by[r["concept"]].append(r)
+    missing = [c for c in CONCEPT_ORDER if not any(r["usable"] == "1" for r in by[c])]
+    if missing:
+        raise SystemExit(f"[share] no usable Part C rows for {missing}")
+    use = {c: [r for r in by[c] if r["usable"] == "1"] for c in CONCEPT_ORDER}
+    col = lambda c, k: np.array([float(r[k]) for r in use[c]])  # noqa: E731
+    floor3 = {c: np.array([GRID_FLOOR if (float(r["m_own"]) <= GRID_FLOOR
+                                          or r["censored_own"] == "1") else float(r["m_own"])
+                           for r in use[c]]) for c in CONCEPT_ORDER}
+    rng = np.random.default_rng(LINK_SEED + 3)
+    idx = {c: [rng.integers(0, len(use[c]), len(use[c])) for _ in range(N_SHARE_BOOT)]
+           for c in CONCEPT_ORDER}
+
+    def ci(values):
+        v = np.array([x for x in values if math.isfinite(x)])
+        return (float(np.percentile(v, 2.5)), float(np.percentile(v, 97.5))) if len(v) \
+            else (float("nan"), float("nan"))
+
+    out = []
+    for c in CONCEPT_ORDER:
+        rec = {"row": "concept", "concept": c, "n_usable": len(use[c]),
+               "n_splits": len(by[c]), "gen_m_kind": GEN_M_KIND[c],
+               "gen_m_mixed": GEN_M_MIXED[c], "gen_R": GEN_R[c]}
+        for key, name in (("m_own", "m_own"), ("m_all", "m_all"), ("R_dev", "R"),
+                          ("G_dev_fit", "G")):
+            x = col(c, key)
+            med = float(np.median(x))
+            lo, hi = ci([float(np.median(x[i])) for i in idx[c]])
+            rec["median_" + key] = round(med, 4)
+            rec[name + "_lo"], rec[name + "_hi"] = round(lo, 4), round(hi, 4)
+        # floor counts over every split (usable or not), as the brief asks
+        rec["n_own_at_floor"] = sum(float(r["m_own"]) <= GRID_FLOOR + 1e-9 for r in by[c])
+        rec["n_own_censored"] = sum(r["censored_own"] == "1" for r in by[c])
+        rec["n_own_lo_at_floor"] = sum(float(r["m_own_lo"]) <= GRID_FLOOR + 1e-9
+                                       for r in by[c])
+        out.append(rec)
+
+    def gap(m, others):
+        return math.log10(m["instructions"]) - float(np.mean([math.log10(m[o])
+                                                              for o in others]))
+
+    for vs, others in (("both", ("hu_harm", "highstakes")), ("hu_harm", ("hu_harm",)),
+                       ("highstakes", ("highstakes",))):
+        rec = {"row": "share", "concept": "instructions", "vs": vs,
+               "gen_share": GEN_SHARE[vs]}
+        for tag, own_of in (("", lambda c: col(c, "m_own")), ("_floor3", lambda c: floor3[c])):
+            def share_of(sel):
+                m_all = {c: float(np.median(col(c, "m_all")[sel[c]])) for c in sel}
+                m_own = {c: float(np.median(own_of(c)[sel[c]])) for c in sel}
+                ga, go = gap(m_all, others), gap(m_own, others)
+                return ga, go, (1 - go / ga if ga != 0 else float("nan"))
+            full = {c: slice(None) for c in ("instructions", *others)}
+            ga, go, sh = share_of(full)
+            boots = [share_of({c: idx[c][b] for c in full})[2] for b in range(N_SHARE_BOOT)]
+            lo, hi = ci(boots)
+            if tag == "":
+                rec.update(gap_all=round(ga, 4), gap_own=round(go, 4), share=round(sh, 4),
+                           share_lo=round(lo, 4), share_hi=round(hi, 4))
+            else:
+                rec.update(gap_own_floor3=round(go, 4), share_floor3=round(sh, 4),
+                           share_floor3_lo=round(lo, 4), share_floor3_hi=round(hi, 4))
+        out.append(rec)
+    _write_csv(SCRIPTS / "dc_dev_partc_share.csv", out, SHARE_FIELDS)
+    for r in out:
+        print("[share] " + "  ".join(f"{k}={r[k]}" for k in SHARE_FIELDS if k in r), flush=True)
+    print("[share] wrote dc_dev_partc_share.csv")
 
 
 # --------------------------------------------------------------------------- #
 STAGES = ("arms", "prefetch", "warm", "fit", "cells", "link", "partc-fit",
-          "partc-analyse", "harness")
+          "partc-analyse", "partc-share", "harness")
 
 
 def main(argv=None) -> int:
@@ -861,6 +1001,8 @@ def main(argv=None) -> int:
     ap.add_argument("--stage", required=True, choices=STAGES)
     ap.add_argument("--concepts", nargs="+", default=list(CONCEPT_ORDER),
                     choices=CONCEPT_ORDER)
+    ap.add_argument("--concept", default="instructions", choices=CONCEPT_ORDER,
+                    help="partc-fit / partc-analyse: the concept whose ladders to run")
     ap.add_argument("--draws", type=int, default=DRAWS)
     ap.add_argument("--stop-on-error", action="store_true")
     ap.add_argument("--allow-partial", action="store_true",
@@ -869,7 +1011,8 @@ def main(argv=None) -> int:
     args.concepts = [c for c in CONCEPT_ORDER if c in args.concepts]
     {"arms": stage_arms, "prefetch": stage_prefetch, "warm": stage_warm,
      "fit": stage_fit, "cells": stage_cells, "link": stage_link,
-     "partc-fit": stage_partc_fit, "partc-analyse": stage_partc_analyse}[args.stage](args)
+     "partc-fit": stage_partc_fit, "partc-analyse": stage_partc_analyse,
+     "partc-share": stage_partc_share}[args.stage](args)
     return 0
 
 
