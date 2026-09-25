@@ -1,0 +1,7 @@
+row,concept,vs,n_usable,n_splits,median_m_own,m_own_lo,m_own_hi,median_m_all,m_all_lo,m_all_hi,median_R_dev,R_lo,R_hi,median_G_dev_fit,G_lo,G_hi,n_own_at_floor,n_own_censored,n_own_lo_at_floor,gen_m_kind,gen_m_mixed,gen_R,gap_all,gap_own,share,share_lo,share_hi,gap_own_floor3,share_floor3,share_floor3_lo,share_floor3_hi,gen_share
+concept,instructions,,6,6,16.6962,9.1985,27.9125,74.8563,33.7632,99.4361,4.6783,2.3021,6.5297,0.5078,0.4543,0.9621,0,0,1,11.0,117.0,5.3,,,,,,,,,,
+concept,hu_harm,,4,4,8.8968,7.5046,11.3849,19.5889,18.773,65.5453,2.5103,1.6489,6.8016,0.7573,0.2219,1.1158,0,0,1,7.2,18.0,2.12,,,,,,,,,,
+concept,highstakes,,4,4,11.5435,3.0,20.4049,15.5738,4.5512,65.5453,1.4564,1.2841,3.2122,0.95,0.762,1.1274,1,0,3,6.9,7.9,1.18,,,,,,,,,,
+share,instructions,both,,,,,,,,,,,,,,,,,,,,,0.632,0.2168,0.6569,-0.4818,1.3907,0.2168,0.6569,-0.4818,1.3907,0.79
+share,instructions,hu_harm,,,,,,,,,,,,,,,,,,,,,0.5822,0.2734,0.5304,-1.9822,2.5052,0.2734,0.5304,-1.9822,2.5052,0.76
+share,instructions,highstakes,,,,,,,,,,,,,,,,,,,,,0.6818,0.1603,0.7649,0.0063,2.2007,0.1603,0.7649,0.0063,2.2007,0.81

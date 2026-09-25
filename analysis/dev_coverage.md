@@ -131,10 +131,12 @@ concept-only baseline is 0.284** (it was 0.273 over the thirteen splits of
 | a_others | 14 | −0.433 | 0.12 | [−0.65, −0.16] | 0.471 | 0.284 | 0.247 | **−0.77** (0.10) | ✗ | ✗ | ✓ |
 | a_all − a_others | 14 | +0.385 | 0.18 | [+0.16, +0.62] | 0.438 | 0.284 | 0.281 | **+0.77** (0.10) | ✗ | ✗ | ✓ |
 | a_own | 14 | −0.187 | 0.52 | [−0.42, +0.13] | 0.516 | 0.284 | 0.323 | +0.09 (0.92) | ✗ | ✗ | ✗ |
-| R_dev (Part C) | 6 | +0.086 | 0.92 | [−0.77, +0.49] | 0.470 | 0.354¹ | 0.470 | +0.09 (0.92) | ✗ | ✗ | ✓ |
+| R_dev (Part C) | 14 | +0.665 | 0.014 | [+0.29, +0.78] | 0.428 | 0.284 | 0.296 | +0.09 (0.92) | **✓** | ✗ | ✓ |
 
-¹ R_dev exists for the six instruction splits only, so its "concept-only" baseline is the
-grand mean of those six.
+R_dev's row is over all fourteen splits, from the Part C runs under harmful and
+high-stakes (see "Part C under harmful and high-stakes"). Over the six instruction splits
+alone, as first run, it was ρ = +0.086 (p = 0.92), LOO 0.470 against the six-split grand
+mean 0.354.
 
 **Verdict: no predictor clears all three bars.** `t_other_dev` clears the correlation bar
 (ρ = −0.72, p = 0.005, the same strength as the generated-set `t_other`'s −0.79) and its
@@ -180,6 +182,91 @@ split by split (Spearman 0.83 over the six; oig_context_drift moves from last to
 **not** rank the synthetic target within *instruction* (ρ = +0.09) — the same 0.0 the
 generated-set R had. The within-concept signal Part B found is in *how much* gain the
 other kinds leave behind, not in how fast the split's own kind is learned.
+
+## Part C under harmful and high-stakes
+
+Run for `docs/dev_coverage_partc_task.md`, to put a real-data number on the paper's
+cross-concept coverage share. Same arm files, regime (`--no-base --grad-accum ceil(n/16)
+--batch-size 16`, eight draws), validation sets and restriction rule as the instruction
+run; every arm takes the full ladder 2 4 6 10 20 30 50 80 110 170 350 590 cut at its
+class-balanced size (`dc_dev.py --stage partc-fit --concept <c>`). *Harmful*: 77 cells,
+616 fits; *high-stakes*: 102 cells, 816 fits; no failures. The instruction rows are the
+ones above, untouched (its legacy ladders are kept, so `--concept instructions` still
+reproduces them byte for byte). Same fitter, flat rule and censoring rule; nothing was
+changed to move a floor-pinned m.
+
+| split | m_own [95%] | m_all [95%] | m_others | **R_dev = m_all/m_own** [95%] | G_dev_fit [95%] | G_dev (Part A) |
+|---|---|---|---|---|---|---|
+| *harmful* ai_dilemmas | 7.5 [5.4, 10.5] | 20 [17, 26] | 17 | **2.7** [1.8, 4.1] | 0.88 [0.78, 0.99] | 0.87 |
+| *harmful* ant_hh | 9.6 [6.3, 11.4] | 66 [16, 108] | 71 | **6.8** [1.5, 12.2] | 0.22 [0.12, 1.30] | 0.44 |
+| *harmful* balanced_refusal | 11.4 [3.0, 20.4] | 19 [8, 24] | 8.2 | **1.6** [0.6, 6.8] | 0.64 [0.34, 1.08] | 0.55 |
+| *harmful* daily_dilemmas | 8.2 [6.4, 10.5] | 19 [15, 22] | 26 | **2.3** [1.6, 3.2] | 1.12 [0.85, 1.20] | 0.92 |
+| *high-stakes* anthropic_hh | **3.0** [3.0, 22] | 4.6 [3.0, 10.5] | 77 | **1.5** [0.2, 3.2] | 0.89 [0.82, 1.68] | 0.84 |
+| *high-stakes* mt | 13.5 [3.0, 20.4] | 19 [15, 24] | 13 | **1.4** [0.8, 5.8] | 1.01 [0.65, 1.30] | 0.89 |
+| *high-stakes* mts | 9.6 [3.0, 20.4] | 12 [7, 24] | 17 | **1.3** [0.5, 4.9] | 0.76 [0.61, 1.23] | 0.98 |
+| *high-stakes* toolace | 20.4 [7.5, 60.4] | 66 [34, 100] | 47 | **3.2** [1.0, 9.5] | 1.13 [0.53, 1.62] | 0.86 |
+
+No arm is flat; all eight rows are usable. **One `m_own` sits at the grid floor of 3**
+(*high-stakes* anthropic_hh) and **four
+`m_own` intervals reach it** (one *harmful*, three *high-stakes*). The `censored` flag
+fires nowhere, and cannot: it is "m at or below the smallest measured size", the
+smallest size is 2 and the grid starts at 3, so the floor count is the column that
+catches a pinned m.
+
+### Per concept (medians over usable splits; 95% bootstrap over splits, 4,000 resamples)
+
+| concept | usable | m_own (kind-only) | m_all (mixed) | R_dev | G_dev_fit | m_own at floor / interval at floor | generated sets: kind-only / mixed / R |
+|---|---|---|---|---|---|---|---|
+| *instruction* | 6/6 | 16.7 [9.2, 27.9] | 75 [34, 99] | 4.68 [2.30, 6.53] | 0.51 [0.45, 0.96] | 0 / 1 | 11 / 117 / 5.30 |
+| *harmful* | 4/4 | 8.9 [7.5, 11.4] | 19.6 [18.8, 65.5] | 2.51 [1.65, 6.80] | 0.76 [0.22, 1.12] | 0 / 1 | 7.2 / 18 / 2.12 |
+| *high-stakes* | 4/4 | 11.5 [3.0, 20.4] | 15.6 [4.6, 65.5] | 1.46 [1.28, 3.21] | 0.95 [0.76, 1.13] | 1 / 3 | 6.9 / 7.9 / 1.18 |
+
+The generated-set ordering of R reproduces on real data, at similar sizes: *instruction*
+4.7 vs 5.3, *harmful* 2.5 vs 2.1, *high-stakes* 1.5 vs 1.2. The mixed sizes of *harmful*
+match (19.6 vs 18); *instruction*'s real m_all is lower (75 vs 117) and *high-stakes*'s
+higher (15.6 vs 7.9), so the real mixed gap is narrower. Real `m_own` runs above the
+generated kind-only m in all three concepts (16.7 / 8.9 / 11.5 against 11 / 7.2 / 6.9).
+
+### The real-data coverage share (`scripts/dc_dev_partc_share.csv`)
+
+| comparison | gap_all (mixed) | gap_own (kind-only) | **share = 1 − gap_own/gap_all** [95%] | generated sets |
+|---|---|---|---|---|
+| *instruction* vs mean(*harmful*, *high-stakes*) | 0.632 | 0.217 | **0.66** [−0.48, 1.39] | 0.79 (gaps 0.99 / 0.21) |
+| *instruction* vs *harmful* | 0.582 | 0.273 | 0.53 [−1.98, 2.51] | 0.76 |
+| *instruction* vs *high-stakes* | 0.682 | 0.160 | 0.76 [0.01, 2.20] | 0.81 |
+
+**The point estimate is 0.66, against 0.79 on generated sets**, and the kind-only gap is
+the generated one almost exactly (0.217 vs 0.21); the difference sits in the mixed gap
+(0.63 vs 0.99). The interval is uninformative, though: with four to six splits per
+concept a resample that shrinks gap_all towards 0 sends the ratio anywhere, so the data
+are consistent with the paper's four fifths and with much less. Only *instruction* vs
+*high-stakes* excludes zero, and only just.
+
+**The floor does not move the point estimate.** The brief's bound applies only if most
+`m_own` values are floor-pinned; here it is one of eight. The pinned value is the
+smallest of *high-stakes*' four `m_own` (3, 9.6, 13.5, 20.4), and a median of four is the
+mean of the middle two whatever the smallest one is, so a true m_own below 3 at
+anthropic_hh leaves the *high-stakes* median (11.5), gap_own and the share unchanged.
+Treating it as exactly 3 (`share_floor3`) gives the same 0.66 [−0.48, 1.39]. Strictly,
+bootstrap resamples that draw anthropic_hh two or more times would have a lower
+*high-stakes* median, so only the interval (not the point estimate) is an upper bound in
+the brief's sense.
+
+**Per kind, *instruction* is still the slowest, but only modestly.** Its median `m_own`
+(16.7) exceeds *harmful*'s (8.9) and *high-stakes*' (11.5), a ratio of 1.9 and 1.4 (1.5
+on generated sets, 11 vs 7). The intervals overlap (*instruction* [9.2, 27.9] against
+[7.5, 11.4] and [3.0, 20.4]), so "per kind the concepts are alike, and *instruction*'s
+large mixed m is mostly coverage" holds in direction on real data but not with a margin
+four splits per concept can confirm.
+
+### Part B with R_dev over all fourteen splits
+
+R_dev now exists for every split, so it is scored against the same 0.284 concept-only
+baseline as the other predictors: **ρ = +0.665, p = 0.014, 95% CI [+0.29, +0.78]; LOO
+0.428 against concept 0.284 (pred + concept 0.296); within instruction +0.09 (p = 0.92).**
+It clears the correlation bar and the sign bar, and fails the one that matters: like
+`t_other_dev`, it ranks the concepts, and concept identity alone does that better.
+The verdict of Part B stands: nothing beats concept identity.
 
 ## Caveats
 
@@ -230,15 +317,19 @@ other kinds leave behind, not in how fast the split's own kind is learned.
 ## Outputs
 
 `scripts/dc_dev.py` (stages `arms | prefetch | warm | fit | cells | link | partc-fit |
-partc-analyse`), `scripts/run_dc_dev.sh` and `scripts/run_dc_dev_partc.sh`;
+partc-analyse | partc-share`, the Part C stages taking `--concept`), `scripts/run_dc_dev.sh`,
+`scripts/run_dc_dev_partc.sh` and `scripts/run_dc_dev_partc2.sh`;
 `scripts/dc_dev_arms.csv`; the Part A fit CSVs `scripts/dc_dev_<concept>_{own,all}.csv`
 and `scripts/dc_dev_<concept>_others_<split>.csv`; `scripts/dc_dev_cells.csv` and
 `scripts/dc_dev_transfer_<concept>.csv`; `scripts/dc_dev_link_stats.csv` and
 `scripts/dc_dev_scatter.csv` (the columns of `dc_scatter.csv` with the dev predictors in
-place of the geometry ones); Part C's `scripts/dc_dev_partc_instructions_*.csv`,
-`scripts/dc_dev_partc_fits.csv`, `scripts/dc_dev_partc_ratios.csv`.
+place of the geometry ones); Part C's `scripts/dc_dev_partc_{instructions,hu_harm,highstakes}_*.csv`,
+`scripts/dc_dev_partc_fits.csv`, `scripts/dc_dev_partc_ratios.csv`,
+`scripts/dc_dev_partc_share.csv`.
 
 Wall-clock per fit (one RTX 3090, gemma-3-27b layer 32, activations cached): instruction
 own 13 s / others 17–18 s / all 21 s; harmful 14 s / 12–17 s / 20 s; high-stakes 99 s /
-29–71 s / 115 s (unrestricted high-stakes fits read all 47 GB of eval blobs); Part C 11 s.
+29–71 s / 115 s (unrestricted high-stakes fits read all 47 GB of eval blobs); Part C
+instruction 11 s, harmful 9 / 10 / 13 s (own / others / all; 1.9 h), high-stakes
+18 / 19 / 85 s (8.5 h).
 Extraction of the 2,602 dev samples and the three 600-row validation blobs took ~2 h.
