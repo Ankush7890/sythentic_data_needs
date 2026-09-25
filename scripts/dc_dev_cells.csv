@@ -1,0 +1,7 @@
+concept,split,knee,n_own,n_others,n_all,a_own,a_others,a_all,G_dev,gap_all_others,t_other_dev,t_own_dev,sd_a_own,sd_a_others,sd_a_all,sd_G_dev,sd_t_other_dev,sd_t_own_dev,n_draws_own,n_draws_others,n_draws_all
+instructions,anthropic_harmless_refusal,anthropic_harmless_refusal,68,336,404,1.0,0.95292,1.0,0.90584,0.04708,0.55674,1.0,0.0,0.02751,0.0,0.05502,0.03344,0.0,8,8,8
+instructions,bbq_substitution,bbq_substitution,68,336,404,0.90106,0.95378,0.98459,0.93642,0.03081,0.76772,0.90106,0.0217,0.01354,0.00763,0.03313,0.01856,0.0217,8,8,8
+instructions,hc_context_drift,hc_context_drift,66,338,404,0.99963,0.73268,0.9739,0.491,0.24122,0.6821,0.99963,0.00043,0.04208,0.01295,0.08848,0.02448,0.00043,8,8,8
+instructions,hc_contradiction,hc_contradiction,68,336,404,0.98738,0.74791,0.96788,0.52987,0.21996,0.71929,0.98738,0.0073,0.03385,0.00651,0.07354,0.03927,0.0073,8,8,8
+instructions,mm_substitution,mm_substitution,68,336,404,0.98424,0.8117,0.98962,0.63662,0.17792,0.58379,0.98424,0.00882,0.01159,0.00271,0.02137,0.02429,0.00882,8,8,8
+instructions,oig_context_drift,oig_context_drift,66,338,404,0.97904,0.70053,0.98115,0.41676,0.28062,0.53702,0.97904,0.02136,0.01702,0.00331,0.03451,0.01429,0.02136,8,8,8
