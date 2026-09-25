@@ -32,12 +32,12 @@ Every size of the paper's ladder `2 4 6 10 20 30 50 80 110 170 350 590` that a c
 | *harmful* | others (156--246) | | 2 ... 110, plus 170 where balanced >= 170 |
 | *harmful* | all | 290 | 2 4 6 10 20 30 50 80 110 170 |
 | *high-stakes* | own mt, mts, toolace | 278, 274, 328 | 2 4 6 10 20 30 50 80 110 170 |
-| *high-stakes* | own anthropic_hh | 590 (capped) | 2 ... 350 |
-| *high-stakes* | others, all | 590 (capped) | 2 4 6 10 20 30 50 80 110 170 350 590 |
+| *high-stakes* | own anthropic_hh | 1,028 (draws capped at 590) | 2 4 6 10 20 30 50 80 110 170 350 590 |
+| *high-stakes* | others, all | 880--1,908 (draws capped at 590) | 2 4 6 10 20 30 50 80 110 170 350 590 |
 
-Use `LADDER_FULL = (2, 4, 6, 10, 20, 30, 50, 80, 110, 170, 350, 590)` for every arm and let the `n <= balanced` rule cut it; keep the *instruction* results exactly as they are (their CSVs are done; the generalised stage must skip cells already in a CSV, which the harness's resume key does for you).
+Use `LADDER_FULL = (2, 4, 6, 10, 20, 30, 50, 80, 110, 170, 350, 590)` for every arm and let the `n <= balanced` rule cut it (the `balanced` column of `dc_dev_arms.csv` is the pre-cap size, so under *high-stakes* the rule admits the whole ladder for every arm but the three smaller `own` arms); keep the *instruction* results exactly as they are (their CSVs are done; the generalised stage must skip cells already in a CSV, which the harness's resume key does for you).
 
-Count, roughly: *harmful* 29 own + 40 others + 10 all cells x 8 draws = 630 fits at 12--20 s; *high-stakes* 41 own + 48 others + 12 all cells x 8 = 810 fits, at 30--70 s restricted and about 115 s for the twelve unrestricted `all` cells. About 2 h and 14 h respectively. **Run *harmful* first, then *high-stakes*.** Commit and push after each concept's `partc-analyse`.
+Count, roughly: *harmful* 29 own + 40 others + 10 all cells x 8 draws = 630 fits at 12--20 s; *high-stakes* 42 own + 48 others + 12 all cells x 8 = 816 fits, at 30--70 s restricted and about 115 s for the twelve unrestricted `all` cells. About 2 h and 14 h respectively. **Run *harmful* first, then *high-stakes*.** Commit and push after each concept's `partc-analyse`.
 
 ### Code
 
