@@ -1,0 +1,10 @@
+train_split,n,anthropic_hh_balanced,mt_balanced,mts_balanced,toolace_balanced
+anthropic_hh_balanced,1028,0.95652,0.55364,0.45592,0.47663
+mt_balanced,278,0.49594,0.93468,0.90806,0.55673
+mts_balanced,274,0.45128,0.95757,0.91401,0.61724
+toolace_balanced,328,0.45573,0.68333,0.7788,0.79611
+all,1908,0.96957,0.97969,0.96755,0.79588
+minus_anthropic_hh_balanced,880,0.46432,,,
+minus_mt_balanced,1630,,0.92146,,
+minus_mts_balanced,1634,,,0.86047,
+minus_toolace_balanced,1580,,,,0.57417

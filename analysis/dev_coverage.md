@@ -268,6 +268,155 @@ It clears the correlation bar and the sign bar, and fails the one that matters: 
 `t_other_dev`, it ranks the concepts, and concept identity alone does that better.
 The verdict of Part B stands: nothing beats concept identity.
 
+## The difference-of-means statistic on dev samples
+
+*(Brief: `docs/dev_coverage_dom_task.md`. Code: `scripts/dc_dev_geometry.py`. No probe is
+trained and no curve is fit; the whole stage runs in seconds on pooled features.)*
+
+**Why.** Table `dc_main` put two transfer AUROCs side by side that are not the same
+statistic: the generated row (`t_other`) is a class-mean direction per LLM-tagged kind
+scored on the other kinds' generated samples; the real row (`t_other_dev`) is a trained,
+early-stopped probe scored on the other eval splits. This section computes the
+generated-row statistic, unchanged, on the dev samples.
+
+**Method.** Features are the token-mean of Gemma-3-27B-IT layer 32 over the attention
+mask, float32 (`direction_count.pool_set`, over the `own` arm files so the high-stakes MTS
+assistant-first fix is in). Per concept the dev splits are stacked (404 / 290 / 1,908
+rows), standardised on their own mean and sd, and each split gets one unit
+difference-of-means direction `d_s` (every split clears `MIN_KIND_PER_CLASS = 20`; the
+smallest is Ant-HH, 22 / 22). `T[s, s']` scores `d_s` on split `s'`'s dev samples, `E[s, e]`
+on eval split `e` pushed through the *dev* standardiser; `d_all` is the whole dev set's
+direction and `d_-s` the set-minus-split one. `G_dom = (AUROC(d_-s) − 0.5) / (AUROC(d_all) −
+0.5)`. Everything else — `_auroc`, `_standardiser`, `_direction`, `SEED`, the five-fold
+held-out diagonal and its RNG stream — is imported from or mirrors
+`direction_count.geometry_for_set`, which the code reproduces exactly (all 272 `T_ij` and
+`cos_ij` cells of `dc_geometry.csv`) when fed the LLM tags. The eval features are the knee
+study's pool, rebuilt from the Kaggle blobs on this machine; the rebuilt
+`knee_pooled_manifest.json` is byte-identical to the committed one.
+
+**One departure: the diagonal on paired splits.** Every *instruction* dev split and three
+of the four *harmful* ones open with each user message exactly twice, once per class
+(every prompt of those ten splits; Ant-HH and all of high-stakes are unpaired). The brief's row-level five folds
+then put each held-out row's opposite-class twin in the training fold, and since the class
+means are dominated by prompt content the direction points the held-out row at the wrong
+class: **0.07–0.11** on hc_context_drift, hc_contradiction, oig_context_drift,
+ai_dilemmas and daily_dilemmas, whose directions score 0.84–0.98 on their own *eval*
+split. The generated sets are unpaired, so there the row folds were fine (0.96–1.00). The
+row-fold value is kept as specified (`t_own`); `t_own_grp` holds a prompt's pair out
+together (the key is the first non-empty user message: hc_context_drift's two rows also
+differ in a later user turn, and the assistant-first fix gives 263 MTS rows the same blank
+opener), and it is the one quoted below. It changes nothing but the diagonal (and
+`t_gap`); every off-diagonal and eval number is fit-on-one-split, score-on-another.
+
+### Four transfer numbers per concept
+
+Means over splits, as `dc_neff.csv` defines them (probe: mean, median in brackets).
+Generated rows are the mean over the four generators' detailed sets.
+
+| concept | gen. direction on gen. samples (`t_other`) | gen. direction on eval (`e_other`) | **dev direction on dev (`t_other`)** | **dev direction on eval (`e_other`)** | probe on eval (`t_other_dev`) |
+|---|---|---|---|---|---|
+| instruction | 0.82 | 0.60 | **0.61** | **0.63** | 0.64 (0.63) |
+| harmful | 0.85 | 0.63 | **0.63** | **0.63** | 0.72 (0.74) |
+| high-stakes | 0.95 | 0.75 | **0.62** | **0.62** | 0.85 (0.87) |
+
+Own-split and whole-set numbers, same layout:
+
+| concept | gen. `t_own` | dev `t_own_grp` (row folds) | gen. `e_own` | dev `e_own` | gen. `e_all` | dev `e_all` | dev n_eff (gen.) | dev mean / max off-diag cos |
+|---|---|---|---|---|---|---|---|---|
+| instruction | 0.98 | 0.92 (0.40) | 0.71 | 0.89 | 0.72 | 0.81 | 4.89 (3.75) | 0.11 / 0.71 |
+| harmful | 0.98 | 0.96 (0.49) | 0.75 | 0.92 | 0.77 | 0.77 | 3.51 (3.78) | 0.10 / 0.41 |
+| high-stakes | 1.00 | 0.90 (0.89) | 0.91 | 0.90 | 0.91 | 0.93 | 3.64 (3.56) | 0.09 / 0.43 |
+
+**Reading.** With the classifier held fixed, the real splits transfer **alike across the
+three concepts**: a split's class-mean direction scores another split at 0.61 / 0.63 /
+0.62 on dev samples and 0.63 / 0.63 / 0.62 on eval, flat to within 0.03, where both
+existing rows order the concepts (0.82 / 0.85 / 0.95 generated, 0.64 / 0.72 / 0.85 probe).
+The dev directions are also near-orthogonal everywhere (mean off-diagonal cos 0.09–0.11;
+the only large pair is hc_context_drift–hc_contradiction, 0.71, and mt–mts, 0.43). So the
+concept ordering of the generated `t_other` is a property of the tagged generated kinds,
+and the ordering of the probe's `t_other_dev` is something the optimiser adds on real
+data — neither is in the class means of the real splits. The paper's "transfer says the
+same without curves" sentence needs that qualification.
+
+High-stakes' flat number has one clear source: **Anthropic-HH** is orthogonal to the other
+three splits (cos 0.005 / −0.019 / −0.015; its direction scores them 0.41–0.55 and theirs
+score it 0.45–0.51, dev and eval alike), and it is 54% of the dev set. Among MT, MTS and ToolACE alone the
+off-diagonal mean is 0.77 on dev and 0.75 on eval — high-stakes' generated `e_other`
+exactly, and still above either other concept. That is a statement about one split, not a
+rescue of the ordering: *instruction* and *harmful* each have such pairs too
+(hc_context_drift→refusal 0.92, ai_dilemmas→balanced_refusal 0.98).
+
+### Per split
+
+`t_other` / `e_other`: the off-diagonal *column* mean (the other splits' directions scored
+on s), the analogue of `t_other_dev`. `G_dom` on eval (dev in brackets; the dev
+denominator is in-sample, see below). Probe columns copied from `dc_dev_cells.csv`;
+generated columns are the per-split medians over generators behind `dc_link_stats.csv`
+(mm_substitution has none).
+
+| concept | split | n | `t_own_grp` | `t_other` | `e_own` | `e_other` | `G_dom` eval (dev) | probe `t_other_dev` | probe `G_dev` | gen. `t_other` / `e_gap` |
+|---|---|---|---|---|---|---|---|---|---|---|
+| instruction | anthropic_harmless_refusal | 68 | 0.98 | 0.575 | 1.00 | 0.623 | **−0.42** (−0.48) | 0.557 | 0.91 | 0.82 / 0.49 |
+| instruction | bbq_substitution | 68 | 0.95 | 0.610 | 0.79 | 0.751 | 0.50 (−0.06) | 0.768 | 0.94 | 0.82 / −0.07 |
+| instruction | hc_context_drift | 66 | 0.88 | 0.623 | 0.86 | 0.626 | 0.88 (0.84) | 0.682 | 0.49 | 0.75 / −0.01 |
+| instruction | hc_contradiction | 68 | 0.85 | 0.668 | 0.84 | 0.637 | 0.76 (0.83) | 0.719 | 0.53 | 0.82 / 0.01 |
+| instruction | mm_substitution | 68 | 0.99 | 0.568 | 0.98 | 0.568 | **−0.45** (−0.36) | 0.584 | 0.64 | — |
+| instruction | oig_context_drift | 66 | 0.90 | 0.588 | 0.86 | 0.562 | 0.41 (0.43) | 0.537 | 0.42 | 0.82 / 0.15 |
+| harmful | ai_dilemmas | 46 | 0.95 | 0.660 | 0.91 | 0.652 | 0.91 (0.92) | 0.753 | 0.87 | 0.85 / −0.03 |
+| harmful | ant_hh | 44 | 0.95 | 0.590 | 0.83 | 0.602 | 0.24 (−1.44) | 0.612 | 0.44 | 0.85 / 0.19 |
+| harmful | balanced_refusal | 134 | 0.94 | 0.577 | 0.96 | 0.577 | **−0.39** (−0.34) | 0.735 | 0.55 | 0.85 / 0.34 |
+| harmful | daily_dilemmas | 66 | 1.00 | 0.704 | 0.98 | 0.699 | 0.41 (0.31) | 0.771 | 0.92 | 0.85 / −0.03 |
+| high-stakes | anthropic_hh_balanced | 1028 | 0.95 | 0.480 | 0.96 | 0.468 | −0.08 (−0.04) | 0.854 | 0.84 | 0.97 / 0.26 |
+| high-stakes | mt_balanced | 278 | 0.95 | 0.735 | 0.93 | 0.732 | 0.88 (0.92) | 0.881 | 0.89 | 0.97 / 0.11 |
+| high-stakes | mts_balanced | 274 | 0.90 | 0.704 | 0.91 | 0.714 | 0.77 (0.70) | 0.922 | 0.98 | 0.97 / 0.11 |
+| high-stakes | toolace_balanced | 328 | 0.79 | 0.565 | 0.80 | 0.550 | 0.25 (0.25) | 0.756 | 0.86 | 0.97 / 0.13 |
+
+Transfer matrices: `scripts/dc_dev_dom_transfer_<concept>_{dev,eval}.csv`.
+
+`G_dom` is a ratio of two gains over chance and is ill-conditioned where `d_all` itself is
+weak on the split (Ant-HH: `d_all` 0.61 on dev in-sample, 0.47 held out — whence −1.44
+and, in the CSV, 5.50 under the held-out denominator `G_dom_dev_ho`). The eval form, whose
+denominators are 0.66–1.00, is the one to read; medians over splits **0.46 / 0.33 / 0.51**
+(instruction / harmful / high-stakes) against the probe's G_dev 0.58 / 0.71 / 0.88.
+
+### The predictions, stated before looking, and whether each held
+
+| prediction | result | held? |
+|---|---|---|
+| `t_other_dev_dom` ordered instruction < harmful < high-stakes | 0.605 / 0.633 / 0.621 (medians 0.60 / 0.63 / 0.63); size-matched 0.605 / 0.633 ± 0.007 / 0.616 ± 0.036 | **✗** — flat; high-stakes is not the most transferable |
+| `e_other` of real directions above the generated directions' 0.60 / 0.63 / 0.75 | 0.628 / 0.632 / 0.616 | **✗** — level with generated for instruction (+0.03) and harmful (+0.01), **below** it for high-stakes (−0.13) |
+| `e_own` well above 0.71 / 0.75 / 0.91 | 0.886 / 0.919 / 0.900 | **partly** — instruction ✓ (+0.18), harmful ✓ (+0.17), high-stakes ✗ (equal) |
+| Harmless-refusal's direction near chance or reversed on the other instruction splits; BBQ's reversed on refusal | refusal → others 0.43 / 0.57 / 0.54 / **0.24** / 0.57 on dev, 0.59 / 0.55 / 0.54 / **0.26** / 0.52 on eval (probe 0.39–0.59); BBQ → refusal **0.23** dev / **0.33** eval (probe 0.25); mm → refusal also reversed (0.21 / 0.18) | **✓** — a property of the samples, not of the optimiser |
+| `G_dom` well below 1 under instruction, near 1 under the other two | eval medians 0.46 / 0.33 / 0.51; no concept near 1 | **partly** — instruction ✓, harmful ✗, high-stakes ✗ |
+
+**The refusal asymmetry is sharper under the class mean than under the probe.** The
+set-minus-refusal direction is *reversed* on refusal (0.26 dev, 0.29 eval), where the
+probe trained on the same five splits reached 0.953 (G_dev 0.91). Two of the five other
+splits point the opposite way on refusal (BBQ, MM: 0.18–0.33) and three the right way
+(hc_context_drift 0.92–0.96, hc_contradiction and oig 0.75–0.86); their class means
+cancel and then some, and the probe finds the three. So the Part A finding that refusal
+is carried by the other splits together (G_dev 0.91) is a property of training — the
+samples' class means alone do not carry it. The converse half of the asymmetry, that
+refusal samples teach nothing transferable, is the samples' own.
+
+### Size check
+
+The dev splits hold 44–1,028 samples against the generated kinds' 43–211, and a class
+mean over more samples is less noisy. Steps 2–4 were re-run with every split
+class-balanced to min(its balanced size, 100), 20 draws seeded off `SEED` (the full-dev
+standardiser kept). Every *instruction* split is already at or below 100 (66–68), so its
+size-matched run is the full-size one exactly. The rest:
+
+| concept | `t_other` full | size-matched (mean ± sd) | `e_other` full | size-matched |
+|---|---|---|---|---|
+| harmful | 0.633 | 0.633 ± 0.007 | 0.632 | 0.633 ± 0.002 |
+| high-stakes | 0.621 | 0.616 ± 0.036 | 0.616 | 0.614 ± 0.024 |
+
+Full and size-matched differ by less than one across-draw sd everywhere, so size is not
+what flattens the concepts; **the tables above use the full-size values**. The
+size-matched row of every statistic is `gen = dev_n100` in `scripts/dc_dev_neff.csv` and
+the `*_n100` / `sd_*_n100` columns of `scripts/dc_dev_dom_cells.csv`.
+
 ## Caveats
 
 - **The validation set is off-distribution by design.** Every fit early-stops on the
@@ -326,6 +475,12 @@ and `scripts/dc_dev_<concept>_others_<split>.csv`; `scripts/dc_dev_cells.csv` an
 place of the geometry ones); Part C's `scripts/dc_dev_partc_{instructions,hu_harm,highstakes}_*.csv`,
 `scripts/dc_dev_partc_fits.csv`, `scripts/dc_dev_partc_ratios.csv`,
 `scripts/dc_dev_partc_share.csv`.
+The difference-of-means section: `scripts/dc_dev_geometry.py` (stages `pool | geometry`),
+the pooled dev features `scripts/dc_pooled/dcdev_<concept>_<split>_own_{mean,labels,ntokens}.npy`,
+`scripts/dc_dev_geometry.csv` (the layout of `dc_geometry.csv`, plus `minus_<split>` rows),
+`scripts/dc_dev_neff.csv` (the layout of `dc_neff.csv`, `gen = dev` and `dev_n100`, plus
+`t_own_grp` and the size-matched `sd_*`), `scripts/dc_dev_dom_transfer_<concept>_{dev,eval}.csv`
+and `scripts/dc_dev_dom_cells.csv`.
 
 Wall-clock per fit (one RTX 3090, gemma-3-27b layer 32, activations cached): instruction
 own 13 s / others 17–18 s / all 21 s; harmful 14 s / 12–17 s / 20 s; high-stakes 99 s /

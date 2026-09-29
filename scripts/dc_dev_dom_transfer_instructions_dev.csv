@@ -1,0 +1,14 @@
+train_split,n,anthropic_harmless_refusal,bbq_substitution,hc_context_drift,hc_contradiction,mm_substitution,oig_context_drift
+anthropic_harmless_refusal,68,0.95,0.43253,0.573,0.54325,0.23789,0.56841
+bbq_substitution,68,0.23183,0.55038,0.58219,0.66263,0.45502,0.54178
+hc_context_drift,66,0.91782,0.73875,0.08167,0.83997,0.64533,0.6584
+hc_contradiction,68,0.74654,0.89187,0.81359,0.07321,0.77595,0.59871
+mm_substitution,68,0.21194,0.4481,0.5528,0.6583,0.61599,0.57392
+oig_context_drift,66,0.76557,0.53633,0.5932,0.63581,0.72751,0.10683
+all,404,0.98962,0.77941,0.7034,0.7526,0.88927,0.75941
+minus_anthropic_harmless_refusal,336,0.26298,,,,,
+minus_bbq_substitution,336,,0.4827,,,,
+minus_hc_context_drift,338,,,0.67126,,,
+minus_hc_contradiction,336,,,,0.70848,,
+minus_mm_substitution,336,,,,,0.35986,
+minus_oig_context_drift,338,,,,,,0.61157

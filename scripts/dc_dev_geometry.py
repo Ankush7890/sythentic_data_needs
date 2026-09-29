@@ -32,6 +32,13 @@ in-sample; ``G_dom_dev_ho`` replaces that denominator with a five-fold held-out 
 (``d_all`` refit without each fold of s) to show how much that matters. ``d_-s`` never
 sees s, so its entries are out-of-sample as they stand.
 
+**Paired splits.** Every instruction dev split and three of the four harmful ones open
+with each user message exactly twice, once per class (Ant-HH and the high-stakes splits do not). Row folds
+then anti-learn — see ``_held_out`` — so the brief's diagonal (``t_own``, row folds, the
+generated study's RNG stream exactly) is written as specified, and ``t_own_grp`` beside
+it holds the pair out together (``_prompt_key``). The held-out ``d_all`` denominator
+(``G_dom_dev_ho``) uses pair-grouped folds only.
+
 ``oig_omission`` is excluded everywhere (``dc_dev.dev_files`` drops it). Nothing in
 ``direction_count.py`` or any existing CSV is edited; the helpers are imported.
 """
@@ -102,36 +109,80 @@ def stage_pool(args) -> None:
 # --------------------------------------------------------------------------- #
 # the statistic
 # --------------------------------------------------------------------------- #
+def _prompt_key(line: str) -> str:
+    """The conversation's first non-empty user message: the pair key.
+
+    Every instruction dev split and three of the four harmful ones are PAIRED — each
+    opening user message appears twice, once per class. In hc_context_drift the two rows
+    also differ in a later user turn, so the key is the FIRST user message, not everything
+    before the last assistant turn (which misses those 33 pairs). Empty user turns are
+    skipped: the assistant-first fix gives 263 high-stakes MTS rows the same blank opener.
+    A conversation with no non-empty user message is its own key.
+    """
+    import json
+
+    raw = json.loads(line)["inputs"]
+    msgs = json.loads(raw) if isinstance(raw, str) else raw
+    for m in msgs:
+        if m["role"].lower() == "user" and str(m.get("content", "")).strip():
+            return json.dumps(m["content"], ensure_ascii=False)
+    return line
+
+
 def load_dev(name: str):
-    """Stacked dev features, labels and split name per row, in dev_splits order."""
-    Xs, ys, gs = [], [], []
+    """Stacked dev features, labels, split name and pair id per row, in dev_splits order.
+
+    The pooled rows are in arm-file order (``pool_set`` reads the file top to bottom), so
+    the pair ids are read off the same file in the same order.
+    """
+    Xs, ys, gs, ps = [], [], [], []
+    keys: dict[str, int] = {}
     for s in dev_splits(name):
+        lines = [ln for ln in dc_dev.arm_file(name, s, "own").read_text(
+            encoding="utf-8").splitlines() if ln.strip()]
+        ps.append(np.array([keys.setdefault(f"{s}\0{_prompt_key(ln)}", len(keys))
+                            for ln in lines]))
         stem = dev_stem(name, s)
         f = POOLED / f"{stem}_mean.npy"
         if not f.exists():
             raise SystemExit(f"{f} missing — run --stage pool first")
         X, y = np.load(f), np.load(POOLED / f"{stem}_labels.npy")
+        if len(y) != len(ps[-1]):
+            raise SystemExit(f"{stem}: {len(y)} pooled rows, arm file has {len(ps[-1])}")
         Xs.append(X)
         ys.append(y.astype(bool))
         gs.append(np.array([s] * len(y), dtype=object))
-    return np.concatenate(Xs), np.concatenate(ys), np.concatenate(gs)
+    return (np.concatenate(Xs), np.concatenate(ys), np.concatenate(gs),
+            np.concatenate(ps))
 
 
-def _held_out(Z, y, sel: np.ndarray, rng, fit_rows: np.ndarray | None = None) -> float:
+def _held_out(Z, y, sel: np.ndarray, rng, fit_rows: np.ndarray | None = None,
+              pairs: np.ndarray | None = None) -> float:
     """``direction_count``'s held-out diagonal: five folds of ``sel``, same RNG use.
 
     With ``fit_rows`` None the direction is fit on the other folds of ``sel`` (the T
     diagonal). Otherwise it is fit on ``fit_rows`` minus the held-out fold — used for
     ``d_all`` scored on one split without that split's scored rows.
+
+    With ``pairs`` the folds are drawn over pair ids instead of rows, so a prompt's two
+    responses are always held out together. Row folds on a paired split leave each test
+    row's opposite-class twin in the training fold; the class means are dominated by
+    prompt content, so the direction points the test row at the WRONG class (measured:
+    held-out AUROC 0.07-0.11 on five paired splits whose directions score 0.84-0.98 on
+    their own eval split). ``direction_count``'s generated sets are not paired.
     """
     idx = np.where(sel)[0]
-    order = rng.permutation(len(idx))
-    folds = np.array_split(order, N_GEOM_FOLDS)
+    if pairs is None:
+        order = rng.permutation(len(idx))
+        folds = [idx[f] for f in np.array_split(order, N_GEOM_FOLDS)]
+    else:
+        ids = np.unique(pairs[idx])
+        folds = [idx[np.isin(pairs[idx], f)]
+                 for f in np.array_split(rng.permutation(ids), N_GEOM_FOLDS)]
     aurocs = []
-    for f in folds:
-        te = idx[f]
+    for te in folds:
         if fit_rows is None:
-            tr = idx[np.setdiff1d(order, f, assume_unique=False)]
+            tr = np.setdiff1d(idx, te)
         else:
             keep = fit_rows.copy()
             keep[te] = False
@@ -144,13 +195,15 @@ def _held_out(Z, y, sel: np.ndarray, rng, fit_rows: np.ndarray | None = None) ->
 
 
 def geometry(Z, y, groups, kinds: list[str], evals: dict, rng, use=None,
-             with_minus: bool = True):
+             with_minus: bool = True, pairs: np.ndarray | None = None, rng_pairs=None):
     """The generated study's per-kind geometry on standardised features ``Z``.
 
     ``groups[r]`` is row r's kind (here: its dev split), ``kinds`` their order, ``evals``
     ``{eval split: (Ze, ye)}`` already pushed through the same standardiser, and ``use``
-    an optional row mask (the size-matched draws). Returns the long rows, the directions
-    and the split-level matrices the summaries are read off.
+    an optional row mask (the size-matched draws). With ``pairs`` (pair id per row) the
+    pair-grouped held-out values are computed too, on their own RNG ``rng_pairs`` so the
+    row-fold values keep the generated study's RNG stream. Returns the directions and the
+    split-level matrices the summaries are read off.
     """
     if use is None:
         use = np.ones(len(y), bool)
@@ -161,7 +214,7 @@ def geometry(Z, y, groups, kinds: list[str], evals: dict, rng, use=None,
             if npos[k] >= MIN_KIND_PER_CLASS and nneg[k] >= MIN_KIND_PER_CLASS}
     d_all = _direction(Z[use], y[use])
 
-    T, cos = {}, {}
+    T, cos, T_grp = {}, {}, {}
     for ki in kinds:                       # ki outer, kj inner: the RNG order of the
         di = dirs.get(ki)                  # generated study's diagonal calls
         for kj in kinds:
@@ -171,6 +224,8 @@ def geometry(Z, y, groups, kinds: list[str], evals: dict, rng, use=None,
                 T[ki, kj] = None
             elif ki == kj:
                 T[ki, kj] = _held_out(Z, y, sel[ki], rng)
+                if pairs is not None:
+                    T_grp[ki] = _held_out(Z, y, sel[ki], rng_pairs, pairs=pairs)
             else:
                 T[ki, kj] = _auroc(y[sel[kj]], Z[sel[kj]] @ di)
     E = {}
@@ -193,7 +248,8 @@ def geometry(Z, y, groups, kinds: list[str], evals: dict, rng, use=None,
         rec["e"] = None if dm is None or k not in evals else _auroc(evals[k][1],
                                                                     evals[k][0] @ dm)
         rec["t_all"] = None if d_all is None else _auroc(y[sel[k]], Z[sel[k]] @ d_all)
-        rec["t_all_ho"] = _held_out(Z, y, sel[k], rng, fit_rows=use)
+        rec["t_all_ho"] = (None if pairs is None else
+                           _held_out(Z, y, sel[k], rng_pairs, fit_rows=use, pairs=pairs))
         rec["e_all"] = E.get(("all", k))
         minus[k] = rec
 
@@ -210,7 +266,7 @@ def geometry(Z, y, groups, kinds: list[str], evals: dict, rng, use=None,
         n_eff = mean_off = max_off = float("nan")
     return {
         "kinds": kinds, "present": present, "dirs": dirs, "d_all": d_all,
-        "npos": npos, "nneg": nneg, "T": T, "cos": cos, "E": E, "minus": minus,
+        "npos": npos, "nneg": nneg, "T": T, "T_grp": T_grp, "cos": cos, "E": E, "minus": minus,
         "n_eff": n_eff, "mean_off_cos": mean_off, "max_off_cos": max_off,
         "n_all_pos": int((use & y).sum()), "n_all_neg": int((use & ~y).sum()),
     }
@@ -229,9 +285,12 @@ def split_stats(g: dict) -> dict[str, dict]:
         t_own, e_own = T[s, s], E.get((s, s))
         t_oth = _m([T[o, s] for o in kinds if o != s])
         e_oth = _m([E.get((o, s)) for o in kinds if o != s])
+        t_grp = g["T_grp"].get(s)
         rec = {"t_own_dom": t_own, "t_other_dom": t_oth,
+               "t_own_dom_grp": t_grp,
                "e_own_dom": e_own, "e_other_dom": e_oth,
                "t_gap_dom": None if t_own is None else t_own - t_oth,
+               "t_gap_dom_grp": None if t_grp is None else t_grp - t_oth,
                "e_gap_dom": None if e_own is None else e_own - e_oth}
         if s in minus:
             m = minus[s]
@@ -256,6 +315,7 @@ def concept_summary(g: dict) -> dict:
     kinds, T, E = g["kinds"], g["T"], g["E"]
     return {
         "t_own": _m([T[k, k] for k in kinds]),
+        "t_own_grp": _m([g["T_grp"].get(k) for k in kinds]),
         "t_other": _m([T[a, b] for a in kinds for b in kinds if a != b]),
         "e_own": _m([E.get((k, k)) for k in kinds]),
         "e_other": _m([E.get((a, b)) for a in kinds for b in kinds if a != b]),
@@ -349,10 +409,11 @@ def transfer_tables(name: str, g: dict) -> tuple[list[dict], list[dict]]:
 NEFF_BASE = ["concept", "gen", "set", "n_kinds", "n_kinds_used", "t_own", "t_other",
              "e_own", "e_other", "e_all", "n_eff", "mean_off_cos", "max_off_cos",
              "n_tagged", "n_rows"]
-MATCHED_STATS = ("t_own", "t_other", "e_own", "e_other", "e_all", "n_eff",
+MATCHED_STATS = ("t_own", "t_own_grp", "t_other", "e_own", "e_other", "e_all", "n_eff",
                  "mean_off_cos", "max_off_cos")
-CELL_STATS = ("t_other_dom", "t_own_dom", "e_own_dom", "e_other_dom", "G_dom_dev",
-              "G_dom_dev_ho", "G_dom_eval", "t_gap_dom", "e_gap_dom")
+CELL_STATS = ("t_other_dom", "t_own_dom", "t_own_dom_grp", "e_own_dom", "e_other_dom",
+              "G_dom_dev", "G_dom_dev_ho", "G_dom_eval", "t_gap_dom", "t_gap_dom_grp",
+              "e_gap_dom")
 
 
 def _neff_row(name: str, gen: str, g: dict, summ: dict, gaps: dict) -> dict:
@@ -398,7 +459,7 @@ def stage_geometry(args) -> None:
                    for r in dc_dev._read_csv(SCRIPTS / "dc_dev_cells.csv")}
     paper = _paper_per_split()
     for name in args.concepts:
-        X, y, groups = load_dev(name)
+        X, y, groups, pairs = load_dev(name)
         kinds = dev_splits(name)
         mu, sd = _standardiser(X)
         Z = (X - mu) / sd
@@ -407,7 +468,8 @@ def stage_geometry(args) -> None:
             Xe, ye = _load_eval_features(s)
             evals[s] = ((Xe - mu) / sd, ye.astype(bool))
 
-        g = geometry(Z, y, groups, kinds, evals, np.random.default_rng(SEED))
+        g = geometry(Z, y, groups, kinds, evals, np.random.default_rng(SEED),
+                     pairs=pairs, rng_pairs=np.random.default_rng([SEED, 2]))
         stats = split_stats(g)
         summ = concept_summary(g)
         gaps = {s: {"e_gap": stats[s]["e_gap_dom"], "t_gap": stats[s]["t_gap_dom"]}
@@ -424,7 +486,8 @@ def stage_geometry(args) -> None:
         for d in range(N_MATCH_DRAWS):
             use = matched_mask(y, groups, kinds, np.random.default_rng([SEED, d]))
             gd = geometry(Z, y, groups, kinds, evals,
-                          np.random.default_rng([SEED, d, 1]), use=use)
+                          np.random.default_rng([SEED, d, 1]), use=use, pairs=pairs,
+                          rng_pairs=np.random.default_rng([SEED, d, 2]))
             draws_s.append(concept_summary(gd))
             draws_c.append(split_stats(gd))
         m_summ = {k: _m([s[k] for s in draws_s]) for k in MATCHED_STATS}
