@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_oig_context_drift,seconds
+dc_instructions_nemotron_oig_context_drift_kind.jsonl,none+ga6bs16,84,0,42,42,84,0.67744,0.66808,0.94896,0.73875,0.55923,0.62543,0.59991,0.7034,0.56641,0.66808,9.5
+dc_instructions_nemotron_oig_context_drift_kind.jsonl,none+ga6bs16,84,1,42,42,84,0.69957,0.68233,0.90225,0.81445,0.5955,0.66609,0.61721,0.69605,0.60547,0.68233,8.9
+dc_instructions_nemotron_oig_context_drift_kind.jsonl,none+ga6bs16,84,2,42,42,84,0.66098,0.70523,0.84213,0.71972,0.57254,0.64922,0.57093,0.70983,0.5625,0.70523,8.8
+dc_instructions_nemotron_oig_context_drift_kind.jsonl,none+ga6bs16,84,3,42,42,84,0.73767,0.71575,0.95242,0.83261,0.6405,0.72535,0.69074,0.71855,0.60352,0.71575,9.1
+dc_instructions_nemotron_oig_context_drift_kind.jsonl,none+ga6bs16,84,4,42,42,84,0.74724,0.77628,0.93599,0.81401,0.62167,0.72708,0.64749,0.82231,0.66211,0.77628,9.2
+dc_instructions_nemotron_oig_context_drift_kind.jsonl,none+ga6bs16,84,5,42,42,84,0.70202,0.67791,0.93123,0.76081,0.62489,0.70891,0.64533,0.65702,0.58594,0.67791,12.2
+dc_instructions_nemotron_oig_context_drift_kind.jsonl,none+ga6bs16,84,6,42,42,84,0.71172,0.74939,0.96151,0.71497,0.62075,0.66609,0.61289,0.80624,0.59961,0.74939,10.2
+dc_instructions_nemotron_oig_context_drift_kind.jsonl,none+ga6bs16,84,7,42,42,84,0.6925,0.68567,0.94507,0.76557,0.61203,0.6808,0.61721,0.68779,0.53906,0.68567,8.3

@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_hc_context_drift,seconds
+dc_instructions_deepseekv4pro_hc_context_drift_kind.jsonl,none+ga7bs16,100,0,50,50,100,0.59762,0.97981,0.11419,0.45458,0.95041,0.6077,0.78547,0.77686,0.49414,0.97981,12.5
+dc_instructions_deepseekv4pro_hc_context_drift_kind.jsonl,none+ga7bs16,100,1,50,50,100,0.64938,0.98411,0.47318,0.52379,0.95776,0.53287,0.71367,0.82874,0.51562,0.98411,12.9
+dc_instructions_deepseekv4pro_hc_context_drift_kind.jsonl,none+ga7bs16,100,2,50,50,100,0.57591,0.91949,0.27811,0.44074,0.87695,0.54369,0.67128,0.73232,0.48828,0.91949,9.1
+dc_instructions_deepseekv4pro_hc_context_drift_kind.jsonl,none+ga7bs16,100,3,50,50,100,0.60617,0.98735,0.27855,0.40052,0.96373,0.56099,0.73659,0.8067,0.49609,0.98735,14.6
+dc_instructions_deepseekv4pro_hc_context_drift_kind.jsonl,none+ga7bs16,100,4,50,50,100,0.62309,0.93177,0.55882,0.4667,0.91047,0.5173,0.64663,0.7461,0.51562,0.93177,9.3
+dc_instructions_deepseekv4pro_hc_context_drift_kind.jsonl,none+ga7bs16,100,5,50,50,100,0.66403,0.98842,0.34559,0.66003,0.9697,0.59256,0.75173,0.76997,0.55859,0.98842,16.7
+dc_instructions_deepseekv4pro_hc_context_drift_kind.jsonl,none+ga7bs16,100,6,50,50,100,0.6318,0.97407,0.35813,0.44983,0.93388,0.55753,0.78849,0.83471,0.5,0.97407,9.0
+dc_instructions_deepseekv4pro_hc_context_drift_kind.jsonl,none+ga7bs16,100,7,50,50,100,0.60943,0.97247,0.14663,0.50173,0.9449,0.59516,0.74135,0.79522,0.54102,0.97247,11.2

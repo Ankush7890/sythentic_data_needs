@@ -1,0 +1,7 @@
+concept,split,knee,t_dev2dev,sd_t_dev2dev,n_train_dev,diag_dev,t_gen2gen,t_gen2gen_min,t_gen2gen_max,n_gens,diag_gen,t_other_dev,t_other_dom,e_other_dom,t_other,e_gap,t_other_gen
+instructions,anthropic_harmless_refusal,anthropic_harmless_refusal,0.5593,0.03369,5,1.0,0.902,0.60739,0.97295,4,0.99734,0.55674,0.57474,0.62264,0.81665,0.49265,0.73472
+instructions,bbq_substitution,bbq_substitution,0.59711,0.03087,5,1.0,0.80654,0.6963,0.91375,4,1.0,0.76772,0.60952,0.75098,0.81665,-0.07315,0.74544
+instructions,hc_context_drift,hc_context_drift,0.68144,0.02247,5,1.0,0.69148,0.66359,0.82749,4,1.0,0.6821,0.62296,0.62638,0.7461,-0.0149,0.66125
+instructions,hc_contradiction,hc_contradiction,0.71192,0.0333,5,1.0,0.82954,0.72097,0.853,4,1.0,0.71929,0.66799,0.63654,0.81665,0.0121,0.64807
+instructions,mm_substitution,mm_substitution,0.57584,0.0221,5,1.0,0.78537,0.75396,0.85233,4,,0.58379,0.56834,0.5675,,,0.65124
+instructions,oig_context_drift,oig_context_drift,0.55806,0.01746,5,1.0,0.78889,0.68925,0.82847,4,1.0,0.53702,0.58825,0.56221,0.81665,0.1536,0.58298

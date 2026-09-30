@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_hc_contradiction,seconds
+dc_instructions_llama70b_hc_contradiction_kind.jsonl,none+ga7bs16,112,0,56,56,112,0.75064,0.8554,0.87024,0.8923,0.70661,0.8776,0.75692,0.53949,0.61133,0.8554,10.2
+dc_instructions_llama70b_hc_contradiction_kind.jsonl,none+ga7bs16,112,1,56,56,112,0.62372,0.5945,0.81877,0.57569,0.57713,0.62933,0.70891,0.49174,0.56445,0.5945,6.8
+dc_instructions_llama70b_hc_contradiction_kind.jsonl,none+ga7bs16,112,2,56,56,112,0.74527,0.8307,0.91825,0.89317,0.691,0.81791,0.75216,0.53306,0.61133,0.8307,9.6
+dc_instructions_llama70b_hc_contradiction_kind.jsonl,none+ga7bs16,112,3,56,56,112,0.72586,0.8244,0.81142,0.82266,0.71671,0.85727,0.74611,0.51745,0.60938,0.8244,7.0
+dc_instructions_llama70b_hc_contradiction_kind.jsonl,none+ga7bs16,112,4,56,56,112,0.6921,0.71,0.84905,0.84645,0.63131,0.70112,0.71799,0.52066,0.57812,0.71,7.7
+dc_instructions_llama70b_hc_contradiction_kind.jsonl,none+ga7bs16,112,5,56,56,112,0.6846,0.69455,0.86375,0.78417,0.65014,0.69853,0.72232,0.48347,0.58984,0.69455,7.2
+dc_instructions_llama70b_hc_contradiction_kind.jsonl,none+ga7bs16,112,6,56,56,112,0.68069,0.72075,0.90052,0.76254,0.65289,0.70458,0.6968,0.4674,0.58008,0.72075,7.1
+dc_instructions_llama70b_hc_contradiction_kind.jsonl,none+ga7bs16,112,7,56,56,112,0.64386,0.6306,0.90398,0.63322,0.61616,0.62327,0.68901,0.47888,0.5625,0.6306,6.4
