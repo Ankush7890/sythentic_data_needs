@@ -417,6 +417,220 @@ what flattens the concepts; **the tables above use the full-size values**. The
 size-matched row of every statistic is `gen = dev_n100` in `scripts/dc_dev_neff.csv` and
 the `*_n100` / `sd_*_n100` columns of `scripts/dc_dev_dom_cells.csv`.
 
+## Transfer scored on the classifier's own source
+
+Brief: `docs/dev_coverage_xfer_task.md`. Until now the probe transfer numbers were scored on
+the eval splits (`t_other_dev`, `t_other_gen`) while the direction numbers were scored on
+their own source (`t_other` on generated kinds, `t_other_dom` on dev splits), so the
+classifier and the scoring set changed together. This section fills the two missing probe
+cells: **dev→dev** (a probe trained on every dev sample of split s, scored on the other dev
+splits) and **gen→gen** (a probe trained on kind k of one generated set, scored on the other
+kinds of the same set).
+
+**Method.** `scripts/dc_xfer.py --stage harness` runs the unmodified harness with the
+concept's `eval_dir` replaced, and swaps `agentic_redteam.evaluation.evaluate_probe` for a
+wrapper. The wrapper scores the pickle while it still exists (the harness deletes it after
+each draw) through `retrain.score_probe_on_dev` on a transfer directory, appends one row to a
+side CSV, then calls the original. The transfer directories, all in `.dc_work/`:
+
+- `xfer_dev_<concept>/` is one symlink per dev split to Part A's `own` arm file (which
+  carries the assistant-first fix): 404 instruction rows, 290 harmful. For high-stakes, a
+  1,908-row blob would be about 21 GB held at every scoring call, so it holds four files
+  instead, each a class-balanced cut of 150 rows (75/75) seeded on `'20260917:<split>'`
+  (`dc_dev` has no `SEED`), 600 rows in all. The cut is recorded in `scripts/dc_xfer_arms.csv`
+  as rows with `arm = xfer_cut`.
+- `xfer_gen_<concept>_<gen>/` is one symlink per kind file of the set, including the kinds
+  too small to train on (`mm_substitution`, llama70b's `hc_context_drift`). Those have a
+  column but no row.
+
+Arms and regime: Part A's 14 `own` arms and `dc_gen.py`'s 51 `kind` arms, each at its
+single size, eight draws, `--no-base`, accumulation ceil(n/16) at batch 16. The two sets of
+arms use two validation sets:
+
+- **Dev arms** early-stop on the concept's DeepSeek-V4-Pro detailed set (as in Part A) and
+  are scored on dev samples.
+- **Generated arms** early-stop on the concept's dev samples (`dev_samples/instructions`,
+  `dev_samples/hu_ha`, `dev_samples/highstakes_500`, as every generated curve did) and are
+  scored on generated samples.
+
+So no fit early-stops on its scoring directory, an eval split or its training arm.
+`oig_omission` sits in no arm, scoring directory or matrix; it is read only as validation,
+as part of `dev_samples/instructions`.
+
+Checks on the refits:
+
+- They reproduce the earlier fits. The own-split eval column matches Part A's `a_own` and
+  `dc_gen_cells.csv`'s `a_own` to 5e-6 in every arm of all three concepts.
+- The base probe scores 0.881 / 0.950 / 0.987 on the three DeepSeek validation blobs, as in
+  Part A.
+
+**Two departures from the brief.**
+
+1. The fifteen scoring blobs (and the validation blobs) were not extracted by
+   `score_probe_on_dev`. `assemble_blob` builds each one from the per-sample cache under the
+   exact path and format `get_activations(save_path=…)` writes: one unpadded forward per row
+   at `BATCH_SIZE` 1, right-padded to the longest row and concatenated.
+   `score_probe_on_dev` then reads it as a cache hit. On a 24-row directory the assembled blob
+   was byte-identical to `score_probe_on_dev`'s own extraction (activations, mask, ids,
+   metadata, AUROC), and this cut the extraction to one pass per concept.
+2. The harness rows of a restricted-eval run go to one file per training split
+   (`…_own_<split>.csv`). The harness refuses to append a run whose eval column differs from
+   the file's header.
+
+**`docs/dev_coverage_gen_probe_task.md`.** That brief had already run on instruction and
+harmful, so those fits here are separate, with eval restricted to the arm's split. It had
+not run on high-stakes, so the 16 high-stakes kind arms here were run with unrestricted eval
+and their harness rows written where that brief expects them
+(`scripts/dc_gen_highstakes__<gen>_own.csv`, validated on `highstakes_500`). One set of fits
+serves both briefs. That brief's high-stakes `loko` arms and its `cells` stage are still to
+run. The high-stakes `t_other_gen` below is computed in `dc_xfer.py` from those kind rows,
+exactly as `dc_gen.gen_cells` computes it; no partial rows were added to `dc_gen_cells.csv`.
+
+### Per concept (medians over splits; off-diagonal only)
+
+Two classifiers × two scoring sets × two sources (`scripts/dc_xfer_summary.csv`):
+
+| concept | probe dev→dev `t_dev2dev` | probe dev→eval `t_other_dev` | probe gen→gen `t_gen2gen` | probe gen→eval `t_other_gen` | direction dev→dev `t_other_dom` | direction dev→eval `e_other_dom` | direction gen→gen `t_other` | direction gen→eval `e_gap` |
+|---|---|---|---|---|---|---|---|---|
+| instruction | **0.586** | 0.633 | **0.798** (0.693–0.853) | 0.656 | 0.599 | 0.625 | 0.817 | 0.012 |
+| harmful | **0.747** | 0.744 | **0.862** (0.820–0.932) | 0.728 | 0.625 | 0.627 | 0.853 | 0.079 |
+| high-stakes | **0.874** | 0.867 | **0.984** (0.861–0.991) | 0.795 | 0.634 | 0.632 | 0.969 | 0.124 |
+
+sd over splits: instruction t_dev2dev 0.066, t_gen2gen 0.068; harmful t_dev2dev 0.078, t_gen2gen 0.035; high-stakes t_dev2dev 0.031, t_gen2gen 0.025
+
+`e_gap` is the committed direction number on the eval side (own-kind minus other-kind
+direction on the eval rows, `dc_scatter.csv`). It is a gap, not an AUROC level, so it is not
+comparable cell for cell. The per-split `t_other` / `e_gap` come from `dc_scatter.csv` (the
+per-split table `dc_link_stats.csv` is computed from), medians over generators. `t_other` is
+a per-set number, constant across the splits of a concept.
+
+### Per split (`scripts/dc_xfer_cells.csv`)
+
+`t_dev2dev` is the mean over the other splits' probes scored on s's dev samples, with the
+across-draw sd. `t_gen2gen` is the same within one generated set, median over generators
+with the range beside it. The in-sample diagonal is in `diag_dev` / `diag_gen` and in the
+`diag_in_sample` column of each matrix, and is averaged into nothing.
+
+| concept | split | `t_dev2dev` ± sd | `t_other_dev` | `t_other_dom` | `e_other_dom` | `t_gen2gen` [range over gens] | `t_other_gen` | `t_other` | `e_gap` |
+|---|---|---|---|---|---|---|---|---|---|
+| instruction | anthropic_harmless_refusal | 0.559 ± 0.034 | 0.557 | 0.575 | 0.623 | 0.902 [0.607–0.973] | 0.735 | 0.817 | 0.493 |
+| instruction | bbq_substitution | 0.597 ± 0.031 | 0.768 | 0.610 | 0.751 | 0.807 [0.696–0.914] | 0.745 | 0.817 | -0.073 |
+| instruction | hc_context_drift | 0.681 ± 0.022 | 0.682 | 0.623 | 0.626 | 0.691 [0.664–0.827] | 0.661 | 0.746 | -0.015 |
+| instruction | hc_contradiction | 0.712 ± 0.033 | 0.719 | 0.668 | 0.637 | 0.830 [0.721–0.853] | 0.648 | 0.817 | 0.012 |
+| instruction | mm_substitution | 0.576 ± 0.022 | 0.584 | 0.568 | 0.568 | 0.785 [0.754–0.852] | 0.651 | — | — |
+| instruction | oig_context_drift | 0.558 ± 0.017 | 0.537 | 0.588 | 0.562 | 0.789 [0.689–0.828] | 0.583 | 0.817 | 0.154 |
+| harmful | ai_dilemmas | 0.781 ± 0.038 | 0.753 | 0.660 | 0.652 | 0.900 [0.821–0.945] | 0.785 | 0.853 | -0.028 |
+| harmful | ant_hh | 0.608 ± 0.013 | 0.612 | 0.590 | 0.602 | 0.847 [0.819–0.919] | 0.671 | 0.853 | 0.186 |
+| harmful | balanced_refusal | 0.727 ± 0.035 | 0.735 | 0.577 | 0.577 | 0.819 [0.610–0.830] | 0.659 | 0.853 | 0.339 |
+| harmful | daily_dilemmas | 0.768 ± 0.020 | 0.771 | 0.704 | 0.699 | 0.877 [0.821–0.951] | 0.861 | 0.853 | -0.033 |
+| high-stakes | anthropic_hh_balanced | 0.863 ± 0.009 | 0.854 | 0.480 | 0.468 | 0.942 [0.813–0.977] | 0.718 | 0.969 | 0.256 |
+| high-stakes | mt_balanced | 0.885 ± 0.005 | 0.881 | 0.735 | 0.732 | 0.991 [0.801–0.998] | 0.873 | 0.969 | 0.114 |
+| high-stakes | mts_balanced | 0.898 ± 0.007 | 0.922 | 0.704 | 0.714 | 0.999 [0.912–1.000] | 0.916 | 0.969 | 0.105 |
+| high-stakes | toolace_balanced | 0.826 ± 0.004 | 0.756 | 0.565 | 0.550 | 0.978 [0.910–0.983] | 0.613 | 0.969 | 0.133 |
+
+### The two dev matrices side by side
+
+Probe matrices: `scripts/dc_xfer_dev_<concept>.csv` (eight-draw means). Direction matrices:
+`scripts/dc_dev_dom_transfer_<concept>_dev.csv` (commit ef086f60; scored on the full dev
+splits, whereas the high-stakes probe matrix is scored on the 150-row cuts). The generated
+matrices are `scripts/dc_xfer_gen_<concept>__<gen>.csv`.
+
+*instruction* — probe (left of ‖) and direction (right); rows train, columns the dev split scored. Probe diagonal in brackets (in-sample); direction diagonal omitted.
+
+| train | refusal | bbq | hc_drift | hc_contra | mm | oig_drift | ‖ | refusal | bbq | hc_drift | hc_contra | mm | oig_drift |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| refusal | [1.00] | 0.20 | 0.64 | 0.52 | 0.46 | 0.50 | ‖ | — | 0.43 | 0.57 | 0.54 | 0.24 | 0.57 |
+| bbq | 0.19 | [1.00] | 0.71 | 0.84 | 0.65 | 0.66 | ‖ | 0.23 | — | 0.58 | 0.66 | 0.46 | 0.54 |
+| hc_drift | 0.73 | 0.67 | [1.00] | 0.80 | 0.44 | 0.58 | ‖ | 0.92 | 0.74 | — | 0.84 | 0.65 | 0.66 |
+| hc_contra | 0.67 | 0.78 | 0.68 | [1.00] | 0.67 | 0.53 | ‖ | 0.75 | 0.89 | 0.81 | — | 0.78 | 0.60 |
+| mm | 0.36 | 0.54 | 0.52 | 0.75 | [1.00] | 0.52 | ‖ | 0.21 | 0.45 | 0.55 | 0.66 | — | 0.57 |
+| oig_drift | 0.84 | 0.79 | 0.85 | 0.65 | 0.66 | [1.00] | ‖ | 0.77 | 0.54 | 0.59 | 0.64 | 0.73 | — |
+
+*harmful* — probe (left of ‖) and direction (right); rows train, columns the dev split scored. Probe diagonal in brackets (in-sample); direction diagonal omitted.
+
+| train | ai_dil | ant_hh | bal_ref | daily | ‖ | ai_dil | ant_hh | bal_ref | daily |
+|---|---|---|---|---|---|---|---|---|---|
+| ai_dil | [1.00] | 0.58 | 0.96 | 0.99 | ‖ | — | 0.65 | 0.98 | 0.96 |
+| ant_hh | 0.60 | [1.00] | 0.57 | 0.70 | ‖ | 0.54 | — | 0.32 | 0.66 |
+| bal_ref | 0.75 | 0.57 | [1.00] | 0.61 | ‖ | 0.60 | 0.31 | — | 0.49 |
+| daily | 1.00 | 0.67 | 0.65 | [1.00] | ‖ | 0.85 | 0.81 | 0.43 | — |
+
+*high-stakes* — probe (left of ‖) and direction (right); rows train, columns the dev split scored. Probe diagonal in brackets (in-sample); direction diagonal omitted.
+
+| train | anthropic | mt | mts | toolace | ‖ | anthropic | mt | mts | toolace |
+|---|---|---|---|---|---|---|---|---|---|
+| anthropic | [1.00] | 0.93 | 0.90 | 0.89 | ‖ | — | 0.53 | 0.41 | 0.46 |
+| mt | 0.79 | [1.00] | 0.95 | 0.77 | ‖ | 0.51 | — | 0.89 | 0.59 |
+| mts | 0.93 | 0.95 | [1.00] | 0.82 | ‖ | 0.46 | 0.95 | — | 0.64 |
+| toolace | 0.87 | 0.78 | 0.84 | [1.00] | ‖ | 0.47 | 0.72 | 0.81 | — |
+
+The high-stakes rows show where the flat direction result comes from. The class-mean
+direction of `anthropic_hh` scores 0.41–0.53 on the other three dev splits, while a probe
+trained on the same samples scores 0.89–0.93 on them. The information is present in the
+samples; the difference-of-means read-out does not recover it.
+
+### The predictions, stated before looking, and whether each held
+
+- **`t_gen2gen` ordered instruction < harmful < high-stakes: held** (0.798 / 0.862 /
+  0.984). The claim that it would sit "at a higher level than the direction" held for
+  harmful (+0.009) and high-stakes (+0.015) but **not for instruction (−0.019)**, and all
+  three differences are smaller than the spread across splits (sd 0.068 / 0.035 / 0.025).
+  On generated samples the probe and the direction say the same thing.
+- **`t_dev2dev`, the open cell: ordered** (0.586 / 0.747 / 0.874; direction 0.599 / 0.625
+  / 0.634). So the flat direction result is a property of the class-mean classifier. Under a
+  trained read-out the real-sample ordering holds on the probe's own source as well as on
+  eval (`t_other_dev` 0.633 / 0.744 / 0.867).
+- **The refusal asymmetry: held on dev in both matrices, weaker on generated kinds except
+  under DeepSeek.** In the dev matrices the refusal probe scores 0.20 on BBQ and the BBQ
+  probe 0.19 on refusal (direction 0.43 / 0.23). On generated kinds, BBQ→refusal is 0.998 /
+  0.83 / 0.99 under llama70b / gptoss / nemotron, but DeepSeek-V4-Pro reproduces the
+  reversal: refusal→BBQ 0.24, BBQ→refusal 0.41.
+- **The own-source numbers differ from their eval-scored counterparts by less than the
+  spread across splits:**
+  - **Dev row: held.** |t_dev2dev − t_other_dev| = 0.047 / 0.003 / 0.007 against a split
+    sd of 0.066 / 0.078 / 0.031, and per split the two agree to within a few hundredths
+    except BBQ (0.60 vs 0.77) and toolace (0.83 vs 0.76). The direction's dev row agrees
+    too (`t_other_dom` vs `e_other_dom`: 0.026 / 0.002 / 0.002).
+  - **Generated row: did not hold.** |t_gen2gen − t_other_gen| = 0.142 / 0.134 / 0.189
+    against a split sd of 0.068 / 0.035 / 0.025. Scored within one generator's rendering, a
+    kind probe transfers far better than the same probe does to the eval splits. So on the
+    generated row the scoring set is doing as much work as the classifier, and the paper's
+    caption has to name which scoring set the generated row uses. The concept ordering
+    survives either way (0.798 / 0.862 / 0.984 within a set, 0.656 / 0.728 / 0.795 on eval).
+
+**Link to the synthetic half-gain size** (`scripts/dc_xfer_link_stats.csv`, computed as
+`dc_dev.py --stage link` computes it):
+
+| predictor | n splits | ρ | p (perm.) | 95% CI | LOO RMSE (vs concept means) | ρ within instruction |
+|---|---|---|---|---|---|---|
+| `t_dev2dev` | 14 | −0.745 | 0.004 | [−0.83, −0.42] | 0.351 vs 0.284 | −0.03 |
+| `t_gen2gen` | 14 | −0.574 | 0.037 | [−0.76, −0.35] | 0.394 vs 0.284 | +0.09 |
+| (`t_other_dev`, for reference) | 14 | −0.723 | 0.005 | [−0.83, −0.40] | 0.368 vs 0.284 | −0.31 |
+
+Neither beats the concept-mean baseline, and neither carries anything within instruction.
+Like every predictor before them, they order the concepts, not the splits.
+
+### Wall-clock (one RTX 3090, gemma-3-27b layer 32)
+
+- **Extraction.** One pass per concept for every row any fit or blob needed:
+  - instruction: 2,641 rows in 67.8 min, including the first model load; about 0.8 s/row
+    steady state;
+  - harmful: 2,621 rows in 34.1 min;
+  - high-stakes: 4,213 rows in 65.6 min.
+
+  About 2.8 h in all, against the 5 h budget.
+- **Blobs.** Assembly took 2–13 s per blob. All fifteen scoring blobs were kept; disk was
+  not short.
+- **Fits.** Median wall-clock per fit:
+  - instruction: 7.5 s dev / 8.3 s generated;
+  - harmful: 6.8 s / 6.8 s;
+  - high-stakes: 22.7 s dev (restricted eval) / 53.8 s generated (unrestricted: four eval
+    blobs, 47 GB).
+
+  The first high-stakes dev fit of each split also paid the Kaggle download of that split's
+  eval blob.
+- **Scoring.** The transfer call inside a fit took 0.6–4.5 s (median per concept 1.0–4.5 s).
+
 ## Caveats
 
 - **The validation set is off-distribution by design.** Every fit early-stops on the
@@ -488,3 +702,14 @@ own 13 s / others 17–18 s / all 21 s; harmful 14 s / 12–17 s / 20 s; high-st
 instruction 11 s, harmful 9 / 10 / 13 s (own / others / all; 1.9 h), high-stakes
 18 / 19 / 85 s (8.5 h).
 Extraction of the 2,602 dev samples and the three 600-row validation blobs took ~2 h.
+
+The own-source transfer section: `scripts/dc_xfer.py` (stages `dirs | warm | fit | harness |
+cells`), `scripts/run_dc_xfer.sh`, `scripts/dc_xfer_chain.sh`; the manifest
+`scripts/dc_xfer_arms.csv` (the columns of `dc_dev_arms.csv` plus `xfer_dir`, and the
+high-stakes `xfer_cut` rows); harness rows `scripts/dc_xfer_dev_<concept>_own_<split>.csv`,
+`scripts/dc_xfer_gen_<concept>__<gen>_own_<split>.csv` (instruction, harmful) and
+`scripts/dc_gen_highstakes__<gen>_own.csv` (high-stakes, unrestricted, shared with the
+generated-probe brief); side rows `scripts/dc_xfer_dev_<concept>_scores.csv` and
+`scripts/dc_xfer_gen_<concept>__<gen>_scores.csv`; the matrices
+`scripts/dc_xfer_dev_<concept>.csv` and `scripts/dc_xfer_gen_<concept>__<gen>.csv`;
+`scripts/dc_xfer_cells.csv`, `scripts/dc_xfer_summary.csv`, `scripts/dc_xfer_link_stats.csv`.

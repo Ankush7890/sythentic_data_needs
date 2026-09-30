@@ -655,6 +655,38 @@ def _existing() -> dict:
         gc[(r["concept"], r["knee"])].append(_num(r["t_other_gen"]))
     for key, v in gc.items():
         ex[key]["t_other_gen"] = _med(v)
+    # A concept dc_gen.py --stage cells has not covered (high-stakes: its loko arms were
+    # never run) still has t_other_gen if its unrestricted kind rows exist — this run's
+    # harness rows for high-stakes are exactly those. Computed here, as dc_gen.gen_cells
+    # computes it, rather than written into dc_gen_cells.csv as partial rows.
+    done = {r["concept"] for r in _read_csv(SCRIPTS / "dc_gen_cells.csv")}
+    arms = _xfer_arms()
+    for name in CONCEPT_ORDER:
+        if name in done:
+            continue
+        per = collections.defaultdict(list)
+        for gen in GENERATORS:
+            kinds = [a for a in arms if a["concept"] == name and a["gen"] == gen
+                     and a["arm"] == "kind" and a["sizes"]]
+            path = dc_gen.out_csv(name, gen, "kind")
+            if not path.exists() or not kinds:
+                continue
+            rows = _read_csv(path)
+            col_means = {}
+            for a in kinds:
+                rs = dc_gen._fit_rows(path, a["file"], int(a["sizes"]))
+                if len(rs) < DRAWS:
+                    break
+                col_means[a["split"]] = {s: _mean([float(r[eval_column(s)]) for r in rs])
+                                         for s in dc_dev.eval_splits(name)}
+            else:
+                for s in dc_dev.eval_splits(name):
+                    others = [k for k in col_means if k != s]
+                    if others:
+                        per[s].append(_mean([col_means[k][s] for k in others]))
+            del rows
+        for s, v in per.items():
+            ex[(name, knee_key(s))]["t_other_gen"] = _med(v)
     return ex
 
 
