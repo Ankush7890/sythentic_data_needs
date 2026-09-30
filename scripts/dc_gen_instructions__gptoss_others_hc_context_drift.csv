@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_hc_context_drift,seconds
+dc_instructions_gptoss_hc_context_drift_loko.jsonl,none+ga25bs16,400,0,200,200,400,0.75328,0.83574,0.75606,0.3763,0.80073,0.90441,0.91609,0.81038,0.70898,0.83574,19.4
+dc_instructions_gptoss_hc_context_drift_loko.jsonl,none+ga25bs16,400,1,200,200,400,0.7634,0.88628,0.77941,0.34299,0.84711,0.87587,0.92517,0.83104,0.74219,0.88628,21.1
+dc_instructions_gptoss_hc_context_drift_loko.jsonl,none+ga25bs16,400,2,200,200,400,0.76206,0.86981,0.72967,0.38625,0.84894,0.8936,0.93253,0.83058,0.71289,0.86981,20.7
+dc_instructions_gptoss_hc_context_drift_loko.jsonl,none+ga25bs16,400,3,200,200,400,0.75257,0.81868,0.76773,0.33002,0.79614,0.89619,0.94031,0.83058,0.70703,0.81868,21.6
+dc_instructions_gptoss_hc_context_drift_loko.jsonl,none+ga25bs16,400,4,200,200,400,0.75036,0.87363,0.73054,0.39446,0.83333,0.89057,0.91998,0.78834,0.69531,0.87363,19.8
+dc_instructions_gptoss_hc_context_drift_loko.jsonl,none+ga25bs16,400,5,200,200,400,0.74866,0.8875,0.69637,0.34991,0.84986,0.87587,0.93339,0.8067,0.72852,0.8875,19.4
+dc_instructions_gptoss_hc_context_drift_loko.jsonl,none+ga25bs16,400,6,200,200,400,0.74277,0.87427,0.68426,0.33218,0.84022,0.85597,0.92431,0.83196,0.73047,0.87427,18.8
+dc_instructions_gptoss_hc_context_drift_loko.jsonl,none+ga25bs16,400,7,200,200,400,0.76553,0.88017,0.75649,0.39533,0.8595,0.88538,0.9308,0.80854,0.72266,0.88017,21.2

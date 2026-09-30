@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_mm_substitution,seconds
+dc_instructions_llama70b_mm_substitution_loko.jsonl,none+ga27bs16,428,0,214,214,428,0.79837,0.83945,0.95329,0.77595,0.80028,0.91176,0.82656,0.67034,0.65039,0.83945,22.6
+dc_instructions_llama70b_mm_substitution_loko.jsonl,none+ga27bs16,428,1,214,214,428,0.7821,0.8013,0.94507,0.7846,0.82553,0.88019,0.81358,0.62029,0.60547,0.8013,22.2
+dc_instructions_llama70b_mm_substitution_loko.jsonl,none+ga27bs16,428,2,214,214,428,0.76094,0.7867,0.92301,0.75476,0.78375,0.83737,0.79585,0.61662,0.61523,0.7867,23.4
+dc_instructions_llama70b_mm_substitution_loko.jsonl,none+ga27bs16,428,3,214,214,428,0.78335,0.8255,0.95199,0.81877,0.78375,0.85337,0.81142,0.63912,0.625,0.8255,23.4
+dc_instructions_llama70b_mm_substitution_loko.jsonl,none+ga27bs16,428,4,214,214,428,0.76074,0.81005,0.94766,0.76773,0.78604,0.81488,0.78676,0.61662,0.60547,0.81005,20.0
+dc_instructions_llama70b_mm_substitution_loko.jsonl,none+ga27bs16,428,5,214,214,428,0.76025,0.8029,0.94334,0.81574,0.78145,0.78806,0.79585,0.59963,0.59766,0.8029,21.9
+dc_instructions_llama70b_mm_substitution_loko.jsonl,none+ga27bs16,428,6,214,214,428,0.76519,0.8091,0.93728,0.78763,0.77181,0.84299,0.79109,0.62397,0.60156,0.8091,31.7
+dc_instructions_llama70b_mm_substitution_loko.jsonl,none+ga27bs16,428,7,214,214,428,0.78025,0.795,0.9442,0.79239,0.8067,0.86159,0.79974,0.60285,0.6543,0.795,29.4

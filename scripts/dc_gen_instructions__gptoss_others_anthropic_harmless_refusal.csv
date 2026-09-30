@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_anthropic_harmless_refusal,seconds
+dc_instructions_gptoss_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,452,0,226,226,452,0.71232,0.1015,0.16955,0.38581,0.95822,0.8724,0.95242,0.91736,0.73047,0.1015,19.5
+dc_instructions_gptoss_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,452,1,226,226,452,0.70451,0.0847,0.11116,0.36765,0.96235,0.86721,0.93642,0.90358,0.7832,0.0847,19.4
+dc_instructions_gptoss_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,452,2,226,226,452,0.72463,0.1356,0.21497,0.3923,0.95776,0.85035,0.95588,0.90817,0.79297,0.1356,24.5
+dc_instructions_gptoss_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,452,3,226,226,452,0.68732,0.0996,0.12803,0.40484,0.92057,0.87067,0.94074,0.8843,0.66211,0.0996,40.3
+dc_instructions_gptoss_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,452,4,226,226,452,0.70464,0.10215,0.18253,0.35294,0.95592,0.87154,0.9282,0.94215,0.69922,0.10215,35.2
+dc_instructions_gptoss_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,452,5,226,226,452,0.74257,0.16025,0.27163,0.48832,0.93664,0.88538,0.94507,0.90725,0.76367,0.16025,25.0
+dc_instructions_gptoss_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,452,6,226,226,452,0.71156,0.1056,0.14879,0.44204,0.94766,0.87846,0.9282,0.88384,0.75195,0.1056,21.3
+dc_instructions_gptoss_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,452,7,226,226,452,0.70801,0.08635,0.12889,0.40528,0.94995,0.8763,0.94464,0.91276,0.73828,0.08635,22.1

@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_bbq_substitution,seconds
+dc_instructions_nemotron_bbq_substitution_loko.jsonl,none+ga27bs16,424,0,212,212,424,0.57488,0.72225,0.93253,0.44637,0.49725,0.49394,0.58002,0.57989,0.49414,0.72225,20.4
+dc_instructions_nemotron_bbq_substitution_loko.jsonl,none+ga27bs16,424,1,212,212,424,0.56133,0.66605,0.9468,0.39144,0.50321,0.4974,0.52725,0.58081,0.48242,0.66605,15.9
+dc_instructions_nemotron_bbq_substitution_loko.jsonl,none+ga27bs16,424,2,212,212,424,0.57598,0.7107,0.93555,0.44247,0.50184,0.49308,0.56618,0.60055,0.49219,0.7107,20.7
+dc_instructions_nemotron_bbq_substitution_loko.jsonl,none+ga27bs16,424,3,212,212,424,0.58307,0.72055,0.92344,0.50303,0.49679,0.49221,0.57396,0.59596,0.49609,0.72055,14.4
+dc_instructions_nemotron_bbq_substitution_loko.jsonl,none+ga27bs16,424,4,212,212,424,0.58464,0.7081,0.95026,0.47491,0.50275,0.49567,0.5532,0.6157,0.5,0.7081,21.5
+dc_instructions_nemotron_bbq_substitution_loko.jsonl,none+ga27bs16,424,5,212,212,424,0.57449,0.67445,0.94507,0.44939,0.49403,0.48702,0.54758,0.61203,0.48633,0.67445,21.1
+dc_instructions_nemotron_bbq_substitution_loko.jsonl,none+ga27bs16,424,6,212,212,424,0.5896,0.728,0.92431,0.47837,0.50872,0.52163,0.57353,0.63039,0.49023,0.728,20.2
+dc_instructions_nemotron_bbq_substitution_loko.jsonl,none+ga27bs16,424,7,212,212,424,0.57509,0.6392,0.95199,0.47621,0.48898,0.49092,0.54412,0.59688,0.47656,0.6392,19.2

@@ -1,0 +1,6 @@
+train,n,anthropic_harmless_refusal,bbq_substitution,hc_context_drift,hc_contradiction,mm_substitution,oig_context_drift
+anthropic_harmless_refusal,64,0.99471,0.59831,0.66595,0.67463,0.54587,0.42131
+bbq_substitution,92,0.79108,0.90111,0.72178,0.93,0.88722,0.54688
+hc_contradiction,112,0.87073,0.95322,0.69823,0.73261,0.73403,0.4465
+oig_context_drift,92,0.88363,0.79638,0.52761,0.51736,0.54276,0.63072
+mixed,590,0.97476,0.95116,0.94195,0.89859,0.90974,0.62486

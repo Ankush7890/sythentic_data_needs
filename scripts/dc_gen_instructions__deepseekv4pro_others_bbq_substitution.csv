@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_bbq_substitution,seconds
+dc_instructions_deepseekv4pro_bbq_substitution_loko.jsonl,none+ga28bs16,442,0,221,221,442,0.78701,0.9614,0.95112,0.7526,0.73095,0.86721,0.91003,0.71901,0.57812,0.9614,20.0
+dc_instructions_deepseekv4pro_bbq_substitution_loko.jsonl,none+ga28bs16,442,1,221,221,442,0.78771,0.9603,0.9282,0.74654,0.7461,0.89749,0.90009,0.69008,0.60547,0.9603,18.3
+dc_instructions_deepseekv4pro_bbq_substitution_loko.jsonl,none+ga28bs16,442,2,221,221,442,0.81343,0.9716,0.95329,0.80926,0.78834,0.86073,0.91349,0.7888,0.58008,0.9716,19.7
+dc_instructions_deepseekv4pro_bbq_substitution_loko.jsonl,none+ga28bs16,442,3,221,221,442,0.78426,0.97275,0.95372,0.76817,0.73049,0.85856,0.90528,0.68962,0.58398,0.97275,20.2
+dc_instructions_deepseekv4pro_bbq_substitution_loko.jsonl,none+ga28bs16,442,4,221,221,442,0.78601,0.9759,0.95415,0.77768,0.70615,0.83348,0.91955,0.71534,0.5957,0.9759,20.4
+dc_instructions_deepseekv4pro_bbq_substitution_loko.jsonl,none+ga28bs16,442,5,221,221,442,0.77849,0.9615,0.94853,0.73962,0.71901,0.86116,0.90441,0.71809,0.55859,0.9615,20.5
+dc_instructions_deepseekv4pro_bbq_substitution_loko.jsonl,none+ga28bs16,442,6,221,221,442,0.80588,0.98295,0.89057,0.90484,0.75895,0.90874,0.90182,0.70983,0.56641,0.98295,19.9
+dc_instructions_deepseekv4pro_bbq_substitution_loko.jsonl,none+ga28bs16,442,7,221,221,442,0.78319,0.956,0.94247,0.72881,0.72773,0.86289,0.90398,0.73829,0.57812,0.956,22.1

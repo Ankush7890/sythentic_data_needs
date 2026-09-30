@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_oig_context_drift,seconds
+dc_instructions_llama70b_oig_context_drift_loko.jsonl,none+ga28bs16,446,0,223,223,446,0.80218,0.55521,0.97145,0.89749,0.83701,0.87457,0.85121,0.55464,0.62891,0.55521,21.3
+dc_instructions_llama70b_oig_context_drift_loko.jsonl,none+ga28bs16,446,1,223,223,446,0.81142,0.55596,0.97837,0.90138,0.83609,0.891,0.88668,0.55556,0.63086,0.55596,18.4
+dc_instructions_llama70b_oig_context_drift_loko.jsonl,none+ga28bs16,446,2,223,223,446,0.78805,0.54363,0.95978,0.85727,0.8292,0.84862,0.83607,0.54867,0.63672,0.54363,20.2
+dc_instructions_llama70b_oig_context_drift_loko.jsonl,none+ga28bs16,446,3,223,223,446,0.799,0.54942,0.96713,0.89014,0.81589,0.88711,0.85381,0.55785,0.62109,0.54942,50.7
+dc_instructions_llama70b_oig_context_drift_loko.jsonl,none+ga28bs16,446,4,223,223,446,0.7913,0.5415,0.96064,0.87716,0.8214,0.86462,0.85424,0.54775,0.61328,0.5415,15.7
+dc_instructions_llama70b_oig_context_drift_loko.jsonl,none+ga28bs16,446,5,223,223,446,0.7999,0.55994,0.96194,0.88668,0.83379,0.87111,0.86029,0.55464,0.63086,0.55994,17.1
+dc_instructions_llama70b_oig_context_drift_loko.jsonl,none+ga28bs16,446,6,223,223,446,0.80463,0.5618,0.98097,0.88538,0.80946,0.87716,0.86981,0.56703,0.64258,0.5618,13.6
+dc_instructions_llama70b_oig_context_drift_loko.jsonl,none+ga28bs16,446,7,223,223,446,0.80137,0.54905,0.96626,0.91869,0.79982,0.88711,0.87024,0.54637,0.62109,0.54905,24.9

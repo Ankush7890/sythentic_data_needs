@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_hc_contradiction,seconds
+dc_instructions_nemotron_hc_contradiction_loko.jsonl,none+ga22bs16,338,0,169,169,338,0.61174,0.4982,0.91306,0.66652,0.49495,0.5026,0.55363,0.62213,0.5293,0.4982,17.8
+dc_instructions_nemotron_hc_contradiction_loko.jsonl,none+ga22bs16,338,1,169,169,338,0.61959,0.4972,0.93382,0.67258,0.49174,0.50216,0.57439,0.64096,0.52148,0.4972,16.8
+dc_instructions_nemotron_hc_contradiction_loko.jsonl,none+ga22bs16,338,2,169,169,338,0.59022,0.48955,0.91609,0.5372,0.48577,0.4801,0.50735,0.7011,0.50391,0.48955,15.9
+dc_instructions_nemotron_hc_contradiction_loko.jsonl,none+ga22bs16,338,3,169,169,338,0.59051,0.49725,0.91522,0.56228,0.49174,0.50822,0.53157,0.62259,0.50195,0.49725,14.6
+dc_instructions_nemotron_hc_contradiction_loko.jsonl,none+ga22bs16,338,4,169,169,338,0.58253,0.48815,0.80709,0.59126,0.48118,0.48919,0.52638,0.66116,0.52148,0.48815,15.7
+dc_instructions_nemotron_hc_contradiction_loko.jsonl,none+ga22bs16,338,5,169,169,338,0.59794,0.4928,0.95761,0.57958,0.48852,0.48789,0.51298,0.64141,0.51758,0.4928,15.9
+dc_instructions_nemotron_hc_contradiction_loko.jsonl,none+ga22bs16,338,6,169,169,338,0.61674,0.4921,0.95588,0.65398,0.48944,0.48875,0.52941,0.67631,0.52344,0.4921,17.7
+dc_instructions_nemotron_hc_contradiction_loko.jsonl,none+ga22bs16,338,7,169,169,338,0.59255,0.48845,0.93642,0.58607,0.48944,0.47967,0.51038,0.64784,0.49805,0.48845,16.7
