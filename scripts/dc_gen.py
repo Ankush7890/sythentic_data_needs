@@ -29,6 +29,8 @@ own ``..._own_dsval.csv``.
 Stages:
 
     arms     write .dc_work/dc_<concept>_<gen>_*.jsonl and scripts/dc_gen_arms.csv
+    warm     link the eval blobs, extract the twelve generated sets into the per-sample
+             cache, build the validation blobs (one model load per concept)
     fit      kind then loko arms for --concepts x --generators (one process per
              (concept, generator): every pair has its own output files)
     cells    scripts/dc_gen_cells.csv, scripts/dc_gen_transfer_<concept>__<gen>.csv
@@ -107,6 +109,70 @@ def _arms() -> list[dict]:
     if missing:
         raise SystemExit(f"{len(missing)} arm files missing from .dc_work — run --stage arms")
     return rows
+
+
+# --------------------------------------------------------------------------- #
+# stage: warm — what the fits read, so that no fit loads the extraction model
+# --------------------------------------------------------------------------- #
+def link_eval_blobs(name: str) -> int:
+    """Point the harness's eval cache at blobs already on disk, rather than re-download.
+
+    ``knee_predictor``'s prefetch put the concept's Kaggle eval blobs in
+    ``eval_activations_<concept>/<split>-acts_full.pt``; the harness looks for the same
+    file names under ``<concept cache>/eval_activations/``. Same Kaggle files, same
+    ``cache_stem``, so a symlink is exact. A split with no blob there is left for the
+    harness's own Kaggle prefetch.
+    """
+    from fit_base_plus_concept import CONCEPTS
+
+    src_dir = REPO / f"eval_activations_{name}"
+    dst_dir = CONCEPTS[name].eval_cache
+    dst_dir.mkdir(parents=True, exist_ok=True)
+    n = 0
+    for split in dc_dev.eval_splits(name):
+        src = src_dir / f"{split}-acts_full.pt"
+        dst = dst_dir / src.name
+        if src.exists() and not dst.exists():
+            dst.symlink_to(src.resolve())
+            n += 1
+    return n
+
+
+def stage_warm(args) -> None:
+    """Every generated set into the per-sample cache; every validation set into its blob.
+
+    ``direction_count.py --stage warm``'s extraction (the same ``warm_sample_activation_
+    cache`` call on the same twelve detailed sets) without its pooling step, which would
+    rewrite the committed ``dc_pooled`` features.
+    """
+    import direction_count as dc
+    from fit_base_plus_concept import COMBINE, CONVERT, CONCEPTS
+
+    from agentic_redteam.retrain import score_probe_on_dev, warm_sample_activation_cache
+
+    specs = dc._concept_specs()
+    for name in args.concepts:
+        c = CONCEPTS[name]
+        print(f"[warm] {name}: linked {link_eval_blobs(name)} eval blobs", flush=True)
+        rows = [r for p in dc._sets_of(specs[name], with_bases=False)
+                for r in dc._rows_of(p, c)]
+        print(f"[warm] {name}: {len(rows)} generated samples", flush=True)
+        n = warm_sample_activation_cache(
+            rows, base_probe_path=c.base_probe, base_activation_cache_dir=c.base_cache,
+            combine_consecutive_messages=COMBINE, convert_tool_to_assistant=CONVERT,
+            verbose=True,
+        )
+        print(f"[warm] {name}: {n} newly extracted", flush=True)
+        vals = [HIGHSTAKES_DEV if name == "highstakes" else c.dev_data]
+        if name == "instructions":
+            vals.append(dc_dev.val_dir(name))
+        for v in vals:
+            auc = score_probe_on_dev(
+                c.base_probe, v, c.base_cache, combine_consecutive_messages=COMBINE,
+                convert_tool_to_assistant=CONVERT, verbose=True,
+            )
+            print(f"[warm] {name}: validation blob {v.name} ready; base probe {auc}",
+                  flush=True)
 
 
 # --------------------------------------------------------------------------- #
@@ -427,7 +493,7 @@ def stage_summary(args) -> None:
 
 
 # --------------------------------------------------------------------------- #
-STAGES = ("arms", "fit", "cells", "summary")
+STAGES = ("arms", "warm", "fit", "cells", "summary")
 
 
 def main(argv=None) -> int:
@@ -446,7 +512,7 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
     args.concepts = [c for c in CONCEPT_ORDER if c in args.concepts]
     assert not EXCLUDED_SPLITS & set(dc_dev.eval_splits("instructions"))
-    {"arms": stage_arms, "fit": stage_fit, "cells": stage_cells,
+    {"arms": stage_arms, "warm": stage_warm, "fit": stage_fit, "cells": stage_cells,
      "summary": stage_summary}[args.stage](args)
     return 0
 
