@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_ai_dilemmas,dev_ant_hh,dev_balanced_refusal,dev_daily_dilemmas,eval_ai_dilemmas,seconds
+dc_hu_harm_deepseekv4pro_eval_ai_dilemmas_kind.jsonl,none+ga10bs16,160,0,80,80,160,0.91442,0.99935,1.0,0.72107,0.93751,0.99908,0.99935,6.6
+dc_hu_harm_deepseekv4pro_eval_ai_dilemmas_kind.jsonl,none+ga10bs16,160,1,80,80,160,0.91373,0.99935,1.0,0.71488,0.94097,0.99908,0.99935,6.5
+dc_hu_harm_deepseekv4pro_eval_ai_dilemmas_kind.jsonl,none+ga10bs16,160,2,80,80,160,0.91075,0.99849,1.0,0.70661,0.94008,0.99633,0.99849,6.3
+dc_hu_harm_deepseekv4pro_eval_ai_dilemmas_kind.jsonl,none+ga10bs16,160,3,80,80,160,0.91228,0.99913,1.0,0.71591,0.93506,0.99816,0.99913,5.9
+dc_hu_harm_deepseekv4pro_eval_ai_dilemmas_kind.jsonl,none+ga10bs16,160,4,80,80,160,0.91673,0.99913,1.0,0.73244,0.9354,0.99908,0.99913,5.7
+dc_hu_harm_deepseekv4pro_eval_ai_dilemmas_kind.jsonl,none+ga10bs16,160,5,80,80,160,0.92262,0.99913,1.0,0.7531,0.93829,0.99908,0.99913,6.0
+dc_hu_harm_deepseekv4pro_eval_ai_dilemmas_kind.jsonl,none+ga10bs16,160,6,80,80,160,0.9185,0.99913,1.0,0.73554,0.9403,0.99816,0.99913,5.9
+dc_hu_harm_deepseekv4pro_eval_ai_dilemmas_kind.jsonl,none+ga10bs16,160,7,80,80,160,0.92347,0.9987,1.0,0.7593,0.93551,0.99908,0.9987,6.8

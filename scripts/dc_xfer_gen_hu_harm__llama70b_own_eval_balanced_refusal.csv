@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_ai_dilemmas,dev_ant_hh,dev_balanced_refusal,dev_daily_dilemmas,eval_balanced_refusal,seconds
+dc_hu_harm_llama70b_eval_balanced_refusal_kind.jsonl,none+ga10bs16,152,0,76,76,152,0.87422,0.98919,0.9603,0.60331,0.98608,0.9472,0.98919,12.8
+dc_hu_harm_llama70b_eval_balanced_refusal_kind.jsonl,none+ga10bs16,152,1,76,76,152,0.86534,0.98164,0.95463,0.57335,0.98663,0.94674,0.98164,7.7
+dc_hu_harm_llama70b_eval_balanced_refusal_kind.jsonl,none+ga10bs16,152,2,76,76,152,0.87614,0.98879,0.95463,0.6219,0.98864,0.93939,0.98879,10.0
+dc_hu_harm_llama70b_eval_balanced_refusal_kind.jsonl,none+ga10bs16,152,3,76,76,152,0.89143,0.9874,0.97732,0.63223,0.9883,0.96786,0.9874,12.4
+dc_hu_harm_llama70b_eval_balanced_refusal_kind.jsonl,none+ga10bs16,152,4,76,76,152,0.87585,0.98607,0.95652,0.6126,0.98753,0.94674,0.98607,8.6
+dc_hu_harm_llama70b_eval_balanced_refusal_kind.jsonl,none+ga10bs16,152,5,76,76,152,0.85854,0.98861,0.94234,0.54959,0.99042,0.95179,0.98861,11.7
+dc_hu_harm_llama70b_eval_balanced_refusal_kind.jsonl,none+ga10bs16,152,6,76,76,152,0.89082,0.98689,0.96408,0.66632,0.98797,0.9449,0.98689,12.3
+dc_hu_harm_llama70b_eval_balanced_refusal_kind.jsonl,none+ga10bs16,152,7,76,76,152,0.87736,0.98864,0.97353,0.59298,0.98886,0.95409,0.98864,8.5
