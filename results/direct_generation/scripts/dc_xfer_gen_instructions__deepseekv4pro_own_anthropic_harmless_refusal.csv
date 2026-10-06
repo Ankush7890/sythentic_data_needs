@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_anthropic_harmless_refusal,seconds
+dc_instructions_deepseekv4pro_anthropic_harmless_refusal_kind.jsonl,none+ga5bs16,76,0,38,38,76,0.59399,0.9833,0.99394,0.45804,0.53857,0.55666,0.51384,0.60468,0.49219,0.9833,9.6
+dc_instructions_deepseekv4pro_anthropic_harmless_refusal_kind.jsonl,none+ga5bs16,76,1,38,38,76,0.58693,0.98235,0.99438,0.516,0.50643,0.52941,0.49481,0.59091,0.47656,0.98235,7.9
+dc_instructions_deepseekv4pro_anthropic_harmless_refusal_kind.jsonl,none+ga5bs16,76,2,38,38,76,0.5792,0.9884,0.99827,0.49308,0.50964,0.54844,0.52292,0.54454,0.4375,0.9884,7.6
+dc_instructions_deepseekv4pro_anthropic_harmless_refusal_kind.jsonl,none+ga5bs16,76,3,38,38,76,0.58465,0.98335,0.99221,0.47837,0.53857,0.53806,0.49005,0.57484,0.48047,0.98335,8.7
+dc_instructions_deepseekv4pro_anthropic_harmless_refusal_kind.jsonl,none+ga5bs16,76,4,38,38,76,0.58081,0.97615,0.99654,0.44204,0.52571,0.52465,0.53417,0.55234,0.49023,0.97615,9.0
+dc_instructions_deepseekv4pro_anthropic_harmless_refusal_kind.jsonl,none+ga5bs16,76,5,38,38,76,0.56753,0.9784,0.99308,0.46626,0.49679,0.5199,0.48616,0.5652,0.44531,0.9784,9.0
+dc_instructions_deepseekv4pro_anthropic_harmless_refusal_kind.jsonl,none+ga5bs16,76,6,38,38,76,0.58074,0.986,0.99438,0.50346,0.51653,0.54282,0.51254,0.55601,0.43945,0.986,8.9
+dc_instructions_deepseekv4pro_anthropic_harmless_refusal_kind.jsonl,none+ga5bs16,76,7,38,38,76,0.57475,0.9847,0.99654,0.46713,0.51194,0.54498,0.49913,0.53673,0.4668,0.9847,7.6

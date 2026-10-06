@@ -1537,17 +1537,33 @@ def stage_analyse(args) -> None:
               f"(grand {r['loo_rmse_grand']:.3f})")
 
     rows = []
+    import collections
+
     import knee_predictor as kp
     targets = kp.load_targets()
+    # log_m_lo / log_m_hi are the spread of the individual detailed curves behind each
+    # split's median — the same interval knee_predictor._write_scatter plots — so a point
+    # here carries how well its target is pinned down, not just where it sits.
+    pool = collections.defaultdict(list)
+    for c in kp.load_curves():
+        if not c["flat"] and c["recipe"] == "detailed":
+            pool[c["split"]].append(c["lm"])
     for r in ratios:
         knee = r["split"][5:] if r["split"].startswith("eval_") else r["split"]
+        lms = sorted(pool.get(knee, []))
         rows.append({
             "split": knee, "concept": r["concept"], "gen": r["gen"],
-            "R": r["R"], "n_eff": r["n_eff"], "a_s": r["a_s"],
+            "R": r["R"], "usable": r["usable"], "n_eff": r["n_eff"],
+            "t_other": r.get("t_other", ""), "t_gap": r.get("t_gap", ""),
+            "e_gap": r.get("e_gap", ""), "a_s": r["a_s"],
             "log_m": targets.get(knee, {}).get(kp.PRIMARY_TARGET, ""),
+            "log_m_lo": f"{lms[0]:.4f}" if lms else "",
+            "log_m_hi": f"{lms[-1]:.4f}" if lms else "",
+            "n_curves": len(lms),
         })
     _write_csv(SCRIPTS / "dc_scatter.csv", rows,
-               ["split", "concept", "gen", "R", "n_eff", "a_s", "log_m"])
+               ["split", "concept", "gen", "R", "usable", "n_eff", "t_other", "t_gap",
+                "e_gap", "a_s", "log_m", "log_m_lo", "log_m_hi", "n_curves"])
     _verdict(ratios, stats)
 
 

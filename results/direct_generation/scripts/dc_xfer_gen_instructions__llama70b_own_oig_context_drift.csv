@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_oig_context_drift,seconds
+dc_instructions_llama70b_oig_context_drift_kind.jsonl,none+ga6bs16,92,0,46,46,92,0.63951,0.63811,0.87933,0.72232,0.5427,0.56185,0.5917,0.61616,0.5625,0.63811,8.8
+dc_instructions_llama70b_oig_context_drift_kind.jsonl,none+ga6bs16,92,1,46,46,92,0.62554,0.63083,0.90095,0.68123,0.52938,0.54325,0.57526,0.58815,0.56055,0.63083,7.0
+dc_instructions_llama70b_oig_context_drift_kind.jsonl,none+ga6bs16,92,2,46,46,92,0.63252,0.63583,0.90009,0.69291,0.52112,0.52941,0.5917,0.62213,0.57031,0.63583,8.6
+dc_instructions_llama70b_oig_context_drift_kind.jsonl,none+ga6bs16,92,3,46,46,92,0.63178,0.62414,0.87154,0.74913,0.52709,0.5333,0.5718,0.60514,0.56445,0.62414,7.7
+dc_instructions_llama70b_oig_context_drift_kind.jsonl,none+ga6bs16,92,4,46,46,92,0.63374,0.62159,0.88495,0.6782,0.54178,0.56055,0.61635,0.59183,0.5625,0.62159,7.1
+dc_instructions_llama70b_oig_context_drift_kind.jsonl,none+ga6bs16,92,5,46,46,92,0.62405,0.63455,0.891,0.63971,0.52893,0.53114,0.59775,0.6056,0.57422,0.63455,7.4
+dc_instructions_llama70b_oig_context_drift_kind.jsonl,none+ga6bs16,92,6,46,46,92,0.6284,0.63732,0.8724,0.72708,0.52066,0.53287,0.57656,0.62626,0.54297,0.63732,6.2
+dc_instructions_llama70b_oig_context_drift_kind.jsonl,none+ga6bs16,92,7,46,46,92,0.63549,0.62339,0.88798,0.72016,0.52479,0.54585,0.61246,0.59275,0.56445,0.62339,9.2

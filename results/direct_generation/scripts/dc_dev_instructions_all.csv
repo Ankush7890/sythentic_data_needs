@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_instructions_deepseekv4pro_evaldesc_600,eval_anthropic_harmless_refusal,eval_bbq_substitution,eval_hc_context_drift,eval_hc_contradiction,eval_mm_substitution,eval_oig_context_drift,seconds
+dcdev_instructions_all.jsonl,none+ga26bs16,404,0,202,202,404,0.97591,0.97814,0.97591,1.0,0.9707,0.9653,0.9607,0.98895,0.98321,22.7
+dcdev_instructions_all.jsonl,none+ga26bs16,404,1,202,202,404,0.9679,0.98672,0.9679,1.0,0.9925,0.98183,0.9743,0.9905,0.98119,20.7
+dcdev_instructions_all.jsonl,none+ga26bs16,404,2,202,202,404,0.9658,0.98215,0.9658,1.0,0.9897,0.96679,0.9677,0.98715,0.98156,21.8
+dcdev_instructions_all.jsonl,none+ga26bs16,404,3,202,202,404,0.97211,0.98379,0.97211,1.0,0.9929,0.97221,0.972,0.98955,0.97609,21.9
+dcdev_instructions_all.jsonl,none+ga26bs16,404,4,202,202,404,0.9635,0.98341,0.9635,1.0,0.9782,0.96546,0.97715,0.99425,0.98539,21.3
+dcdev_instructions_all.jsonl,none+ga26bs16,404,5,202,202,404,0.96843,0.98414,0.96843,1.0,0.9824,0.99272,0.96675,0.9865,0.97646,21.2
+dcdev_instructions_all.jsonl,none+ga26bs16,404,6,202,202,404,0.97173,0.98475,0.97173,1.0,0.9829,0.99012,0.9664,0.9875,0.98161,21.2
+dcdev_instructions_all.jsonl,none+ga26bs16,404,7,202,202,404,0.96618,0.97974,0.96618,1.0,0.98745,0.95674,0.958,0.99255,0.98369,19.8

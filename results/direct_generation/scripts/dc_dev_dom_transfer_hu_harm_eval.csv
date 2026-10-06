@@ -1,0 +1,10 @@
+train_split,n,eval_ai_dilemmas,eval_ant_hh,eval_balanced_refusal,eval_daily_dilemmas
+eval_ai_dilemmas,46,0.91025,0.63199,0.97947,0.92534
+eval_ant_hh,44,0.53222,0.82736,0.282,0.65535
+eval_balanced_refusal,134,0.58932,0.5313,0.96183,0.51551
+eval_daily_dilemmas,66,0.83499,0.6429,0.46897,0.97688
+all,290,0.68188,0.65939,0.97645,0.76468
+minus_eval_ai_dilemmas,244,0.66544,,,
+minus_eval_ant_hh,246,,0.53865,,
+minus_eval_balanced_refusal,156,,,0.31212,
+minus_eval_daily_dilemmas,224,,,,0.6085

@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_anthropic_harmless_refusal,seconds
+dc_instructions_nemotron_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,464,0,232,232,464,0.59555,0.90835,0.9269,0.5692,0.49265,0.48789,0.5891,0.59917,0.50391,0.90835,22.5
+dc_instructions_nemotron_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,464,1,232,232,464,0.61981,0.92245,0.93382,0.63495,0.50413,0.52249,0.56661,0.64738,0.5293,0.92245,26.9
+dc_instructions_nemotron_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,464,2,232,232,464,0.59938,0.91085,0.91998,0.5731,0.50184,0.5013,0.56228,0.6157,0.52148,0.91085,20.9
+dc_instructions_nemotron_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,464,3,232,232,464,0.60658,0.9054,0.88668,0.62716,0.49587,0.50519,0.57699,0.62489,0.5293,0.9054,23.3
+dc_instructions_nemotron_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,464,4,232,232,464,0.59619,0.93375,0.94118,0.57396,0.49174,0.49135,0.57526,0.60376,0.49609,0.93375,22.1
+dc_instructions_nemotron_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,464,5,232,232,464,0.60912,0.91985,0.91998,0.6064,0.49954,0.50303,0.56185,0.64371,0.5293,0.91985,22.6
+dc_instructions_nemotron_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,464,6,232,232,464,0.59782,0.909,0.93685,0.57785,0.49174,0.49048,0.57656,0.60147,0.50977,0.909,21.4
+dc_instructions_nemotron_anthropic_harmless_refusal_loko.jsonl,none+ga29bs16,464,7,232,232,464,0.59623,0.9358,0.9468,0.54066,0.48852,0.48573,0.58348,0.62259,0.50586,0.9358,16.5

@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_oig_context_drift,seconds
+dc_instructions_gptoss_oig_context_drift_kind.jsonl,none+ga6bs16,86,0,43,43,86,0.67263,0.86539,0.70112,0.27725,0.81772,0.79282,0.66047,0.84573,0.61328,0.86539,7.2
+dc_instructions_gptoss_oig_context_drift_kind.jsonl,none+ga6bs16,86,1,43,43,86,0.67151,0.75322,0.73097,0.46843,0.7135,0.78893,0.56099,0.80303,0.63477,0.75322,6.4
+dc_instructions_gptoss_oig_context_drift_kind.jsonl,none+ga6bs16,86,2,43,43,86,0.65847,0.72712,0.77163,0.44507,0.67264,0.71626,0.61375,0.78053,0.60938,0.72712,5.5
+dc_instructions_gptoss_oig_context_drift_kind.jsonl,none+ga6bs16,86,3,43,43,86,0.64843,0.78924,0.70069,0.32569,0.67264,0.72924,0.62889,0.84711,0.63477,0.78924,8.3
+dc_instructions_gptoss_oig_context_drift_kind.jsonl,none+ga6bs16,86,4,43,43,86,0.66694,0.73031,0.74827,0.42128,0.69376,0.77941,0.61678,0.77824,0.63086,0.73031,7.1
+dc_instructions_gptoss_oig_context_drift_kind.jsonl,none+ga6bs16,86,5,43,43,86,0.65969,0.75805,0.73962,0.35683,0.69559,0.7846,0.6237,0.79247,0.625,0.75805,7.3
+dc_instructions_gptoss_oig_context_drift_kind.jsonl,none+ga6bs16,86,6,43,43,86,0.6552,0.82033,0.76125,0.24827,0.71809,0.75087,0.65657,0.82828,0.62305,0.82033,7.4
+dc_instructions_gptoss_oig_context_drift_kind.jsonl,none+ga6bs16,86,7,43,43,86,0.67187,0.74732,0.75779,0.40355,0.66621,0.75995,0.66652,0.81038,0.63867,0.74732,5.6

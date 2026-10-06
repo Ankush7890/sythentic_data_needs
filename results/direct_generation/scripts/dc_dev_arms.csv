@@ -1,0 +1,32 @@
+concept,gen,arm,split,file,n,n_pos,n_neg,balanced,sizes,skipped
+instructions,dev,own,anthropic_harmless_refusal,dcdev_instructions_anthropic_harmless_refusal_own.jsonl,68,34,34,68,68,
+instructions,dev,own,bbq_substitution,dcdev_instructions_bbq_substitution_own.jsonl,68,34,34,68,68,
+instructions,dev,own,hc_context_drift,dcdev_instructions_hc_context_drift_own.jsonl,66,33,33,66,66,
+instructions,dev,own,hc_contradiction,dcdev_instructions_hc_contradiction_own.jsonl,68,34,34,68,68,
+instructions,dev,own,mm_substitution,dcdev_instructions_mm_substitution_own.jsonl,68,34,34,68,68,
+instructions,dev,own,oig_context_drift,dcdev_instructions_oig_context_drift_own.jsonl,66,33,33,66,66,
+instructions,dev,others,anthropic_harmless_refusal,dcdev_instructions_anthropic_harmless_refusal_others.jsonl,336,168,168,336,336,
+instructions,dev,others,bbq_substitution,dcdev_instructions_bbq_substitution_others.jsonl,336,168,168,336,336,
+instructions,dev,others,hc_context_drift,dcdev_instructions_hc_context_drift_others.jsonl,338,169,169,338,338,
+instructions,dev,others,hc_contradiction,dcdev_instructions_hc_contradiction_others.jsonl,336,168,168,336,336,
+instructions,dev,others,mm_substitution,dcdev_instructions_mm_substitution_others.jsonl,336,168,168,336,336,
+instructions,dev,others,oig_context_drift,dcdev_instructions_oig_context_drift_others.jsonl,338,169,169,338,338,
+instructions,dev,all,,dcdev_instructions_all.jsonl,404,202,202,404,404,
+hu_harm,dev,own,eval_ai_dilemmas,dcdev_hu_harm_eval_ai_dilemmas_own.jsonl,46,23,23,46,46,
+hu_harm,dev,own,eval_ant_hh,dcdev_hu_harm_eval_ant_hh_own.jsonl,44,22,22,44,44,
+hu_harm,dev,own,eval_balanced_refusal,dcdev_hu_harm_eval_balanced_refusal_own.jsonl,134,67,67,134,134,
+hu_harm,dev,own,eval_daily_dilemmas,dcdev_hu_harm_eval_daily_dilemmas_own.jsonl,66,33,33,66,66,
+hu_harm,dev,others,eval_ai_dilemmas,dcdev_hu_harm_eval_ai_dilemmas_others.jsonl,244,122,122,244,244,
+hu_harm,dev,others,eval_ant_hh,dcdev_hu_harm_eval_ant_hh_others.jsonl,246,123,123,246,246,
+hu_harm,dev,others,eval_balanced_refusal,dcdev_hu_harm_eval_balanced_refusal_others.jsonl,156,78,78,156,156,
+hu_harm,dev,others,eval_daily_dilemmas,dcdev_hu_harm_eval_daily_dilemmas_others.jsonl,224,112,112,224,224,
+hu_harm,dev,all,,dcdev_hu_harm_all.jsonl,290,145,145,290,290,
+highstakes,dev,own,anthropic_hh_balanced,dcdev_highstakes_anthropic_hh_balanced_own.jsonl,1028,514,514,1028,590,capped at 590
+highstakes,dev,own,mt_balanced,dcdev_highstakes_mt_balanced_own.jsonl,278,139,139,278,278,
+highstakes,dev,own,mts_balanced,dcdev_highstakes_mts_balanced_own.jsonl,274,137,137,274,274,
+highstakes,dev,own,toolace_balanced,dcdev_highstakes_toolace_balanced_own.jsonl,328,164,164,328,328,
+highstakes,dev,others,anthropic_hh_balanced,dcdev_highstakes_anthropic_hh_balanced_others.jsonl,880,440,440,880,590,capped at 590
+highstakes,dev,others,mt_balanced,dcdev_highstakes_mt_balanced_others.jsonl,1630,815,815,1630,590,capped at 590
+highstakes,dev,others,mts_balanced,dcdev_highstakes_mts_balanced_others.jsonl,1634,817,817,1634,590,capped at 590
+highstakes,dev,others,toolace_balanced,dcdev_highstakes_toolace_balanced_others.jsonl,1580,790,790,1580,590,capped at 590
+highstakes,dev,all,,dcdev_highstakes_all.jsonl,1908,954,954,1908,590,capped at 590

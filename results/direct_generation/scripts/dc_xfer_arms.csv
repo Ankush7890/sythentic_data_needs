@@ -1,0 +1,75 @@
+concept,gen,arm,split,file,n,n_pos,n_neg,balanced,sizes,skipped,xfer_dir
+instructions,dev,own,anthropic_harmless_refusal,dcdev_instructions_anthropic_harmless_refusal_own.jsonl,68,34,34,68,68,,.dc_work/xfer_dev_instructions
+instructions,dev,own,bbq_substitution,dcdev_instructions_bbq_substitution_own.jsonl,68,34,34,68,68,,.dc_work/xfer_dev_instructions
+instructions,dev,own,hc_context_drift,dcdev_instructions_hc_context_drift_own.jsonl,66,33,33,66,66,,.dc_work/xfer_dev_instructions
+instructions,dev,own,hc_contradiction,dcdev_instructions_hc_contradiction_own.jsonl,68,34,34,68,68,,.dc_work/xfer_dev_instructions
+instructions,dev,own,mm_substitution,dcdev_instructions_mm_substitution_own.jsonl,68,34,34,68,68,,.dc_work/xfer_dev_instructions
+instructions,dev,own,oig_context_drift,dcdev_instructions_oig_context_drift_own.jsonl,66,33,33,66,66,,.dc_work/xfer_dev_instructions
+instructions,llama70b,kind,anthropic_harmless_refusal,dc_instructions_llama70b_anthropic_harmless_refusal_kind.jsonl,72,32,40,64,64,,.dc_work/xfer_gen_instructions_llama70b
+instructions,llama70b,kind,bbq_substitution,dc_instructions_llama70b_bbq_substitution_kind.jsonl,102,56,46,92,92,,.dc_work/xfer_gen_instructions_llama70b
+instructions,llama70b,kind,hc_context_drift,dc_instructions_llama70b_hc_context_drift_kind.jsonl,38,23,15,30,,only 38 tagged (< 60),.dc_work/xfer_gen_instructions_llama70b
+instructions,llama70b,kind,hc_contradiction,dc_instructions_llama70b_hc_contradiction_kind.jsonl,160,104,56,112,112,,.dc_work/xfer_gen_instructions_llama70b
+instructions,llama70b,kind,mm_substitution,dc_instructions_llama70b_mm_substitution_kind.jsonl,59,1,58,2,,only 59 tagged (< 60),.dc_work/xfer_gen_instructions_llama70b
+instructions,llama70b,kind,oig_context_drift,dc_instructions_llama70b_oig_context_drift_kind.jsonl,92,46,46,92,92,,.dc_work/xfer_gen_instructions_llama70b
+instructions,gptoss,kind,anthropic_harmless_refusal,dc_instructions_gptoss_anthropic_harmless_refusal_kind.jsonl,75,24,51,48,48,,.dc_work/xfer_gen_instructions_gptoss
+instructions,gptoss,kind,bbq_substitution,dc_instructions_gptoss_bbq_substitution_kind.jsonl,96,44,52,88,88,,.dc_work/xfer_gen_instructions_gptoss
+instructions,gptoss,kind,hc_context_drift,dc_instructions_gptoss_hc_context_drift_kind.jsonl,102,50,52,100,100,,.dc_work/xfer_gen_instructions_gptoss
+instructions,gptoss,kind,hc_contradiction,dc_instructions_gptoss_hc_contradiction_kind.jsonl,127,76,51,102,102,,.dc_work/xfer_gen_instructions_gptoss
+instructions,gptoss,kind,mm_substitution,dc_instructions_gptoss_mm_substitution_kind.jsonl,53,8,45,16,,only 53 tagged (< 60),.dc_work/xfer_gen_instructions_gptoss
+instructions,gptoss,kind,oig_context_drift,dc_instructions_gptoss_oig_context_drift_kind.jsonl,86,43,43,86,86,,.dc_work/xfer_gen_instructions_gptoss
+instructions,nemotron,kind,anthropic_harmless_refusal,dc_instructions_nemotron_anthropic_harmless_refusal_kind.jsonl,74,27,47,54,54,,.dc_work/xfer_gen_instructions_nemotron
+instructions,nemotron,kind,bbq_substitution,dc_instructions_nemotron_bbq_substitution_kind.jsonl,97,47,50,94,94,,.dc_work/xfer_gen_instructions_nemotron
+instructions,nemotron,kind,hc_context_drift,dc_instructions_nemotron_hc_context_drift_kind.jsonl,97,47,50,94,94,,.dc_work/xfer_gen_instructions_nemotron
+instructions,nemotron,kind,hc_contradiction,dc_instructions_nemotron_hc_contradiction_kind.jsonl,141,90,51,102,102,,.dc_work/xfer_gen_instructions_nemotron
+instructions,nemotron,kind,mm_substitution,dc_instructions_nemotron_mm_substitution_kind.jsonl,43,2,41,4,,only 43 tagged (< 60),.dc_work/xfer_gen_instructions_nemotron
+instructions,nemotron,kind,oig_context_drift,dc_instructions_nemotron_oig_context_drift_kind.jsonl,91,42,49,84,84,,.dc_work/xfer_gen_instructions_nemotron
+instructions,deepseekv4pro,kind,anthropic_harmless_refusal,dc_instructions_deepseekv4pro_anthropic_harmless_refusal_kind.jsonl,90,38,52,76,76,,.dc_work/xfer_gen_instructions_deepseekv4pro
+instructions,deepseekv4pro,kind,bbq_substitution,dc_instructions_deepseekv4pro_bbq_substitution_kind.jsonl,103,48,55,96,96,,.dc_work/xfer_gen_instructions_deepseekv4pro
+instructions,deepseekv4pro,kind,hc_context_drift,dc_instructions_deepseekv4pro_hc_context_drift_kind.jsonl,102,50,52,100,100,,.dc_work/xfer_gen_instructions_deepseekv4pro
+instructions,deepseekv4pro,kind,hc_contradiction,dc_instructions_deepseekv4pro_hc_contradiction_kind.jsonl,125,79,46,92,92,,.dc_work/xfer_gen_instructions_deepseekv4pro
+instructions,deepseekv4pro,kind,mm_substitution,dc_instructions_deepseekv4pro_mm_substitution_kind.jsonl,53,7,46,14,,only 53 tagged (< 60),.dc_work/xfer_gen_instructions_deepseekv4pro
+instructions,deepseekv4pro,kind,oig_context_drift,dc_instructions_deepseekv4pro_oig_context_drift_kind.jsonl,92,47,45,90,90,,.dc_work/xfer_gen_instructions_deepseekv4pro
+hu_harm,dev,own,eval_ai_dilemmas,dcdev_hu_harm_eval_ai_dilemmas_own.jsonl,46,23,23,46,46,,.dc_work/xfer_dev_hu_harm
+hu_harm,dev,own,eval_ant_hh,dcdev_hu_harm_eval_ant_hh_own.jsonl,44,22,22,44,44,,.dc_work/xfer_dev_hu_harm
+hu_harm,dev,own,eval_balanced_refusal,dcdev_hu_harm_eval_balanced_refusal_own.jsonl,134,67,67,134,134,,.dc_work/xfer_dev_hu_harm
+hu_harm,dev,own,eval_daily_dilemmas,dcdev_hu_harm_eval_daily_dilemmas_own.jsonl,66,33,33,66,66,,.dc_work/xfer_dev_hu_harm
+hu_harm,llama70b,kind,eval_ai_dilemmas,dc_hu_harm_llama70b_eval_ai_dilemmas_kind.jsonl,147,80,67,134,134,,.dc_work/xfer_gen_hu_harm_llama70b
+hu_harm,llama70b,kind,eval_ant_hh,dc_hu_harm_llama70b_eval_ant_hh_kind.jsonl,107,58,49,98,98,,.dc_work/xfer_gen_hu_harm_llama70b
+hu_harm,llama70b,kind,eval_balanced_refusal,dc_hu_harm_llama70b_eval_balanced_refusal_kind.jsonl,152,76,76,152,152,,.dc_work/xfer_gen_hu_harm_llama70b
+hu_harm,llama70b,kind,eval_daily_dilemmas,dc_hu_harm_llama70b_eval_daily_dilemmas_kind.jsonl,161,75,86,150,150,,.dc_work/xfer_gen_hu_harm_llama70b
+hu_harm,gptoss,kind,eval_ai_dilemmas,dc_hu_harm_gptoss_eval_ai_dilemmas_kind.jsonl,154,77,77,154,154,,.dc_work/xfer_gen_hu_harm_gptoss
+hu_harm,gptoss,kind,eval_ant_hh,dc_hu_harm_gptoss_eval_ant_hh_kind.jsonl,128,55,73,110,110,,.dc_work/xfer_gen_hu_harm_gptoss
+hu_harm,gptoss,kind,eval_balanced_refusal,dc_hu_harm_gptoss_eval_balanced_refusal_kind.jsonl,150,77,73,146,146,,.dc_work/xfer_gen_hu_harm_gptoss
+hu_harm,gptoss,kind,eval_daily_dilemmas,dc_hu_harm_gptoss_eval_daily_dilemmas_kind.jsonl,149,75,74,148,148,,.dc_work/xfer_gen_hu_harm_gptoss
+hu_harm,nemotron,kind,eval_ai_dilemmas,dc_hu_harm_nemotron_eval_ai_dilemmas_kind.jsonl,160,80,80,160,160,,.dc_work/xfer_gen_hu_harm_nemotron
+hu_harm,nemotron,kind,eval_ant_hh,dc_hu_harm_nemotron_eval_ant_hh_kind.jsonl,125,57,68,114,114,,.dc_work/xfer_gen_hu_harm_nemotron
+hu_harm,nemotron,kind,eval_balanced_refusal,dc_hu_harm_nemotron_eval_balanced_refusal_kind.jsonl,149,76,73,146,146,,.dc_work/xfer_gen_hu_harm_nemotron
+hu_harm,nemotron,kind,eval_daily_dilemmas,dc_hu_harm_nemotron_eval_daily_dilemmas_kind.jsonl,152,74,78,148,148,,.dc_work/xfer_gen_hu_harm_nemotron
+hu_harm,deepseekv4pro,kind,eval_ai_dilemmas,dc_hu_harm_deepseekv4pro_eval_ai_dilemmas_kind.jsonl,160,80,80,160,160,,.dc_work/xfer_gen_hu_harm_deepseekv4pro
+hu_harm,deepseekv4pro,kind,eval_ant_hh,dc_hu_harm_deepseekv4pro_eval_ant_hh_kind.jsonl,135,63,72,126,126,,.dc_work/xfer_gen_hu_harm_deepseekv4pro
+hu_harm,deepseekv4pro,kind,eval_balanced_refusal,dc_hu_harm_deepseekv4pro_eval_balanced_refusal_kind.jsonl,153,79,74,148,148,,.dc_work/xfer_gen_hu_harm_deepseekv4pro
+hu_harm,deepseekv4pro,kind,eval_daily_dilemmas,dc_hu_harm_deepseekv4pro_eval_daily_dilemmas_kind.jsonl,149,76,73,146,146,,.dc_work/xfer_gen_hu_harm_deepseekv4pro
+highstakes,dev,own,anthropic_hh_balanced,dcdev_highstakes_anthropic_hh_balanced_own.jsonl,1028,514,514,1028,590,capped at 590,.dc_work/xfer_dev_highstakes
+highstakes,dev,xfer_cut,anthropic_hh_balanced,xfer_dev_highstakes/anthropic_hh_balanced.jsonl,150,75,75,150,,"scoring cut of dcdev_highstakes_anthropic_hh_balanced_own.jsonl (1028 rows): 150 class-balanced, seeded '20260917:<split>', source order kept",.dc_work/xfer_dev_highstakes
+highstakes,dev,own,mt_balanced,dcdev_highstakes_mt_balanced_own.jsonl,278,139,139,278,278,,.dc_work/xfer_dev_highstakes
+highstakes,dev,xfer_cut,mt_balanced,xfer_dev_highstakes/mt_balanced.jsonl,150,75,75,150,,"scoring cut of dcdev_highstakes_mt_balanced_own.jsonl (278 rows): 150 class-balanced, seeded '20260917:<split>', source order kept",.dc_work/xfer_dev_highstakes
+highstakes,dev,own,mts_balanced,dcdev_highstakes_mts_balanced_own.jsonl,274,137,137,274,274,,.dc_work/xfer_dev_highstakes
+highstakes,dev,xfer_cut,mts_balanced,xfer_dev_highstakes/mts_balanced.jsonl,150,75,75,150,,"scoring cut of dcdev_highstakes_mts_balanced_own.jsonl (274 rows): 150 class-balanced, seeded '20260917:<split>', source order kept",.dc_work/xfer_dev_highstakes
+highstakes,dev,own,toolace_balanced,dcdev_highstakes_toolace_balanced_own.jsonl,328,164,164,328,328,,.dc_work/xfer_dev_highstakes
+highstakes,dev,xfer_cut,toolace_balanced,xfer_dev_highstakes/toolace_balanced.jsonl,150,75,75,150,,"scoring cut of dcdev_highstakes_toolace_balanced_own.jsonl (328 rows): 150 class-balanced, seeded '20260917:<split>', source order kept",.dc_work/xfer_dev_highstakes
+highstakes,llama70b,kind,anthropic_hh_balanced,dc_highstakes_llama70b_anthropic_hh_balanced_kind.jsonl,211,121,90,180,180,,.dc_work/xfer_gen_highstakes_llama70b
+highstakes,llama70b,kind,mt_balanced,dc_highstakes_llama70b_mt_balanced_kind.jsonl,120,79,41,82,82,,.dc_work/xfer_gen_highstakes_llama70b
+highstakes,llama70b,kind,mts_balanced,dc_highstakes_llama70b_mts_balanced_kind.jsonl,93,40,53,80,80,,.dc_work/xfer_gen_highstakes_llama70b
+highstakes,llama70b,kind,toolace_balanced,dc_highstakes_llama70b_toolace_balanced_kind.jsonl,98,31,67,62,62,,.dc_work/xfer_gen_highstakes_llama70b
+highstakes,gptoss,kind,anthropic_hh_balanced,dc_highstakes_gptoss_anthropic_hh_balanced_kind.jsonl,169,79,90,158,158,,.dc_work/xfer_gen_highstakes_gptoss
+highstakes,gptoss,kind,mt_balanced,dc_highstakes_gptoss_mt_balanced_kind.jsonl,157,80,77,154,154,,.dc_work/xfer_gen_highstakes_gptoss
+highstakes,gptoss,kind,mts_balanced,dc_highstakes_gptoss_mts_balanced_kind.jsonl,133,75,58,116,116,,.dc_work/xfer_gen_highstakes_gptoss
+highstakes,gptoss,kind,toolace_balanced,dc_highstakes_gptoss_toolace_balanced_kind.jsonl,128,65,63,126,126,,.dc_work/xfer_gen_highstakes_gptoss
+highstakes,nemotron,kind,anthropic_hh_balanced,dc_highstakes_nemotron_anthropic_hh_balanced_kind.jsonl,143,69,74,138,138,,.dc_work/xfer_gen_highstakes_nemotron
+highstakes,nemotron,kind,mt_balanced,dc_highstakes_nemotron_mt_balanced_kind.jsonl,160,80,80,160,160,,.dc_work/xfer_gen_highstakes_nemotron
+highstakes,nemotron,kind,mts_balanced,dc_highstakes_nemotron_mts_balanced_kind.jsonl,144,73,71,142,142,,.dc_work/xfer_gen_highstakes_nemotron
+highstakes,nemotron,kind,toolace_balanced,dc_highstakes_nemotron_toolace_balanced_kind.jsonl,149,75,74,148,148,,.dc_work/xfer_gen_highstakes_nemotron
+highstakes,deepseekv4pro,kind,anthropic_hh_balanced,dc_highstakes_deepseekv4pro_anthropic_hh_balanced_kind.jsonl,155,77,78,154,154,,.dc_work/xfer_gen_highstakes_deepseekv4pro
+highstakes,deepseekv4pro,kind,mt_balanced,dc_highstakes_deepseekv4pro_mt_balanced_kind.jsonl,150,73,77,146,146,,.dc_work/xfer_gen_highstakes_deepseekv4pro
+highstakes,deepseekv4pro,kind,mts_balanced,dc_highstakes_deepseekv4pro_mts_balanced_kind.jsonl,139,71,68,136,136,,.dc_work/xfer_gen_highstakes_deepseekv4pro
+highstakes,deepseekv4pro,kind,toolace_balanced,dc_highstakes_deepseekv4pro_toolace_balanced_kind.jsonl,147,74,73,146,146,,.dc_work/xfer_gen_highstakes_deepseekv4pro

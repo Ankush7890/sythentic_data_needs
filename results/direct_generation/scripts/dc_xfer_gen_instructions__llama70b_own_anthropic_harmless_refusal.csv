@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_anthropic_harmless_refusal,seconds
+dc_instructions_llama70b_anthropic_harmless_refusal_kind.jsonl,none+ga4bs16,64,0,32,32,64,0.65152,0.99255,0.99567,0.4641,0.69421,0.71972,0.71626,0.42378,0.54688,0.99255,9.1
+dc_instructions_llama70b_anthropic_harmless_refusal_kind.jsonl,none+ga4bs16,64,1,32,32,64,0.6367,0.99565,0.99567,0.47708,0.71442,0.71626,0.6077,0.40083,0.54492,0.99565,6.2
+dc_instructions_llama70b_anthropic_harmless_refusal_kind.jsonl,none+ga4bs16,64,2,32,32,64,0.61555,0.99295,0.99654,0.43728,0.69972,0.68642,0.52768,0.42608,0.53516,0.99295,6.3
+dc_instructions_llama70b_anthropic_harmless_refusal_kind.jsonl,none+ga4bs16,64,3,32,32,64,0.60468,0.9955,0.9974,0.45804,0.64876,0.66566,0.50043,0.45271,0.50977,0.9955,6.1
+dc_instructions_llama70b_anthropic_harmless_refusal_kind.jsonl,none+ga4bs16,64,4,32,32,64,0.63679,0.99395,0.99308,0.47102,0.68871,0.75433,0.54022,0.42424,0.58594,0.99395,6.9
+dc_instructions_llama70b_anthropic_harmless_refusal_kind.jsonl,none+ga4bs16,64,5,32,32,64,0.62564,0.99645,0.9974,0.48875,0.68595,0.7513,0.50043,0.42241,0.5332,0.99645,7.0
+dc_instructions_llama70b_anthropic_harmless_refusal_kind.jsonl,none+ga4bs16,64,6,32,32,64,0.61447,0.99585,0.9974,0.46843,0.67355,0.70069,0.50087,0.42516,0.53516,0.99585,6.3
+dc_instructions_llama70b_anthropic_harmless_refusal_kind.jsonl,none+ga4bs16,64,7,32,32,64,0.6168,0.9948,0.99567,0.4295,0.66024,0.69464,0.56185,0.43664,0.53906,0.9948,6.6

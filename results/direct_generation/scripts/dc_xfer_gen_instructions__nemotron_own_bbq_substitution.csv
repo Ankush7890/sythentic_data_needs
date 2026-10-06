@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_bbq_substitution,seconds
+dc_instructions_nemotron_bbq_substitution_kind.jsonl,none+ga6bs16,94,0,47,47,94,0.73618,0.8259,0.94204,0.85035,0.70983,0.81012,0.67734,0.52296,0.64062,0.8259,16.8
+dc_instructions_nemotron_bbq_substitution_kind.jsonl,none+ga6bs16,94,1,47,47,94,0.72303,0.8114,0.94939,0.80017,0.68871,0.78028,0.65484,0.53352,0.6543,0.8114,16.0
+dc_instructions_nemotron_bbq_substitution_kind.jsonl,none+ga6bs16,94,2,47,47,94,0.71293,0.796,0.90701,0.80363,0.67998,0.78547,0.6449,0.53673,0.63281,0.796,13.0
+dc_instructions_nemotron_bbq_substitution_kind.jsonl,none+ga6bs16,94,3,47,47,94,0.72132,0.7857,0.94291,0.84602,0.67906,0.7872,0.65009,0.50918,0.63477,0.7857,14.3
+dc_instructions_nemotron_bbq_substitution_kind.jsonl,none+ga6bs16,94,4,47,47,94,0.72055,0.78885,0.92431,0.79628,0.66667,0.78157,0.66263,0.54637,0.66602,0.78885,13.2
+dc_instructions_nemotron_bbq_substitution_kind.jsonl,none+ga6bs16,94,5,47,47,94,0.73547,0.8348,0.95934,0.83131,0.69192,0.80753,0.67431,0.54132,0.64258,0.8348,13.4
+dc_instructions_nemotron_bbq_substitution_kind.jsonl,none+ga6bs16,94,6,47,47,94,0.72854,0.7954,0.95156,0.83434,0.70523,0.79844,0.6795,0.50964,0.62109,0.7954,14.3
+dc_instructions_nemotron_bbq_substitution_kind.jsonl,none+ga6bs16,94,7,47,47,94,0.71824,0.77535,0.93685,0.84429,0.66391,0.78114,0.64792,0.52663,0.62695,0.77535,16.3

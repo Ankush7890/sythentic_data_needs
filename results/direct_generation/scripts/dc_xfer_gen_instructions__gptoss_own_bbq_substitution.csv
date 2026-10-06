@@ -1,0 +1,9 @@
+samples,base,n,draw,n_pos,n_neg,n_training_rows,dev_mean,eval_mean,dev_anthropic_harmless_refusal,dev_bbq_substitution,dev_hc_context_drift,dev_hc_contradiction,dev_mm_substitution,dev_oig_context_drift,dev_oig_omission,eval_bbq_substitution,seconds
+dc_instructions_gptoss_bbq_substitution_kind.jsonl,none+ga6bs16,88,0,44,44,88,0.53899,0.4282,0.51168,0.43901,0.55877,0.56834,0.63754,0.50092,0.55664,0.4282,8.3
+dc_instructions_gptoss_bbq_substitution_kind.jsonl,none+ga6bs16,88,1,44,44,88,0.53946,0.46945,0.47837,0.41869,0.56841,0.6237,0.63452,0.50367,0.54883,0.46945,6.9
+dc_instructions_gptoss_bbq_substitution_kind.jsonl,none+ga6bs16,88,2,44,44,88,0.55631,0.4477,0.55234,0.38149,0.58907,0.65311,0.66349,0.5,0.55469,0.4477,6.8
+dc_instructions_gptoss_bbq_substitution_kind.jsonl,none+ga6bs16,88,3,44,44,88,0.56378,0.4148,0.55277,0.36765,0.59412,0.70329,0.67085,0.49725,0.56055,0.4148,6.7
+dc_instructions_gptoss_bbq_substitution_kind.jsonl,none+ga6bs16,88,4,44,44,88,0.56207,0.41255,0.52941,0.38235,0.61295,0.69074,0.66436,0.5,0.55469,0.41255,6.8
+dc_instructions_gptoss_bbq_substitution_kind.jsonl,none+ga6bs16,88,5,44,44,88,0.5474,0.4585,0.49827,0.36678,0.58586,0.66912,0.65744,0.50551,0.54883,0.4585,6.3
+dc_instructions_gptoss_bbq_substitution_kind.jsonl,none+ga6bs16,88,6,44,44,88,0.54444,0.45515,0.51687,0.39706,0.57576,0.63322,0.64576,0.50138,0.54102,0.45515,6.4
+dc_instructions_gptoss_bbq_substitution_kind.jsonl,none+ga6bs16,88,7,44,44,88,0.54672,0.4575,0.50303,0.37846,0.57668,0.67301,0.65528,0.49954,0.54102,0.4575,6.4
