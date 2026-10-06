@@ -1,13 +1,18 @@
-# How Much Synthetic Data Does an Activation Probe Need?
+# Coverage, Not Difficulty, Sets How Much Synthetic Data an Activation Probe Needs
 
-Code and data for the paper *How Much Synthetic Data Does an Activation Probe Need?
-Learning Curves for Three Concepts on Fourteen Distributions*.
+Code and data for the paper *Coverage, Not Difficulty, Sets How Much Synthetic Data an
+Activation Probe Needs*.
 
 The paper trains linear activation probes on Gemma-3-27B-IT (layer 32; also Qwen3-8B,
 Mistral-NeMo-12B and Llama-3.2-1B) for three monitoring concepts — *high-stakes*,
 *harmful*, *instruction* — using **only synthetic training samples written by an LLM**, and
-measures learning curves on fourteen held-out evaluation distributions. Training sets come
-from two recipes:
+traces learning curves over 10–590 samples on fourteen held-out evaluation distributions.
+It reads the depth a concept needs as the *half-gain size* of a fitted curve, shows that
+concept and distribution set most of its variance, and that what sets its value is
+**coverage**, not per-kind difficulty: every split-kind needs about the same number of
+own-kind samples to saturate, and the concepts differ in how far one kind's samples
+transfer to the others. That is tested twice, on generated samples and on real (dev)
+samples. Training sets come from two recipes:
 
 1. **Direct prompt generation** (`direct_generation/`) — a generator LLM writes labelled
    samples from a prompt (a one-line concept prompt, a paragraph describing the traffic, or
@@ -15,7 +20,8 @@ from two recipes:
    This is the recipe behind every learning curve in the paper.
 2. **Red-teaming scaffold** (`redteam_scaffold/`) — an attacker LLM searches for samples
    the current probe gets wrong, a judge labels them, the probe is retrained, repeat. The
-   project started here; the paper reports it as one arm.
+   project started here; the paper reports it in an appendix, as one of the other
+   generation strategies.
 
 `main` holds code and data only. Every result (learning-curve CSVs, red-team arm outputs,
 loop runs, per-iteration probes), the wrappers each study was run with, and the study
@@ -119,7 +125,8 @@ the subset-base grids use `build_subset_base_activations.py` and `fit_combined_d
 ```
 results/direct_generation/scripts/       every learning-curve CSV (<concept>_pooled_size_curve.csv, *_gen90*.csv,
                                          <profile>_<concept>_pooled_size_curve.csv, *_prompts5*.csv, *_tgtmin_*.csv,
-                                         dc_*.csv, knee_*.csv, settling CSVs) and the per-study scripts that wrote them
+                                         dc_*.csv incl. dc_dev_*, dc_gen_*, dc_xfer_*, knee_*.csv, settling CSVs)
+                                         and the per-study scripts that wrote them
 results/direct_generation/run_scripts/   the run_*.sh wrapper each study was launched with
 results/direct_generation/results_gen_gemma27b_*/   the generate→score→retrain loop runs behind the base probes
 results/direct_generation/probes/        the base probes (gen_gemma27b_<concept>[_nemotron]/probe_iter0.pkl) and every per-iteration / per-study probe
@@ -127,8 +134,8 @@ results/direct_generation/analysis/refit_studies/   per-draw fit JSONs (harm spl
 results/redteam_scaffold/results_*/      per arm: *_comparison.csv (per-iteration eval AUROC) and *_probing_f{n,p}.jsonl (attempts)
 results/redteam_scaffold/results_*_combined_draws/  the subset-base grids
 results/redteam_scaffold/{scripts,run_scripts,analysis}/   the arms' one-off scripts, wrappers and refit JSONs
-docs/direct_generation/                  study write-ups (direction_count.md, knee_predictor.md, prompts5_*.md,
-                                         label audits, settling reports), task_briefs/, prompts/ (prompt dumps)
+docs/direct_generation/                  study write-ups (direction_count.md, dev_coverage.md, knee_predictor.md,
+                                         prompts5_*.md, label audits, settling reports), task_briefs/, prompts/ (prompt dumps)
 ```
 
 Paper section → results (paths on the `results` branch, under `results/direct_generation/`
@@ -136,15 +143,23 @@ unless noted):
 
 | paper | study | results |
 |---|---|---|
-| Sec. 5.1 and 5.3, Fig. 1; App. "Values behind Figures" | learning curves, general and detailed prompts, Gemma-27B | `scripts/{highstakes,hu_harm,instructions}_pooled_size_curve.csv`, `*_gen90*.csv`, `*_size_curve.csv`, `*_ownbase_size_curve.csv`; wrappers `run_pooled_sizecurve.sh`, `run_persplit_fits.sh`, `run_evaldesc_fits.sh` |
+| Sec. 5.1, Fig. 1; App. "Values behind Figures" | learning curves, general and detailed prompts, Gemma-27B | `scripts/{highstakes,hu_harm,instructions}_pooled_size_curve.csv`, `*_gen90*.csv`, `*_size_curve.csv`, `*_ownbase_size_curve.csv`; wrappers `run_pooled_sizecurve.sh`, `run_pooled_sizecurve2.sh`, `run_persplit_fits.sh`, `run_evaldesc_fits.sh`; the high-stakes general-prompt curve above 80 samples was completed by `run_hs_general_fill.sh`, `run_hs_p2_n80_ga4.sh`, `run_hs_p3_topup.sh` |
+| Sec. 5.1, Fig. 2; App. "Fitted learning curves and variance decomposition" | log-logistic fits, half-gain size, variance decomposition | `scripts/knee_fits.csv` (fitter: `direct_generation/scripts/fit_curves_ref.py`) |
 | Sec. 5.1; App. "Other probe models" | Qwen3-8B, Mistral-NeMo-12B, Llama-3.2-1B | `scripts/{qwen8b,mistralnemo12b,llama1b}_<concept>_pooled_size_curve.csv`; `run_<profile>_sizecurve.sh` |
-| Sec. 5.1, Fig. 2; App. "Fitted learning curves" | log-logistic fits, half-gain size, variance decomposition | `scripts/knee_fits.csv` (fitter: `direct_generation/scripts/fit_curves_ref.py`) |
-| Sec. 5.2; App. "Coverage" | direction-count / coverage study | `scripts/dc_fits.csv`, `dc_ratios.csv`, `dc_geometry.csv`, `dc_curves_*.csv`; `scripts/direction_count.py`, `dc_run_curve.py`, `dc_chain_*.sh`; `docs/direct_generation/direction_count.md` |
-| Sec. 5.4; App. "Split-targeted generation" | split-targeted sets, shape-free arm, arm filters | `scripts/*_tgtmin_size_curve*.csv`, `*_armfilter*`; `analysis/refit_studies/hu_harm_split_targeted_*/`, `hu_harm_combination/`; `run_tgt*.sh`, `run_*_hu_harm.sh`; `docs/direct_generation/split_targeted_*.md`, `arm_filter_results.md` |
-| Sec. 5.4; App. "LLM-written prompt variants" | five LLM-written prompts per split, label audits | `scripts/*_prompts5.csv`, `*_prompts5_sizecurve.csv`, `prompts5_*_{eval_scores,manual_verdicts}.csv`; `run_*prompts5*.sh`; `docs/direct_generation/prompts5_*.md`, `toolace_*.md`, `*_label_audit.md` |
-| Sec. 5.5; App. "Red-teaming scaffold" | red-team arms per generator, subset-base grids | `results/redteam_scaffold/results_*/*_comparison*.csv`, `results_*_combined_draws/combined_draws*.csv`; wrappers `results/redteam_scaffold/run_scripts/` |
+| Sec. 5.2, Fig. 3; App. "Coverage" (generated samples) | own-kind / mixed / set-minus-kind curves on the tagged detailed sets, R and G | `scripts/dc_fits.csv`, `dc_ratios.csv`, `dc_scatter.csv`, `dc_geometry.csv`, `dc_curves_*.csv`, `dc_arms.csv`; `scripts/direction_count.py`, `dc_run_curve.py`, `dc_chain_*.sh`; `docs/direct_generation/direction_count.md` |
+| Sec. 5.2, Fig. 3; App. "Coverage" (real samples) | the same cut on the dev sets (own / others / all arms), the real-sample learning curves, the dev-sample geometry | `scripts/dc_dev_*.csv` (`dc_dev_partc_*` are the size curves and their fits, `dc_dev_dom_*` the difference-of-means transfer, `dc_dev_geometry.csv`); `scripts/dc_dev.py`, `dc_dev_geometry.py`, `run_dc_dev*.sh`; `docs/direct_generation/dev_coverage.md` |
+| Sec. 5.2; App. "Coverage", transfer AUROC *T* and the rule | a probe trained on one kind scored on the other kinds of the same source (dev on dev, generated on generated), and the generated-set probe arms | `scripts/dc_xfer_*.csv` (`dc_xfer_cells.csv`, `dc_xfer_summary.csv`), `dc_gen_*.csv`; `scripts/dc_xfer.py`, `dc_gen.py`, `run_dc_xfer.sh`, `dc_xfer_chain.sh`, `run_dc_gen.sh` |
+| Sec. 5.3; App. "Prompt detail, generator choice, pooling, and filtering" | detailed vs. general prompt, generator ranking, pooled generators, lexical and shape filters | `scripts/*_gen90*.csv` vs. `*_pooled_size_curve.csv`; `*_gen_combo_draws.csv`, `analysis/refit_studies/hu_harm_combination/`; `*_armfilter.csv`, `*_armfilter_sets.json`; `scripts/gen_combo_draws.py`, `build_armfilter_sets.py`, `report_armfilter.py`; `run_gen_combo_studies.sh`, `run_combination_hu_harm.sh`, `run_gemma27b_generator_swap_arms.sh`, `run_clean_ablation_hu_harm.sh` |
+| Sec. 5.3; App. "Split-targeted generation" | one-sentence per-split prompts, shape-free arm | `scripts/*_tgtmin_size_curve*.csv`; `analysis/refit_studies/hu_harm_split_targeted_*/`; `run_tgt*.sh`, `run_*_hu_harm.sh`; `docs/direct_generation/split_targeted_*.md` |
+| Sec. 5.3; App. "LLM-written prompt variants" | five LLM-written prompts per split, label audits | `scripts/*_prompts5.csv`, `*_prompts5_sizecurve.csv`, `prompts5_*_{eval_scores,manual_verdicts}.csv`; `run_*prompts5*.sh`; `docs/direct_generation/prompts5_*.md`, `toolace_*.md`, `*_label_audit.md` |
+| Sec. 5.3; App. "Red-teaming scaffold" (Fig. 4 and the iteration table in App. "Values behind Figures") | red-team arms per generator, subset-base grids | `results/redteam_scaffold/results_*/*_comparison*.csv`, `results_*_combined_draws/combined_draws*.csv`; wrappers `results/redteam_scaffold/run_scripts/` |
 | App. "Can the half-gain size be predicted before generating?" | 118 split properties vs. half-gain size (null) | `scripts/knee_predictor*.csv`, `knee_pooled_manifest.json`; `scripts/knee_predictor.py`; `docs/direct_generation/knee_predictor.md` |
-| App. "Per-sample settling", "Below 60 samples" | settling and sub-60 curves on the instruction splits | `scripts/instructions_row_settling.csv`, `instructions_*_small_*.csv`, `instructions_parts_size_curve*.csv`; `scripts/analyze_row_settling.py`; `run_instr*.sh`, `run_hcdrift_small_curve.sh`; `docs/direct_generation/instructions_row_settling.md` and the `instructions_*.txt` reports |
+
+No longer in the paper but kept on the branch: per-sample settling and sub-60 curves on the
+instruction splits (`scripts/instructions_row_settling.csv`, `instructions_*_small_*.csv`,
+`instructions_parts_size_curve*.csv`; `scripts/analyze_row_settling.py`; `run_instr*.sh`,
+`run_hcdrift_small_curve.sh`; `docs/direct_generation/instructions_row_settling.md` and the
+`instructions_*.txt` reports).
 
 ## Branches
 
@@ -162,7 +177,9 @@ and failsafe checkpoint) is reachable from `results` and stays off `main`:
 | `generator_experiment_1` | harm split-targeted arms and the combination study |
 | `toolace_stuff` | five LLM-written prompts per split, label audits |
 | `hello_kitty` | per-sample settling, sub-60 curves (also carries the ToolACE-parts study) |
-| `direction_count` | coverage / direction-count study (built on `main` + `knee_predictor`) |
+| `direction_count` | coverage study on generated samples (built on `main` + `knee_predictor`) |
+| `hs_general_fill` | the high-stakes general-prompt pooled curve at 110–590 samples (cut from `direction_count`) |
+| `dev_coverage` | coverage study on real (dev) samples, the transfer AUROC *T* on dev and on generated samples (cut from `direction_count`) |
 | `knee_predictor` | pre-generation predictors of the half-gain size |
 | `experiment_hs_last`, `experiment_instruction_last`, `human_harm_last` | the red-team arms and subset-base grids per concept |
 
@@ -178,7 +195,7 @@ and the `archive/experiment*_cloud` tags.
 
 Left on the experiment branches only: run logs (`logs/`, `logs_archive/`), per-sample
 score dumps (`data/instructions_row_scores/*.npz` on `hello_kitty`), pooled feature dumps
-(`scripts/dc_pooled/*.npy` on `direction_count`), per-batch candidate probes
+(`scripts/dc_pooled/*.npy` on `direction_count` and `dev_coverage`), per-batch candidate probes
 (`probes/*/candidates/`), the red-team arms' per-iteration probes, and the red-team runs'
 bookkeeping sidecars.
 
